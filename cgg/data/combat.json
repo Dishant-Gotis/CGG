@@ -1,0 +1,18 @@
+{
+	"player_speed": 140.0,
+	"player_max_health": 3,
+	"attack_damage": 1,
+	"attack_cooldown": 0.45,
+	"attack_window": 0.18,
+	"attack_reach": 26.0,
+	"invuln_time": 1.0,
+	"enemy_speed": 95.0,
+	"enemy_hp": 3,
+	"enemy_damage": 1,
+	"enemy_detection": 300.0,
+	"enemy_stop_distance": 42.0,
+	"slime_speed": 70.0,
+	"slime_hp": 2,
+	"knockback": 260.0,
+	"practice_target_hp": 3
+}

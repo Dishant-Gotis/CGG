@@ -1,0 +1,81 @@
+[gd_scene format=3 uid="uid://cl4cbaj3w20qc"]
+
+[ext_resource type="Script" path="res://scenes/cutscenes/prologue.gd" id="1_prologue"]
+[ext_resource type="Script" path="res://scripts/systems/cutscene_runner.gd" id="2_runner"]
+[ext_resource type="Shader" path="res://shaders/tint.gdshader" id="3_shader"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tint"]
+shader = ExtResource("3_shader")
+shader_parameter/gray = 0.0
+shader_parameter/tint_color = Color(1, 1, 1, 1)
+shader_parameter/tint_amount = 0.0
+
+[node name="Prologue" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_prologue")
+
+[node name="StageRoot" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Background" type="TextureRect" parent="StageRoot"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+expand_mode = 1
+stretch_mode = 6
+
+[node name="ArjunSprite" type="AnimatedSprite2D" parent="StageRoot"]
+visible = false
+position = Vector2(200, 440)
+scale = Vector2(3, 3)
+
+[node name="Tint" type="ColorRect" parent="StageRoot"]
+material = SubResource("ShaderMaterial_tint")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="TitleLabel" type="Label" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -350.0
+offset_top = -40.0
+offset_right = 350.0
+offset_bottom = 40.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 0.9, 0.5, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.8)
+theme_override_colors/font_outline_color = Color(0.2, 0.1, 0.05, 1)
+theme_override_constants/shadow_offset_x = 3
+theme_override_constants/shadow_offset_y = 3
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/font_size = 32
+text = "Touch Grass: The Hollow Chronicle"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CutsceneRunner" type="Node" parent="."]
+script = ExtResource("2_runner")

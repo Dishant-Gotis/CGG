@@ -1,0 +1,55 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[application]
+
+config/name="CGG"
+run/main_scene="res://scenes/cutscenes/prologue.tscn"
+config/features=PackedStringArray("4.7", "Forward Plus")
+config/icon="res://Tiny Swords (Update 010)/icon.svg"
+
+[audio]
+
+buses/default_bus_layout=""
+
+[autoload]
+
+InputConfig="*res://scripts/autoload/input_config.gd"
+Assets="*res://scripts/autoload/assets.gd"
+GameState="*res://scripts/autoload/game_state.gd"
+SceneManager="*res://scripts/autoload/scene_manager.gd"
+UI="*res://scripts/autoload/ui_manager.gd"
+
+[display]
+
+window/stretch/mode="canvas_items"
+window/stretch/aspect="expand"
+
+[layer_names]
+
+2d_physics/layer_1="world"
+2d_physics/layer_2="player"
+2d_physics/layer_3="enemy"
+2d_physics/layer_4="player_hitbox"
+2d_physics/layer_5="enemy_hurtbox"
+2d_physics/layer_6="enemy_hitbox"
+2d_physics/layer_7="interactable"
+2d_physics/layer_8="player_hurtbox"
+
+[physics]
+
+3d/physics_engine="Jolt Physics"
+
+[rendering]
+
+textures/canvas_textures/default_texture_filter=0
+rendering_device/driver.windows="d3d12"
+rendering/2d/snap/snap_2d_transforms_to_pixel=true
+rendering/2d/snap/snap_2d_vertices_to_pixel=true

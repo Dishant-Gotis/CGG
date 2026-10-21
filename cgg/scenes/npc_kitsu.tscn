@@ -1,0 +1,40 @@
+[gd_scene format=3 uid="uid://bncfaxckolqto"]
+
+[ext_resource type="Script" uid="uid://cgwlhbfkf4nxn" path="res://scripts/entities/npc.gd" id="1_npc"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_kitsu"]
+animations = []
+
+[sub_resource type="CircleShape2D" id="ShapeBody"]
+radius = 12.0
+
+[sub_resource type="CircleShape2D" id="ShapeInteract"]
+radius = 36.0
+
+[node name="NPC_Kitsu" type="StaticBody2D" unique_id=1400843227]
+collision_mask = 0
+script = ExtResource("1_npc")
+npc_name = "Kitsu"
+prompt_text = "E - Talk to Kitsu"
+dialogue_lines = Array[String](["Finally! You are awake, Reader.", "Arjun: Wh-where am I? This isn't my room...", "You are in the Hollow. The saffron book summoned you because our realm is in peril.", "The Monster King watches from his floating fortress in the sky, sending beasts across our land.", "Take this blade! Press [Q] to swing your sword. Follow the road east through the training grounds to reach Mossveil Village!"])
+dialogue_lines_alt = Array[String](["The path east leads past the training grounds straight into Mossveil Village.", "Be on your guard, Reader. The slimes on the road are quick, but your blade is swift!"])
+required_flag = "met_kitsu"
+grant_flag = "met_kitsu"
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=2062164086]
+position = Vector2(4.2268124, -20.864635)
+scale = Vector2(0.3291331, 0.19056085)
+sprite_frames = SubResource("SpriteFrames_kitsu")
+animation = &""
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=506257009]
+position = Vector2(0, -6)
+shape = SubResource("ShapeBody")
+
+[node name="InteractArea" type="Area2D" parent="." unique_id=2123478754]
+collision_layer = 64
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractArea" unique_id=1839842087]
+position = Vector2(0, -8)
+shape = SubResource("ShapeInteract")

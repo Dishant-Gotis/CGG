@@ -1,0 +1,98 @@
+[gd_scene load_steps=11 format=3 uid="uid://elder_npc_scene"]
+
+[ext_resource type="Script" path="res://scripts/entities/npc.gd" id="1_npc"]
+[ext_resource type="Texture2D" uid="uid://blcxvnf0qmlau" path="res://Tiny Swords (Update 010)/Factions/Knights/Troops/Pawn/Yellow/Pawn_Yellow.png" id="2_elder"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e0"]
+atlas = ExtResource("2_elder")
+region = Rect2(0, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e1"]
+atlas = ExtResource("2_elder")
+region = Rect2(192, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e2"]
+atlas = ExtResource("2_elder")
+region = Rect2(384, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e3"]
+atlas = ExtResource("2_elder")
+region = Rect2(576, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e4"]
+atlas = ExtResource("2_elder")
+region = Rect2(768, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e5"]
+atlas = ExtResource("2_elder")
+region = Rect2(960, 0, 192, 192)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_elder"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e5")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 6.0
+}]
+
+[sub_resource type="CircleShape2D" id="ShapeBody"]
+radius = 14.0
+
+[sub_resource type="CircleShape2D" id="ShapeInteract"]
+radius = 44.0
+
+[node name="NPC_Elder" type="StaticBody2D"]
+collision_layer = 1
+collision_mask = 0
+script = ExtResource("1_npc")
+npc_name = "Elder Oakhaven"
+prompt_text = "E - Speak with Elder"
+dialogue_lines = [
+"Welcome to Mossveil, Arjun. The stars whispered of your arrival from beyond the veil.",
+"Look to the dark clouds above our valley — the floating castle of the Monster King casts its shadow upon our realm.",
+"For countless seasons, our village prayed for a champion with the courage to resist the corruption.",
+"You proved your bravery on the high road. From this day forth, you are the champion and hero of Mossveil!",
+"Rest now in our village, wander our peaceful streets, and prepare yourself for the perils ahead."
+]
+dialogue_lines_alt = [
+"Peace be with you, Arjun.",
+"The villagers speak of your courage. May your blade remain swift and true."
+]
+required_flag = "elder_spoke"
+grant_flag = "elder_spoke"
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -32)
+scale = Vector2(1.15, 1.15)
+sprite_frames = SubResource("SpriteFrames_elder")
+animation = &"idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -6)
+shape = SubResource("ShapeBody")
+
+[node name="InteractArea" type="Area2D" parent="."]
+collision_layer = 64
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractArea"]
+position = Vector2(0, -10)
+shape = SubResource("ShapeInteract")

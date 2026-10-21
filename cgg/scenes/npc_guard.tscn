@@ -1,0 +1,96 @@
+[gd_scene load_steps=11 format=3 uid="uid://guard_npc_scene"]
+
+[ext_resource type="Script" path="res://scripts/entities/npc.gd" id="1_npc"]
+[ext_resource type="Texture2D" uid="uid://cmfdya7f2q04a" path="res://Tiny Swords (Update 010)/Factions/Knights/Troops/Warrior/Blue/Warrior_Blue.png" id="2_warrior"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w0"]
+atlas = ExtResource("2_warrior")
+region = Rect2(0, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w1"]
+atlas = ExtResource("2_warrior")
+region = Rect2(192, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w2"]
+atlas = ExtResource("2_warrior")
+region = Rect2(384, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w3"]
+atlas = ExtResource("2_warrior")
+region = Rect2(576, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w4"]
+atlas = ExtResource("2_warrior")
+region = Rect2(768, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w5"]
+atlas = ExtResource("2_warrior")
+region = Rect2(960, 0, 192, 192)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_guard"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w5")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 7.0
+}]
+
+[sub_resource type="CircleShape2D" id="ShapeBody"]
+radius = 14.0
+
+[sub_resource type="CircleShape2D" id="ShapeInteract"]
+radius = 42.0
+
+[node name="NPC_Guard" type="StaticBody2D"]
+collision_layer = 1
+collision_mask = 0
+script = ExtResource("1_npc")
+npc_name = "Sir Alden"
+prompt_text = "E - Talk to Guard"
+dialogue_lines = [
+"Halt! ...Wait. You carry the ancestral blade from the ancient lore.",
+"You fought your way through the slimes on the high road? Magnificent work, traveler!",
+"You are safe within the sturdy walls of Mossveil.",
+"The Elder is waiting for you at the Great Hall in the north of the village square."
+]
+dialogue_lines_alt = [
+"Mossveil\'s gates are secure for now.",
+"Make sure you speak with Elder Oakhaven at the Great Hall."
+]
+required_flag = "met_kitsu"
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -32)
+scale = Vector2(1, 1)
+sprite_frames = SubResource("SpriteFrames_guard")
+animation = &"idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -6)
+shape = SubResource("ShapeBody")
+
+[node name="InteractArea" type="Area2D" parent="."]
+collision_layer = 64
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractArea"]
+position = Vector2(0, -10)
+shape = SubResource("ShapeInteract")

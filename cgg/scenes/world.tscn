@@ -1,0 +1,1558 @@
+[gd_scene format=3 uid="uid://cu5k6kqyxf68p"]
+
+[ext_resource type="Texture2D" uid="uid://bm3k3i2ma8j1u" path="res://assets/world/ground.png" id="1_ground"]
+[ext_resource type="Texture2D" uid="uid://b08b1450kcekw" path="res://Tiny Swords (Update 010)/everything/tower.png" id="2_tow"]
+[ext_resource type="Texture2D" uid="uid://b5xdtswsmmeo8" path="res://Tiny Swords (Update 010)/everything/trees.png" id="3_tree"]
+[ext_resource type="Texture2D" uid="uid://cxoc2gb6ik42t" path="res://Tiny Swords (Update 010)/everything/bush_3.png" id="4_b3"]
+[ext_resource type="Texture2D" uid="uid://bnbuflrnhbn3k" path="res://Tiny Swords (Update 010)/everything/bush_2.png" id="5_b2"]
+[ext_resource type="Texture2D" uid="uid://beftg1rbox35a" path="res://Tiny Swords (Update 010)/everything/bush_1.png" id="6_b1"]
+[ext_resource type="Texture2D" uid="uid://1n4tvaaytt0d" path="res://Tiny Swords (Update 010)/everything/stone_1.png" id="7_s1"]
+[ext_resource type="Texture2D" uid="uid://bvdr3ts3md4us" path="res://Tiny Swords (Update 010)/everything/stone_2.png" id="8_s2"]
+[ext_resource type="Texture2D" uid="uid://00p1li74m6vn" path="res://Tiny Swords (Update 010)/everything/stone_3.png" id="9_s3"]
+[ext_resource type="Texture2D" uid="uid://bljhacdoi8qfg" path="res://Tiny Swords (Update 010)/everything/hut.png" id="10_hut"]
+[ext_resource type="Texture2D" uid="uid://bjef7xp8m7xja" path="res://Tiny Swords (Update 010)/everything/tiny-swords-22.png" id="12_sign"]
+[ext_resource type="Texture2D" uid="uid://bms5j8v63w7uq" path="res://Tiny Swords (Update 010)/everything/tiny-swords-26.png" id="13_mush"]
+[ext_resource type="PackedScene" uid="uid://0sam6i1k5f6e" path="res://scenes/player.tscn" id="14_player"]
+[ext_resource type="PackedScene" uid="uid://dcpaduca6hj4x" path="res://scenes/enemy.tscn" id="15_enemy"]
+[ext_resource type="Texture2D" uid="uid://xuiybwegymia" path="res://Tiny Swords (Update 010)/everything/tower_red.png" id="16_towr"]
+[ext_resource type="Texture2D" uid="uid://c8ttw4tltjy1u" path="res://Tiny Swords (Update 010)/everything/hut_blue.png" id="17_hutb"]
+[ext_resource type="Texture2D" uid="uid://cg1c7h8qabct4" path="res://Tiny Swords (Update 010)/everything/cave_down.png" id="18_cave"]
+[ext_resource type="Texture2D" uid="uid://bam2da2y7wf53" path="res://Tiny Swords (Update 010)/everything/wooden_ground.png" id="19_wood"]
+[ext_resource type="Texture2D" uid="uid://c4wlipkep0d27" path="res://Tiny Swords (Update 010)/everything/water.png" id="20_water"]
+[ext_resource type="PackedScene" uid="uid://bncfaxckolqto" path="res://scenes/npc_kitsu.tscn" id="21_kitsu"]
+[ext_resource type="PackedScene" path="res://scenes/npc_guard.tscn" id="22_guard"]
+[ext_resource type="PackedScene" path="res://scenes/npc_elder.tscn" id="23_elder"]
+[ext_resource type="PackedScene" path="res://scenes/npc_maya.tscn" id="24_maya"]
+[ext_resource type="PackedScene" path="res://scenes/npc_ravi.tscn" id="25_ravi"]
+[ext_resource type="PackedScene" path="res://scenes/companion_fox.tscn" id="26_fox"]
+
+[sub_resource type="RectangleShape2D" id="ShapeWallHoriz"]
+size = Vector2(4096, 20)
+
+[sub_resource type="RectangleShape2D" id="ShapeWallVert"]
+size = Vector2(20, 640)
+
+[sub_resource type="RectangleShape2D" id="ShapePond"]
+size = Vector2(240, 160)
+
+[sub_resource type="RectangleShape2D" id="ShapeHut"]
+size = Vector2(100, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasStump"]
+atlas = ExtResource("3_tree")
+region = Rect2(0, 384, 192, 192)
+
+[sub_resource type="CircleShape2D" id="ShapeBush"]
+radius = 18.027756
+
+[sub_resource type="GDScript" id="SignScript"]
+script/source = "extends Area2D
+var prompt_text: String = \"E - Read Sign\"
+
+func interact(_player: Node) -> void:
+	UI.start_dialogue([
+		\"Signpost: East leads to the Crossroads & Mossveil Village.\",
+		\"Signpost: West leads to your peaceful cottage.\"
+	], \"Home Signpost\")
+"
+
+[sub_resource type="CircleShape2D" id="ShapeInteract"]
+radius = 21.023796
+
+[sub_resource type="AtlasTexture" id="AtlasTree"]
+atlas = ExtResource("3_tree")
+region = Rect2(0, 0, 192, 192)
+
+[sub_resource type="CircleShape2D" id="ShapeTreeTrunk"]
+radius = 14.0
+
+[sub_resource type="RectangleShape2D" id="ShapeRock"]
+size = Vector2(24, 14)
+
+[sub_resource type="GDScript" id="CrossroadsSignScript"]
+script/source = "extends Area2D
+var prompt_text: String = \"E - Read Sign\"
+
+func interact(_player: Node) -> void:
+	UI.start_dialogue([
+		\"Crossroads Sign:\",
+		\"⬆ North: High Pass & Mountains\",
+		\"⬇ South: Whispering Pond & Mystic Caves\",
+		\"➔ East: Training Grounds & Mossveil Village\"
+	], \"Crossroads\")
+"
+
+[sub_resource type="RectangleShape2D" id="ShapeCave"]
+size = Vector2(120, 50)
+
+[sub_resource type="GDScript" id="CaveSignScript"]
+script/source = "extends Area2D
+var prompt_text: String = \"E - Read Sign\"
+
+func interact(_player: Node) -> void:
+	UI.start_dialogue([
+		\"Mystic Cavern Entrance:\",
+		\"A damp breeze blows from deep underground.\",
+		\"The cavern descent is sealed for maintenance!\"
+	], \"Cave Entrance\")
+"
+
+[sub_resource type="GDScript" id="CombatSignScript"]
+script/source = "extends Area2D
+var prompt_text: String = \"E - Read Sign\"
+
+func interact(_player: Node) -> void:
+	UI.start_dialogue([
+		\"Combat Training Ground: Prove your strength!\",
+		\"Press Q to swing your sword at nearby enemies.\",
+		\"Slimes will chase and damage you on contact.\",
+		\"Defeat the slimes and proceed east to Mossveil Village!\"
+	], \"Training Sign\")
+"
+
+[sub_resource type="GDScript" id="VillageSignScript"]
+script/source = "extends Area2D
+var prompt_text: String = \"E - Read Sign\"
+
+func interact(_player: Node) -> void:
+	UI.start_dialogue([
+		\"Welcome to Mossveil Village!\",
+		\"The great hall and town square lie ahead.\",
+		\"You are safe within these walls, traveler.\"
+	], \"Village Gate\")
+"
+
+[sub_resource type="GDScript" id="TownSquareSignScript"]
+script/source = "extends Area2D
+var prompt_text: String = \"E - Read Sign\"
+
+func interact(_player: Node) -> void:
+	UI.start_dialogue([
+		\"Mossveil Town Square:\",
+		\"North: Great Hall of the Elder\",
+		\"East: Guard Watchtowers\",
+		\"West: Return to High Road\"
+	], \"Town Square\")
+"
+
+[sub_resource type="RectangleShape2D" id="ShapeTower"]
+size = Vector2(80, 48)
+
+[node name="world" type="Node2D" unique_id=1467157944]
+
+[node name="Ground" type="Node2D" parent="." unique_id=176101209]
+
+[node name="Tile0" type="Sprite2D" parent="Ground" unique_id=1094094761]
+z_index = -10
+texture = ExtResource("1_ground")
+centered = false
+
+[node name="PondWater" type="Sprite2D" parent="Ground" unique_id=643079541]
+z_index = -9
+position = Vector2(1200, 500)
+scale = Vector2(3.5, 2.2)
+texture = ExtResource("20_water")
+
+[node name="WorldBounds" type="StaticBody2D" parent="." unique_id=1947474619]
+collision_mask = 0
+
+[node name="ColTop" type="CollisionShape2D" parent="WorldBounds" unique_id=1742784144]
+position = Vector2(2048, 10)
+shape = SubResource("ShapeWallHoriz")
+
+[node name="ColBottom" type="CollisionShape2D" parent="WorldBounds" unique_id=126953076]
+position = Vector2(2048, 630)
+shape = SubResource("ShapeWallHoriz")
+
+[node name="ColLeft" type="CollisionShape2D" parent="WorldBounds" unique_id=2083925054]
+position = Vector2(10, 320)
+shape = SubResource("ShapeWallVert")
+
+[node name="ColRight" type="CollisionShape2D" parent="WorldBounds" unique_id=1227384506]
+position = Vector2(4086, 320)
+shape = SubResource("ShapeWallVert")
+
+[node name="PondBody" type="StaticBody2D" parent="WorldBounds" unique_id=883383205]
+position = Vector2(1200, 500)
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldBounds/PondBody" unique_id=1929388219]
+shape = SubResource("ShapePond")
+
+[node name="Objects" type="Node2D" parent="." unique_id=294911491]
+y_sort_enabled = true
+
+[node name="Hut" type="StaticBody2D" parent="Objects" unique_id=24266989]
+position = Vector2(240, 240)
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Objects/Hut" unique_id=408870819]
+position = Vector2(0, -78)
+texture = ExtResource("10_hut")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Objects/Hut" unique_id=349234210]
+position = Vector2(0, -26)
+shape = SubResource("ShapeHut")
+
+[node name="Stump" type="StaticBody2D" parent="Objects" unique_id=1336254343]
+position = Vector2(150, 280)
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Objects/Stump" unique_id=135324007]
+position = Vector2(0, -16)
+texture = SubResource("AtlasStump")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Objects/Stump" unique_id=413188916]
+position = Vector2(0, -4)
+shape = SubResource("ShapeBush")
+
+[node name="Signpost" type="Area2D" parent="Objects" unique_id=1431768654]
+position = Vector2(560, 320)
+collision_layer = 64
+collision_mask = 0
+script = SubResource("SignScript")
+
+[node name="Sprite2D" type="Sprite2D" parent="Objects/Signpost" unique_id=1644326315]
+position = Vector2(0, -20)
+texture = ExtResource("12_sign")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Objects/Signpost" unique_id=1446972564]
+position = Vector2(0, -10)
+shape = SubResource("ShapeInteract")
+
+[node name="player" parent="Objects" unique_id=419581489 instance=ExtResource("14_player")]
+position = Vector2(250, 320)
+
+[node name="CompanionFox" parent="Objects" unique_id=710352871 instance=ExtResource("26_fox")]
+position = Vector2(290, 340)
+
+[node name="NPC_Kitsu" parent="Objects" unique_id=1508589834 instance=ExtResource("21_kitsu")]
+position = Vector2(340, 320)
+
+[node name="Tree_0" type="StaticBody2D" parent="Objects" unique_id=127213341]
+position = Vector2(60, 90)
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Objects/Tree_0" unique_id=1798535611]
+position = Vector2(0, -78)
+texture = SubResource("AtlasTree")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Objects/Tree_0" unique_id=759711867]
+position = Vector2(0, -6)
+shape = SubResource("ShapeTreeTrunk")
+
+[node name="Tree_1" type="StaticBody2D" parent="Objects" unique_id=1959646930]
+position = Vector2(160, 80)
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Objects/Tree_1" unique_id=990880931]
+position = Vector2(0, -78)
+texture = SubResource("AtlasTree")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Objects/Tree_1" unique_id=673940038]
+position = Vector2(0, -6)
+shape = SubResource("ShapeTreeTrunk")
+
+[node name="Tree_2" type="StaticBody2D" parent="Objects" unique_id=798518149]
+position = Vector2(320, 85)
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Objects/Tree_2" unique_id=1352514706]
+position = Vector2(0, -78)
+texture = SubResource("AtlasTree")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Objects/Tree_2" unique_id=257398973]
+position = Vector2(0, -6)
+shape = SubResource("ShapeTreeTrunk")
+
+[node name="Tree_3" type="StaticBody2D" parent="Objects" unique_id=1211713828]
+position = Vector2(440, 80)
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Objects/Tree_3" unique_id=1547102870]
+position = Vector2(0, -78)
+texture = SubResource("AtlasTree")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Objects/Tree_3" unique_id=1127730823]
+position = Vector2(0, -6)
+shape = SubResource("ShapeTreeTrunk")
+
+[node name="Tree_4" type="StaticBody2D" parent="Objects" unique_id=574944367]
+position = Vector2(660, 75)
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Objects/Tree_4" unique_id=93789696]
+position = Vector2(0, -78)
+texture = SubResource("AtlasTree")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Objects/Tree_4" unique_id=1238445578]
+position = Vector2(0, -6)
+shape = SubResource("ShapeTreeTrunk")
+
+[node name="Tree_5" type="StaticBody2D" parent="Objects" unique_id=823050052]
+position = Vector2(780, 85)
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Objects/Tree_5" unique_id=2137729890]
+position = Vector2(0, -78)
+texture = SubResource("AtlasTree")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Objects/Tree_5" unique_id=1593329810]
+position = Vector2(0, -6)
+shape = SubResource("ShapeTreeTrunk")
+
+[node name="Tree_6" type="StaticBody2D" parent="Objects" unique_id=393494453]
+position = Vector2(920, 80)
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Objects/Tree_6" unique_id=1998913596]
+position = Vector2(0, -78)
+texture = SubResource("AtlasTree")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Objects/Tree_6" unique_id=1319530391]
+position = Vector2(0, -6)
+shape = SubResource("ShapeTreeTrunk")
+
+[node name="Tree_7" type="StaticBody2D" parent="Objects" unique_id=1714625414]
+position = Vector2(40, 180)
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Objects/Tree_7" unique_id=1447454085]
+position = Vector2(0, -78)
+texture = SubResource("AtlasTree")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Objects/Tree_7" unique_id=1166654430]
+position = Vector2(0, -6)
+shape = SubResource("ShapeTreeTrunk")
+
+[node name="Tree_8" type="StaticBody2D" parent="Objects" unique_id=1055755982]
+position = Vector2(45, 300)
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Objects/Tree_8" unique_id=1184963063]
+position = Vector2(0, -78)
+texture = SubResource("AtlasTree")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Objects/Tree_8" unique_id=739929803]
+position = Vector2(0, -6)
+shape = SubResource("ShapeTreeTrunk")
+
+[node name="Tree_9" type="StaticBody2D" parent="Objects" unique_id=1481145404]
+position = Vector2(40, 420)
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Objects/Tree_9" unique_id=645106078]
+position = Vector2(0, -78)
+texture = SubResource("AtlasTree")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Objects/Tree_9" unique_id=1763930116]
+position = Vector2(0, -6)
+shape = SubResource("ShapeTreeTrunk")
+
+[node name="Tree_10" type="StaticBody2D" parent="Objects" unique_id=1696305290]
+position = Vector2(50, 540)
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Objects/Tree_10" unique_id=1291828615]
+position = Vector2(0, -78)
+texture = SubResource("AtlasTree")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Objects/Tree_10" unique_id=1420279428]
+position = Vector2(0, -6)
+shape = SubResource("ShapeTreeTrunk")
+
+[node name="Tree_11" type="StaticBody2D" parent="Objects" unique_id=1056329409]
+position = Vector2(80, 610)
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Objects/Tree_11" unique_id=1075956900]
+position = Vector2(0, -78)
+texture = SubResource("AtlasTree")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Objects/Tree_11" unique_id=909433490]
+position = Vector2(0, -6)
+shape = SubResource("ShapeTreeTrunk")
+
+[node name="Tree_12" type="StaticBody2D" parent="Objects" unique_id=1072926496]
+position = Vector2(200, 615)
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Objects/Tree_12" unique_id=643903992]
+position = Vector2(0, -78)
+texture = SubResource("AtlasTree")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Objects/Tree_12" unique_id=1248365667]
+position = Vector2(0, -6)
+shape = SubResource("ShapeTreeTrunk")
+
+[node name="Tree_13" type="StaticBody2D" parent="Objects" unique_id=1193132118]
+position = Vector2(320, 610)
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Objects/Tree_13" unique_id=217302156]
+position = Vector2(0, -78)
+texture = SubResource("AtlasTree")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Objects/Tree_13" unique_id=1775314188]
+position = Vector2(0, -6)
+shape = SubResource("ShapeTreeTrunk")
+
+[node name="Tree_14" type="StaticBody2D" parent="Objects" unique_id=440722247]
+position = Vector2(460, 615)
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Objects/Tree_14" unique_id=854155447]
+position = Vector2(0, -78)
+texture = SubResource("AtlasTree")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Objects/Tree_14" unique_id=1176934989]
+position = Vector2(0, -6)
+shape = SubResource("ShapeTreeTrunk")
+
+[node name="Tree_15" type="StaticBody2D" parent="Objects" unique_id=502449404]
+position = Vector2(600, 610)
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Objects/Tree_15" unique_id=905494645]
+position = Vector2(0, -78)
+texture = SubResource("AtlasTree")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Objects/Tree_15" unique_id=1068521505]
+position = Vector2(0, -6)
+shape = SubResource("ShapeTreeTrunk")
+
+[node name="Tree_16" type="StaticBody2D" parent="Objects" unique_id=1687203421]
+position = Vector2(740, 615)
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Objects/Tree_16" unique_id=60617753]
+position = Vector2(0, -78)
+texture = SubResource("AtlasTree")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Objects/Tree_16" unique_id=58051748]
+position = Vector2(0, -6)
+shape = SubResource("ShapeTreeTrunk")
+
+[node name="Tree_17" type="StaticBody2D" parent="Objects" unique_id=1575250143]
+position = Vector2(880, 610)
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Objects/Tree_17" unique_id=204279687]
+position = Vector2(0, -78)
+texture = SubResource("AtlasTree")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Objects/Tree_17" unique_id=674870112]
+position = Vector2(0, -6)
+shape = SubResource("ShapeTreeTrunk")
+
+[node name="Tree_18" type="StaticBody2D" parent="Objects" unique_id=1911122093]
+position = Vector2(980, 250)
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Objects/Tree_18" unique_id=1528918602]
+position = Vector2(-2, -72)
+texture = SubResource("AtlasTree")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Objects/Tree_18" unique_id=737213655]
+position = Vector2(0, -6)
+shape = SubResource("ShapeTreeTrunk")
+
+[node name="Tree_19" type="StaticBody2D" parent="Objects" unique_id=312749448]
+position = Vector2(980, 490)
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Objects/Tree_19" unique_id=1633752216]
+position = Vector2(0, -78)
+texture = SubResource("AtlasTree")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Objects/Tree_19" unique_id=1972787405]
+position = Vector2(0, -6)
+shape = SubResource("ShapeTreeTrunk")
+
+[node name="Bush_0" type="StaticBody2D" parent="Objects" unique_id=951531238]
+position = Vector2(200, 340)
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Objects/Bush_0" unique_id=1935311880]
+position = Vector2(0, -18)
+texture = ExtResource("4_b3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Objects/Bush_0" unique_id=291061107]
+position = Vector2(0, -6)
+shape = SubResource("ShapeBush")
+
+[node name="Bush_1" type="StaticBody2D" parent="Objects" unique_id=231546566]
+position = Vector2(360, 220)
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Objects/Bush_1" unique_id=2055075951]
+position = Vector2(0, -18)
+texture = ExtResource("5_b2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Objects/Bush_1" unique_id=608122587]
+position = Vector2(0, -6)
+shape = SubResource("ShapeBush")
+
+[node name="Bush_2" type="StaticBody2D" parent="Objects" unique_id=1495860595]
+position = Vector2(620, 340)
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Objects/Bush_2" unique_id=1820573599]
+position = Vector2(0, -18)
+texture = ExtResource("6_b1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Objects/Bush_2" unique_id=1465094033]
+position = Vector2(0, -6)
+shape = SubResource("ShapeBush")
+
+[node name="Bush_3" type="StaticBody2D" parent="Objects" unique_id=774359473]
+position = Vector2(750, 220)
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Objects/Bush_3" unique_id=1435119248]
+position = Vector2(0, -18)
+texture = ExtResource("4_b3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Objects/Bush_3" unique_id=1130990144]
+position = Vector2(0, -6)
+shape = SubResource("ShapeBush")
+
+[node name="Bush_4" type="StaticBody2D" parent="Objects" unique_id=294589016]
+position = Vector2(820, 380)
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Objects/Bush_4" unique_id=594594224]
+position = Vector2(0, -18)
+texture = ExtResource("5_b2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Objects/Bush_4" unique_id=1683471931]
+position = Vector2(0, -6)
+shape = SubResource("ShapeBush")
+
+[node name="Bush_5" type="StaticBody2D" parent="Objects" unique_id=1465187765]
+position = Vector2(420, 480)
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Objects/Bush_5" unique_id=393149215]
+position = Vector2(0, -18)
+texture = ExtResource("6_b1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Objects/Bush_5" unique_id=2075793943]
+position = Vector2(0, -6)
+shape = SubResource("ShapeBush")
+
+[node name="Rock_0" type="StaticBody2D" parent="Objects" unique_id=625517874]
+position = Vector2(380, 260)
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Objects/Rock_0" unique_id=1275775262]
+position = Vector2(0, -12)
+texture = ExtResource("7_s1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Objects/Rock_0" unique_id=903706638]
+position = Vector2(0, -4)
+shape = SubResource("ShapeRock")
+
+[node name="Rock_1" type="StaticBody2D" parent="Objects" unique_id=2028640580]
+position = Vector2(500, 350)
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Objects/Rock_1" unique_id=1994407894]
+position = Vector2(0, -12)
+texture = ExtResource("8_s2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Objects/Rock_1" unique_id=885449542]
+position = Vector2(0, -4)
+shape = SubResource("ShapeRock")
+
+[node name="Rock_2" type="StaticBody2D" parent="Objects" unique_id=1603899341]
+position = Vector2(700, 320)
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Objects/Rock_2" unique_id=2056273006]
+position = Vector2(0, -12)
+texture = ExtResource("9_s3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Objects/Rock_2" unique_id=1626552981]
+position = Vector2(0, -4)
+shape = SubResource("ShapeRock")
+
+[node name="Mushroom_0" type="Sprite2D" parent="Objects" unique_id=435636194]
+position = Vector2(180, 310)
+texture = ExtResource("13_mush")
+offset = Vector2(0, -16)
+
+[node name="Mushroom_1" type="Sprite2D" parent="Objects" unique_id=649876468]
+position = Vector2(340, 270)
+texture = ExtResource("13_mush")
+offset = Vector2(0, -16)
+
+[node name="Mushroom_2" type="Sprite2D" parent="Objects" unique_id=2092586760]
+position = Vector2(840, 240)
+texture = ExtResource("13_mush")
+offset = Vector2(0, -16)
+
+[node name="Mushroom_3" type="Sprite2D" parent="Objects" unique_id=1205238034]
+position = Vector2(870, 210)
+texture = ExtResource("13_mush")
+offset = Vector2(0, -16)
+
+[node name="CrossroadsSign" type="Area2D" parent="Objects" unique_id=1514651615]
+position = Vector2(1120, 310)
+collision_layer = 64
+collision_mask = 0
+script = SubResource("CrossroadsSignScript")
+
+[node name="Sprite2D" type="Sprite2D" parent="Objects/CrossroadsSign" unique_id=1251443298]
+position = Vector2(0, -20)
+texture = ExtResource("12_sign")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Objects/CrossroadsSign" unique_id=137633823]
+position = Vector2(0, -10)
+shape = SubResource("ShapeInteract")
+
+[node name="CaveEntrance" type="StaticBody2D" parent="Objects" unique_id=608356750]
+position = Vector2(1580, 570)
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Objects/CaveEntrance" unique_id=144072928]
+position = Vector2(0, -50)
+texture = ExtResource("18_cave")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Objects/CaveEntrance" unique_id=2084776371]
+position = Vector2(0, -16)
+shape = SubResource("ShapeCave")
+
+[node name="CaveSign" type="Area2D" parent="Objects" unique_id=900428006]
+position = Vector2(1500, 540)
+collision_layer = 64
+collision_mask = 0
+script = SubResource("CaveSignScript")
+
+[node name="Sprite2D" type="Sprite2D" parent="Objects/CaveSign" unique_id=1109538736]
+position = Vector2(0, -20)
+texture = ExtResource("12_sign")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Objects/CaveSign" unique_id=183514578]
+position = Vector2(0, -10)
+shape = SubResource("ShapeInteract")
+
+[node name="Z2Tree_0" type="StaticBody2D" parent="Objects" unique_id=518160101]
+position = Vector2(1060, 80)
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Objects/Z2Tree_0" unique_id=989722977]
+position = Vector2(0, -78)
+texture = SubResource("AtlasTree")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Objects/Z2Tree_0" unique_id=424916119]
+position = Vector2(0, -6)
+shape = SubResource("ShapeTreeTrunk")
+
+[node name="Z2Tree_1" type="StaticBody2D" parent="Objects" unique_id=880424752]
+position = Vector2(1180, 75)
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Objects/Z2Tree_1" unique_id=1528546886]
+position = Vector2(0, -78)
+texture = SubResource("AtlasTree")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Objects/Z2Tree_1" unique_id=291317005]
+position = Vector2(0, -6)
+shape = SubResource("ShapeTreeTrunk")
+
+[node name="Z2Tree_2" type="StaticBody2D" parent="Objects" unique_id=379504229]
+position = Vector2(1320, 70)
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Objects/Z2Tree_2" unique_id=702762045]
+position = Vector2(0, -78)
+texture = SubResource("AtlasTree")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Objects/Z2Tree_2" unique_id=642139686]
+position = Vector2(0, -6)
+shape = SubResource("ShapeTreeTrunk")
+
+[node name="Z2Tree_3" type="StaticBody2D" parent="Objects" unique_id=1429220448]
+position = Vector2(1440, 80)
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Objects/Z2Tree_3" unique_id=108517151]
+position = Vector2(0, -78)
+texture = SubResource("AtlasTree")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Objects/Z2Tree_3" unique_id=338094183]
+position = Vector2(0, -6)
+shape = SubResource("ShapeTreeTrunk")
+
+[node name="Z2Tree_4" type="StaticBody2D" parent="Objects" unique_id=2051440466]
+position = Vector2(1680, 80)
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Objects/Z2Tree_4" unique_id=788045248]
+position = Vector2(0, -78)
+texture = SubResource("AtlasTree")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Objects/Z2Tree_4" unique_id=72203269]
+position = Vector2(0, -6)
+shape = SubResource("ShapeTreeTrunk")
+
+[node name="Z2Tree_5" type="StaticBody2D" parent="Objects" unique_id=90160939]
+position = Vector2(1800, 75)
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Objects/Z2Tree_5" unique_id=1759276315]
+position = Vector2(0, -78)
+texture = SubResource("AtlasTree")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Objects/Z2Tree_5" unique_id=267354002]
+position = Vector2(0, -6)
+shape = SubResource("ShapeTreeTrunk")
+
+[node name="Z2Tree_6" type="StaticBody2D" parent="Objects" unique_id=569978711]
+position = Vector2(1940, 85)
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Objects/Z2Tree_6" unique_id=221476972]
+position = Vector2(0, -78)
+texture = SubResource("AtlasTree")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Objects/Z2Tree_6" unique_id=1611527417]
+position = Vector2(0, -6)
+shape = SubResource("ShapeTreeTrunk")
+
+[node name="Z2Tree_7" type="StaticBody2D" parent="Objects" unique_id=2087863670]
+position = Vector2(1750, 580)
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Objects/Z2Tree_7" unique_id=822449613]
+position = Vector2(0, -78)
+texture = SubResource("AtlasTree")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Objects/Z2Tree_7" unique_id=464363671]
+position = Vector2(0, -6)
+shape = SubResource("ShapeTreeTrunk")
+
+[node name="Z2Tree_8" type="StaticBody2D" parent="Objects" unique_id=847047611]
+position = Vector2(1880, 590)
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Objects/Z2Tree_8" unique_id=1667030976]
+position = Vector2(0, -78)
+texture = SubResource("AtlasTree")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Objects/Z2Tree_8" unique_id=731471839]
+position = Vector2(0, -6)
+shape = SubResource("ShapeTreeTrunk")
+
+[node name="Z2Tree_9" type="StaticBody2D" parent="Objects" unique_id=708237553]
+position = Vector2(1980, 570)
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Objects/Z2Tree_9" unique_id=793954466]
+position = Vector2(0, -78)
+texture = SubResource("AtlasTree")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Objects/Z2Tree_9" unique_id=1970549584]
+position = Vector2(0, -6)
+shape = SubResource("ShapeTreeTrunk")
+
+[node name="Z2Tree_10" type="StaticBody2D" parent="Objects" unique_id=436966713]
+position = Vector2(1050, 480)
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Objects/Z2Tree_10" unique_id=304713428]
+position = Vector2(0, -78)
+texture = SubResource("AtlasTree")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Objects/Z2Tree_10" unique_id=231145040]
+position = Vector2(0, -6)
+shape = SubResource("ShapeTreeTrunk")
+
+[node name="Z2Tree_11" type="StaticBody2D" parent="Objects" unique_id=436542720]
+position = Vector2(1350, 580)
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Objects/Z2Tree_11" unique_id=1715896166]
+position = Vector2(0, -78)
+texture = SubResource("AtlasTree")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Objects/Z2Tree_11" unique_id=390009658]
+position = Vector2(0, -6)
+shape = SubResource("ShapeTreeTrunk")
+
+[node name="Z2Bush_0" type="StaticBody2D" parent="Objects" unique_id=536207259]
+position = Vector2(1080, 390)
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Objects/Z2Bush_0" unique_id=1216143224]
+position = Vector2(0, -18)
+texture = ExtResource("4_b3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Objects/Z2Bush_0" unique_id=1380581631]
+position = Vector2(0, -6)
+shape = SubResource("ShapeBush")
+
+[node name="Z2Bush_1" type="StaticBody2D" parent="Objects" unique_id=405813962]
+position = Vector2(1320, 410)
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Objects/Z2Bush_1" unique_id=2117757810]
+position = Vector2(0, -18)
+texture = ExtResource("5_b2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Objects/Z2Bush_1" unique_id=1805680253]
+position = Vector2(0, -6)
+shape = SubResource("ShapeBush")
+
+[node name="Z2Bush_2" type="StaticBody2D" parent="Objects" unique_id=910663548]
+position = Vector2(1640, 320)
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Objects/Z2Bush_2" unique_id=967715207]
+position = Vector2(0, -18)
+texture = ExtResource("6_b1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Objects/Z2Bush_2" unique_id=255078663]
+position = Vector2(0, -6)
+shape = SubResource("ShapeBush")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Objects/Z2Bush_2/CollisionShape2D" unique_id=385580131]
+position = Vector2(42, -45)
+shape = SubResource("ShapeBush")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Objects/Z2Bush_2/CollisionShape2D/CollisionShape2D" unique_id=834960914]
+position = Vector2(-219, 118)
+shape = SubResource("ShapeBush")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Objects/Z2Bush_2/CollisionShape2D/CollisionShape2D/CollisionShape2D" unique_id=472626780]
+position = Vector2(-275, -160)
+shape = SubResource("ShapeBush")
+
+[node name="Z2Bush_3" type="StaticBody2D" parent="Objects" unique_id=406886151]
+position = Vector2(1850, 390)
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Objects/Z2Bush_3" unique_id=29806924]
+position = Vector2(0, -18)
+texture = ExtResource("4_b3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Objects/Z2Bush_3" unique_id=1829859944]
+position = Vector2(0, -6)
+shape = SubResource("ShapeBush")
+
+[node name="Z2Rock_0" type="StaticBody2D" parent="Objects" unique_id=352448383]
+position = Vector2(1120, 420)
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Objects/Z2Rock_0" unique_id=585735403]
+position = Vector2(0, -12)
+texture = ExtResource("7_s1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Objects/Z2Rock_0" unique_id=1044013971]
+position = Vector2(0, -4)
+shape = SubResource("ShapeRock")
+
+[node name="Z2Rock_1" type="StaticBody2D" parent="Objects" unique_id=223885590]
+position = Vector2(1340, 430)
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Objects/Z2Rock_1" unique_id=366019861]
+position = Vector2(0, -12)
+texture = ExtResource("8_s2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Objects/Z2Rock_1" unique_id=2114259013]
+position = Vector2(0, -4)
+shape = SubResource("ShapeRock")
+
+[node name="Z2Rock_2" type="StaticBody2D" parent="Objects" unique_id=1443285108]
+position = Vector2(1720, 340)
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Objects/Z2Rock_2" unique_id=1751099355]
+position = Vector2(0, -12)
+texture = ExtResource("9_s3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Objects/Z2Rock_2" unique_id=975112179]
+position = Vector2(0, -4)
+shape = SubResource("ShapeRock")
+
+[node name="Z2Mush_0" type="Sprite2D" parent="Objects" unique_id=814809704]
+position = Vector2(1185, 233)
+texture = ExtResource("13_mush")
+offset = Vector2(0, -16)
+
+[node name="Z2Mush_1" type="Sprite2D" parent="Objects" unique_id=1394743700]
+position = Vector2(1460, 380)
+texture = ExtResource("13_mush")
+offset = Vector2(0, -16)
+
+[node name="Z2Mush_2" type="Sprite2D" parent="Objects" unique_id=1186617141]
+position = Vector2(1680, 260)
+texture = ExtResource("13_mush")
+offset = Vector2(0, -16)
+
+[node name="CombatSign" type="Area2D" parent="Objects" unique_id=1434169741]
+position = Vector2(2120, 320)
+collision_layer = 64
+collision_mask = 0
+script = SubResource("CombatSignScript")
+
+[node name="Sprite2D" type="Sprite2D" parent="Objects/CombatSign" unique_id=114418192]
+position = Vector2(0, -20)
+texture = ExtResource("12_sign")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Objects/CombatSign" unique_id=495135335]
+position = Vector2(0, -10)
+shape = SubResource("ShapeInteract")
+
+[node name="Enemy_0" parent="Objects" unique_id=1722171863 instance=ExtResource("15_enemy")]
+position = Vector2(2260, 300)
+
+[node name="Enemy_1" parent="Objects" unique_id=1043510202 instance=ExtResource("15_enemy")]
+position = Vector2(2420, 240)
+
+[node name="Enemy_2" parent="Objects" unique_id=1026569824 instance=ExtResource("15_enemy")]
+position = Vector2(2560, 380)
+
+[node name="Enemy_3" parent="Objects" unique_id=900467765 instance=ExtResource("15_enemy")]
+position = Vector2(2720, 280)
+
+[node name="Enemy_4" parent="Objects" unique_id=1145849313 instance=ExtResource("15_enemy")]
+position = Vector2(2860, 350)
+
+[node name="Enemy_5" parent="Objects" unique_id=1725218285 instance=ExtResource("15_enemy")]
+position = Vector2(2980, 270)
+
+[node name="CTree_0" type="StaticBody2D" parent="Objects" unique_id=991970772]
+position = Vector2(2060, 80)
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Objects/CTree_0" unique_id=820469378]
+position = Vector2(0, -78)
+texture = SubResource("AtlasTree")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Objects/CTree_0" unique_id=1442986524]
+position = Vector2(0, -6)
+shape = SubResource("ShapeTreeTrunk")
+
+[node name="CTree_1" type="StaticBody2D" parent="Objects" unique_id=784525705]
+position = Vector2(2200, 70)
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Objects/CTree_1" unique_id=1384924695]
+position = Vector2(0, -78)
+texture = SubResource("AtlasTree")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Objects/CTree_1" unique_id=825253078]
+position = Vector2(0, -6)
+shape = SubResource("ShapeTreeTrunk")
+
+[node name="CTree_2" type="StaticBody2D" parent="Objects" unique_id=960436211]
+position = Vector2(2360, 85)
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Objects/CTree_2" unique_id=1639964830]
+position = Vector2(0, -78)
+texture = SubResource("AtlasTree")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Objects/CTree_2" unique_id=2107063392]
+position = Vector2(0, -6)
+shape = SubResource("ShapeTreeTrunk")
+
+[node name="CTree_3" type="StaticBody2D" parent="Objects" unique_id=2122410225]
+position = Vector2(2520, 75)
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Objects/CTree_3" unique_id=836185540]
+position = Vector2(0, -78)
+texture = SubResource("AtlasTree")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Objects/CTree_3" unique_id=1809867472]
+position = Vector2(0, -6)
+shape = SubResource("ShapeTreeTrunk")
+
+[node name="CTree_4" type="StaticBody2D" parent="Objects" unique_id=956641223]
+position = Vector2(2680, 80)
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Objects/CTree_4" unique_id=88562171]
+position = Vector2(0, -78)
+texture = SubResource("AtlasTree")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Objects/CTree_4" unique_id=282261402]
+position = Vector2(0, -6)
+shape = SubResource("ShapeTreeTrunk")
+
+[node name="CTree_5" type="StaticBody2D" parent="Objects" unique_id=1454639827]
+position = Vector2(2840, 70)
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Objects/CTree_5" unique_id=1143721582]
+position = Vector2(0, -78)
+texture = SubResource("AtlasTree")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Objects/CTree_5" unique_id=1529729191]
+position = Vector2(0, -6)
+shape = SubResource("ShapeTreeTrunk")
+
+[node name="CTree_6" type="StaticBody2D" parent="Objects" unique_id=495344257]
+position = Vector2(3000, 85)
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Objects/CTree_6" unique_id=403168580]
+position = Vector2(0, -78)
+texture = SubResource("AtlasTree")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Objects/CTree_6" unique_id=478458526]
+position = Vector2(0, -6)
+shape = SubResource("ShapeTreeTrunk")
+
+[node name="CTree_7" type="StaticBody2D" parent="Objects" unique_id=1464567917]
+position = Vector2(2060, 580)
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Objects/CTree_7" unique_id=1560602202]
+position = Vector2(0, -78)
+texture = SubResource("AtlasTree")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Objects/CTree_7" unique_id=1904099641]
+position = Vector2(0, -6)
+shape = SubResource("ShapeTreeTrunk")
+
+[node name="CTree_8" type="StaticBody2D" parent="Objects" unique_id=100834780]
+position = Vector2(2220, 590)
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Objects/CTree_8" unique_id=646862548]
+position = Vector2(0, -78)
+texture = SubResource("AtlasTree")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Objects/CTree_8" unique_id=595075492]
+position = Vector2(0, -6)
+shape = SubResource("ShapeTreeTrunk")
+
+[node name="CTree_9" type="StaticBody2D" parent="Objects" unique_id=361818966]
+position = Vector2(2400, 575)
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Objects/CTree_9" unique_id=435769040]
+position = Vector2(0, -78)
+texture = SubResource("AtlasTree")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Objects/CTree_9" unique_id=1503817927]
+position = Vector2(0, -6)
+shape = SubResource("ShapeTreeTrunk")
+
+[node name="CTree_10" type="StaticBody2D" parent="Objects" unique_id=459991010]
+position = Vector2(2580, 585)
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Objects/CTree_10" unique_id=1542977020]
+position = Vector2(0, -78)
+texture = SubResource("AtlasTree")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Objects/CTree_10" unique_id=1804932481]
+position = Vector2(0, -6)
+shape = SubResource("ShapeTreeTrunk")
+
+[node name="CTree_11" type="StaticBody2D" parent="Objects" unique_id=77805677]
+position = Vector2(2760, 570)
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Objects/CTree_11" unique_id=1302886380]
+position = Vector2(0, -78)
+texture = SubResource("AtlasTree")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Objects/CTree_11" unique_id=832410152]
+position = Vector2(0, -6)
+shape = SubResource("ShapeTreeTrunk")
+
+[node name="CTree_12" type="StaticBody2D" parent="Objects" unique_id=2064163278]
+position = Vector2(2940, 580)
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Objects/CTree_12" unique_id=1255357633]
+position = Vector2(0, -78)
+texture = SubResource("AtlasTree")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Objects/CTree_12" unique_id=665752716]
+position = Vector2(0, -6)
+shape = SubResource("ShapeTreeTrunk")
+
+[node name="CBush_0" type="StaticBody2D" parent="Objects" unique_id=274949308]
+position = Vector2(2220, 440)
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Objects/CBush_0" unique_id=510065101]
+position = Vector2(0, -18)
+texture = ExtResource("4_b3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Objects/CBush_0" unique_id=676947652]
+position = Vector2(0, -6)
+shape = SubResource("ShapeBush")
+
+[node name="CBush_1" type="StaticBody2D" parent="Objects" unique_id=766108948]
+position = Vector2(2480, 180)
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Objects/CBush_1" unique_id=517524600]
+position = Vector2(0, -18)
+texture = ExtResource("5_b2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Objects/CBush_1" unique_id=1687484293]
+position = Vector2(0, -6)
+shape = SubResource("ShapeBush")
+
+[node name="CBush_2" type="StaticBody2D" parent="Objects" unique_id=1597296425]
+position = Vector2(2650, 460)
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Objects/CBush_2" unique_id=358606747]
+position = Vector2(0, -18)
+texture = ExtResource("6_b1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Objects/CBush_2" unique_id=1747102063]
+position = Vector2(0, -6)
+shape = SubResource("ShapeBush")
+
+[node name="CBush_3" type="StaticBody2D" parent="Objects" unique_id=171040136]
+position = Vector2(2880, 210)
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Objects/CBush_3" unique_id=353048706]
+position = Vector2(0, -18)
+texture = ExtResource("4_b3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Objects/CBush_3" unique_id=494798055]
+position = Vector2(0, -6)
+shape = SubResource("ShapeBush")
+
+[node name="CRock_0" type="StaticBody2D" parent="Objects" unique_id=1627224484]
+position = Vector2(2320, 370)
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Objects/CRock_0" unique_id=1055308407]
+position = Vector2(0, -12)
+texture = ExtResource("7_s1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Objects/CRock_0" unique_id=1234790123]
+position = Vector2(0, -4)
+shape = SubResource("ShapeRock")
+
+[node name="CRock_1" type="StaticBody2D" parent="Objects" unique_id=1828731559]
+position = Vector2(2600, 230)
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Objects/CRock_1" unique_id=810549031]
+position = Vector2(0, -12)
+texture = ExtResource("8_s2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Objects/CRock_1" unique_id=526166649]
+position = Vector2(0, -4)
+shape = SubResource("ShapeRock")
+
+[node name="CRock_2" type="StaticBody2D" parent="Objects" unique_id=948717804]
+position = Vector2(2780, 420)
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Objects/CRock_2" unique_id=1099239469]
+position = Vector2(0, -12)
+texture = ExtResource("9_s3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Objects/CRock_2" unique_id=1814268024]
+position = Vector2(0, -4)
+shape = SubResource("ShapeRock")
+
+[node name="CMush_0" type="Sprite2D" parent="Objects" unique_id=1755834869]
+position = Vector2(2280, 210)
+texture = ExtResource("13_mush")
+offset = Vector2(0, -16)
+
+[node name="CMush_1" type="Sprite2D" parent="Objects" unique_id=931835331]
+position = Vector2(2640, 320)
+texture = ExtResource("13_mush")
+offset = Vector2(0, -16)
+
+[node name="CMush_2" type="Sprite2D" parent="Objects" unique_id=2009192392]
+position = Vector2(2920, 450)
+texture = ExtResource("13_mush")
+offset = Vector2(0, -16)
+
+[node name="VillageGateSign" type="Area2D" parent="Objects" unique_id=1605266989]
+position = Vector2(3180, 320)
+collision_layer = 64
+collision_mask = 0
+script = SubResource("VillageSignScript")
+
+[node name="Sprite2D" type="Sprite2D" parent="Objects/VillageGateSign" unique_id=1506048220]
+position = Vector2(0, -20)
+texture = ExtResource("12_sign")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Objects/VillageGateSign" unique_id=226233380]
+position = Vector2(0, -10)
+shape = SubResource("ShapeInteract")
+
+[node name="TownSquareSign" type="Area2D" parent="Objects" unique_id=359001582]
+position = Vector2(3580, 330)
+collision_layer = 64
+collision_mask = 0
+script = SubResource("TownSquareSignScript")
+
+[node name="Sprite2D" type="Sprite2D" parent="Objects/TownSquareSign" unique_id=1680604116]
+position = Vector2(0, -20)
+texture = ExtResource("12_sign")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Objects/TownSquareSign" unique_id=254379605]
+position = Vector2(0, -10)
+shape = SubResource("ShapeInteract")
+
+[node name="GateTowerNorth" type="StaticBody2D" parent="Objects" unique_id=1766069703]
+position = Vector2(3120, 200)
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Objects/GateTowerNorth" unique_id=110610069]
+position = Vector2(0, -96)
+texture = ExtResource("2_tow")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Objects/GateTowerNorth" unique_id=1227319037]
+position = Vector2(0, -24)
+shape = SubResource("ShapeTower")
+
+[node name="GateTowerSouth" type="StaticBody2D" parent="Objects" unique_id=1795271441]
+position = Vector2(3120, 460)
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Objects/GateTowerSouth" unique_id=1103937486]
+position = Vector2(0, -96)
+texture = ExtResource("16_towr")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Objects/GateTowerSouth" unique_id=671308629]
+position = Vector2(0, -24)
+shape = SubResource("ShapeTower")
+
+[node name="VGreatHall" type="StaticBody2D" parent="Objects" unique_id=1339472318]
+position = Vector2(3660, 200)
+scale = Vector2(1.35, 1.35)
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Objects/VGreatHall" unique_id=345728576]
+position = Vector2(0, -78)
+texture = ExtResource("10_hut")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Objects/VGreatHall" unique_id=1826371663]
+position = Vector2(0, -26)
+shape = SubResource("ShapeHut")
+
+[node name="VHouse_0" type="StaticBody2D" parent="Objects" unique_id=1155454930]
+position = Vector2(3380, 220)
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Objects/VHouse_0" unique_id=1189405763]
+position = Vector2(0, -78)
+texture = ExtResource("10_hut")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Objects/VHouse_0" unique_id=1752442893]
+position = Vector2(0, -26)
+shape = SubResource("ShapeHut")
+
+[node name="VHouse_1" type="StaticBody2D" parent="Objects" unique_id=285348994]
+position = Vector2(3940, 220)
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Objects/VHouse_1" unique_id=441991443]
+position = Vector2(0, -78)
+texture = ExtResource("17_hutb")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Objects/VHouse_1" unique_id=340461118]
+position = Vector2(0, -26)
+shape = SubResource("ShapeHut")
+
+[node name="VHouse_2" type="StaticBody2D" parent="Objects" unique_id=1096238536]
+position = Vector2(3380, 490)
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Objects/VHouse_2" unique_id=463589909]
+position = Vector2(0, -78)
+texture = ExtResource("17_hutb")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Objects/VHouse_2" unique_id=1766816374]
+position = Vector2(0, -26)
+shape = SubResource("ShapeHut")
+
+[node name="VHouse_3" type="StaticBody2D" parent="Objects" unique_id=1279761167]
+position = Vector2(3660, 510)
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Objects/VHouse_3" unique_id=1853890193]
+position = Vector2(0, -78)
+texture = ExtResource("10_hut")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Objects/VHouse_3" unique_id=1592984112]
+position = Vector2(0, -26)
+shape = SubResource("ShapeHut")
+
+[node name="VHouse_4" type="StaticBody2D" parent="Objects" unique_id=1748824585]
+position = Vector2(3920, 490)
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Objects/VHouse_4" unique_id=58653870]
+position = Vector2(0, -78)
+texture = ExtResource("17_hutb")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Objects/VHouse_4" unique_id=850841292]
+position = Vector2(0, -26)
+shape = SubResource("ShapeHut")
+
+[node name="EastTowerNorth" type="StaticBody2D" parent="Objects" unique_id=633305476]
+position = Vector2(4020, 140)
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Objects/EastTowerNorth" unique_id=1146285564]
+position = Vector2(0, -96)
+texture = ExtResource("2_tow")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Objects/EastTowerNorth" unique_id=1012568684]
+position = Vector2(0, -24)
+shape = SubResource("ShapeTower")
+
+[node name="EastTowerSouth" type="StaticBody2D" parent="Objects" unique_id=259070360]
+position = Vector2(4020, 550)
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Objects/EastTowerSouth" unique_id=574670751]
+position = Vector2(0, -96)
+texture = ExtResource("16_towr")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Objects/EastTowerSouth" unique_id=413472639]
+position = Vector2(0, -24)
+shape = SubResource("ShapeTower")
+
+[node name="NPC_SirAlden" parent="Objects" unique_id=804463454 instance=ExtResource("22_guard")]
+position = Vector2(3120, 270)
+
+[node name="NPC_GuardBran" parent="Objects" unique_id=909910655 instance=ExtResource("22_guard")]
+position = Vector2(3120, 390)
+npc_name = "Guard Bran"
+dialogue_lines = Array[String](["Keep your eyes sharp, traveler. The slime horde has been creeping closer every twilight.", "Make sure you visit Maya at the market square if you need rest or herbal remedies."])
+
+[node name="NPC_Elder" parent="Objects" unique_id=1362757711 instance=ExtResource("23_elder")]
+position = Vector2(3660, 270)
+
+[node name="NPC_Maya" parent="Objects" unique_id=1470870331 instance=ExtResource("24_maya")]
+position = Vector2(3520, 370)
+
+[node name="NPC_Ravi" parent="Objects" unique_id=956470771 instance=ExtResource("25_ravi")]
+position = Vector2(3820, 470)
+
+[node name="VTree_0" type="StaticBody2D" parent="Objects" unique_id=1787833246]
+position = Vector2(3220, 80)
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Objects/VTree_0" unique_id=1746040148]
+position = Vector2(0, -78)
+texture = SubResource("AtlasTree")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Objects/VTree_0" unique_id=1779307590]
+position = Vector2(0, -6)
+shape = SubResource("ShapeTreeTrunk")
+
+[node name="VTree_1" type="StaticBody2D" parent="Objects" unique_id=1728739693]
+position = Vector2(3500, 75)
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Objects/VTree_1" unique_id=1806012521]
+position = Vector2(0, -78)
+texture = SubResource("AtlasTree")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Objects/VTree_1" unique_id=76373996]
+position = Vector2(0, -6)
+shape = SubResource("ShapeTreeTrunk")
+
+[node name="VTree_2" type="StaticBody2D" parent="Objects" unique_id=472267724]
+position = Vector2(3820, 70)
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Objects/VTree_2" unique_id=1289547586]
+position = Vector2(0, -78)
+texture = SubResource("AtlasTree")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Objects/VTree_2" unique_id=753047211]
+position = Vector2(0, -6)
+shape = SubResource("ShapeTreeTrunk")
+
+[node name="VTree_3" type="StaticBody2D" parent="Objects" unique_id=205794900]
+position = Vector2(3220, 580)
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Objects/VTree_3" unique_id=1259451118]
+position = Vector2(0, -78)
+texture = SubResource("AtlasTree")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Objects/VTree_3" unique_id=1913371667]
+position = Vector2(0, -6)
+shape = SubResource("ShapeTreeTrunk")
+
+[node name="VTree_4" type="StaticBody2D" parent="Objects" unique_id=1151421099]
+position = Vector2(3500, 590)
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Objects/VTree_4" unique_id=2143066683]
+position = Vector2(0, -78)
+texture = SubResource("AtlasTree")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Objects/VTree_4" unique_id=621270607]
+position = Vector2(0, -6)
+shape = SubResource("ShapeTreeTrunk")
+
+[node name="VTree_5" type="StaticBody2D" parent="Objects" unique_id=230292781]
+position = Vector2(3800, 585)
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Objects/VTree_5" unique_id=1819526630]
+position = Vector2(0, -78)
+texture = SubResource("AtlasTree")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Objects/VTree_5" unique_id=1532436588]
+position = Vector2(0, -6)
+shape = SubResource("ShapeTreeTrunk")
+
+[node name="VTree_6" type="StaticBody2D" parent="Objects" unique_id=32194263]
+position = Vector2(3520, 240)
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Objects/VTree_6" unique_id=119741576]
+position = Vector2(0, -78)
+texture = SubResource("AtlasTree")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Objects/VTree_6" unique_id=1785004034]
+position = Vector2(0, -6)
+shape = SubResource("ShapeTreeTrunk")
+
+[node name="VTree_7" type="StaticBody2D" parent="Objects" unique_id=110981391]
+position = Vector2(3790, 240)
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Objects/VTree_7" unique_id=533809050]
+position = Vector2(0, -78)
+texture = SubResource("AtlasTree")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Objects/VTree_7" unique_id=1544218548]
+position = Vector2(0, -6)
+shape = SubResource("ShapeTreeTrunk")
+
+[node name="VBush_0" type="StaticBody2D" parent="Objects" unique_id=1032311226]
+position = Vector2(3280, 270)
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Objects/VBush_0" unique_id=794127123]
+position = Vector2(0, -18)
+texture = ExtResource("4_b3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Objects/VBush_0" unique_id=146021839]
+position = Vector2(0, -6)
+shape = SubResource("ShapeBush")
+
+[node name="VBush_1" type="StaticBody2D" parent="Objects" unique_id=1859112417]
+position = Vector2(3480, 480)
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Objects/VBush_1" unique_id=1063327004]
+position = Vector2(0, -18)
+texture = ExtResource("5_b2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Objects/VBush_1" unique_id=1279014432]
+position = Vector2(0, -6)
+shape = SubResource("ShapeBush")
+
+[node name="VBush_2" type="StaticBody2D" parent="Objects" unique_id=245197777]
+position = Vector2(3740, 510)
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Objects/VBush_2" unique_id=2115468531]
+position = Vector2(0, -18)
+texture = ExtResource("6_b1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Objects/VBush_2" unique_id=1493613289]
+position = Vector2(0, -6)
+shape = SubResource("ShapeBush")
+
+[node name="VBush_3" type="StaticBody2D" parent="Objects" unique_id=290425572]
+position = Vector2(3840, 470)
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Objects/VBush_3" unique_id=1539709899]
+position = Vector2(0, -18)
+texture = ExtResource("4_b3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Objects/VBush_3" unique_id=1394147628]
+position = Vector2(0, -6)
+shape = SubResource("ShapeBush")
+
+[node name="VBush_4" type="StaticBody2D" parent="Objects" unique_id=376773308]
+position = Vector2(3480, 180)
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Objects/VBush_4" unique_id=1005318911]
+position = Vector2(0, -18)
+texture = ExtResource("5_b2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Objects/VBush_4" unique_id=1202781778]
+position = Vector2(0, -6)
+shape = SubResource("ShapeBush")
+
+[node name="VBush_5" type="StaticBody2D" parent="Objects" unique_id=1837309264]
+position = Vector2(3830, 190)
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Objects/VBush_5" unique_id=600940600]
+position = Vector2(0, -18)
+texture = ExtResource("6_b1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Objects/VBush_5" unique_id=1980114556]
+position = Vector2(0, -6)
+shape = SubResource("ShapeBush")
+
+[node name="VRock_0" type="StaticBody2D" parent="Objects" unique_id=1515330523]
+position = Vector2(3460, 360)
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Objects/VRock_0" unique_id=1258741193]
+position = Vector2(0, -12)
+texture = ExtResource("7_s1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Objects/VRock_0" unique_id=194851474]
+position = Vector2(0, -4)
+shape = SubResource("ShapeRock")
+
+[node name="VRock_1" type="StaticBody2D" parent="Objects" unique_id=239861654]
+position = Vector2(3720, 400)
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Objects/VRock_1" unique_id=964834749]
+position = Vector2(0, -12)
+texture = ExtResource("8_s2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Objects/VRock_1" unique_id=1351506189]
+position = Vector2(0, -4)
+shape = SubResource("ShapeRock")
+
+[node name="VMush_0" type="Sprite2D" parent="Objects" unique_id=743784292]
+position = Vector2(3440, 260)
+texture = ExtResource("13_mush")
+offset = Vector2(0, -16)
+
+[node name="VMush_1" type="Sprite2D" parent="Objects" unique_id=1347305913]
+position = Vector2(3720, 280)
+texture = ExtResource("13_mush")
+offset = Vector2(0, -16)
+
+[node name="VMush_2" type="Sprite2D" parent="Objects" unique_id=665906801]
+position = Vector2(3350, 385)
+texture = ExtResource("13_mush")
+offset = Vector2(0, -16)
+
+[node name="VMush_3" type="Sprite2D" parent="Objects" unique_id=1319992577]
+position = Vector2(3760, 510)
+texture = ExtResource("13_mush")
+offset = Vector2(0, -16)
