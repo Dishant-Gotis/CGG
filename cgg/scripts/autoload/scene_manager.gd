@@ -22,6 +22,8 @@ func change_scene(path: String, spawn: String = "") -> void:
 	# Let the new scene instantiate and run _ready() before revealing it.
 	await get_tree().process_frame
 	await get_tree().process_frame
+	if path.ends_with("world.tscn"):
+		AudioManager.play_music()
 	await UI.fade_in()
 	_changing = false
 	print("[CHECK] scene ready: ", path, " spawn=", spawn)

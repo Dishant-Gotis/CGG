@@ -25,6 +25,7 @@ InputConfig="*res://scripts/autoload/input_config.gd"
 Assets="*res://scripts/autoload/assets.gd"
 GameState="*res://scripts/autoload/game_state.gd"
 SceneManager="*res://scripts/autoload/scene_manager.gd"
+AudioManager="*res://scripts/autoload/audio_manager.gd"
 UI="*res://scripts/autoload/ui_manager.gd"
 
 [display]

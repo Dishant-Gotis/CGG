@@ -10,8 +10,11 @@ var layer: CanvasLayer
 var fade_rect: ColorRect
 var flash_rect: ColorRect
 var dialogue_panel: PanelContainer
+var speaker_badge: PanelContainer
 var speaker_label: Label
 var text_label: Label
+var advance_hint: Label
+var prompt_panel: PanelContainer
 var prompt_label: Label
 var skip_label: Label
 var hud_panel: PanelContainer
@@ -62,52 +65,112 @@ func _ready() -> void:
 	GameState.health_changed.connect(_on_health_changed)
 	_on_health_changed(GameState.health, GameState.max_health)
 
-	# Dialogue / caption band (bottom).
+	# Dialogue / caption band (bottom interaction window)
 	dialogue_panel = PanelContainer.new()
 	var dstyle := StyleBoxFlat.new()
-	dstyle.bg_color = Color(0.06, 0.07, 0.11, 0.92)
-	dstyle.border_color = Color(0.75, 0.78, 0.85, 0.6)
+	dstyle.bg_color = Color(0.07, 0.09, 0.14, 0.95)
+	dstyle.border_color = Color(0.85, 0.72, 0.38, 0.9)
 	dstyle.set_border_width_all(2)
-	dstyle.set_corner_radius_all(6)
-	dstyle.set_content_margin_all(10)
+	dstyle.set_corner_radius_all(8)
+	dstyle.content_margin_left = 18
+	dstyle.content_margin_right = 18
+	dstyle.content_margin_top = 12
+	dstyle.content_margin_bottom = 12
+	dstyle.shadow_color = Color(0, 0, 0, 0.6)
+	dstyle.shadow_size = 6
 	dialogue_panel.add_theme_stylebox_override("panel", dstyle)
-	dialogue_panel.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	dialogue_panel.mouse_filter = Control.MOUSE_FILTER_STOP
+	
 	var vbox := VBoxContainer.new()
-	vbox.add_theme_constant_override("separation", 2)
+	vbox.add_theme_constant_override("separation", 6)
+	
+	# Speaker Badge (top-left of dialogue window)
+	speaker_badge = PanelContainer.new()
+	var bstyle := StyleBoxFlat.new()
+	bstyle.bg_color = Color(0.18, 0.16, 0.28, 0.95)
+	bstyle.border_color = Color(0.92, 0.80, 0.45, 0.95)
+	bstyle.set_border_width_all(1)
+	bstyle.set_corner_radius_all(4)
+	bstyle.content_margin_left = 10
+	bstyle.content_margin_right = 10
+	bstyle.content_margin_top = 3
+	bstyle.content_margin_bottom = 3
+	speaker_badge.add_theme_stylebox_override("panel", bstyle)
+	speaker_badge.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
+	
 	speaker_label = Label.new()
-	speaker_label.add_theme_font_size_override("font_size", 13)
-	speaker_label.add_theme_color_override("font_color", Color(1.0, 0.85, 0.4))
-	speaker_label.visible = false
+	speaker_label.add_theme_font_size_override("font_size", 14)
+	speaker_label.add_theme_color_override("font_color", Color(1.0, 0.88, 0.45))
+	speaker_label.add_theme_color_override("font_outline_color", Color(0, 0, 0, 0.9))
+	speaker_label.add_theme_constant_override("outline_size", 2)
+	speaker_badge.add_child(speaker_label)
+	vbox.add_child(speaker_badge)
+	speaker_badge.visible = false
+	
+	# Main dialogue text
 	text_label = Label.new()
-	text_label.add_theme_font_size_override("font_size", 16)
+	text_label.add_theme_font_size_override("font_size", 17)
+	text_label.add_theme_color_override("font_color", Color(0.96, 0.96, 0.98))
+	text_label.add_theme_color_override("font_outline_color", Color(0, 0, 0, 0.85))
+	text_label.add_theme_constant_override("outline_size", 3)
 	text_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	text_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	vbox.add_child(speaker_label)
 	vbox.add_child(text_label)
+	
+	# Advance indicator at bottom right
+	advance_hint = Label.new()
+	advance_hint.text = "▼ Press [E / Space] to continue"
+	advance_hint.add_theme_font_size_override("font_size", 12)
+	advance_hint.add_theme_color_override("font_color", Color(0.85, 0.82, 0.65, 0.85))
+	advance_hint.add_theme_color_override("font_outline_color", Color(0, 0, 0, 0.9))
+	advance_hint.add_theme_constant_override("outline_size", 2)
+	advance_hint.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+	vbox.add_child(advance_hint)
+	
 	dialogue_panel.add_child(vbox)
 	layer.add_child(dialogue_panel)
 	dialogue_panel.set_anchors_preset(Control.PRESET_BOTTOM_WIDE)
 	dialogue_panel.anchor_top = 1.0
 	dialogue_panel.anchor_bottom = 1.0
-	dialogue_panel.offset_left = 40
-	dialogue_panel.offset_right = -40
-	dialogue_panel.offset_top = -120
-	dialogue_panel.offset_bottom = -16
+	dialogue_panel.offset_left = 60
+	dialogue_panel.offset_right = -60
+	dialogue_panel.offset_top = -140
+	dialogue_panel.offset_bottom = -18
 	dialogue_panel.visible = false
 
-	# Interaction prompt (above the dialogue band).
+	# Interaction prompt pill floating above dialogue area
+	prompt_panel = PanelContainer.new()
+	var pstyle := StyleBoxFlat.new()
+	pstyle.bg_color = Color(0.08, 0.10, 0.16, 0.9)
+	pstyle.border_color = Color(0.92, 0.80, 0.45, 0.85)
+	pstyle.set_border_width_all(1)
+	pstyle.set_corner_radius_all(6)
+	pstyle.content_margin_left = 12
+	pstyle.content_margin_right = 12
+	pstyle.content_margin_top = 4
+	pstyle.content_margin_bottom = 4
+	pstyle.shadow_color = Color(0, 0, 0, 0.5)
+	pstyle.shadow_size = 4
+	prompt_panel.add_theme_stylebox_override("panel", pstyle)
+	prompt_panel.mouse_filter = Control.MOUSE_FILTER_IGNORE
+
 	prompt_label = Label.new()
 	prompt_label.add_theme_font_size_override("font_size", 14)
-	prompt_label.add_theme_color_override("font_color", Color(1, 1, 1))
+	prompt_label.add_theme_color_override("font_color", Color(1, 0.95, 0.75))
 	prompt_label.add_theme_color_override("font_outline_color", Color(0, 0, 0, 0.9))
-	prompt_label.add_theme_constant_override("outline_size", 4)
+	prompt_label.add_theme_constant_override("outline_size", 3)
 	prompt_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	prompt_label.visible = false
-	layer.add_child(prompt_label)
-	prompt_label.set_anchors_preset(Control.PRESET_CENTER_BOTTOM)
-	prompt_label.anchor_bottom = 1.0
-	prompt_label.offset_top = -160
-	prompt_label.offset_bottom = -132
+	prompt_panel.add_child(prompt_label)
+	layer.add_child(prompt_panel)
+	
+	prompt_panel.set_anchors_preset(Control.PRESET_CENTER_BOTTOM)
+	prompt_panel.anchor_left = 0.5
+	prompt_panel.anchor_right = 0.5
+	prompt_panel.anchor_bottom = 1.0
+	prompt_panel.grow_horizontal = Control.GROW_DIRECTION_BOTH
+	prompt_panel.offset_top = -185
+	prompt_panel.offset_bottom = -155
+	prompt_panel.visible = false
 
 	# Skip hint (top-right, cutscenes).
 	skip_label = Label.new()
@@ -178,12 +241,14 @@ func start_dialogue(lines: Array, speaker: String = "") -> void:
 	if _lines.is_empty():
 		return
 	_lines.resize(_lines.size())
+	hide_prompt()
 	dialogue_open = true
 	_line_index = 0
 	_speaker = speaker
 	_opened_at_ms = Time.get_ticks_msec()
 	_render_current_line()
 	dialogue_panel.visible = true
+	AudioManager.play_select()
 
 
 func await_dialogue(lines: Array, speaker: String = "") -> void:
@@ -194,16 +259,26 @@ func await_dialogue(lines: Array, speaker: String = "") -> void:
 
 func _render_current_line() -> void:
 	var line := _lines[_line_index]
+	var current_spk := _speaker
 	# Lines may carry "Speaker: text" to show a per-line speaker.
 	if line.contains(":") and _speaker.is_empty():
 		var split := line.split(":", true, 1)
-		speaker_label.text = split[0].strip_edges()
+		current_spk = split[0].strip_edges()
 		text_label.text = split[1].strip_edges()
-		speaker_label.visible = true
 	else:
-		speaker_label.text = _speaker
-		speaker_label.visible = not _speaker.is_empty()
 		text_label.text = line
+
+	if current_spk.is_empty():
+		speaker_badge.visible = false
+	else:
+		speaker_label.text = current_spk
+		speaker_badge.visible = true
+
+	if _line_index == _lines.size() - 1:
+		advance_hint.text = "✓ [E / Space / Click] to Close"
+	else:
+		advance_hint.text = "▼ [E / Space / Click] to Continue (%d/%d)" % [_line_index + 1, _lines.size()]
+
 	# Resize band height to content, keep it inside the window.
 	dialogue_panel.reset_size()
 
@@ -216,7 +291,9 @@ func _input(event: InputEvent) -> void:
 		return
 	if not dialogue_open:
 		return
-	if event.is_action_pressed("advance"):
+	var is_adv := event.is_action_pressed("advance")
+	var is_click := event is InputEventMouseButton and (event as InputEventMouseButton).button_index == MOUSE_BUTTON_LEFT and (event as InputEventMouseButton).pressed
+	if is_adv or is_click:
 		if Time.get_ticks_msec() - _opened_at_ms < OPEN_GUARD_MS:
 			return  # same press that opened the dialogue must not advance it
 		_line_index += 1
@@ -224,6 +301,7 @@ func _input(event: InputEvent) -> void:
 		if _line_index >= _lines.size():
 			close_dialogue()
 		else:
+			AudioManager.play_select()
 			_render_current_line()
 		get_viewport().set_input_as_handled()
 
@@ -234,6 +312,7 @@ func close_dialogue() -> void:
 	dialogue_open = false
 	dialogue_panel.visible = false
 	_lines.clear()
+	AudioManager.play_select()
 	dialogue_finished.emit(_speaker)
 
 
@@ -242,11 +321,11 @@ func close_dialogue() -> void:
 func show_prompt(text: String) -> void:
 	if prompt_label.text != text:
 		prompt_label.text = text
-	prompt_label.visible = not dialogue_open
+	prompt_panel.visible = not dialogue_open and not text.is_empty()
 
 
 func hide_prompt() -> void:
-	prompt_label.visible = false
+	prompt_panel.visible = false
 
 
 func show_skip_hint(visible_flag: bool) -> void:

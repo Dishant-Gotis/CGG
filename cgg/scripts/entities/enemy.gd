@@ -227,6 +227,7 @@ func _die() -> void:
 	if _death_seen:
 		return
 	_death_seen = true
+	AudioManager.play_slime_death()
 	state = EState.DEAD
 	velocity = Vector2.ZERO
 	# Disable collision safely, then play the death row (spec §9).

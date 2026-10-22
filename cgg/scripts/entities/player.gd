@@ -35,6 +35,8 @@ var hurt_left: float = 0.0
 var knockback: Vector2 = Vector2.ZERO
 var _hit_this_swing: Array[int] = []
 var _interact_targets: Array[Area2D] = []
+var _step_timer: float = 0.0
+const STEP_INTERVAL: float = 0.35
 
 @onready var anim: AnimatedSprite2D = $AnimatedSprite2D
 @onready var hitbox: Area2D = $AttackHitbox
@@ -116,11 +118,16 @@ func _tick_move() -> void:
 		state = State.WALK
 		anim.play(WALK_ANIMS[facing])
 		anim.flip_h = facing_left
+		_step_timer -= get_physics_process_delta_time()
+		if _step_timer <= 0.0:
+			AudioManager.play_step()
+			_step_timer = STEP_INTERVAL
 	else:
 		state = State.IDLE
 		# Idle keeps the last meaningful facing (spec §8) — _update_facing not called.
 		anim.play(IDLE_ANIMS[facing])
 		anim.flip_h = facing_left
+		_step_timer = 0.08
 
 	if Input.is_action_just_pressed("attack") and attack_cd_left <= 0.0:
 		_start_attack()
@@ -132,6 +139,7 @@ func _tick_move() -> void:
 
 
 func _start_attack() -> void:
+	AudioManager.play_sword()
 	state = State.ATTACK
 	velocity = Vector2.ZERO
 	attack_cd_left = float(GameState.combat["attack_cooldown"])
@@ -279,4 +287,5 @@ func _try_interact() -> void:
 	if target == null or not target.has_method("interact"):
 		return
 	UI.hide_prompt()
+	AudioManager.play_select()
 	target.interact(self)
