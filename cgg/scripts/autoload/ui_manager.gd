@@ -7,6 +7,7 @@ extends Node
 const OPEN_GUARD_MS := 150  # ignore advance presses right after opening (one press = one line)
 
 var layer: CanvasLayer
+var root_ui: Control
 var fade_rect: ColorRect
 var flash_rect: ColorRect
 var dialogue_panel: PanelContainer
@@ -41,6 +42,11 @@ func _ready() -> void:
 	layer.process_mode = Node.PROCESS_MODE_ALWAYS
 	add_child(layer)
 
+	root_ui = Control.new()
+	root_ui.set_anchors_preset(Control.PRESET_FULL_RECT)
+	root_ui.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	layer.add_child(root_ui)
+
 	fade_rect = _fullscreen_rect(Color(0, 0, 0, 0))
 	flash_rect = _fullscreen_rect(Color(1, 1, 1, 0))
 	flash_rect.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -59,7 +65,7 @@ func _ready() -> void:
 	hud_hearts.add_theme_constant_override("separation", 3)
 	hud_box.add_child(hud_hearts)
 	hud_panel.add_child(hud_box)
-	layer.add_child(hud_panel)
+	root_ui.add_child(hud_panel)
 	hud_panel.set_anchors_preset(Control.PRESET_TOP_LEFT)
 	hud_panel.position = Vector2(8, 8)
 	GameState.health_changed.connect(_on_health_changed)
@@ -119,7 +125,7 @@ func _ready() -> void:
 	
 	# Advance indicator at bottom right
 	advance_hint = Label.new()
-	advance_hint.text = "▼ Press [E / Space] to continue"
+	advance_hint.text = "▼ Press [E / Space / Click] to continue"
 	advance_hint.add_theme_font_size_override("font_size", 12)
 	advance_hint.add_theme_color_override("font_color", Color(0.85, 0.82, 0.65, 0.85))
 	advance_hint.add_theme_color_override("font_outline_color", Color(0, 0, 0, 0.9))
@@ -128,14 +134,7 @@ func _ready() -> void:
 	vbox.add_child(advance_hint)
 	
 	dialogue_panel.add_child(vbox)
-	layer.add_child(dialogue_panel)
-	dialogue_panel.set_anchors_preset(Control.PRESET_BOTTOM_WIDE)
-	dialogue_panel.anchor_top = 1.0
-	dialogue_panel.anchor_bottom = 1.0
-	dialogue_panel.offset_left = 60
-	dialogue_panel.offset_right = -60
-	dialogue_panel.offset_top = -140
-	dialogue_panel.offset_bottom = -18
+	root_ui.add_child(dialogue_panel)
 	dialogue_panel.visible = false
 
 	# Interaction prompt pill floating above dialogue area
@@ -145,10 +144,10 @@ func _ready() -> void:
 	pstyle.border_color = Color(0.92, 0.80, 0.45, 0.85)
 	pstyle.set_border_width_all(1)
 	pstyle.set_corner_radius_all(6)
-	pstyle.content_margin_left = 12
-	pstyle.content_margin_right = 12
-	pstyle.content_margin_top = 4
-	pstyle.content_margin_bottom = 4
+	pstyle.content_margin_left = 14
+	pstyle.content_margin_right = 14
+	pstyle.content_margin_top = 5
+	pstyle.content_margin_bottom = 5
 	pstyle.shadow_color = Color(0, 0, 0, 0.5)
 	pstyle.shadow_size = 4
 	prompt_panel.add_theme_stylebox_override("panel", pstyle)
@@ -161,15 +160,7 @@ func _ready() -> void:
 	prompt_label.add_theme_constant_override("outline_size", 3)
 	prompt_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	prompt_panel.add_child(prompt_label)
-	layer.add_child(prompt_panel)
-	
-	prompt_panel.set_anchors_preset(Control.PRESET_CENTER_BOTTOM)
-	prompt_panel.anchor_left = 0.5
-	prompt_panel.anchor_right = 0.5
-	prompt_panel.anchor_bottom = 1.0
-	prompt_panel.grow_horizontal = Control.GROW_DIRECTION_BOTH
-	prompt_panel.offset_top = -185
-	prompt_panel.offset_bottom = -155
+	root_ui.add_child(prompt_panel)
 	prompt_panel.visible = false
 
 	# Skip hint (top-right, cutscenes).
@@ -180,12 +171,15 @@ func _ready() -> void:
 	skip_label.add_theme_color_override("font_outline_color", Color(0, 0, 0, 0.9))
 	skip_label.add_theme_constant_override("outline_size", 4)
 	skip_label.visible = false
-	layer.add_child(skip_label)
+	root_ui.add_child(skip_label)
 	skip_label.set_anchors_preset(Control.PRESET_TOP_RIGHT)
 	skip_label.offset_left = -220
 	skip_label.offset_right = -12
 	skip_label.offset_top = 8
 	skip_label.offset_bottom = 30
+
+	# Keep responsive layouts centered on any resize
+	get_tree().root.size_changed.connect(_on_viewport_size_changed)
 	print("[CHECK] UI ready")
 
 
@@ -194,8 +188,34 @@ func _fullscreen_rect(c: Color) -> ColorRect:
 	r.color = c
 	r.set_anchors_preset(Control.PRESET_FULL_RECT)
 	r.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	layer.add_child(r)
+	root_ui.add_child(r)
 	return r
+
+
+func _layout_dialogue() -> void:
+	if not is_inside_tree() or dialogue_panel == null:
+		return
+	var vp_size := get_viewport().get_visible_rect().size
+	var panel_w: float = minf(vp_size.x - 80.0, 880.0)
+	dialogue_panel.custom_minimum_size = Vector2(panel_w, 120.0)
+	dialogue_panel.reset_size()
+	dialogue_panel.position = Vector2((vp_size.x - panel_w) * 0.5, vp_size.y - dialogue_panel.size.y - 20.0)
+
+
+func _layout_prompt() -> void:
+	if not is_inside_tree() or prompt_panel == null:
+		return
+	var vp_size := get_viewport().get_visible_rect().size
+	prompt_panel.reset_size()
+	var pw: float = prompt_panel.size.x
+	prompt_panel.position = Vector2((vp_size.x - pw) * 0.5, vp_size.y - 180.0)
+
+
+func _on_viewport_size_changed() -> void:
+	if dialogue_open:
+		_layout_dialogue()
+	if prompt_panel != null and prompt_panel.visible:
+		_layout_prompt()
 
 
 # --- fades / flash -----------------------------------------------------------
@@ -279,8 +299,9 @@ func _render_current_line() -> void:
 	else:
 		advance_hint.text = "▼ [E / Space / Click] to Continue (%d/%d)" % [_line_index + 1, _lines.size()]
 
-	# Resize band height to content, keep it inside the window.
+	# Resize band height to content, keep it centered inside the visible window.
 	dialogue_panel.reset_size()
+	_layout_dialogue()
 
 
 func _input(event: InputEvent) -> void:
@@ -322,6 +343,8 @@ func show_prompt(text: String) -> void:
 	if prompt_label.text != text:
 		prompt_label.text = text
 	prompt_panel.visible = not dialogue_open and not text.is_empty()
+	if prompt_panel.visible:
+		_layout_prompt()
 
 
 func hide_prompt() -> void:

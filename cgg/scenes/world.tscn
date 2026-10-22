@@ -24,7 +24,7 @@
 [ext_resource type="PackedScene" path="res://scenes/npc_maya.tscn" id="24_maya"]
 [ext_resource type="PackedScene" path="res://scenes/npc_ravi.tscn" id="25_ravi"]
 [ext_resource type="PackedScene" path="res://scenes/companion_fox.tscn" id="26_fox"]
-[ext_resource type="Script" path="res://scripts/world.gd" id="27_world"]
+[ext_resource type="Script" uid="uid://dvkatp8s5segm" path="res://scripts/world.gd" id="27_world"]
 
 [sub_resource type="RectangleShape2D" id="ShapeWallHoriz"]
 size = Vector2(4096, 20)
@@ -1171,7 +1171,7 @@ texture = ExtResource("13_mush")
 offset = Vector2(0, -16)
 
 [node name="CMush_1" type="Sprite2D" parent="Objects" unique_id=931835331]
-position = Vector2(2640, 320)
+position = Vector2(2667, 231)
 texture = ExtResource("13_mush")
 offset = Vector2(0, -16)
 

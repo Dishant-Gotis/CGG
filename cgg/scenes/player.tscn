@@ -369,6 +369,11 @@ animations = [{
 "name": &"idle_side_walk",
 "speed": 9.0
 }, {
+"frames": [],
+"loop": 1,
+"name": &"new_animation",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_g5jhy")
@@ -410,8 +415,8 @@ y_sort_enabled = true
 position = Vector2(-1.9999924, -43)
 scale = Vector2(3.195833, 3.2583332)
 sprite_frames = SubResource("SpriteFrames_htemk")
-animation = &"idle_side_walk"
-frame_progress = 0.3520617
+animation = &"new_animation"
+frame_progress = 0.6778022
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=562407505]
 position = Vector2(0, -8)

@@ -252,6 +252,31 @@ func _on_anim_finished() -> void:
 
 # --- interaction -------------------------------------------------------------
 
+const MAX_INTERACT_DISTANCE: float = 75.0
+
+
+func _get_interactable(node: Node) -> Node:
+	if node == null or not is_instance_valid(node):
+		return null
+	if node.has_method("interact"):
+		return node
+	var parent := node.get_parent()
+	if parent != null and is_instance_valid(parent) and parent.has_method("interact"):
+		return parent
+	return null
+
+
+func _get_prompt_text(target: Node) -> String:
+	if target == null:
+		return ""
+	if "prompt_text" in target:
+		return str(target.prompt_text)
+	var parent := target.get_parent()
+	if parent != null and "prompt_text" in parent:
+		return str(parent.prompt_text)
+	return "Talk"
+
+
 func _on_probe_entered(area: Area2D) -> void:
 	if area not in _interact_targets:
 		_interact_targets.append(area)
@@ -261,31 +286,60 @@ func _on_probe_exited(area: Area2D) -> void:
 	_interact_targets.erase(area)
 
 
-func _nearest_target() -> Area2D:
-	var best: Area2D = null
+func _nearest_target() -> Node:
+	var best: Node = null
 	var best_d := INF
+	var still_valid: Array[Area2D] = []
+
 	for area: Area2D in _interact_targets:
 		if not is_instance_valid(area):
 			continue
-		var d := global_position.distance_squared_to(area.global_position)
-		if d < best_d:
-			best_d = d
-			best = area
+		var obj := _get_interactable(area)
+		if obj == null:
+			continue
+		var target_pos: Vector2 = (obj as Node2D).global_position if obj is Node2D else area.global_position
+		var d := global_position.distance_to(target_pos)
+		if d <= MAX_INTERACT_DISTANCE:
+			still_valid.append(area)
+			if d < best_d:
+				best_d = d
+				best = obj
+
+	_interact_targets = still_valid
 	return best
 
 
 func _update_prompt() -> void:
 	var target := _nearest_target()
-	if target != null and "prompt_text" in target and not UI.dialogue_open:
-		UI.show_prompt(str(target.prompt_text))
+	if target != null and not UI.dialogue_open:
+		var raw_text := _get_prompt_text(target)
+		var display_text := raw_text
+		if raw_text.begins_with("E - ") or raw_text.begins_with("E -"):
+			var subject := raw_text.substr(raw_text.find("-") + 1).strip_edges()
+			display_text = "[E / Space / Click] " + subject
+		elif not raw_text.begins_with("["):
+			display_text = "[E / Space / Click] " + raw_text
+		UI.show_prompt(display_text)
 	else:
 		UI.hide_prompt()
 
 
 func _try_interact() -> void:
+	if UI.dialogue_open:
+		return
 	var target := _nearest_target()
 	if target == null or not target.has_method("interact"):
 		return
 	UI.hide_prompt()
 	AudioManager.play_select()
 	target.interact(self)
+
+
+func _unhandled_input(event: InputEvent) -> void:
+	if UI.dialogue_open:
+		return
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+		var target := _nearest_target()
+		if target != null:
+			_try_interact()
+			get_viewport().set_input_as_handled()

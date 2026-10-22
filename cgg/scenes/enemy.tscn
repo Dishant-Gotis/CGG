@@ -254,10 +254,11 @@ collision_mask = 3
 script = ExtResource("1_enemy")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1629445645]
-position = Vector2(3.8146973e-06, -16)
+position = Vector2(0.99999994, -29)
 scale = Vector2(3.03125, 3.140625)
 sprite_frames = SubResource("SpriteFrames_bwbqx")
-animation = &"slime_die"
+animation = &"slime_back_idle"
+frame_progress = 0.8746545
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=484165672]
 position = Vector2(0, -8)

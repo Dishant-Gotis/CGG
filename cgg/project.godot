@@ -31,7 +31,6 @@ UI="*res://scripts/autoload/ui_manager.gd"
 [display]
 
 window/stretch/mode="canvas_items"
-window/stretch/aspect="expand"
 
 [layer_names]
 
