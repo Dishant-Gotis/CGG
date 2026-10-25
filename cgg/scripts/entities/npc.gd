@@ -12,6 +12,7 @@ signal dialogue_completed(npc_name: String)
 @export var dialogue_lines_alt: Array[String] = []
 @export var required_flag: String = ""
 @export var grant_flag: String = ""
+@export var grant_item: String = ""
 
 @onready var sprite: Node2D = $Sprite2D if has_node("Sprite2D") else $AnimatedSprite2D
 @onready var interact_area: Area2D = $InteractArea
@@ -68,6 +69,10 @@ func interact(player: Node) -> void:
 			UI.dialogue_finished.disconnect(callback)
 			if not grant_flag.is_empty():
 				GameState.set_flag(grant_flag, true)
+			if not grant_item.is_empty() and not GameState.has_item(grant_item):
+				GameState.add_item(grant_item)
+				var info: Dictionary = GameState.get_item_info(grant_item)
+				UI.show_toast("📦 Acquired: %s (%s) - Added to Bag [B]" % [str(info.get("name", grant_item)), str(info.get("icon", "🔥"))])
 			dialogue_completed.emit(npc_name)
 	
 	UI.dialogue_finished.connect(callback)

@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://enemy_torch_goblin_scene"]
+
+[ext_resource type="Script" path="res://scripts/entities/torch_goblin.gd" id="1_goblin"]
+
+[node name="EnemyTorchGoblin" type="CharacterBody2D"]
+collision_layer = 4
+collision_mask = 1
+script = ExtResource("1_goblin")

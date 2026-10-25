@@ -25,6 +25,7 @@
 [ext_resource type="PackedScene" path="res://scenes/npc_ravi.tscn" id="25_ravi"]
 [ext_resource type="PackedScene" path="res://scenes/companion_fox.tscn" id="26_fox"]
 [ext_resource type="Script" uid="uid://dvkatp8s5segm" path="res://scripts/world.gd" id="27_world"]
+[ext_resource type="Script" path="res://scripts/entities/cave_entrance.gd" id="28_cave_script"]
 
 [sub_resource type="RectangleShape2D" id="ShapeWallHoriz"]
 size = Vector2(4096, 20)
@@ -86,17 +87,7 @@ func interact(_player: Node) -> void:
 size = Vector2(120, 50)
 
 [sub_resource type="GDScript" id="CaveSignScript"]
-script/source = "extends Area2D
-var prompt_text: String = \"E - Read Sign\"
-
-func interact(_player: Node) -> void:
-	UI.start_dialogue([
-		\"Mystic Cavern Entrance:\",
-		\"A damp breeze blows from deep underground.\",
-		\"The cavern descent is sealed for maintenance!\"
-	], \"Cave Entrance\")
-"
-
+script/source = "extends Area2D\nvar prompt_text: String = \"E - Read Sign\"\n\nfunc interact(_player: Node) -> void:\n\tif GameState.has_item(\"cave_torch\"):\n\t\tUI.start_dialogue([\n\t\t\t\"Mystic Cavern Signpost:\",\n\t\t\t\"Warning: Treacherous crystal precipices ahead.\",\n\t\t\t\"Your burning Cave Torch illuminates safe passage into the cavern.\",\n\t\t\t\"Step up to the cave opening to descend!\"\n\t\t], \"Cave Sign\")\n\telse:\n\t\tUI.start_dialogue([\n\t\t\t\"Mystic Cavern Signpost:\",\n\t\t\t\"Warning: Deep subterranean crystal chasms.\",\n\t\t\t\"The descent is pitch black and fatal without a continuous source of light.\",\n\t\t\t\"A Cave Torch is required to enter. Seek Elder Oakhaven in Mossveil Village!\"\n\t\t], \"Cave Sign\")\n"
 [sub_resource type="GDScript" id="CombatSignScript"]
 script/source = "extends Area2D
 var prompt_text: String = \"E - Read Sign\"
@@ -614,7 +605,9 @@ shape = SubResource("ShapeInteract")
 
 [node name="CaveEntrance" type="StaticBody2D" parent="Objects" unique_id=608356750]
 position = Vector2(1580, 570)
+collision_layer = 1
 collision_mask = 0
+script = ExtResource("28_cave_script")
 
 [node name="Sprite2D" type="Sprite2D" parent="Objects/CaveEntrance" unique_id=144072928]
 position = Vector2(-2, -36)
@@ -623,6 +616,17 @@ texture = ExtResource("18_cave")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Objects/CaveEntrance" unique_id=2084776371]
 position = Vector2(0, -16)
 shape = SubResource("ShapeCave")
+
+[node name="InteractArea" type="Area2D" parent="Objects/CaveEntrance"]
+collision_layer = 64
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Objects/CaveEntrance/InteractArea"]
+position = Vector2(0, -10)
+shape = SubResource("ShapeInteract")
+
+[node name="Spawn_cave_exit" type="Marker2D" parent="Objects"]
+position = Vector2(1580, 600)
 
 [node name="CaveSign" type="Area2D" parent="Objects" unique_id=900428006]
 position = Vector2(1500, 540)

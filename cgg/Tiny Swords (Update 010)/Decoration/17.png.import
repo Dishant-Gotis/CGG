@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b33manmgut8kh"
-path="res://.godot/imported/12.png-c834376f731c5990fc6edb7bc39cd212.ctex"
+uid="uid://j2hne65xegxt"
+path="res://.godot/imported/17.png-5868abb54af92fc67a9b60822ae9b69f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Tiny Swords (Update 010)/Deco/12.png"
-dest_files=["res://.godot/imported/12.png-c834376f731c5990fc6edb7bc39cd212.ctex"]
+source_file="res://Tiny Swords (Update 010)/Decoration/17.png"
+dest_files=["res://.godot/imported/17.png-5868abb54af92fc67a9b60822ae9b69f.ctex"]
 
 [params]
 

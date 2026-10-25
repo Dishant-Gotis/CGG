@@ -4,9 +4,42 @@ extends Node
 
 signal flag_changed(flag: String, value: bool)
 signal health_changed(hp: int, max_hp: int)
+signal inventory_changed
+signal hotbar_changed(active_index: int)
 
 const SAVE_VERSION := 1
 const SAVE_PATH := "user://save_v1.json"
+
+const ITEMS: Dictionary = {
+	"sword": {
+		"id": "sword",
+		"name": "Hero's Blade",
+		"desc": "A gleaming celestial steel sword summoned with you from the saffron book. Press Q to swing.",
+		"type": "Weapon",
+		"icon": "⚔️"
+	},
+	"cave_torch": {
+		"id": "cave_torch",
+		"name": "Cave Torch",
+		"desc": "Burns with an eternal amber flame. Illuminates dark crystal caverns and lets you explore deep caves.",
+		"type": "Tool",
+		"icon": "🔥"
+	},
+	"elixir_shard": {
+		"id": "elixir_shard",
+		"name": "Piece of Elixir",
+		"desc": "A radiant crystal shard pulsing with ancient life energy. One of the lost fragments needed to restore the world.",
+		"type": "Relic",
+		"icon": "💎"
+	},
+	"forest_mushroom": {
+		"id": "forest_mushroom",
+		"name": "Glow Mushroom",
+		"desc": "Luminescent blue mushroom gathered from the forest. Restores 1 full heart of health.",
+		"type": "Consumable",
+		"icon": "🍄"
+	}
+}
 
 ## Combat tuning — loaded from data/combat.json, fallback values below are the
 ## single place for defaults (spec §9: no scattered constants).
@@ -37,7 +70,9 @@ var max_health: int = 3
 var current_region: String = ""
 var pending_spawn: String = ""
 var pending_player_position: Variant = null  # Vector2 or null
-var inventory: Array[String] = []
+var inventory: Array[String] = ["sword"]
+var hotbar: Array[String] = ["sword", "", "", "", ""]
+var active_hotbar_index: int = 0
 
 
 func _ready() -> void:
@@ -130,3 +165,54 @@ func load_game() -> bool:
 	pending_player_position = Vector2(float(pos[0]), float(pos[1]))
 	health_changed.emit(health, max_health)
 	return true
+
+
+func add_item(item_id: String) -> bool:
+	if not ITEMS.has(item_id):
+		push_warning("[GameState] Unknown item_id: ", item_id)
+		return false
+	if not inventory.has(item_id):
+		inventory.append(item_id)
+	# Also place in first available hotbar slot if not already in hotbar
+	if not hotbar.has(item_id):
+		for i: int in range(hotbar.size()):
+			if hotbar[i] == "":
+				hotbar[i] = item_id
+				break
+	inventory_changed.emit()
+	hotbar_changed.emit(active_hotbar_index)
+	return true
+
+
+func has_item(item_id: String) -> bool:
+	return inventory.has(item_id)
+
+
+func remove_item(item_id: String) -> bool:
+	var idx := inventory.find(item_id)
+	if idx == -1:
+		return false
+	inventory.remove_at(idx)
+	for i: int in range(hotbar.size()):
+		if hotbar[i] == item_id:
+			hotbar[i] = ""
+	inventory_changed.emit()
+	hotbar_changed.emit(active_hotbar_index)
+	return true
+
+
+func select_hotbar_slot(idx: int) -> void:
+	if idx < 0 or idx >= hotbar.size():
+		return
+	active_hotbar_index = idx
+	hotbar_changed.emit(active_hotbar_index)
+
+
+func get_active_item() -> String:
+	if active_hotbar_index >= 0 and active_hotbar_index < hotbar.size():
+		return hotbar[active_hotbar_index]
+	return ""
+
+
+func get_item_info(item_id: String) -> Dictionary:
+	return ITEMS.get(item_id, {})

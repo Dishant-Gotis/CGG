@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://lfiy1ct216gt"
-path="res://.godot/imported/13.png-64fa98c984e0bdcb982fd8d456e4bab6.ctex"
+uid="uid://ctqlpdtgp5loo"
+path="res://.godot/imported/Glowing Crystal Cavern Map.png-70e0a42a42c8f35de1514cbab21c4bde.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Tiny Swords (Update 010)/Deco/13.png"
-dest_files=["res://.godot/imported/13.png-64fa98c984e0bdcb982fd8d456e4bab6.ctex"]
+source_file="res://Tiny Swords (Update 010)/everything/Glowing Crystal Cavern Map.png"
+dest_files=["res://.godot/imported/Glowing Crystal Cavern Map.png-70e0a42a42c8f35de1514cbab21c4bde.ctex"]
 
 [params]
 

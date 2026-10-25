@@ -1,0 +1,105 @@
+[gd_scene load_steps=12 format=3 uid="uid://npc_goblin_grimm_scene"]
+
+[ext_resource type="Script" path="res://scripts/entities/npc.gd" id="1_npc"]
+[ext_resource type="Texture2D" uid="uid://b3ygix8bcyy5m" path="res://Tiny Swords (Update 010)/Factions/Goblins/Troops/Torch/Yellow/Torch_Yellow.png" id="2_torch"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g0"]
+atlas = ExtResource("2_torch")
+region = Rect2(0, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g1"]
+atlas = ExtResource("2_torch")
+region = Rect2(192, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g2"]
+atlas = ExtResource("2_torch")
+region = Rect2(384, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g3"]
+atlas = ExtResource("2_torch")
+region = Rect2(576, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g4"]
+atlas = ExtResource("2_torch")
+region = Rect2(768, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g5"]
+atlas = ExtResource("2_torch")
+region = Rect2(960, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g6"]
+atlas = ExtResource("2_torch")
+region = Rect2(1152, 0, 192, 192)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_grimm"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g6")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 7.0
+}]
+
+[sub_resource type="CircleShape2D" id="ShapeBody"]
+radius = 16.0
+
+[sub_resource type="CircleShape2D" id="ShapeInteract"]
+radius = 48.0
+
+[node name="NPC_Goblin_Grimm" type="StaticBody2D"]
+collision_layer = 1
+collision_mask = 0
+script = ExtResource("1_npc")
+npc_name = "Grimm the Torch Scout"
+prompt_text = "E - Speak with Torch Scout"
+dialogue_lines = [
+"Wait! Hold your celestial blade, human traveler... I recognize that radiant silver aura!",
+"Years ago, another human fell into our realm through the mysterious saffron book... He bore the same brave gaze as you.",
+"He was your father! He ventured deep into these crystal depths searching for the sacred Elixir to heal our fractured worlds.",
+"He carved his crest at the Crystal Sanctum further ahead across the glowing chasm. The Piece of Elixir rests upon the ancient altar!",
+"Take the Elixir, traveler... fulfill your father's quest and reunite the fractured worlds!"
+]
+dialogue_lines_alt = [
+"The Crystal Sanctum lies to the east across the bridge. Beware the rogue torch goblins who lost their minds to the darkness!",
+"May your father's light guide your blade!"
+]
+required_flag = "talked_to_grimm"
+grant_flag = "talked_to_grimm"
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -32)
+scale = Vector2(0.9, 0.9)
+sprite_frames = SubResource("SpriteFrames_grimm")
+animation = &"idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -8)
+shape = SubResource("ShapeBody")
+
+[node name="InteractArea" type="Area2D" parent="."]
+collision_layer = 64
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractArea"]
+position = Vector2(0, -12)
+shape = SubResource("ShapeInteract")

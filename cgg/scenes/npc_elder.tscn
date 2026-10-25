@@ -68,16 +68,19 @@ prompt_text = "E - Speak with Elder"
 dialogue_lines = [
 "Welcome to Mossveil, Arjun. The stars whispered of your arrival from beyond the veil.",
 "Look to the dark clouds above our valley — the floating castle of the Monster King casts its shadow upon our realm.",
-"For countless seasons, our village prayed for a champion with the courage to resist the corruption.",
-"You proved your bravery on the high road. From this day forth, you are the champion and hero of Mossveil!",
-"Rest now in our village, wander our peaceful streets, and prepare yourself for the perils ahead."
+"You proved your bravery by defeating the slimes along the high road. Our village honors your courage!",
+"Take this sacred Cave Torch — it burns with an eternal amber flame.",
+"South of the crossroads lies the pitch-black Mystic Cavern. Legends speak of a radiant Piece of Elixir sealed in its crystal depths.",
+"Take the torch, delve into the cavern, and bring back the elixir piece!"
 ]
 dialogue_lines_alt = [
 "Peace be with you, Arjun.",
-"The villagers speak of your courage. May your blade remain swift and true."
+"The Cave Torch burns bright in your satchel [B]. Head south of the crossroads to explore the Mystic Cavern!",
+"May the light protect you in the crystal depths."
 ]
 required_flag = "elder_spoke"
 grant_flag = "elder_spoke"
+grant_item = "cave_torch"
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -32)
