@@ -4,6 +4,7 @@ extends Node
 
 signal flag_changed(flag: String, value: bool)
 signal health_changed(hp: int, max_hp: int)
+signal mana_changed(mana: float, max_mana: float)
 signal inventory_changed
 signal hotbar_changed(active_index: int)
 
@@ -45,7 +46,7 @@ const ITEMS: Dictionary = {
 ## single place for defaults (spec §9: no scattered constants).
 const COMBAT_DEFAULTS: Dictionary = {
 	"player_speed": 250.0,
-	"player_max_health": 10,
+	"player_max_health": 6,
 	"attack_damage": 1,
 	"attack_cooldown": 0.45,
 	"attack_window": 0.18,
@@ -65,8 +66,11 @@ const COMBAT_DEFAULTS: Dictionary = {
 var combat: Dictionary = {}
 
 var flags: Dictionary = {}
-var health: int = 3
-var max_health: int = 3
+var health: int = 6
+var max_health: int = 6
+var mana: float = 100.0
+var max_mana: float = 100.0
+var mana_regen: float = 16.0
 var current_region: String = ""
 var pending_spawn: String = ""
 var pending_player_position: Variant = null  # Vector2 or null
@@ -84,7 +88,27 @@ func _ready() -> void:
 				combat[key] = (loaded as Dictionary)[key]
 	max_health = int(combat["player_max_health"])
 	health = max_health
+	mana = max_mana
 	print("[CHECK] GameState ready, combat keys=", combat.size())
+
+
+func _process(delta: float) -> void:
+	if mana < max_mana:
+		mana = minf(max_mana, mana + mana_regen * delta)
+		mana_changed.emit(mana, max_mana)
+
+
+func consume_mana(amount: float) -> bool:
+	if mana >= amount:
+		mana -= amount
+		mana_changed.emit(mana, max_mana)
+		return true
+	return false
+
+
+func set_mana(value: float) -> void:
+	mana = clampf(value, 0.0, max_mana)
+	mana_changed.emit(mana, max_mana)
 
 
 func set_flag(flag: String, value: bool = true) -> void:
@@ -108,10 +132,12 @@ func new_game() -> void:
 	inventory = []
 	max_health = int(combat["player_max_health"])
 	health = max_health
+	mana = max_mana
 	current_region = ""
 	pending_spawn = ""
 	pending_player_position = null
 	health_changed.emit(health, max_health)
+	mana_changed.emit(mana, max_mana)
 	if FileAccess.file_exists(SAVE_PATH):
 		DirAccess.remove_absolute(ProjectSettings.globalize_path(SAVE_PATH))
 

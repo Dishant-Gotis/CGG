@@ -9,6 +9,7 @@ const LETTER_ACTIONS: Dictionary = {
 	"move_left": [KEY_A],
 	"move_right": [KEY_D],
 	"attack": [KEY_Q],
+	"cast_mana": [KEY_F, KEY_R],
 	"interact": [KEY_E],
 	"advance": [KEY_E],
 }

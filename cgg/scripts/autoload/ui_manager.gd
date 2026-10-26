@@ -22,6 +22,8 @@ var prompt_label: Label
 var skip_label: Label
 var hud_panel: PanelContainer
 var hud_hearts: HBoxContainer
+var mana_bar: ProgressBar
+var mana_label: Label
 
 # Minecraft-style Hotbar (Bottom-center, slots 1-5)
 var hotbar_panel: PanelContainer
@@ -83,10 +85,12 @@ func _ready() -> void:
 	_build_skip_hint()
 
 	GameState.health_changed.connect(_on_health_changed)
+	GameState.mana_changed.connect(_on_mana_changed)
 	GameState.hotbar_changed.connect(_on_hotbar_changed)
 	GameState.inventory_changed.connect(_on_inventory_changed)
 
 	_on_health_changed(GameState.health, GameState.max_health)
+	_on_mana_changed(GameState.mana, GameState.max_mana)
 	_update_hotbar_ui()
 	_update_bag_ui()
 
@@ -103,39 +107,84 @@ func _fullscreen_rect(c: Color) -> ColorRect:
 	return r
 
 
-# --- HUD (Health Hearts + Satchel Key Hint) -----------------------------------
+# --- HUD (Health Hearts + Mana Bar + Satchel Key Hint) ------------------------
 
 func _build_hud() -> void:
 	hud_panel = PanelContainer.new()
 	var style := StyleBoxFlat.new()
-	style.bg_color = Color(0.06, 0.08, 0.12, 0.8)
-	style.border_color = Color(0.3, 0.35, 0.45, 0.6)
-	style.set_border_width_all(1)
-	style.set_corner_radius_all(6)
-	style.set_content_margin_all(6)
+	style.bg_color = Color(0.06, 0.08, 0.14, 0.88)
+	style.border_color = Color(0.35, 0.40, 0.55, 0.75)
+	style.set_border_width_all(2)
+	style.set_corner_radius_all(8)
+	style.content_margin_left = 10
+	style.content_margin_right = 10
+	style.content_margin_top = 8
+	style.content_margin_bottom = 8
+	style.shadow_color = Color(0, 0, 0, 0.5)
+	style.shadow_size = 6
 	hud_panel.add_theme_stylebox_override("panel", style)
 	hud_panel.mouse_filter = Control.MOUSE_FILTER_IGNORE
 
 	var vbox := VBoxContainer.new()
-	vbox.add_theme_constant_override("separation", 3)
+	vbox.add_theme_constant_override("separation", 5)
 
-	var hud_box := HBoxContainer.new()
-	hud_box.add_theme_constant_override("separation", 4)
+	# Row 1: Health Hearts
+	var hearts_box := HBoxContainer.new()
+	hearts_box.add_theme_constant_override("separation", 2)
 	hud_hearts = HBoxContainer.new()
 	hud_hearts.add_theme_constant_override("separation", 3)
-	hud_box.add_child(hud_hearts)
-	vbox.add_child(hud_box)
+	hearts_box.add_child(hud_hearts)
+	vbox.add_child(hearts_box)
 
-	var bag_hint := Label.new()
-	bag_hint.text = "🎒 [B] Bag"
-	bag_hint.add_theme_font_size_override("font_size", 11)
-	bag_hint.add_theme_color_override("font_color", Color(0.9, 0.85, 0.6, 0.9))
-	vbox.add_child(bag_hint)
+	# Row 2: Mana Bar (Below the 6 hearts)
+	var mana_vbox := VBoxContainer.new()
+	mana_vbox.add_theme_constant_override("separation", 2)
+
+	var mana_header := HBoxContainer.new()
+	var mana_title := Label.new()
+	mana_title.text = "MANA"
+	mana_title.add_theme_font_size_override("font_size", 9)
+	mana_title.add_theme_color_override("font_color", Color(0.40, 0.80, 1.0, 0.95))
+	mana_title.add_theme_color_override("font_outline_color", Color(0, 0, 0, 0.9))
+	mana_title.add_theme_constant_override("outline_size", 2)
+	mana_header.add_child(mana_title)
+
+	mana_label = Label.new()
+	mana_label.text = "100/100"
+	mana_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+	mana_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	mana_label.add_theme_font_size_override("font_size", 9)
+	mana_label.add_theme_color_override("font_color", Color(0.75, 0.90, 1.0, 0.9))
+	mana_header.add_child(mana_label)
+	mana_vbox.add_child(mana_header)
+
+	mana_bar = ProgressBar.new()
+	mana_bar.custom_minimum_size = Vector2(136, 8)
+	mana_bar.max_value = 100.0
+	mana_bar.value = 100.0
+	mana_bar.show_percentage = false
+
+	var bar_bg := StyleBoxFlat.new()
+	bar_bg.bg_color = Color(0.04, 0.07, 0.12, 0.9)
+	bar_bg.border_color = Color(0.2, 0.35, 0.55, 0.8)
+	bar_bg.set_border_width_all(1)
+	bar_bg.set_corner_radius_all(3)
+	mana_bar.add_theme_stylebox_override("background", bar_bg)
+
+	var bar_fill := StyleBoxFlat.new()
+	bar_fill.bg_color = Color(0.18, 0.65, 1.0, 0.95)
+	bar_fill.border_color = Color(0.65, 0.9, 1.0, 0.8)
+	bar_fill.set_border_width_all(1)
+	bar_fill.set_corner_radius_all(3)
+	mana_bar.add_theme_stylebox_override("fill", bar_fill)
+
+	mana_vbox.add_child(mana_bar)
+	vbox.add_child(mana_vbox)
 
 	hud_panel.add_child(vbox)
 	root_ui.add_child(hud_panel)
 	hud_panel.set_anchors_preset(Control.PRESET_TOP_LEFT)
-	hud_panel.position = Vector2(10, 10)
+	hud_panel.position = Vector2(12, 12)
 
 
 # --- Minecraft-style Hotbar (Vertical on Right Side) -------------------------
@@ -883,12 +932,25 @@ func show_skip_hint(visible_flag: bool) -> void:
 func _on_health_changed(hp: int, max_hp: int) -> void:
 	for child: Node in hud_hearts.get_children():
 		child.queue_free()
-	for i: int in range(max_hp):
-		var heart := ColorRect.new()
-		heart.custom_minimum_size = Vector2(14, 14)
-		heart.color = Color(0.95, 0.25, 0.3) if i < hp else Color(0.25, 0.25, 0.28)
+	var total_hearts: int = maxi(max_hp, 6)
+	for i: int in range(total_hearts):
+		var heart := Label.new()
+		heart.text = "❤️" if i < hp else "🖤"
+		heart.add_theme_font_size_override("font_size", 16)
+		if i >= hp:
+			heart.modulate = Color(0.4, 0.42, 0.5, 0.55)
+		else:
+			heart.modulate = Color(1.0, 1.0, 1.0, 1.0)
 		hud_hearts.add_child(heart)
 	hud_panel.visible = max_hp > 0 and not cutscene_caption
+
+
+func _on_mana_changed(cur_mana: float, max_m: float) -> void:
+	if mana_bar != null:
+		mana_bar.max_value = max_m
+		mana_bar.value = cur_mana
+	if mana_label != null:
+		mana_label.text = "%d/%d" % [int(round(cur_mana)), int(round(max_m))]
 
 
 func set_hud_visible(v: bool) -> void:

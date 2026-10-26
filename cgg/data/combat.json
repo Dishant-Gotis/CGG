@@ -1,6 +1,6 @@
 {
 	"player_speed": 140.0,
-	"player_max_health": 3,
+	"player_max_health": 6,
 	"attack_damage": 1,
 	"attack_cooldown": 0.45,
 	"attack_window": 0.18,

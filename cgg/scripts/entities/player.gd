@@ -68,6 +68,7 @@ func _ready() -> void:
 			global_position = spawn_node.global_position
 		GameState.pending_spawn = ""
 
+	_setup_torch_light()
 	print("[CHECK] player ready at ", global_position)
 
 
@@ -79,6 +80,9 @@ func _physics_process(delta: float) -> void:
 		anim.modulate.a = 0.45 + 0.55 * absf(sin(Time.get_ticks_msec() * 0.02))
 	else:
 		anim.modulate.a = 1.0
+
+	if torch_light != null and torch_light.visible:
+		torch_light.energy = 1.25 + 0.09 * sin(Time.get_ticks_msec() * 0.008)
 
 	if state == State.DEAD:
 		velocity = Vector2.ZERO
@@ -142,6 +146,9 @@ func _tick_move() -> void:
 
 	if Input.is_action_just_pressed("attack") and attack_cd_left <= 0.0:
 		_start_attack()
+		return
+	if Input.is_action_just_pressed("cast_mana"):
+		cast_mana()
 		return
 	if Input.is_action_just_pressed("interact"):
 		_try_interact()
@@ -349,8 +356,84 @@ func _try_interact() -> void:
 func _unhandled_input(event: InputEvent) -> void:
 	if UI.dialogue_open:
 		return
-	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-		var target := _nearest_target()
-		if target != null:
-			_try_interact()
+	if event is InputEventMouseButton and event.pressed:
+		if event.button_index == MOUSE_BUTTON_LEFT:
+			var target := _nearest_target()
+			if target != null:
+				_try_interact()
+				get_viewport().set_input_as_handled()
+		elif event.button_index == MOUSE_BUTTON_RIGHT:
+			cast_mana()
 			get_viewport().set_input_as_handled()
+
+
+func cast_mana() -> void:
+	if state == State.DEAD or UI.dialogue_open or UI.bag_open:
+		return
+	if not GameState.consume_mana(20.0):
+		return
+
+	# Calculate aim direction towards mouse cursor or facing direction
+	var mouse_pos := get_global_mouse_position()
+	var dir := (mouse_pos - global_position).normalized()
+	if dir == Vector2.ZERO or mouse_pos.distance_to(global_position) < 4.0:
+		match facing:
+			"down": dir = Vector2.DOWN
+			"up": dir = Vector2.UP
+			"side": dir = Vector2.LEFT if facing_left else Vector2.RIGHT
+
+	# Update player facing towards cast direction
+	if absf(dir.x) > absf(dir.y):
+		facing = "side"
+		facing_left = dir.x < 0.0
+	elif dir.y > 0.0:
+		facing = "down"
+		facing_left = false
+	else:
+		facing = "up"
+		facing_left = false
+	anim.play(ATTACK_ANIMS[facing])
+	anim.flip_h = facing_left
+
+	# Instantiate and spawn the glowing Mana projectile
+	var proj := ManaProjectile.new()
+	proj.direction = dir
+	proj.global_position = global_position + dir * 22.0
+	get_parent().add_child(proj)
+
+	AudioManager.play_sword()
+	var tw := create_tween()
+	anim.modulate = Color(0.4, 0.85, 1.0)
+	tw.tween_property(anim, "modulate", Color.WHITE, 0.18)
+
+
+var torch_light: PointLight2D
+
+func _setup_torch_light() -> void:
+	torch_light = PointLight2D.new()
+	torch_light.color = Color(1.0, 0.84, 0.52, 1.0)
+	torch_light.energy = 1.3
+	torch_light.shadow_enabled = false
+
+	var img := Image.create(128, 128, false, Image.FORMAT_RGBA8)
+	for y_px: int in range(128):
+		for x_px: int in range(128):
+			var dist := Vector2(x_px - 64, y_px - 64).length() / 64.0
+			var a := clampf(1.0 - dist, 0.0, 1.0)
+			a = a * a
+			img.set_pixel(x_px, y_px, Color(1, 1, 1, a))
+	var tex := ImageTexture.create_from_image(img)
+	torch_light.texture = tex
+	torch_light.texture_scale = 3.4
+	torch_light.position = Vector2(0, 0)
+	add_child(torch_light)
+	_update_torch_light()
+
+	GameState.inventory_changed.connect(_update_torch_light)
+	GameState.hotbar_changed.connect(func(_idx: int) -> void: _update_torch_light())
+
+
+func _update_torch_light() -> void:
+	if torch_light != null:
+		var in_cave := get_tree().current_scene != null and (get_tree().current_scene.name == "Cave" or get_tree().current_scene.scene_file_path.contains("cave"))
+		torch_light.visible = in_cave and GameState.has_item("cave_torch")

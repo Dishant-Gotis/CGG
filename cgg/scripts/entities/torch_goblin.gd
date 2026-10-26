@@ -14,9 +14,9 @@ const CELL_SIZE := 192
 var state: State = State.PATROL
 var hp: int = 3
 var max_hp: int = 3
-var move_speed: float = 85.0
-var detection_radius: float = 240.0
-var attack_reach: float = 52.0
+var move_speed: float = 75.0
+var detection_radius: float = 230.0
+var attack_reach: float = 42.0
 var damage: int = 1
 
 var home_pos: Vector2 = Vector2.ZERO
@@ -262,7 +262,7 @@ func _tick_chase(_delta: float) -> void:
 
 func _start_attack(dir: Vector2) -> void:
 	state = State.ATTACK
-	_attack_cooldown = 1.3
+	_attack_cooldown = 1.6
 	velocity = Vector2.ZERO
 
 	# Choose attack direction animation
