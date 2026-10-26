@@ -68,7 +68,6 @@ func _ready() -> void:
 			global_position = spawn_node.global_position
 		GameState.pending_spawn = ""
 
-	_setup_torch_light()
 	print("[CHECK] player ready at ", global_position)
 
 
@@ -80,9 +79,6 @@ func _physics_process(delta: float) -> void:
 		anim.modulate.a = 0.45 + 0.55 * absf(sin(Time.get_ticks_msec() * 0.02))
 	else:
 		anim.modulate.a = 1.0
-
-	if torch_light != null and torch_light.visible:
-		torch_light.energy = 1.2 + 0.08 * sin(Time.get_ticks_msec() * 0.008)
 
 	if state == State.DEAD:
 		velocity = Vector2.ZERO
@@ -358,45 +354,3 @@ func _unhandled_input(event: InputEvent) -> void:
 		if target != null:
 			_try_interact()
 			get_viewport().set_input_as_handled()
-
-
-var torch_light: PointLight2D
-
-func _setup_torch_light() -> void:
-	torch_light = PointLight2D.new()
-	torch_light.color = Color(1.0, 0.84, 0.52, 1.0)
-	torch_light.energy = 1.2
-	torch_light.shadow_enabled = false
-
-	# item_cull_mask = 1 means it ONLY lights objects on light_mask layer 1
-	# (the world/tiles). The player AnimatedSprite2D is moved to layer 2
-	# so it is NOT self-illuminated by the torch the player carries.
-	torch_light.item_cull_mask = 1
-
-	# Move the player sprite to light layer 2 so the torch (cull_mask=1)
-	# doesn't illuminate it. Cave crystal ambient lights use cull_mask=3
-	# and still reveal the player character naturally.
-	anim.light_mask = 2
-
-	# Build soft radial falloff texture
-	var img := Image.create(128, 128, false, Image.FORMAT_RGBA8)
-	for y_px: int in range(128):
-		for x_px: int in range(128):
-			var dist := Vector2(x_px - 64, y_px - 64).length() / 64.0
-			var a := clampf(1.0 - dist, 0.0, 1.0)
-			a = a * a
-			img.set_pixel(x_px, y_px, Color(1, 1, 1, a))
-	var tex := ImageTexture.create_from_image(img)
-	torch_light.texture = tex
-	torch_light.texture_scale = 3.6
-	torch_light.position = Vector2(0, -16)
-	add_child(torch_light)
-	_update_torch_light()
-
-	GameState.inventory_changed.connect(_update_torch_light)
-	GameState.hotbar_changed.connect(func(_idx: int) -> void: _update_torch_light())
-
-
-func _update_torch_light() -> void:
-	if torch_light != null:
-		torch_light.visible = GameState.has_item("cave_torch")

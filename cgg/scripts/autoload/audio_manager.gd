@@ -40,7 +40,7 @@ func _ready() -> void:
 	# BGM player
 	bgm_player = AudioStreamPlayer.new()
 	bgm_player.bus = "Master"
-	bgm_player.volume_db = -9.0
+	bgm_player.volume_db = -5.0
 	bgm_player.process_mode = Node.PROCESS_MODE_ALWAYS
 	add_child(bgm_player)
 	bgm_player.finished.connect(_on_bgm_finished)
@@ -84,7 +84,7 @@ func _on_bgm_finished() -> void:
 
 
 func play_select() -> void:
-	_play_sfx(sfx_select, -3.0, randf_range(0.98, 1.02))
+	_play_sfx(sfx_select, -14.0, randf_range(0.98, 1.02))
 
 
 func play_sword() -> void:

@@ -102,8 +102,6 @@ func _build_torch_light() -> void:
 	torch_light.color = Color(1.0, 0.58, 0.22, 1.0) # Fiery orange-amber
 	torch_light.energy = 1.3
 	torch_light.shadow_enabled = false
-	# item_cull_mask = 1 → only illuminates the world layer, not the goblin's own sprite
-	torch_light.item_cull_mask = 1
 
 	var img := Image.create(128, 128, false, Image.FORMAT_RGBA8)
 	for y_px: int in range(128):
@@ -114,8 +112,8 @@ func _build_torch_light() -> void:
 			img.set_pixel(x_px, y_px, Color(1, 1, 1, a))
 	var tex := ImageTexture.create_from_image(img)
 	torch_light.texture = tex
-	torch_light.texture_scale = 2.8
-	torch_light.position = Vector2(16, -34)
+	torch_light.texture_scale = 2.4
+	torch_light.position = Vector2(16, 12)
 	add_child(torch_light)
 
 
@@ -333,9 +331,8 @@ func take_damage(amount: int, from_dir: Vector2) -> void:
 func _on_hitbox_hit_player(area: Area2D) -> void:
 	if state == State.DEAD or hitbox_shape.disabled:
 		return
-	var player: Node = area.get_parent()
+	var player := area.get_parent() as Node2D
 	if player != null and player.has_method("_take_damage"):
-		var knock_dir := (player.global_position - global_position).normalized()
 		player._take_damage(damage, global_position)
 
 

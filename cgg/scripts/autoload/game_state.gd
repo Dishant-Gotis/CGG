@@ -45,7 +45,7 @@ const ITEMS: Dictionary = {
 ## single place for defaults (spec §9: no scattered constants).
 const COMBAT_DEFAULTS: Dictionary = {
 	"player_speed": 250.0,
-	"player_max_health": 3,
+	"player_max_health": 10,
 	"attack_damage": 1,
 	"attack_cooldown": 0.45,
 	"attack_window": 0.18,

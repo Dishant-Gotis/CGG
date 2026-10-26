@@ -138,7 +138,7 @@ func _build_hud() -> void:
 	hud_panel.position = Vector2(10, 10)
 
 
-# --- Minecraft-style Hotbar (Bottom Center) -----------------------------------
+# --- Minecraft-style Hotbar (Vertical on Right Side) -------------------------
 
 func _build_hotbar() -> void:
 	hotbar_panel = PanelContainer.new()
@@ -146,30 +146,34 @@ func _build_hotbar() -> void:
 	hstyle.bg_color = Color(0.05, 0.06, 0.10, 0.88)
 	hstyle.border_color = Color(0.40, 0.45, 0.58, 0.85)
 	hstyle.set_border_width_all(2)
-	hstyle.set_corner_radius_all(6)
+	hstyle.set_corner_radius_all(8)
 	hstyle.content_margin_left = 6
 	hstyle.content_margin_right = 6
-	hstyle.content_margin_top = 4
-	hstyle.content_margin_bottom = 4
+	hstyle.content_margin_top = 6
+	hstyle.content_margin_bottom = 6
 	hstyle.shadow_color = Color(0, 0, 0, 0.5)
 	hstyle.shadow_size = 6
 	hotbar_panel.add_theme_stylebox_override("panel", hstyle)
 
 	var col := VBoxContainer.new()
-	col.add_theme_constant_override("separation", 2)
+	col.add_theme_constant_override("separation", 5)
 
-	# Active Item Name Tooltip Label
+	# Active Item Name Tooltip Label (compact & autowrapped)
 	hotbar_tooltip = Label.new()
 	hotbar_tooltip.text = "Hero's Blade"
 	hotbar_tooltip.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	hotbar_tooltip.add_theme_font_size_override("font_size", 11)
+	hotbar_tooltip.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	hotbar_tooltip.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	hotbar_tooltip.custom_minimum_size = Vector2(50, 24)
+	hotbar_tooltip.add_theme_font_size_override("font_size", 9)
 	hotbar_tooltip.add_theme_color_override("font_color", Color(1.0, 0.9, 0.5))
 	hotbar_tooltip.add_theme_color_override("font_outline_color", Color(0, 0, 0, 0.9))
 	hotbar_tooltip.add_theme_constant_override("outline_size", 2)
 	col.add_child(hotbar_tooltip)
 
-	var hbox := HBoxContainer.new()
-	hbox.add_theme_constant_override("separation", 5)
+	# Vertical list of 5 item slots
+	var slots_vbox := VBoxContainer.new()
+	slots_vbox.add_theme_constant_override("separation", 5)
 
 	hotbar_slots.clear()
 	hotbar_icons.clear()
@@ -206,24 +210,38 @@ func _build_hotbar() -> void:
 				AudioManager.play_select()
 		)
 
-		hbox.add_child(slot)
+		slots_vbox.add_child(slot)
 		hotbar_slots.append(slot)
 		hotbar_icons.append(icon)
 		hotbar_nums.append(num)
 
-	col.add_child(hbox)
+	col.add_child(slots_vbox)
+
+	# Bag shortcut hint at bottom
+	var bag_hint := Label.new()
+	bag_hint.text = "[B] Bag"
+	bag_hint.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	bag_hint.add_theme_font_size_override("font_size", 9)
+	bag_hint.add_theme_color_override("font_color", Color(0.7, 0.76, 0.88, 0.85))
+	bag_hint.mouse_filter = Control.MOUSE_FILTER_STOP
+	bag_hint.gui_input.connect(func(ev: InputEvent) -> void:
+		if ev is InputEventMouseButton and ev.pressed and ev.button_index == MOUSE_BUTTON_LEFT:
+			toggle_bag()
+	)
+	col.add_child(bag_hint)
+
 	hotbar_panel.add_child(col)
 	root_ui.add_child(hotbar_panel)
 
-	# Anchor to Bottom Center
-	hotbar_panel.anchor_left = 0.5
-	hotbar_panel.anchor_right = 0.5
-	hotbar_panel.anchor_top = 1.0
-	hotbar_panel.anchor_bottom = 1.0
-	hotbar_panel.offset_left = -135.0
-	hotbar_panel.offset_right = 135.0
-	hotbar_panel.offset_top = -74.0
-	hotbar_panel.offset_bottom = -10.0
+	# Anchor Vertically to Right Center
+	hotbar_panel.anchor_left = 1.0
+	hotbar_panel.anchor_right = 1.0
+	hotbar_panel.anchor_top = 0.5
+	hotbar_panel.anchor_bottom = 0.5
+	hotbar_panel.offset_left = -70.0
+	hotbar_panel.offset_right = -10.0
+	hotbar_panel.offset_top = -155.0
+	hotbar_panel.offset_bottom = 155.0
 
 
 func _make_hotbar_slot_style(is_active: bool) -> StyleBoxFlat:
@@ -255,10 +273,10 @@ func _update_hotbar_ui() -> void:
 
 	var active_item_id: String = GameState.get_active_item()
 	if active_item_id.is_empty():
-		hotbar_tooltip.text = "[Slot %d] Empty" % [GameState.active_hotbar_index + 1]
+		hotbar_tooltip.text = "[%d] Empty" % [GameState.active_hotbar_index + 1]
 	else:
 		var info: Dictionary = GameState.get_item_info(active_item_id)
-		hotbar_tooltip.text = "[%d] %s" % [GameState.active_hotbar_index + 1, str(info.get("name", active_item_id))]
+		hotbar_tooltip.text = str(info.get("name", active_item_id))
 
 
 func _on_hotbar_changed(_idx: int) -> void:

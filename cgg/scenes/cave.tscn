@@ -217,12 +217,10 @@ script = ExtResource("3_exit")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CaveExit"]
 shape = SubResource("ShapeExit")
 
-; ═══ CRYSTAL AMBIENT LIGHTS (item_cull_mask=3 → lights world AND player) ═══
 [node name="Light_Entrance" type="PointLight2D" parent="."]
 position = Vector2(140, 190)
 color = Color(0.9, 0.95, 1, 1)
 energy = 1.3
-item_cull_mask = 3
 texture = SubResource("GradientTexture2D_crystal")
 texture_scale = 3.5
 
@@ -230,7 +228,6 @@ texture_scale = 3.5
 position = Vector2(380, 260)
 color = Color(0.2, 0.85, 1, 1)
 energy = 1.5
-item_cull_mask = 3
 texture = SubResource("GradientTexture2D_crystal")
 texture_scale = 3.2
 
@@ -238,7 +235,6 @@ texture_scale = 3.2
 position = Vector2(920, 340)
 color = Color(0.75, 0.35, 1, 1)
 energy = 1.4
-item_cull_mask = 3
 texture = SubResource("GradientTexture2D_violet")
 texture_scale = 3.0
 
@@ -246,7 +242,6 @@ texture_scale = 3.0
 position = Vector2(1040, 720)
 color = Color(0.2, 0.9, 1, 1)
 energy = 1.5
-item_cull_mask = 3
 texture = SubResource("GradientTexture2D_crystal")
 texture_scale = 3.2
 
@@ -254,7 +249,6 @@ texture_scale = 3.2
 position = Vector2(1360, 380)
 color = Color(0.3, 0.7, 1, 1)
 energy = 1.6
-item_cull_mask = 3
 texture = SubResource("GradientTexture2D_crystal")
 texture_scale = 3.5
 
@@ -262,7 +256,6 @@ texture_scale = 3.5
 position = Vector2(700, 500)
 color = Color(0.5, 0.9, 0.8, 1)
 energy = 1.2
-item_cull_mask = 3
 texture = SubResource("GradientTexture2D_crystal")
 texture_scale = 4.0
 
