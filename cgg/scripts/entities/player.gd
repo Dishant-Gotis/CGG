@@ -27,6 +27,8 @@ var facing: String = "down"
 var facing_left: bool = false
 
 var speed: float = 250.0
+const SPRINT_MULTIPLIER: float = 1.75
+var is_sprinting: bool = false
 var attack_window_left: float = 0.0
 var attack_safety_left: float = 0.0
 var attack_cd_left: float = 0.0
@@ -69,6 +71,7 @@ func _ready() -> void:
 		GameState.pending_spawn = ""
 
 	_setup_torch_light()
+	invuln_left = 2.0
 	print("[CHECK] player ready at ", global_position)
 
 
@@ -119,7 +122,9 @@ func _physics_process(delta: float) -> void:
 
 func _tick_move() -> void:
 	var dir := Input.get_vector("move_left", "move_right", "move_up", "move_down")
-	velocity = dir * speed
+	is_sprinting = Input.is_action_pressed("sprint") or Input.is_key_pressed(KEY_SHIFT)
+	var cur_speed: float = speed * SPRINT_MULTIPLIER if is_sprinting else speed
+	velocity = dir * cur_speed
 	if dir != Vector2.ZERO:
 		if absf(dir.x) > absf(dir.y):
 			facing = "side"
@@ -132,13 +137,15 @@ func _tick_move() -> void:
 			facing_left = false
 		state = State.WALK
 		anim.play(WALK_ANIMS[facing])
+		anim.speed_scale = 1.4 if is_sprinting else 1.0
 		anim.flip_h = facing_left
 		_step_timer -= get_physics_process_delta_time()
 		if _step_timer <= 0.0:
 			AudioManager.play_step()
-			_step_timer = STEP_INTERVAL
+			_step_timer = STEP_INTERVAL * (0.65 if is_sprinting else 1.0)
 	else:
 		state = State.IDLE
+		anim.speed_scale = 1.0
 		# Idle keeps the last meaningful facing (spec §8) — _update_facing not called.
 		anim.play(IDLE_ANIMS[facing])
 		anim.flip_h = facing_left
@@ -150,7 +157,7 @@ func _tick_move() -> void:
 	if Input.is_action_just_pressed("cast_mana"):
 		cast_mana()
 		return
-	if Input.is_action_just_pressed("interact"):
+	if Input.is_action_just_pressed("interact") and not UI.dialogue_open and (Time.get_ticks_msec() - UI.dialogue_closed_at_ms >= 400):
 		_try_interact()
 		return
 	_update_prompt()
@@ -166,6 +173,7 @@ func _start_attack() -> void:
 	_hit_this_swing.clear()
 	_place_hitbox()
 	_set_hitbox_active(true)
+	anim.speed_scale = 1.0
 	anim.play(ATTACK_ANIMS[facing])
 	anim.flip_h = facing_left
 
@@ -251,15 +259,14 @@ func _flash_hurt() -> void:
 
 
 func _die() -> void:
+	if state == State.DEAD:
+		return
 	state = State.DEAD
 	velocity = Vector2.ZERO
 	_set_hitbox_active(false)
-	print("[CHECK] player died — respawning at region start")
-	GameState.set_health(GameState.max_health)  # retry: spec §12 restart on game over
-	await UI.fade_out()
-	get_tree().reload_current_scene()
-	await get_tree().process_frame
-	await UI.fade_in()
+	anim.modulate = Color(1.0, 0.35, 0.35, 0.9)
+	print("[CHECK] player died — showing Game Over menu screen")
+	UI.show_game_over()
 
 
 func _on_anim_finished() -> void:
@@ -270,7 +277,7 @@ func _on_anim_finished() -> void:
 
 # --- interaction -------------------------------------------------------------
 
-const MAX_INTERACT_DISTANCE: float = 75.0
+const MAX_INTERACT_DISTANCE: float = 120.0
 
 
 func _get_interactable(node: Node) -> Node:
@@ -309,19 +316,28 @@ func _nearest_target() -> Node:
 	var best_d := INF
 	var still_valid: Array[Area2D] = []
 
-	for area: Area2D in _interact_targets:
+	# Gather candidates from both event tracking and active probe overlaps
+	var candidates: Array[Area2D] = []
+	for a: Area2D in _interact_targets:
+		if is_instance_valid(a) and a not in candidates:
+			candidates.append(a)
+	if probe != null:
+		for a: Area2D in probe.get_overlapping_areas():
+			if is_instance_valid(a) and a not in candidates:
+				candidates.append(a)
+
+	for area: Area2D in candidates:
 		if not is_instance_valid(area):
 			continue
+		still_valid.append(area)
 		var obj := _get_interactable(area)
 		if obj == null:
 			continue
 		var target_pos: Vector2 = (obj as Node2D).global_position if obj is Node2D else area.global_position
 		var d := global_position.distance_to(target_pos)
-		if d <= MAX_INTERACT_DISTANCE:
-			still_valid.append(area)
-			if d < best_d:
-				best_d = d
-				best = obj
+		if d <= MAX_INTERACT_DISTANCE and d < best_d:
+			best_d = d
+			best = obj
 
 	_interact_targets = still_valid
 	return best
@@ -329,7 +345,7 @@ func _nearest_target() -> Node:
 
 func _update_prompt() -> void:
 	var target := _nearest_target()
-	if target != null and not UI.dialogue_open:
+	if target != null and not UI.dialogue_open and (Time.get_ticks_msec() - UI.dialogue_closed_at_ms >= 400):
 		var raw_text := _get_prompt_text(target)
 		var display_text := raw_text
 		if raw_text.begins_with("E - ") or raw_text.begins_with("E -"):
@@ -343,7 +359,7 @@ func _update_prompt() -> void:
 
 
 func _try_interact() -> void:
-	if UI.dialogue_open:
+	if UI.dialogue_open or (Time.get_ticks_msec() - UI.dialogue_closed_at_ms < 400):
 		return
 	var target := _nearest_target()
 	if target == null or not target.has_method("interact"):
@@ -354,7 +370,7 @@ func _try_interact() -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	if UI.dialogue_open:
+	if UI.dialogue_open or (Time.get_ticks_msec() - UI.dialogue_closed_at_ms < 400):
 		return
 	if event is InputEventMouseButton and event.pressed:
 		if event.button_index == MOUSE_BUTTON_LEFT:
@@ -373,16 +389,25 @@ func cast_mana() -> void:
 	if not GameState.consume_mana(20.0):
 		return
 
-	# Calculate aim direction towards mouse cursor or facing direction
-	var mouse_pos := get_global_mouse_position()
-	var dir := (mouse_pos - global_position).normalized()
-	if dir == Vector2.ZERO or mouse_pos.distance_to(global_position) < 4.0:
-		match facing:
-			"down": dir = Vector2.DOWN
-			"up": dir = Vector2.UP
-			"side": dir = Vector2.LEFT if facing_left else Vector2.RIGHT
+	# Determine player's base facing direction
+	var facing_vec := Vector2.DOWN
+	match facing:
+		"down": facing_vec = Vector2.DOWN
+		"up": facing_vec = Vector2.UP
+		"side": facing_vec = Vector2.LEFT if facing_left else Vector2.RIGHT
 
-	# Update player facing towards cast direction
+	# Auto-aim towards the most aligned enemy in front of the player
+	var target_enemy: Node2D = _find_auto_aim_target(facing_vec)
+	var dir := facing_vec
+	if target_enemy != null:
+		var target_pos := target_enemy.global_position
+		if target_enemy.has_node("CollisionShape2D"):
+			target_pos = (target_enemy.get_node("CollisionShape2D") as Node2D).global_position
+		var to_tgt := (target_pos - global_position).normalized()
+		if to_tgt != Vector2.ZERO:
+			dir = to_tgt
+
+	# Update player facing towards cast direction so animations match the shot
 	if absf(dir.x) > absf(dir.y):
 		facing = "side"
 		facing_left = dir.x < 0.0
@@ -395,9 +420,10 @@ func cast_mana() -> void:
 	anim.play(ATTACK_ANIMS[facing])
 	anim.flip_h = facing_left
 
-	# Instantiate and spawn the glowing Mana projectile
+	# Instantiate and spawn the glowing Mana projectile with auto-aim target
 	var proj := ManaProjectile.new()
 	proj.direction = dir
+	proj.target = target_enemy
 	proj.global_position = global_position + dir * 22.0
 	get_parent().add_child(proj)
 
@@ -405,6 +431,57 @@ func cast_mana() -> void:
 	var tw := create_tween()
 	anim.modulate = Color(0.4, 0.85, 1.0)
 	tw.tween_property(anim, "modulate", Color.WHITE, 0.18)
+
+
+func _find_auto_aim_target(facing_vec: Vector2, max_dist: float = 520.0) -> Node2D:
+	var enemies := get_tree().get_nodes_in_group("enemy")
+	var best_target: Node2D = null
+	var best_score: float = -999999.0
+
+	for enemy: Node in enemies:
+		if not is_instance_valid(enemy) or not (enemy is Node2D):
+			continue
+		var enemy_2d := enemy as Node2D
+		if "state" in enemy and str(enemy.state) == "4": # State.DEAD
+			continue
+		if "hp" in enemy and enemy.hp <= 0:
+			continue
+		if "_death_seen" in enemy and enemy._death_seen:
+			continue
+
+		var to_enemy := enemy_2d.global_position - global_position
+		var dist := to_enemy.length()
+		if dist > max_dist or dist < 2.0:
+			continue
+
+		var dir_to_enemy := to_enemy / dist
+		var dot := facing_vec.dot(dir_to_enemy)
+
+		# Prioritize enemies in front of the player (within 180° cone of facing vector)
+		if dot > 0.05:
+			var score := dot * 3.0 - (dist / max_dist)
+			if score > best_score:
+				best_score = score
+				best_target = enemy_2d
+
+	# Fallback: if no enemy in facing cone, check if an enemy is in close proximity (< 160px)
+	if best_target == null:
+		var closest_dist: float = 160.0
+		for enemy: Node in enemies:
+			if not is_instance_valid(enemy) or not (enemy is Node2D):
+				continue
+			var enemy_2d := enemy as Node2D
+			if "hp" in enemy and enemy.hp <= 0:
+				continue
+			if "state" in enemy and str(enemy.state) == "4":
+				continue
+			var d := global_position.distance_to(enemy_2d.global_position)
+			if d < closest_dist:
+				closest_dist = d
+				best_target = enemy_2d
+
+	return best_target
+
 
 
 var torch_light: PointLight2D

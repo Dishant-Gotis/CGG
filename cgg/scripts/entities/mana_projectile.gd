@@ -4,6 +4,7 @@ class_name ManaProjectile
 ## Illuminates dark caverns, flies towards the target, and deals 2 damage + knockback.
 
 var direction: Vector2 = Vector2.RIGHT
+var target: Node2D = null
 var speed: float = 420.0
 var damage: int = 2
 var lifetime: float = 2.0
@@ -54,6 +55,15 @@ func _process(delta: float) -> void:
 
 
 func _physics_process(delta: float) -> void:
+	# Auto-aim homing towards target if available
+	if is_instance_valid(target):
+		var target_pos := target.global_position
+		if target.has_node("CollisionShape2D"):
+			target_pos = (target.get_node("CollisionShape2D") as Node2D).global_position
+		var desired_dir := (target_pos - global_position).normalized()
+		if desired_dir != Vector2.ZERO:
+			direction = direction.slerp(desired_dir, 7.5 * delta).normalized()
+
 	global_position += direction * speed * delta
 	lifetime -= delta
 	if lifetime <= 0.0:

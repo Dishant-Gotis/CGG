@@ -37,9 +37,13 @@ func _ready() -> void:
 		interact_area.collision_mask = 0
 
 
+var _last_interact_ms: int = 0
+
+
 func interact(player: Node) -> void:
-	if UI.dialogue_open:
+	if UI.dialogue_open or (Time.get_ticks_msec() - _last_interact_ms < 600) or (Time.get_ticks_msec() - UI.dialogue_closed_at_ms < 400):
 		return
+	_last_interact_ms = Time.get_ticks_msec()
 
 	# Face towards player
 	if sprite != null and player is Node2D:

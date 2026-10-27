@@ -369,11 +369,6 @@ animations = [{
 "name": &"idle_side_walk",
 "speed": 9.0
 }, {
-"frames": [],
-"loop": 1,
-"name": &"new_animation",
-"speed": 5.0
-}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_g5jhy")
@@ -402,7 +397,7 @@ size = Vector2(28, 26)
 size = Vector2(18, 30)
 
 [sub_resource type="CircleShape2D" id="ShapeProbe"]
-radius = 30.0
+radius = 42.0
 
 [node name="player" type="CharacterBody2D" unique_id=966946389 groups=["player"]]
 y_sort_enabled = true
@@ -415,8 +410,9 @@ y_sort_enabled = true
 position = Vector2(-1.9999924, -43)
 scale = Vector2(3.195833, 3.2583332)
 sprite_frames = SubResource("SpriteFrames_htemk")
-animation = &"new_animation"
-frame_progress = 0.6778022
+animation = &"back_attack"
+frame = 3
+frame_progress = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=562407505]
 position = Vector2(0, -8)

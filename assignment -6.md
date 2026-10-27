@@ -14,12 +14,14 @@
   * `UIManager`: Handles HUD, dialogue overlays, toasts, vertical hotbar, and inventory modals.
   * `AudioManager`: Central audio bus manager for polyphonic SFX and looping BGM.
 * **Data-Driven:** Combat parameters (speed, health, damage) configured via `combat.json`.
+* **Key Functions:** `GameState.consume_mana()`, `GameState.set_health()`, `UI.start_dialogue()`, `AudioManager.play_select()`.
 
 ---
 
 ## 3. Levels
 * **Overworld / Village (`world.tscn`):** Forest biome with trails, village NPCs, destructible decorations, slime spawns, and the sealed cave entrance.
 * **Glowing Crystal Caverns (`cave.tscn`):** Dark underground dungeon featuring internal rock colliders, ambient crystal light clusters, patrolling torch goblins, NPC Grimm, and the Crystal Altar.
+* **Key Functions:** `cave.gd` uses `_ready()` to set camera limits and `_process()` to pulse crystal light energies.
 
 ---
 
@@ -30,18 +32,21 @@
 * **Mana Throw Skill:** Ranged magic bolt skill (`Right-Click` / `[F]`) consuming 20 MP to fire a glowing Mana Projectile that deals 2 damage, pierces/explodes, and knocks back foes from distance.
 * **Cave Illumination:** Cave Torch illuminates dark subterranean caverns with dynamic light when inside the cave dungeon.
 * **Interaction:** Forward `InteractProbe` (`Area2D`) triggers context-sensitive NPC conversations or scene transitions on `[E]` or left click.
+* **Key Functions:** `_physics_process()` (movement/timers), `_start_attack()` (sword swing), `cast_mana()` & `_find_auto_aim_target()` (directional mana lock), `_try_interact()`.
 
 ---
 
 ## 5. Enemies
 * **Forest Slimes (`enemy.gd`):** State-machine AI (`WANDER`, `CHASE`, `ATTACK`, `HURT`, `DEAD`). Aggros when player enters detection radius, leaps forward to bite, takes sword knockback, and triggers death SFX.
 * **Torch Goblins (`torch_goblin.gd`):** Cavern sentinels that patrol waypoints, wield glowing torches (`PointLight2D`), detect the player, and execute telegraphed melee attacks.
+* **Key Functions:** `take_damage(amount, dir)` (health deduction, knockback & damage flash), `_start_attack(dir)` (swing trigger).
 
 ---
 
 ## 6. NPCs & Companion
 * **Village & Cave NPCs (`npc.gd`):** Static bodies with Layer 7 interaction areas, speech scale animations, and multi-stage dialogue trees that evaluate story flags and award quest items (e.g., Cave Torch).
 * **Companion Fox (`companion.gd`):** Autonomous companion entity that smoothly follows the player using distance damping.
+* **Key Functions:** `interact(player)` (face player, speech bounce tween, dialogue open), `companion._physics_process()` (follow smoothing).
 
 ---
 
@@ -52,6 +57,7 @@
   * **Layer 3 (Enemies):** Kinematic physical bounds for monster navigation.
   * **Layer 4 & 5 (Hitbox / Hurtbox):** Non-physical trigger layers for sword swings and damage delivery.
   * **Layer 7 (Interactables):** Probes for talking to NPCs, reading altars, and entering/exiting scenes.
+* **Key Functions:** `area_entered.connect()` (hit detection callback), `take_damage()` (damage application).
 
 ---
 
@@ -59,12 +65,14 @@
 * **Input Vector:** 8-directional input polling (`Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")`).
 * **Physics Integration:** Normalized direction vector multiplied by player speed, applied via `move_and_slide()` with collision sliding against obstacles.
 * **Facing & Animation:** Updates directional facing (`up`, `down`, `right`, flipped `left`) and transitions between run/idle animation loops.
+* **Key Functions:** `_tick_move()` (reads input vector & sets velocity), `move_and_slide()` (built-in sliding kinematic solver).
 
 ---
 
 ## 9. Audio
 * **BGM:** Background music stream player running on Master bus at balanced `-5.0 dB` with auto-looping.
 * **SFX System:** Dedicated footstep audio player (`walk.mp3`) with randomized pitch variation + 8-channel polyphonic pool for sword swings, slime deaths, and subtle `-14.0 dB` UI dialogue selections.
+* **Key Functions:** `AudioManager.play_music()`, `play_select()`, `play_sword()`, `play_step()`.
 
 ---
 
@@ -72,3 +80,4 @@
 * **Camera (`Camera2D`):** Centered on player with position smoothing (`position_smoothing_enabled = true`) for fluid motion.
 * **Depth Sorting:** 2D Y-Sort enabled so entities render correctly in front of or behind world objects based on vertical feet position.
 * **Lighting System:** Dynamic 2D lighting via `CanvasModulate` (subterranean darkness in caves) and radial `PointLight2D` nodes on crystals, entrance waypoints, and enemy torches.
+* **Key Functions:** `_draw()` (procedural mana bolt drawing), `create_tween()` (fades & animations).

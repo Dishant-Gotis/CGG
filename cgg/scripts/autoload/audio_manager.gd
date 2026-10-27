@@ -95,6 +95,14 @@ func play_slime_death() -> void:
 	_play_sfx(sfx_slime_die, -1.0, randf_range(0.96, 1.04))
 
 
+func play_slime_die() -> void:
+	play_slime_death()
+
+
+func play_enemy_death() -> void:
+	play_slime_death()
+
+
 func play_step() -> void:
 	if step_player == null or sfx_walk == null:
 		return

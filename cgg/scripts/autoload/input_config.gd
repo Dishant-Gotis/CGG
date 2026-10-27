@@ -22,6 +22,7 @@ const SPECIAL_ACTIONS: Dictionary = {
 	"advance": [KEY_SPACE, KEY_ENTER],
 	"pause": [KEY_ESCAPE],
 	"skip": [KEY_ENTER, KEY_ESCAPE],
+	"sprint": [KEY_SHIFT],
 }
 
 

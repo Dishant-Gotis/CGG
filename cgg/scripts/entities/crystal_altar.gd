@@ -32,9 +32,13 @@ func _physics_process(_delta: float) -> void:
 		relic_sprite.position.y = -42.0 + 4.0 * sin(Time.get_ticks_msec() * 0.004)
 
 
+var _last_interact_ms: int = 0
+
+
 func interact(_player: Node) -> void:
-	if UI.dialogue_open:
+	if UI.dialogue_open or (Time.get_ticks_msec() - _last_interact_ms < 600) or (Time.get_ticks_msec() - UI.dialogue_closed_at_ms < 400):
 		return
+	_last_interact_ms = Time.get_ticks_msec()
 
 	if not GameState.has_item("elixir_shard"):
 		GameState.add_item("elixir_shard")

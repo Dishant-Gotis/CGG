@@ -1,282 +1,316 @@
-[gd_scene load_steps=32 format=3 uid="uid://cave_scene_root"]
+[gd_scene format=3 uid="uid://5ww1p0ko40rq"]
 
-[ext_resource type="Script" path="res://scripts/cave.gd" id="1_cave"]
-[ext_resource type="Texture2D" path="res://Tiny Swords (Update 010)/everything/Glowing Crystal Cavern Map.png" id="2_map"]
-[ext_resource type="Script" path="res://scripts/entities/cave_exit.gd" id="3_exit"]
+[ext_resource type="Script" uid="uid://gnoxhwau82xr" path="res://scripts/cave.gd" id="1_cave"]
+[ext_resource type="Texture2D" uid="uid://dgupb22r0fibq" path="res://assets/cave/cave_dungeon_map.png" id="2_map"]
+[ext_resource type="Script" uid="uid://0464131g3ejx" path="res://scripts/entities/cave_exit.gd" id="3_exit"]
 [ext_resource type="PackedScene" uid="uid://0sam6i1k5f6e" path="res://scenes/player.tscn" id="4_player"]
 [ext_resource type="PackedScene" path="res://scenes/companion_fox.tscn" id="5_fox"]
-[ext_resource type="PackedScene" uid="uid://npc_goblin_grimm_scene" path="res://scenes/npc_goblin_grimm.tscn" id="6_grimm"]
-[ext_resource type="PackedScene" uid="uid://crystal_altar_scene" path="res://scenes/crystal_altar.tscn" id="7_altar"]
-[ext_resource type="PackedScene" uid="uid://enemy_torch_goblin_scene" path="res://scenes/enemy_torch_goblin.tscn" id="8_goblin"]
+[ext_resource type="PackedScene" path="res://scenes/npc_goblin_grimm.tscn" id="6_grimm"]
+[ext_resource type="PackedScene" path="res://scenes/crystal_altar.tscn" id="7_altar"]
+[ext_resource type="PackedScene" path="res://scenes/enemy_torch_goblin.tscn" id="8_goblin"]
 
-; ─── Shared shapes ──────────────────────────────────────────────────────────
+[sub_resource type="RectangleShape2D" id="BorderTop"]
+size = Vector2(1600, 85)
+
+[sub_resource type="RectangleShape2D" id="BorderBottom"]
+size = Vector2(1600, 75)
+
+[sub_resource type="RectangleShape2D" id="BorderLeft"]
+size = Vector2(65, 960)
+
+[sub_resource type="RectangleShape2D" id="BorderRight"]
+size = Vector2(65, 960)
+
+[sub_resource type="RectangleShape2D" id="WallDividing1"]
+size = Vector2(310, 125)
+
+[sub_resource type="RectangleShape2D" id="WallDividing2"]
+size = Vector2(570, 120)
+
+[sub_resource type="RectangleShape2D" id="WallGatewayNorth"]
+size = Vector2(115, 365)
+
+[sub_resource type="RectangleShape2D" id="WallGatewaySouth"]
+size = Vector2(115, 325)
+
+[sub_resource type="RectangleShape2D" id="PoolNorthWater"]
+size = Vector2(265, 60)
+
+[sub_resource type="RectangleShape2D" id="PoolSouthWater"]
+size = Vector2(265, 40)
+
+[sub_resource type="RectangleShape2D" id="PoolWestWater"]
+size = Vector2(60, 65)
+
+[sub_resource type="RectangleShape2D" id="PoolEastWater"]
+size = Vector2(65, 65)
+
+[sub_resource type="RectangleShape2D" id="CartObstacle"]
+size = Vector2(54, 38)
+
+[sub_resource type="RectangleShape2D" id="BarrelsEntrance"]
+size = Vector2(50, 35)
+
+[sub_resource type="RectangleShape2D" id="BarrelsGrimm"]
+size = Vector2(55, 35)
+
+[sub_resource type="CircleShape2D" id="CrystalTL"]
+radius = 35.0
+
+[sub_resource type="CircleShape2D" id="CrystalTR"]
+radius = 35.0
+
+[sub_resource type="CircleShape2D" id="CrystalBL"]
+radius = 35.0
+
+[sub_resource type="CircleShape2D" id="CrystalBR"]
+radius = 35.0
+
 [sub_resource type="CircleShape2D" id="ShapeExit"]
-radius = 36.0
+radius = 55.0
 
-[sub_resource type="RectangleShape2D" id="WallBorderTop"]
-size = Vector2(1672, 80)
+[sub_resource type="Gradient" id="GradWarm"]
+colors = PackedColorArray(1, 0.78, 0.35, 1, 0, 0, 0, 0)
 
-[sub_resource type="RectangleShape2D" id="WallBorderBottom"]
-size = Vector2(1672, 80)
+[sub_resource type="GradientTexture2D" id="GradTexWarm"]
+gradient = SubResource("GradWarm")
+width = 128
+height = 128
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.5, 0)
 
-[sub_resource type="RectangleShape2D" id="WallBorderLeft"]
-size = Vector2(60, 940)
-
-[sub_resource type="RectangleShape2D" id="WallBorderRight"]
-size = Vector2(60, 940)
-
-; Internal wall blocks – derived from pixel-luminance map analysis
-; (all positions are the CENTER of each box)
-[sub_resource type="RectangleShape2D" id="W01"]
-size = Vector2(680, 120)
-
-[sub_resource type="RectangleShape2D" id="W02"]
-size = Vector2(412, 120)
-
-[sub_resource type="RectangleShape2D" id="W03"]
-size = Vector2(260, 100)
-
-[sub_resource type="RectangleShape2D" id="W04"]
-size = Vector2(260, 180)
-
-[sub_resource type="RectangleShape2D" id="W05"]
-size = Vector2(220, 160)
-
-[sub_resource type="RectangleShape2D" id="W06"]
-size = Vector2(200, 160)
-
-[sub_resource type="RectangleShape2D" id="W07"]
-size = Vector2(220, 220)
-
-[sub_resource type="RectangleShape2D" id="W08"]
-size = Vector2(320, 200)
-
-[sub_resource type="RectangleShape2D" id="W09"]
-size = Vector2(860, 240)
-
-[sub_resource type="RectangleShape2D" id="W10"]
-size = Vector2(420, 280)
-
-[sub_resource type="RectangleShape2D" id="W11"]
-size = Vector2(660, 220)
-
-[sub_resource type="RectangleShape2D" id="W12"]
-size = Vector2(420, 160)
-
-[sub_resource type="RectangleShape2D" id="W13"]
-size = Vector2(380, 240)
-
-[sub_resource type="RectangleShape2D" id="W14"]
-size = Vector2(300, 160)
-
-[sub_resource type="RectangleShape2D" id="W15"]
-size = Vector2(180, 200)
-
-; ─── Light textures ─────────────────────────────────────────────────────────
-[sub_resource type="Gradient" id="Gradient_ambient"]
+[sub_resource type="Gradient" id="GradAmbient"]
 colors = PackedColorArray(0.3, 0.85, 1, 1, 0, 0, 0, 0)
 
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_crystal"]
-gradient = SubResource("Gradient_ambient")
+[sub_resource type="GradientTexture2D" id="GradTexCyan"]
+gradient = SubResource("GradAmbient")
 width = 128
 height = 128
 fill = 1
 fill_from = Vector2(0.5, 0.5)
-fill_to = Vector2(0.5, 0.0)
+fill_to = Vector2(0.5, 0)
 
-[sub_resource type="Gradient" id="Gradient_violet"]
-colors = PackedColorArray(0.8, 0.4, 1, 1, 0, 0, 0, 0)
+[sub_resource type="Gradient" id="GradViolet"]
+colors = PackedColorArray(0.75, 0.35, 1, 1, 0, 0, 0, 0)
 
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_violet"]
-gradient = SubResource("Gradient_violet")
+[sub_resource type="GradientTexture2D" id="GradTexViolet"]
+gradient = SubResource("GradViolet")
 width = 128
 height = 128
 fill = 1
 fill_from = Vector2(0.5, 0.5)
-fill_to = Vector2(0.5, 0.0)
+fill_to = Vector2(0.5, 0)
 
-; ────────────────────────────────────────────────────────────────────────────
-[node name="Cave" type="Node2D"]
+[node name="Cave" type="Node2D" unique_id=1355284263]
 script = ExtResource("1_cave")
 
-[node name="CanvasModulate" type="CanvasModulate" parent="."]
-color = Color(0.22, 0.25, 0.36, 1)
+[node name="CanvasModulate" type="CanvasModulate" parent="." unique_id=1384167259]
+color = Color(0.2, 0.22, 0.34, 1)
 
-[node name="Background" type="Sprite2D" parent="."]
+[node name="Background" type="Sprite2D" parent="." unique_id=1756621926]
 texture = ExtResource("2_map")
 centered = false
 
-; ═══ WALL COLLIDERS ═════════════════════════════════════════════════════════
-[node name="Walls" type="StaticBody2D" parent="."]
-collision_layer = 1
+[node name="Collisions" type="StaticBody2D" parent="." unique_id=4001]
 collision_mask = 0
 
-; --- Border walls (map edges) ---
-[node name="BorderTop" type="CollisionShape2D" parent="Walls"]
-position = Vector2(836, 40)
-shape = SubResource("WallBorderTop")
+[node name="ColBorderTop" type="CollisionShape2D" parent="Collisions" unique_id=160312369]
+position = Vector2(800, 42.5)
+shape = SubResource("BorderTop")
 
-[node name="BorderBottom" type="CollisionShape2D" parent="Walls"]
-position = Vector2(836, 900)
-shape = SubResource("WallBorderBottom")
+[node name="ColBorderBottom" type="CollisionShape2D" parent="Collisions" unique_id=1140510447]
+position = Vector2(800, 922.5)
+shape = SubResource("BorderBottom")
 
-[node name="BorderLeft" type="CollisionShape2D" parent="Walls"]
-position = Vector2(30, 470)
-shape = SubResource("WallBorderLeft")
+[node name="ColBorderLeft" type="CollisionShape2D" parent="Collisions" unique_id=1362048323]
+position = Vector2(32.5, 480)
+shape = SubResource("BorderLeft")
 
-[node name="BorderRight" type="CollisionShape2D" parent="Walls"]
-position = Vector2(1642, 470)
-shape = SubResource("WallBorderRight")
+[node name="ColBorderRight" type="CollisionShape2D" parent="Collisions" unique_id=2100899795]
+position = Vector2(1567.5, 480)
+shape = SubResource("BorderRight")
 
-; --- Internal walls (derived from map pixel analysis) ---
-; Top-left solid rock block
-[node name="W01_TopLeftRock" type="CollisionShape2D" parent="Walls"]
-position = Vector2(340, 80)
-shape = SubResource("W01")
+[node name="ColDividingWall1" type="CollisionShape2D" parent="Collisions" unique_id=1949984942]
+position = Vector2(220, 442.5)
+shape = SubResource("WallDividing1")
 
-; Top-right rock block
-[node name="W02_TopRightRock" type="CollisionShape2D" parent="Walls"]
-position = Vector2(1466, 80)
-shape = SubResource("W02")
+[node name="ColDividingWall2" type="CollisionShape2D" parent="Collisions" unique_id=663001638]
+position = Vector2(780, 405)
+shape = SubResource("WallDividing2")
 
-; Top-center narrow wall (row 0)
-[node name="W03_TopCenter" type="CollisionShape2D" parent="Walls"]
-position = Vector2(850, 60)
-shape = SubResource("W03")
+[node name="ColGatewayNorth" type="CollisionShape2D" parent="Collisions" unique_id=715775810]
+position = Vector2(1137.5, 232.5)
+shape = SubResource("WallGatewayNorth")
 
-; Left vertical mid wall (x 0–200, y 130–320)
-[node name="W04_LeftMidWall" type="CollisionShape2D" parent="Walls"]
-position = Vector2(100, 220)
-shape = SubResource("W04")
+[node name="ColGatewaySouth" type="CollisionShape2D" parent="Collisions" unique_id=890705679]
+position = Vector2(1137.5, 747.5)
+shape = SubResource("WallGatewaySouth")
 
-; North pillar above main path (x 460–710, y 90–210)
-[node name="W05_NorthPillar" type="CollisionShape2D" parent="Walls"]
-position = Vector2(585, 150)
-shape = SubResource("W05")
+[node name="ColPoolNorthWater" type="CollisionShape2D" parent="Collisions" unique_id=1452495637]
+position = Vector2(712.5, 550)
+shape = SubResource("PoolNorthWater")
 
-; Left staircase-area wall (x 0–200, y 370–540)
-[node name="W06_LeftStairWall" type="CollisionShape2D" parent="Walls"]
-position = Vector2(100, 455)
-shape = SubResource("W06")
+[node name="ColPoolSouthWater" type="CollisionShape2D" parent="Collisions" unique_id=40581727]
+position = Vector2(712.5, 665)
+shape = SubResource("PoolSouthWater")
 
-; Bottom-left big rock mass (x 0–220, y 660–880)
-[node name="W07_BottomLeftRock" type="CollisionShape2D" parent="Walls"]
-position = Vector2(110, 770)
-shape = SubResource("W07")
+[node name="ColPoolWestWater" type="CollisionShape2D" parent="Collisions" unique_id=609299277]
+position = Vector2(610, 612.5)
+shape = SubResource("PoolWestWater")
 
-; Bottom-center abyss wall (x 300–620, y 720–920)
-[node name="W08_BottomCenterRock" type="CollisionShape2D" parent="Walls"]
-position = Vector2(460, 820)
-shape = SubResource("W08")
+[node name="ColPoolEastWater" type="CollisionShape2D" parent="Collisions" unique_id=1407842937]
+position = Vector2(812.5, 612.5)
+shape = SubResource("PoolEastWater")
 
-; Large bottom-left mass (x 0–860, y 760–940)
-[node name="W09_BigBottomLeft" type="CollisionShape2D" parent="Walls"]
-position = Vector2(430, 870)
-shape = SubResource("W09")
+[node name="ColCart" type="CollisionShape2D" parent="Collisions" unique_id=1331372804]
+position = Vector2(775, 225)
+shape = SubResource("CartObstacle")
 
-; Bottom-right big solid area (x 1260–1680, y 620–900)
-[node name="W10_BottomRightRock" type="CollisionShape2D" parent="Walls"]
-position = Vector2(1470, 760)
-shape = SubResource("W10")
+[node name="ColBarrelsEntrance" type="CollisionShape2D" parent="Collisions" unique_id=220763933]
+position = Vector2(125, 255)
+shape = SubResource("BarrelsEntrance")
 
-; Right-center wall mass (x 1600–1672, y 0–600)
-[node name="W11_RightCenterWall" type="CollisionShape2D" parent="Walls"]
-position = Vector2(1636, 300)
-shape = SubResource("W11")
+[node name="ColBarrelsGrimm" type="CollisionShape2D" parent="Collisions" unique_id=1245474587]
+position = Vector2(150, 700)
+shape = SubResource("BarrelsGrimm")
 
-; Center-north divider wall (x 460–880, y 100–260)
-[node name="W12_CenterNorthDivider" type="CollisionShape2D" parent="Walls"]
-position = Vector2(670, 175)
-shape = SubResource("W12")
+[node name="ColCrystalTL" type="CollisionShape2D" parent="Collisions" unique_id=1710524840]
+position = Vector2(1270, 180)
+shape = SubResource("CrystalTL")
 
-; Center-south chasm wall (x 840–1220, y 690–930)
-[node name="W13_CenterSouthChasm" type="CollisionShape2D" parent="Walls"]
-position = Vector2(1030, 810)
-shape = SubResource("W13")
+[node name="ColCrystalTR" type="CollisionShape2D" parent="Collisions" unique_id=1810596298]
+position = Vector2(1510, 180)
+shape = SubResource("CrystalTR")
 
-; Mid-right plateau edge (x 1200–1500, y 480–640)
-[node name="W14_MidRightPlateau" type="CollisionShape2D" parent="Walls"]
-position = Vector2(1350, 560)
-shape = SubResource("W14")
+[node name="ColCrystalBL" type="CollisionShape2D" parent="Collisions" unique_id=113208862]
+position = Vector2(1270, 810)
+shape = SubResource("CrystalBL")
 
-; Far-left low block (x 240–420, y 580–780)
-[node name="W15_FarLeftLow" type="CollisionShape2D" parent="Walls"]
-position = Vector2(330, 680)
-shape = SubResource("W15")
+[node name="ColCrystalBR" type="CollisionShape2D" parent="Collisions" unique_id=2009010304]
+position = Vector2(1510, 810)
+shape = SubResource("CrystalBR")
 
-; ═══ SPAWN / EXIT ═══════════════════════════════════════════════════════════
-[node name="Spawn_entrance" type="Marker2D" parent="."]
-position = Vector2(180, 220)
-
-[node name="CaveExit" type="Area2D" parent="."]
-position = Vector2(140, 200)
+[node name="CaveExit" type="Area2D" parent="." unique_id=1418728551]
+position = Vector2(150, 160)
 collision_layer = 64
-collision_mask = 0
+collision_mask = 2
 script = ExtResource("3_exit")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CaveExit"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CaveExit" unique_id=2082260172]
 shape = SubResource("ShapeExit")
 
-[node name="Light_Entrance" type="PointLight2D" parent="."]
-position = Vector2(140, 190)
-color = Color(0.9, 0.95, 1, 1)
-energy = 1.3
-texture = SubResource("GradientTexture2D_crystal")
-texture_scale = 3.5
+[node name="ExitSign" type="Label" parent="CaveExit" unique_id=139536663]
+offset_left = -60.0
+offset_top = -45.0
+offset_right = 60.0
+offset_bottom = -25.0
+theme_override_colors/font_color = Color(1, 0.95, 0.7, 0.9)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 0.9)
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 11
+text = "▲ Exit to Surface"
+horizontal_alignment = 1
 
-[node name="Light_Cluster1" type="PointLight2D" parent="."]
-position = Vector2(380, 260)
-color = Color(0.2, 0.85, 1, 1)
-energy = 1.5
-texture = SubResource("GradientTexture2D_crystal")
-texture_scale = 3.2
+[node name="Spawn_entrance" type="Marker2D" parent="." unique_id=609162529]
+position = Vector2(230, 240)
 
-[node name="Light_Cluster2" type="PointLight2D" parent="."]
-position = Vector2(920, 340)
-color = Color(0.75, 0.35, 1, 1)
+[node name="Player" parent="." unique_id=1498188185 instance=ExtResource("4_player")]
+position = Vector2(230, 240)
+
+[node name="CompanionFox" parent="." unique_id=1557022830 instance=ExtResource("5_fox")]
+position = Vector2(190, 260)
+
+[node name="NPC_Grimm" parent="." unique_id=2014022067 instance=ExtResource("6_grimm")]
+position = Vector2(200, 720)
+
+[node name="CrystalAltar" parent="." unique_id=1054944983 instance=ExtResource("7_altar")]
+position = Vector2(1420, 480)
+
+[node name="GoblinMineTunnel" parent="." unique_id=1283826180 instance=ExtResource("8_goblin")]
+position = Vector2(750, 240)
+
+[node name="GoblinSouthPath" parent="." unique_id=974754085 instance=ExtResource("8_goblin")]
+position = Vector2(880, 780)
+
+[node name="GoblinSanctuaryGuard" parent="." unique_id=1168859480 instance=ExtResource("8_goblin")]
+position = Vector2(1140, 490)
+
+[node name="Lights" type="Node2D" parent="." unique_id=1740546185]
+
+[node name="LightEntrance" type="PointLight2D" parent="Lights" unique_id=2019579354]
+position = Vector2(290, 180)
+color = Color(1, 0.78, 0.4, 1)
+energy = 1.35
+texture = SubResource("GradTexWarm")
+texture_scale = 3.6
+
+[node name="LightExitStairs" type="PointLight2D" parent="Lights" unique_id=735609457]
+position = Vector2(150, 160)
+color = Color(0.4, 0.85, 1, 1)
 energy = 1.4
-texture = SubResource("GradientTexture2D_violet")
-texture_scale = 3.0
-
-[node name="Light_Cluster3" type="PointLight2D" parent="."]
-position = Vector2(1040, 720)
-color = Color(0.2, 0.9, 1, 1)
-energy = 1.5
-texture = SubResource("GradientTexture2D_crystal")
+texture = SubResource("GradTexCyan")
 texture_scale = 3.2
 
-[node name="Light_Cluster4" type="PointLight2D" parent="."]
-position = Vector2(1360, 380)
-color = Color(0.3, 0.7, 1, 1)
+[node name="LightGrimmCamp" type="PointLight2D" parent="Lights" unique_id=1224594757]
+position = Vector2(210, 680)
+color = Color(1, 0.75, 0.35, 1)
+energy = 1.45
+texture = SubResource("GradTexWarm")
+texture_scale = 3.8
+
+[node name="LightMineShaft" type="PointLight2D" parent="Lights" unique_id=147674279]
+position = Vector2(740, 190)
+color = Color(1, 0.8, 0.45, 1)
+energy = 1.2
+texture = SubResource("GradTexWarm")
+texture_scale = 3.2
+
+[node name="LightAzurePool" type="PointLight2D" parent="Lights" unique_id=1908887911]
+position = Vector2(710, 600)
+color = Color(0.25, 0.88, 1, 1)
+energy = 1.8
+texture = SubResource("GradTexCyan")
+texture_scale = 4.2
+
+[node name="LightGateway" type="PointLight2D" parent="Lights" unique_id=329819080]
+position = Vector2(1137, 481)
+color = Color(0.7, 0.4, 1, 1)
+energy = 1.5
+texture = SubResource("GradTexViolet")
+texture_scale = 3.6
+
+[node name="LightSanctuaryAltar" type="PointLight2D" parent="Lights" unique_id=60800542]
+position = Vector2(1422, 472)
+color = Color(0.35, 0.9, 1, 1)
+energy = 2.2
+texture = SubResource("GradTexCyan")
+texture_scale = 5.2
+
+[node name="LightCrystalTL" type="PointLight2D" parent="Lights" unique_id=942013276]
+position = Vector2(1270, 180)
+color = Color(0.3, 0.85, 1, 1)
 energy = 1.6
-texture = SubResource("GradientTexture2D_crystal")
+texture = SubResource("GradTexCyan")
 texture_scale = 3.5
 
-[node name="Light_Mid" type="PointLight2D" parent="."]
-position = Vector2(700, 500)
-color = Color(0.5, 0.9, 0.8, 1)
-energy = 1.2
-texture = SubResource("GradientTexture2D_crystal")
-texture_scale = 4.0
+[node name="LightCrystalTR" type="PointLight2D" parent="Lights" unique_id=736861707]
+position = Vector2(1510, 180)
+color = Color(0.3, 0.85, 1, 1)
+energy = 1.6
+texture = SubResource("GradTexCyan")
+texture_scale = 3.5
 
-; ═══ ENTITIES ═══════════════════════════════════════════════════════════════
-[node name="Player" parent="." instance=ExtResource("4_player")]
-position = Vector2(180, 220)
+[node name="LightCrystalBL" type="PointLight2D" parent="Lights" unique_id=1589589378]
+position = Vector2(1270, 810)
+color = Color(0.3, 0.85, 1, 1)
+energy = 1.6
+texture = SubResource("GradTexCyan")
+texture_scale = 3.5
 
-[node name="Companion_Fox" parent="." instance=ExtResource("5_fox")]
-position = Vector2(150, 250)
-
-[node name="Grimm" parent="." instance=ExtResource("6_grimm")]
-position = Vector2(760, 480)
-
-[node name="CrystalAltar" parent="." instance=ExtResource("7_altar")]
-position = Vector2(1440, 510)
-
-[node name="Goblin1" parent="." instance=ExtResource("8_goblin")]
-position = Vector2(520, 360)
-
-[node name="Goblin2" parent="." instance=ExtResource("8_goblin")]
-position = Vector2(640, 680)
-
-[node name="Goblin3" parent="." instance=ExtResource("8_goblin")]
-position = Vector2(1160, 520)
+[node name="LightCrystalBR" type="PointLight2D" parent="Lights" unique_id=660829174]
+position = Vector2(1510, 810)
+color = Color(0.3, 0.85, 1, 1)
+energy = 1.6
+texture = SubResource("GradTexCyan")
+texture_scale = 3.5

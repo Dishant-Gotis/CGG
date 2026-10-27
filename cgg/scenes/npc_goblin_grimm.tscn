@@ -64,7 +64,7 @@ animations = [{
 radius = 16.0
 
 [sub_resource type="CircleShape2D" id="ShapeInteract"]
-radius = 48.0
+radius = 65.0
 
 [node name="NPC_Goblin_Grimm" type="StaticBody2D"]
 collision_layer = 1

@@ -47,7 +47,12 @@ var toast_panel: PanelContainer
 var toast_label: Label
 var _toast_tween: Tween
 
+# Game Over Screen
+var game_over_panel: PanelContainer
+var game_over_open: bool = false
+
 var dialogue_open: bool = false
+var dialogue_closed_at_ms: int = 0
 var cutscene_caption: bool = false
 
 var _lines: Array[String] = []
@@ -81,6 +86,7 @@ func _ready() -> void:
 	_build_dialogue()
 	_build_prompt()
 	_build_bag_modal()
+	_build_game_over_modal()
 	_build_toast()
 	_build_skip_hint()
 
@@ -471,79 +477,130 @@ func _layout_prompt() -> void:
 	prompt_panel.offset_bottom = -150.0
 
 
-# --- Adventurer's Bag (Inventory Modal at 'B') --------------------------------
+# --- Adventurer's Bag (Stardew Valley Rustic Inventory Modal at 'B') ---------
 
 func _build_bag_modal() -> void:
 	bag_modal = PanelContainer.new()
-	var style := StyleBoxFlat.new()
-	style.bg_color = Color(0.06, 0.08, 0.13, 0.96)
-	style.border_color = Color(0.85, 0.72, 0.38, 0.95)
-	style.set_border_width_all(2)
-	style.set_corner_radius_all(10)
-	style.content_margin_left = 16
-	style.content_margin_right = 16
-	style.content_margin_top = 14
-	style.content_margin_bottom = 14
-	style.shadow_color = Color(0, 0, 0, 0.75)
-	style.shadow_size = 14
-	bag_modal.add_theme_stylebox_override("panel", style)
-	bag_modal.custom_minimum_size = Vector2(560, 360)
+	var wood_style := StyleBoxFlat.new()
+	wood_style.bg_color = Color(0.99, 0.91, 0.74, 1.0) # Warm Stardew parchment cream
+	wood_style.border_color = Color(0.44, 0.22, 0.08, 1.0) # Deep carved wood outer border
+	wood_style.set_border_width_all(5)
+	wood_style.set_corner_radius_all(10)
+	wood_style.content_margin_left = 16
+	wood_style.content_margin_right = 16
+	wood_style.content_margin_top = 10
+	wood_style.content_margin_bottom = 14
+	wood_style.shadow_color = Color(0, 0, 0, 0.7)
+	wood_style.shadow_size = 16
+	bag_modal.add_theme_stylebox_override("panel", wood_style)
+	bag_modal.custom_minimum_size = Vector2(670, 440)
 
 	var main_vbox := VBoxContainer.new()
-	main_vbox.add_theme_constant_override("separation", 10)
+	main_vbox.add_theme_constant_override("separation", 8)
 
-	# Header bar: Title + [X] Button
-	var head_bar := HBoxContainer.new()
-	var title := Label.new()
-	title.text = "🎒 ADVENTURER'S SATCHEL"
-	title.add_theme_font_size_override("font_size", 17)
-	title.add_theme_color_override("font_color", Color(1.0, 0.88, 0.45))
-	title.add_theme_color_override("font_outline_color", Color(0, 0, 0, 0.9))
-	title.add_theme_constant_override("outline_size", 3)
-	title.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	head_bar.add_child(title)
+	# 1. Top Bar: Stardew Navigation Tabs + Signature Red Close Button [X]
+	var top_bar := HBoxContainer.new()
+	top_bar.add_theme_constant_override("separation", 6)
 
+	var tabs_info := [
+		["🎒", "Inventory", true],
+		["🧑", "Skills", false],
+		["❤️", "Social", false],
+		["🗺️", "Map", false],
+		["🔨", "Crafting", false],
+		["⚙️", "Options", false]
+	]
+
+	for tab_data: Array in tabs_info:
+		var tab_btn := PanelContainer.new()
+		tab_btn.custom_minimum_size = Vector2(36, 28)
+		var t_style := StyleBoxFlat.new()
+		var is_active: bool = bool(tab_data[2])
+		if is_active:
+			t_style.bg_color = Color(0.85, 0.38, 0.18, 1.0) # Active warm tab
+			t_style.border_color = Color(0.44, 0.22, 0.08, 1.0)
+		else:
+			t_style.bg_color = Color(0.82, 0.68, 0.48, 0.9) # Inactive tab
+			t_style.border_color = Color(0.52, 0.36, 0.20, 0.9)
+		t_style.set_border_width_all(2)
+		t_style.corner_radius_top_left = 6
+		t_style.corner_radius_top_right = 6
+		t_style.corner_radius_bottom_left = 2
+		t_style.corner_radius_bottom_right = 2
+		tab_btn.add_theme_stylebox_override("panel", t_style)
+
+		var tab_icon := Label.new()
+		tab_icon.text = str(tab_data[0])
+		tab_icon.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		tab_icon.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+		tab_icon.add_theme_font_size_override("font_size", 14)
+		tab_btn.add_child(tab_icon)
+		top_bar.add_child(tab_btn)
+
+	var top_spacer := Control.new()
+	top_spacer.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	top_bar.add_child(top_spacer)
+
+	# Stardew Signature Red Square Close Button
 	var close_btn := Button.new()
 	close_btn.text = "✕"
 	close_btn.custom_minimum_size = Vector2(28, 28)
+	var cb_style := StyleBoxFlat.new()
+	cb_style.bg_color = Color(0.85, 0.26, 0.20, 1.0)
+	cb_style.border_color = Color(0.46, 0.12, 0.08, 1.0)
+	cb_style.set_border_width_all(2)
+	cb_style.set_corner_radius_all(4)
+	close_btn.add_theme_stylebox_override("normal", cb_style)
+	close_btn.add_theme_stylebox_override("hover", cb_style)
+	close_btn.add_theme_stylebox_override("pressed", cb_style)
+	close_btn.add_theme_color_override("font_color", Color(1.0, 0.96, 0.88))
 	close_btn.pressed.connect(func() -> void: toggle_bag(false))
-	head_bar.add_child(close_btn)
-	main_vbox.add_child(head_bar)
+	top_bar.add_child(close_btn)
+	main_vbox.add_child(top_bar)
 
-	# Subtitle instructions
-	var sub := Label.new()
-	sub.text = "Press [B] or [Esc] to Close • Click an item to inspect lore"
-	sub.add_theme_font_size_override("font_size", 11)
-	sub.add_theme_color_override("font_color", Color(0.7, 0.75, 0.85, 0.8))
-	main_vbox.add_child(sub)
+	# 2. Upper Section: 36 Stardew Slots (12 Cols x 3 Rows) + Organize & Trash Can
+	var upper_hbox := HBoxContainer.new()
+	upper_hbox.add_theme_constant_override("separation", 12)
 
-	# Body: 2 Columns (Left: Inventory Grid, Right: Item Inspector)
-	var body_hbox := HBoxContainer.new()
-	body_hbox.add_theme_constant_override("separation", 16)
-	body_hbox.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	var grid_vbox := VBoxContainer.new()
+	grid_vbox.add_theme_constant_override("separation", 3)
 
-	# Left: 4 columns x 3 rows = 12 slots grid
+	# Hotbar number headers: 1 2 3 4 5 6 7 8 9 0 - =
+	var num_row := HBoxContainer.new()
+	num_row.add_theme_constant_override("separation", 4)
+	var hotbar_keys := ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-", "="]
+	for k: String in hotbar_keys:
+		var n_lbl := Label.new()
+		n_lbl.text = k
+		n_lbl.custom_minimum_size = Vector2(40, 14)
+		n_lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		n_lbl.add_theme_font_size_override("font_size", 9)
+		n_lbl.add_theme_color_override("font_color", Color(0.48, 0.32, 0.16, 0.85))
+		num_row.add_child(n_lbl)
+	grid_vbox.add_child(num_row)
+
+	# 36 Inventory Slots Grid (12 columns x 3 rows)
 	bag_grid = GridContainer.new()
-	bag_grid.columns = 4
-	bag_grid.add_theme_constant_override("h_separation", 6)
-	bag_grid.add_theme_constant_override("v_separation", 6)
+	bag_grid.columns = 12
+	bag_grid.add_theme_constant_override("h_separation", 4)
+	bag_grid.add_theme_constant_override("v_separation", 4)
 	bag_slots.clear()
 
-	for i: int in range(12):
+	for i: int in range(36):
 		var slot := PanelContainer.new()
-		slot.custom_minimum_size = Vector2(54, 54)
+		slot.custom_minimum_size = Vector2(40, 40)
 		var sstyle := StyleBoxFlat.new()
-		sstyle.bg_color = Color(0.10, 0.12, 0.18, 0.9)
-		sstyle.border_color = Color(0.28, 0.32, 0.44, 0.8)
-		sstyle.set_border_width_all(1)
-		sstyle.set_corner_radius_all(6)
+		sstyle.bg_color = Color(0.88, 0.77, 0.58, 1.0) # Inset parchment cell
+		sstyle.border_color = Color(0.64, 0.48, 0.30, 1.0) # Beveled wood rim
+		sstyle.set_border_width_all(2)
+		sstyle.set_corner_radius_all(4)
 		slot.add_theme_stylebox_override("panel", sstyle)
 
 		var icon := Label.new()
 		icon.set_anchors_preset(Control.PRESET_FULL_RECT)
 		icon.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		icon.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-		icon.add_theme_font_size_override("font_size", 24)
+		icon.add_theme_font_size_override("font_size", 20)
 		slot.add_child(icon)
 
 		var slot_idx: int = i
@@ -551,64 +608,228 @@ func _build_bag_modal() -> void:
 			if ev is InputEventMouseButton and ev.pressed and ev.button_index == MOUSE_BUTTON_LEFT:
 				if slot_idx < GameState.inventory.size():
 					_inspect_item(GameState.inventory[slot_idx])
-					AudioManager.play_select()
+				else:
+					_inspect_empty()
+				AudioManager.play_select()
 		)
 
 		bag_grid.add_child(slot)
 		bag_slots.append(slot)
 
-	body_hbox.add_child(bag_grid)
+	grid_vbox.add_child(bag_grid)
+	upper_hbox.add_child(grid_vbox)
 
-	# Right: Item Inspector Panel
+	# Right Side: Organize Button + Stardew Purple Trash Can
+	var side_tools := VBoxContainer.new()
+	side_tools.add_theme_constant_override("separation", 10)
+
+	var org_btn := Button.new()
+	org_btn.text = "📋"
+	org_btn.tooltip_text = "Organize Satchel"
+	org_btn.custom_minimum_size = Vector2(36, 36)
+	var org_style := StyleBoxFlat.new()
+	org_style.bg_color = Color(0.88, 0.74, 0.52, 1.0)
+	org_style.border_color = Color(0.55, 0.36, 0.18, 1.0)
+	org_style.set_border_width_all(2)
+	org_style.set_corner_radius_all(6)
+	org_btn.add_theme_stylebox_override("normal", org_style)
+	org_btn.add_theme_stylebox_override("hover", org_style)
+	org_btn.pressed.connect(func() -> void:
+		GameState.inventory.sort()
+		_update_bag_ui()
+		AudioManager.play_select()
+	)
+	side_tools.add_child(org_btn)
+
+	var side_spacer := Control.new()
+	side_spacer.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	side_tools.add_child(side_spacer)
+
+	# Stardew Purple Trash Can
+	var trash_btn := Button.new()
+	trash_btn.text = "🗑️"
+	trash_btn.tooltip_text = "Trash Can"
+	trash_btn.custom_minimum_size = Vector2(38, 44)
+	var tr_style := StyleBoxFlat.new()
+	tr_style.bg_color = Color(0.48, 0.35, 0.65, 1.0) # Stardew purple trash can body
+	tr_style.border_color = Color(0.28, 0.18, 0.42, 1.0)
+	tr_style.set_border_width_all(2)
+	tr_style.set_corner_radius_all(6)
+	trash_btn.add_theme_stylebox_override("normal", tr_style)
+	trash_btn.add_theme_stylebox_override("hover", tr_style)
+	trash_btn.pressed.connect(func() -> void:
+		UI.show_toast("🗑️ Discard items by selecting and tossing into the trash can.")
+		AudioManager.play_select()
+	)
+	side_tools.add_child(trash_btn)
+	upper_hbox.add_child(side_tools)
+	main_vbox.add_child(upper_hbox)
+
+	# 3. Carved Wood Divider Bar
+	var div := PanelContainer.new()
+	div.custom_minimum_size = Vector2(0, 4)
+	var div_style := StyleBoxFlat.new()
+	div_style.bg_color = Color(0.55, 0.32, 0.14, 1.0)
+	div_style.border_color = Color(0.82, 0.60, 0.32, 1.0)
+	div_style.border_width_top = 1
+	div_style.border_width_bottom = 1
+	div.add_theme_stylebox_override("panel", div_style)
+	main_vbox.add_child(div)
+
+	# 4. Lower Section: Character Portrait & Equipment + Farm / Lore Showcase
+	var lower_hbox := HBoxContainer.new()
+	lower_hbox.add_theme_constant_override("separation", 14)
+	lower_hbox.size_flags_vertical = Control.SIZE_EXPAND_FILL
+
+	# Left Column: Equipment Slots + Character Portrait
+	var equip_hbox := HBoxContainer.new()
+	equip_hbox.add_theme_constant_override("separation", 6)
+
+	# Left Accessory Column (Ring 1, Ring 2, Boots)
+	var left_acc := VBoxContainer.new()
+	left_acc.add_theme_constant_override("separation", 4)
+	for acc_icon: String in ["💍", "💎", "👢"]:
+		var acc_slot := PanelContainer.new()
+		acc_slot.custom_minimum_size = Vector2(32, 32)
+		var as_style := StyleBoxFlat.new()
+		as_style.bg_color = Color(0.84, 0.72, 0.52, 1.0)
+		as_style.border_color = Color(0.60, 0.44, 0.28, 1.0)
+		as_style.set_border_width_all(2)
+		as_style.set_corner_radius_all(4)
+		acc_slot.add_theme_stylebox_override("panel", as_style)
+		var a_lbl := Label.new()
+		a_lbl.text = acc_icon
+		a_lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		a_lbl.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+		a_lbl.add_theme_font_size_override("font_size", 14)
+		acc_slot.add_child(a_lbl)
+		left_acc.add_child(acc_slot)
+	equip_hbox.add_child(left_acc)
+
+	# Center: Framed Character Portrait (Stardew Meadow & Arjun Avatar)
+	var port_vbox := VBoxContainer.new()
+	port_vbox.add_theme_constant_override("separation", 2)
+
+	var port_frame := PanelContainer.new()
+	port_frame.custom_minimum_size = Vector2(74, 82)
+	var pf_style := StyleBoxFlat.new()
+	pf_style.bg_color = Color(0.48, 0.72, 0.94, 1.0) # Sky background
+	pf_style.border_color = Color(0.44, 0.22, 0.08, 1.0) # Wooden portrait frame
+	pf_style.set_border_width_all(3)
+	pf_style.set_corner_radius_all(6)
+	port_frame.add_theme_stylebox_override("panel", pf_style)
+
+	var port_inner := VBoxContainer.new()
+	port_inner.set_anchors_preset(Control.PRESET_FULL_RECT)
+
+	# Meadow grass bottom layer in portrait
+	var grass_strip := ColorRect.new()
+	grass_strip.color = Color(0.35, 0.75, 0.35, 0.9)
+	grass_strip.custom_minimum_size = Vector2(0, 24)
+
+	# Player Avatar (Arjun's front idle frame from Tiny Swords)
+	var avatar := TextureRect.new()
+	avatar.custom_minimum_size = Vector2(48, 48)
+	avatar.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	avatar.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	var atlas_tex := AtlasTexture.new()
+	var player_sheet: Texture2D = load("res://Tiny Swords (Update 010)/characters/player.png") as Texture2D
+	if player_sheet != null:
+		atlas_tex.atlas = player_sheet
+		atlas_tex.region = Rect2(0, 0, 48, 48)
+		avatar.texture = atlas_tex
+	port_frame.add_child(avatar)
+	port_vbox.add_child(port_frame)
+
+	var name_lbl := Label.new()
+	name_lbl.text = "Arjun"
+	name_lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	name_lbl.add_theme_font_size_override("font_size", 13)
+	name_lbl.add_theme_color_override("font_color", Color(0.38, 0.20, 0.08, 1.0))
+	name_lbl.add_theme_color_override("font_outline_color", Color(1, 0.95, 0.85, 0.9))
+	name_lbl.add_theme_constant_override("outline_size", 2)
+	port_vbox.add_child(name_lbl)
+	equip_hbox.add_child(port_vbox)
+
+	# Right Accessory Column (Hat, Shirt, Pants)
+	var right_acc := VBoxContainer.new()
+	right_acc.add_theme_constant_override("separation", 4)
+	for acc_icon: String in ["🤠", "🥋", "👖"]:
+		var acc_slot := PanelContainer.new()
+		acc_slot.custom_minimum_size = Vector2(32, 32)
+		var as_style := StyleBoxFlat.new()
+		as_style.bg_color = Color(0.84, 0.72, 0.52, 1.0)
+		as_style.border_color = Color(0.60, 0.44, 0.28, 1.0)
+		as_style.set_border_width_all(2)
+		as_style.set_corner_radius_all(4)
+		acc_slot.add_theme_stylebox_override("panel", as_style)
+		var a_lbl := Label.new()
+		a_lbl.text = acc_icon
+		a_lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		a_lbl.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+		a_lbl.add_theme_font_size_override("font_size", 14)
+		acc_slot.add_child(a_lbl)
+		right_acc.add_child(acc_slot)
+	equip_hbox.add_child(right_acc)
+	lower_hbox.add_child(equip_hbox)
+
+	# Right Column: Stardew Valley Farm Stats & Lore Card
 	var inspect_panel := PanelContainer.new()
 	inspect_panel.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	var ip_style := StyleBoxFlat.new()
-	ip_style.bg_color = Color(0.04, 0.05, 0.08, 0.85)
-	ip_style.border_color = Color(0.35, 0.40, 0.52, 0.7)
-	ip_style.set_border_width_all(1)
+	ip_style.bg_color = Color(0.95, 0.86, 0.68, 1.0) # Inset parchment note
+	ip_style.border_color = Color(0.68, 0.50, 0.30, 1.0)
+	ip_style.set_border_width_all(2)
 	ip_style.set_corner_radius_all(6)
-	ip_style.content_margin_left = 12
-	ip_style.content_margin_right = 12
-	ip_style.content_margin_top = 10
-	ip_style.content_margin_bottom = 10
+	ip_style.content_margin_left = 14
+	ip_style.content_margin_right = 14
+	ip_style.content_margin_top = 8
+	ip_style.content_margin_bottom = 8
 	inspect_panel.add_theme_stylebox_override("panel", ip_style)
 
 	var ivbox := VBoxContainer.new()
-	ivbox.add_theme_constant_override("separation", 6)
+	ivbox.add_theme_constant_override("separation", 3)
+
+	var header_hbox := HBoxContainer.new()
+	header_hbox.add_theme_constant_override("separation", 8)
 
 	inspect_icon = Label.new()
-	inspect_icon.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	inspect_icon.add_theme_font_size_override("font_size", 36)
-	ivbox.add_child(inspect_icon)
+	inspect_icon.text = "🏡"
+	inspect_icon.add_theme_font_size_override("font_size", 28)
+	header_hbox.add_child(inspect_icon)
+
+	var titles_vbox := VBoxContainer.new()
+	titles_vbox.add_theme_constant_override("separation", 1)
 
 	inspect_title = Label.new()
-	inspect_title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	inspect_title.add_theme_font_size_override("font_size", 16)
-	inspect_title.add_theme_color_override("font_color", Color(1.0, 0.88, 0.45))
-	ivbox.add_child(inspect_title)
+	inspect_title.text = "Mossveil Farm & Caverns"
+	inspect_title.add_theme_font_size_override("font_size", 15)
+	inspect_title.add_theme_color_override("font_color", Color(0.38, 0.18, 0.06, 1.0))
+	titles_vbox.add_child(inspect_title)
 
 	inspect_badge = Label.new()
-	inspect_badge.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	inspect_badge.add_theme_font_size_override("font_size", 11)
-	inspect_badge.add_theme_color_override("font_color", Color(0.5, 0.85, 1.0))
-	ivbox.add_child(inspect_badge)
+	inspect_badge.text = "◆ ADVENTURE LEVEL 1 • DAY 7 OF FALL ◆"
+	inspect_badge.add_theme_font_size_override("font_size", 10)
+	inspect_badge.add_theme_color_override("font_color", Color(0.68, 0.36, 0.12, 1.0))
+	titles_vbox.add_child(inspect_badge)
+	header_hbox.add_child(titles_vbox)
+	ivbox.add_child(header_hbox)
 
 	inspect_desc = Label.new()
+	inspect_desc.text = "Your Funds: 1,250g\nFarm Value: 387,770g\nDay 7 of Fall, Year 1"
 	inspect_desc.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	inspect_desc.add_theme_font_size_override("font_size", 13)
-	inspect_desc.add_theme_color_override("font_color", Color(0.85, 0.88, 0.92))
+	inspect_desc.add_theme_font_size_override("font_size", 12)
+	inspect_desc.add_theme_color_override("font_color", Color(0.34, 0.18, 0.06, 0.95))
 	inspect_desc.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	ivbox.add_child(inspect_desc)
 
 	inspect_panel.add_child(ivbox)
-	body_hbox.add_child(inspect_panel)
-	main_vbox.add_child(body_hbox)
+	lower_hbox.add_child(inspect_panel)
+	main_vbox.add_child(lower_hbox)
 
 	bag_modal.add_child(main_vbox)
 	root_ui.add_child(bag_modal)
 	bag_modal.visible = false
-
-	# Center Modal
 	bag_modal.set_anchors_preset(Control.PRESET_CENTER)
 
 
@@ -624,34 +845,29 @@ func toggle_bag(force_val: Variant = null) -> void:
 	if bag_open:
 		AudioManager.play_select()
 		_update_bag_ui()
-		# Inspect the first item by default
-		if not GameState.inventory.is_empty():
-			_inspect_item(GameState.inventory[0])
-		else:
-			_inspect_empty()
+		# Open with Stardew Valley Farm & Character Overview by default
+		_inspect_empty()
 
 
 func _update_bag_ui() -> void:
 	for i: int in range(bag_slots.size()):
 		var icon_label: Label = bag_slots[i].get_child(0) as Label
+		var s := StyleBoxFlat.new()
+		s.set_border_width_all(2)
+		s.set_corner_radius_all(4)
+
 		if i < GameState.inventory.size():
 			var item_id: String = GameState.inventory[i]
 			var info: Dictionary = GameState.get_item_info(item_id)
 			icon_label.text = str(info.get("icon", "📦"))
-			var s := StyleBoxFlat.new()
-			s.bg_color = Color(0.14, 0.16, 0.24, 0.95)
-			s.border_color = Color(0.85, 0.72, 0.38, 0.8)
-			s.set_border_width_all(1)
-			s.set_corner_radius_all(6)
-			bag_slots[i].add_theme_stylebox_override("panel", s)
+			s.bg_color = Color(0.94, 0.84, 0.66, 1.0) # Active slot parchment
+			s.border_color = Color(0.68, 0.48, 0.26, 1.0) # Wood border
 		else:
 			icon_label.text = ""
-			var s := StyleBoxFlat.new()
-			s.bg_color = Color(0.08, 0.10, 0.14, 0.6)
-			s.border_color = Color(0.2, 0.23, 0.3, 0.5)
-			s.set_border_width_all(1)
-			s.set_corner_radius_all(6)
-			bag_slots[i].add_theme_stylebox_override("panel", s)
+			s.bg_color = Color(0.88, 0.77, 0.58, 1.0) # Inset empty cell
+			s.border_color = Color(0.64, 0.48, 0.30, 0.7)
+
+		bag_slots[i].add_theme_stylebox_override("panel", s)
 
 
 func _inspect_item(item_id: String) -> void:
@@ -659,14 +875,17 @@ func _inspect_item(item_id: String) -> void:
 	inspect_icon.text = str(info.get("icon", "📦"))
 	inspect_title.text = str(info.get("name", item_id))
 	inspect_badge.text = "◆ " + str(info.get("type", "Item")).to_upper() + " ◆"
-	inspect_desc.text = str(info.get("desc", "A curious adventure item."))
+	inspect_desc.text = str(info.get("desc", "A curious adventure item.")) + "\n\n(Click any empty slot to return to farm overview)"
 
 
 func _inspect_empty() -> void:
-	inspect_icon.text = "🎒"
-	inspect_title.text = "Empty Satchel"
-	inspect_badge.text = "No items yet"
-	inspect_desc.text = "Explore the forest, complete quests, and vanquish monsters to collect tools, relics, and treasures."
+	inspect_icon.text = "🏡"
+	inspect_title.text = "Mossveil Farm & Caverns"
+	inspect_badge.text = "◆ ADVENTURE LEVEL 1 • DAY 7 OF FALL ◆"
+	var relic_status := "✨ Sacred Piece of Elixir recovered!" if GameState.has_item("elixir_shard") else "🗡️ Quest: Explore the Cavern for the Sacred Elixir Shard"
+	inspect_desc.text = "Your Funds: 1,250g  •  Farm Value: 387,770g\nVitals: %d/%d Hearts  •  %d/%d MP\n%s\n[Tip: Click any item to inspect lore, or click 📋 to organize]" % [
+		GameState.health, GameState.max_health, int(GameState.mana), int(GameState.max_mana), relic_status
+	]
 
 
 func _on_inventory_changed() -> void:
@@ -781,8 +1000,8 @@ func flash(duration: float = 0.25) -> void:
 
 # --- Dialogue Flow -----------------------------------------------------------
 
-func start_dialogue(lines: Array, speaker: String = "") -> void:
-	if dialogue_open:
+func start_dialogue(lines: Array, speaker: String = "", force: bool = false) -> void:
+	if not force and (dialogue_open or (Time.get_ticks_msec() - dialogue_closed_at_ms < 400)):
 		return
 	_lines.clear()
 	for entry: Variant in lines:
@@ -836,6 +1055,7 @@ func close_dialogue() -> void:
 	if not dialogue_open:
 		return
 	dialogue_open = false
+	dialogue_closed_at_ms = Time.get_ticks_msec()
 	dialogue_panel.visible = false
 	hotbar_panel.visible = true  # Restore hotbar
 	_lines.clear()
@@ -846,6 +1066,38 @@ func close_dialogue() -> void:
 # --- Input Handling -----------------------------------------------------------
 
 func _input(event: InputEvent) -> void:
+	# If Game Over modal is open, consume all keyboard/gameplay events so they don't leak
+	if game_over_open:
+		if event is InputEventKey:
+			get_viewport().set_input_as_handled()
+		return
+
+	# Dialogue Advance & Close (handled with absolute priority)
+	if dialogue_open:
+		var is_adv: bool = event.is_action_pressed("advance") or event.is_action_pressed("interact")
+		if not is_adv and event is InputEventKey:
+			var key_ev := event as InputEventKey
+			if key_ev.pressed and not key_ev.echo:
+				if key_ev.keycode == KEY_E or key_ev.keycode == KEY_SPACE or key_ev.keycode == KEY_ENTER:
+					is_adv = true
+		var is_click: bool = false
+		if event is InputEventMouseButton:
+			var mb_ev := event as InputEventMouseButton
+			if mb_ev.pressed and mb_ev.button_index == MOUSE_BUTTON_LEFT:
+				is_click = true
+		if is_adv or is_click:
+			get_viewport().set_input_as_handled()
+			if Time.get_ticks_msec() - _opened_at_ms < OPEN_GUARD_MS:
+				return
+			_line_index += 1
+			_opened_at_ms = Time.get_ticks_msec()
+			if _line_index >= _lines.size():
+				close_dialogue()
+			else:
+				AudioManager.play_select()
+				_render_current_line()
+			return
+
 	# Bag Toggle ('B')
 	if event is InputEventKey and event.pressed and not event.echo and event.keycode == KEY_B:
 		if not dialogue_open and not cutscene_caption:
@@ -893,22 +1145,6 @@ func _input(event: InputEvent) -> void:
 		toggle_pause()
 		get_viewport().set_input_as_handled()
 		return
-
-	# Dialogue Advance
-	if dialogue_open:
-		var is_adv := event.is_action_pressed("advance")
-		var is_click := event is InputEventMouseButton and (event as InputEventMouseButton).button_index == MOUSE_BUTTON_LEFT and (event as InputEventMouseButton).pressed
-		if is_adv or is_click:
-			if Time.get_ticks_msec() - _opened_at_ms < OPEN_GUARD_MS:
-				return
-			_line_index += 1
-			_opened_at_ms = Time.get_ticks_msec()
-			if _line_index >= _lines.size():
-				close_dialogue()
-			else:
-				AudioManager.play_select()
-				_render_current_line()
-			get_viewport().set_input_as_handled()
 
 
 # --- Prompt / Health / Pause -------------------------------------------------
@@ -978,7 +1214,7 @@ func toggle_pause() -> void:
 			head.add_theme_font_size_override("font_size", 22)
 			head.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 			var hint := Label.new()
-			hint.text = "Esc — Resume\nWASD/Arrows — Move   Q — Attack   E — Interact   B — Bag   1-5 — Tools"
+			hint.text = "Esc — Resume\nWASD/Arrows — Move   Shift — Sprint   Q — Attack   E — Interact   B — Bag   1-5 — Tools"
 			hint.add_theme_font_size_override("font_size", 14)
 			hint.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 			box.add_child(head)
@@ -991,3 +1227,137 @@ func toggle_pause() -> void:
 	else:
 		if _pause_panel != null:
 			_pause_panel.visible = false
+
+
+# --- Game Over Modal Screen ---------------------------------------------------
+
+func _build_game_over_modal() -> void:
+	game_over_panel = PanelContainer.new()
+	var style := StyleBoxFlat.new()
+	style.bg_color = Color(0.07, 0.08, 0.13, 0.96)
+	style.border_color = Color(0.85, 0.22, 0.22, 0.95)
+	style.set_border_width_all(3)
+	style.set_corner_radius_all(10)
+	style.content_margin_left = 32
+	style.content_margin_right = 32
+	style.content_margin_top = 26
+	style.content_margin_bottom = 26
+	style.shadow_color = Color(0.8, 0.1, 0.1, 0.35)
+	style.shadow_size = 18
+	game_over_panel.add_theme_stylebox_override("panel", style)
+	game_over_panel.custom_minimum_size = Vector2(440, 290)
+
+	var vbox := VBoxContainer.new()
+	vbox.add_theme_constant_override("separation", 14)
+
+	# Skull & Header
+	var title_lbl := Label.new()
+	title_lbl.text = "💀 YOU FELL IN BATTLE"
+	title_lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	title_lbl.add_theme_font_size_override("font_size", 24)
+	title_lbl.add_theme_color_override("font_color", Color(1.0, 0.35, 0.35, 1.0))
+	title_lbl.add_theme_color_override("font_outline_color", Color(0, 0, 0, 0.95))
+	title_lbl.add_theme_constant_override("outline_size", 4)
+	vbox.add_child(title_lbl)
+
+	# Subtitle / Lore
+	var sub_lbl := Label.new()
+	sub_lbl.text = "The shadows overtook you, but your journey is not finished.\nAll inventory items and relics remain safely in your Satchel."
+	sub_lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	sub_lbl.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	sub_lbl.add_theme_font_size_override("font_size", 13)
+	sub_lbl.add_theme_color_override("font_color", Color(0.88, 0.85, 0.80, 0.9))
+	vbox.add_child(sub_lbl)
+
+	# Divider line
+	var sep := HSeparator.new()
+	var sep_style := StyleBoxLine.new()
+	sep_style.color = Color(0.85, 0.22, 0.22, 0.4)
+	sep_style.thickness = 1
+	sep.add_theme_stylebox_override("separator", sep_style)
+	vbox.add_child(sep)
+
+	# Action Buttons Container
+	var btn_vbox := VBoxContainer.new()
+	btn_vbox.add_theme_constant_override("separation", 10)
+
+	# Option 1: Respawn at Entrance
+	var respawn_btn := Button.new()
+	respawn_btn.text = "🔄  Respawn at Area Entrance"
+	respawn_btn.custom_minimum_size = Vector2(320, 40)
+	respawn_btn.add_theme_font_size_override("font_size", 14)
+	var r_style := StyleBoxFlat.new()
+	r_style.bg_color = Color(0.20, 0.45, 0.28, 0.95)
+	r_style.border_color = Color(0.40, 0.85, 0.45, 0.95)
+	r_style.set_border_width_all(2)
+	r_style.set_corner_radius_all(6)
+	respawn_btn.add_theme_stylebox_override("normal", r_style)
+	var r_hov := r_style.duplicate() as StyleBoxFlat
+	r_hov.bg_color = Color(0.26, 0.58, 0.35, 1.0)
+	respawn_btn.add_theme_stylebox_override("hover", r_hov)
+	respawn_btn.pressed.connect(_on_respawn_pressed)
+	btn_vbox.add_child(respawn_btn)
+
+	# Option 2: Return to Mossveil Village
+	var village_btn := Button.new()
+	village_btn.text = "🏡  Return to Mossveil Village"
+	village_btn.custom_minimum_size = Vector2(320, 40)
+	village_btn.add_theme_font_size_override("font_size", 14)
+	var v_style := StyleBoxFlat.new()
+	v_style.bg_color = Color(0.22, 0.30, 0.48, 0.95)
+	v_style.border_color = Color(0.45, 0.65, 0.95, 0.95)
+	v_style.set_border_width_all(2)
+	v_style.set_corner_radius_all(6)
+	village_btn.add_theme_stylebox_override("normal", v_style)
+	var v_hov := v_style.duplicate() as StyleBoxFlat
+	v_hov.bg_color = Color(0.30, 0.42, 0.65, 1.0)
+	village_btn.add_theme_stylebox_override("hover", v_hov)
+	village_btn.pressed.connect(_on_village_pressed)
+	btn_vbox.add_child(village_btn)
+
+	vbox.add_child(btn_vbox)
+	game_over_panel.add_child(vbox)
+
+	root_ui.add_child(game_over_panel)
+	game_over_panel.visible = false
+	game_over_panel.set_anchors_preset(Control.PRESET_CENTER)
+
+
+func show_game_over() -> void:
+	if game_over_open:
+		return
+	game_over_open = true
+	get_tree().paused = true
+	AudioManager.play_select()
+	if bag_open:
+		toggle_bag(false)
+	game_over_panel.visible = true
+	game_over_panel.reset_size()
+
+
+func hide_game_over() -> void:
+	if not game_over_open:
+		return
+	game_over_open = false
+	game_over_panel.visible = false
+	get_tree().paused = false
+
+
+func _on_respawn_pressed() -> void:
+	AudioManager.play_select()
+	hide_game_over()
+	GameState.set_health(GameState.max_health)
+	GameState.set_mana(GameState.max_mana)
+	await fade_out(0.3)
+	get_tree().reload_current_scene()
+	await get_tree().process_frame
+	await get_tree().process_frame
+	await fade_in(0.3)
+
+
+func _on_village_pressed() -> void:
+	AudioManager.play_select()
+	hide_game_over()
+	GameState.set_health(GameState.max_health)
+	GameState.set_mana(GameState.max_mana)
+	SceneManager.change_scene("res://scenes/world.tscn")

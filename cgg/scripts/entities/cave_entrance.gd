@@ -27,9 +27,13 @@ func _update_visuals() -> void:
 	prompt_text = "Enter Mystic Cavern" if has_torch else "Inspect Dark Cave"
 
 
+var _last_interact_ms: int = 0
+
+
 func interact(_player: Node) -> void:
-	if UI.dialogue_open:
+	if UI.dialogue_open or (Time.get_ticks_msec() - _last_interact_ms < 600) or (Time.get_ticks_msec() - UI.dialogue_closed_at_ms < 400):
 		return
+	_last_interact_ms = Time.get_ticks_msec()
 
 	if not GameState.has_item("cave_torch"):
 		UI.start_dialogue([

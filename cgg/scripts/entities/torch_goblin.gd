@@ -343,7 +343,7 @@ func _die() -> void:
 	hurtbox.set_deferred("monitorable", false)
 	collision_layer = 0
 	collision_mask = 0
-	AudioManager.play_slime_die()
+	AudioManager.play_slime_death()
 	died.emit(self)
 
 	# Death tween: dissolve and drop ember

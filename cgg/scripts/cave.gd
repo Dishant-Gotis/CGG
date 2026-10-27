@@ -13,11 +13,11 @@ func _ready() -> void:
 		var cam: Camera2D = player.get_node("Camera2D") as Camera2D
 		cam.limit_left = 0
 		cam.limit_top = 0
-		cam.limit_right = 1672
-		cam.limit_bottom = 940
+		cam.limit_right = 1600
+		cam.limit_bottom = 960
 
 	# Gather crystal and ambient lights for atmospheric glow
-	for child: Node in get_children():
+	for child: Node in find_children("*", "PointLight2D", true, false):
 		if child is PointLight2D:
 			_cave_lights.append(child as PointLight2D)
 
