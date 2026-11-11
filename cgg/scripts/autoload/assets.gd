@@ -43,6 +43,7 @@ const PROLOGUE_BUS := PLACEHOLDER_DIR + "/PLACEHOLDER_bus.png"
 const PROLOGUE_VILLAGE := PLACEHOLDER_DIR + "/PLACEHOLDER_village_gate.png"
 const PROLOGUE_ROOM := PLACEHOLDER_DIR + "/PLACEHOLDER_room.png"
 const PROLOGUE_SKY := PLACEHOLDER_DIR + "/PLACEHOLDER_castle_sky.png"
+const PROLOGUE_VIDEO := EVERYTHING + "/1112_1_.ogv"
 
 # --- data -------------------------------------------------------------------
 const COMBAT_JSON := "res://data/combat.json"
