@@ -1,7 +1,7 @@
 extends Control
 ## Video-based Prologue Cutscene
-## Plays 1112_1_.ogv (muted), plays starlight-arpeggio.mp3 as background music,
-## pauses at designated story timestamps, and plays transition.mp3 when [E] is pressed.
+## Plays 1112_1_.ogv (muted), plays starlight-arpeggio.mp3 as background music.
+## (Pause timestamps are currently commented out per request to play through without stopping).
 ## Transitions to the main playing mode (world.tscn) upon completion.
 
 const VIDEO_PATH := "res://Tiny Swords (Update 010)/everything/1112_1_.ogv"
@@ -9,6 +9,7 @@ const BGM_PATH := "res://Tiny Swords (Update 010)/everything/starlight-arpeggio.
 const TRANSITION_PATH := "res://Tiny Swords (Update 010)/everything/transition.mp3"
 
 # Timecodes from video editing (seconds:frames, where 30 frames = 1 second)
+# PRESERVED FOR FUTURE USE:
 const PAUSE_POINTS: Array[Dictionary] = [
 	{"time": 1.0 + 8.0 / 30.0, "code": "1:08"},     # ~1.267s
 	{"time": 4.0, "code": "4"},                     # 4.000s
@@ -56,9 +57,9 @@ func _ready() -> void:
 	# Connect finished signal
 	video_player.finished.connect(_on_video_finished)
 	
-	# Start video playback
+	# Start video playback (continuous, no pauses)
 	video_player.play()
-	print("[PROLOGUE] Video playback started (muted): %s" % VIDEO_PATH)
+	print("[PROLOGUE] Video playing continuously from start to finish: %s" % VIDEO_PATH)
 
 
 func _setup_video_stream() -> void:
@@ -109,45 +110,52 @@ func _process(delta: float) -> void:
 	if is_finished:
 		return
 	
-	if is_paused_at_point:
-		# Subtle pulsing breathing effect on the prompt to guide the player
-		var pulse: float = 0.8 + 0.2 * sin(Time.get_ticks_msec() * 0.006)
-		prompt_panel.modulate.a = pulse
-		return
-	
-	# Track stream playback position
-	var pos: float = video_player.get_stream_position()
-	if pos > 0.0:
-		playback_timer = pos
-	else:
-		playback_timer += delta
-	
-	var current_time: float = maxf(pos, playback_timer)
-	
-	# Check if we reached the next designated pause timestamp
-	if current_pause_idx < PAUSE_POINTS.size():
-		var target: float = float(PAUSE_POINTS[current_pause_idx]["time"])
-		if current_time >= target:
-			_pause_at_point(current_time)
+	# =========================================================================
+	# PAUSE CHECK CODE (COMMENTED OUT TEMPORARILY AS REQUESTED)
+	# =========================================================================
+	# if is_paused_at_point:
+	# 	var pulse: float = 0.8 + 0.2 * sin(Time.get_ticks_msec() * 0.006)
+	# 	prompt_panel.modulate.a = pulse
+	# 	return
+	#
+	# var pos: float = video_player.get_stream_position()
+	# if pos > 0.0:
+	# 	playback_timer = pos
+	# else:
+	# 	playback_timer += delta
+	#
+	# var current_time: float = maxf(pos, playback_timer)
+	# if current_pause_idx < PAUSE_POINTS.size():
+	# 	var target: float = float(PAUSE_POINTS[current_pause_idx]["time"])
+	# 	if current_time >= target:
+	# 		_pause_at_point(current_time)
+	# =========================================================================
+
+	# Fallback check to ensure scene finishes when video completes
+	playback_timer += delta
+	if not video_player.is_playing() and playback_timer > 5.0:
+		_finish_prologue()
 
 
-func _pause_at_point(current_time: float) -> void:
-	is_paused_at_point = true
-	video_player.paused = true
-	prompt_panel.visible = true
-	
-	var pt: Dictionary = PAUSE_POINTS[current_pause_idx]
-	print("[PROLOGUE] Paused at [%s] (target: %.3fs, actual: %.3fs) (%d/%d)" % [
-		pt["code"], pt["time"], current_time, current_pause_idx + 1, PAUSE_POINTS.size()
-	])
-
-
-func _resume_playback() -> void:
-	is_paused_at_point = false
-	prompt_panel.visible = false
-	current_pause_idx += 1
-	video_player.paused = false
-	print("[PROLOGUE] Resumed playback, next pause index: %d" % current_pause_idx)
+# =============================================================================
+# PAUSE FUNCTIONS (COMMENTED OUT TEMPORARILY AS REQUESTED)
+# =============================================================================
+# func _pause_at_point(current_time: float) -> void:
+# 	is_paused_at_point = true
+# 	video_player.paused = true
+# 	prompt_panel.visible = true
+# 	var pt: Dictionary = PAUSE_POINTS[current_pause_idx]
+# 	print("[PROLOGUE] Paused at [%s] (target: %.3fs, actual: %.3fs) (%d/%d)" % [
+# 		pt["code"], pt["time"], current_time, current_pause_idx + 1, PAUSE_POINTS.size()
+# 	])
+#
+# func _resume_playback() -> void:
+# 	is_paused_at_point = false
+# 	prompt_panel.visible = false
+# 	current_pause_idx += 1
+# 	video_player.paused = false
+# 	print("[PROLOGUE] Resumed playback, next pause index: %d" % current_pause_idx)
+# =============================================================================
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -161,15 +169,8 @@ func _unhandled_input(event: InputEvent) -> void:
 		_finish_prologue()
 		return
 	
-	# When paused at a story point, press [E] or [Space] to proceed
-	if is_paused_at_point:
-		if event.is_action_pressed("interact") or event.is_action_pressed("advance") or _is_key_pressed(event, KEY_E) or _is_key_pressed(event, KEY_SPACE):
-			get_viewport().set_input_as_handled()
-			_play_transition_sfx()
-			_resume_playback()
-			return
-	elif _is_key_pressed(event, KEY_E):
-		# Trigger transition sound whenever E is pressed
+	# Optional: pressing E triggers the transition sound effect
+	if _is_key_pressed(event, KEY_E):
 		_play_transition_sfx()
 
 
