@@ -24,6 +24,10 @@ func change_scene(path: String, spawn: String = "") -> void:
 	await get_tree().process_frame
 	if path.ends_with("world.tscn"):
 		AudioManager.play_music()
+	if path.ends_with("world.tscn") or path.ends_with("cave.tscn"):
+		UI.set_hud_visible(true)
+	elif path.ends_with("prologue.tscn"):
+		UI.set_hud_visible(false)
 	await UI.fade_in()
 	_changing = false
 	print("[CHECK] scene ready: ", path, " spawn=", spawn)

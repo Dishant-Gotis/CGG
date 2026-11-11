@@ -53,6 +53,7 @@ ratio = 1.7778
 [node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="AspectRatioContainer"]
 layout_mode = 2
 stream = SubResource("VideoStreamTheora_video")
+volume_db = -80.0
 autoplay = true
 expand = true
 bus = &"Master"
@@ -107,3 +108,9 @@ theme_override_font_sizes/font_size = 16
 text = "Press  [E]  or  [SPACE]  to Continue  ▶"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="BGMPlayer" type="AudioStreamPlayer" parent="."]
+bus = &"Master"
+
+[node name="TransitionSFXPlayer" type="AudioStreamPlayer" parent="."]
+bus = &"Master"

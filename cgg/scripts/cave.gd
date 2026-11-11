@@ -8,6 +8,7 @@ var _cave_lights: Array[PointLight2D] = []
 
 
 func _ready() -> void:
+	UI.set_hud_visible(true)
 	# Configure player camera to map bounds
 	if player != null and player.has_node("Camera2D"):
 		var cam: Camera2D = player.get_node("Camera2D") as Camera2D

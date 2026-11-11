@@ -24,6 +24,7 @@ var hud_panel: PanelContainer
 var hud_hearts: HBoxContainer
 var mana_bar: ProgressBar
 var mana_label: Label
+var _hud_visible: bool = false
 
 # Minecraft-style Hotbar (Bottom-center, slots 1-5)
 var hotbar_panel: PanelContainer
@@ -99,9 +100,10 @@ func _ready() -> void:
 	_on_mana_changed(GameState.mana, GameState.max_mana)
 	_update_hotbar_ui()
 	_update_bag_ui()
+	set_hud_visible(false)
 
 	get_tree().root.size_changed.connect(_on_viewport_size_changed)
-	print("[CHECK] UI ready with Hotbar and Bag")
+	print("[CHECK] UI ready with Hotbar and Bag (HUD hidden until gameplay)")
 
 
 func _fullscreen_rect(c: Color) -> ColorRect:
@@ -191,6 +193,7 @@ func _build_hud() -> void:
 	root_ui.add_child(hud_panel)
 	hud_panel.set_anchors_preset(Control.PRESET_TOP_LEFT)
 	hud_panel.position = Vector2(12, 12)
+	hud_panel.visible = false
 
 
 # --- Minecraft-style Hotbar (Vertical on Right Side) -------------------------
@@ -297,6 +300,7 @@ func _build_hotbar() -> void:
 	hotbar_panel.offset_right = -10.0
 	hotbar_panel.offset_top = -155.0
 	hotbar_panel.offset_bottom = 155.0
+	hotbar_panel.visible = false
 
 
 func _make_hotbar_slot_style(is_active: bool) -> StyleBoxFlat:
@@ -1057,7 +1061,8 @@ func close_dialogue() -> void:
 	dialogue_open = false
 	dialogue_closed_at_ms = Time.get_ticks_msec()
 	dialogue_panel.visible = false
-	hotbar_panel.visible = true  # Restore hotbar
+	if hotbar_panel != null:
+		hotbar_panel.visible = _hud_visible  # Restore hotbar only if HUD is active
 	_lines.clear()
 	AudioManager.play_select()
 	dialogue_finished.emit(_speaker)
@@ -1099,7 +1104,7 @@ func _input(event: InputEvent) -> void:
 			return
 
 	# Bag Toggle ('B')
-	if event is InputEventKey and event.pressed and not event.echo and event.keycode == KEY_B:
+	if _hud_visible and event is InputEventKey and event.pressed and not event.echo and event.keycode == KEY_B:
 		if not dialogue_open and not cutscene_caption:
 			toggle_bag()
 			get_viewport().set_input_as_handled()
@@ -1112,7 +1117,7 @@ func _input(event: InputEvent) -> void:
 		return
 
 	# Hotbar number keys 1 to 5
-	if not dialogue_open and not bag_open and event is InputEventKey and event.pressed and not event.echo:
+	if _hud_visible and not dialogue_open and not bag_open and event is InputEventKey and event.pressed and not event.echo:
 		if event.keycode == KEY_1:
 			GameState.select_hotbar_slot(0)
 			AudioManager.play_select()
@@ -1130,7 +1135,7 @@ func _input(event: InputEvent) -> void:
 			AudioManager.play_select()
 
 	# Hotbar Mouse Wheel Cycling
-	if not dialogue_open and not bag_open and event is InputEventMouseButton and event.pressed:
+	if _hud_visible and not dialogue_open and not bag_open and event is InputEventMouseButton and event.pressed:
 		if event.button_index == MOUSE_BUTTON_WHEEL_UP:
 			var prev_slot := (GameState.active_hotbar_index - 1 + 5) % 5
 			GameState.select_hotbar_slot(prev_slot)
@@ -1178,7 +1183,7 @@ func _on_health_changed(hp: int, max_hp: int) -> void:
 		else:
 			heart.modulate = Color(1.0, 1.0, 1.0, 1.0)
 		hud_hearts.add_child(heart)
-	hud_panel.visible = max_hp > 0 and not cutscene_caption
+	hud_panel.visible = _hud_visible and max_hp > 0 and not cutscene_caption
 
 
 func _on_mana_changed(cur_mana: float, max_m: float) -> void:
@@ -1190,8 +1195,11 @@ func _on_mana_changed(cur_mana: float, max_m: float) -> void:
 
 
 func set_hud_visible(v: bool) -> void:
-	hud_panel.visible = v
-	hotbar_panel.visible = v
+	_hud_visible = v
+	if hud_panel != null:
+		hud_panel.visible = v and (GameState.max_health > 0) and not cutscene_caption
+	if hotbar_panel != null:
+		hotbar_panel.visible = v and not dialogue_open
 
 
 func toggle_pause() -> void:

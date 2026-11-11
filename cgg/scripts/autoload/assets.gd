@@ -44,6 +44,8 @@ const PROLOGUE_VILLAGE := PLACEHOLDER_DIR + "/PLACEHOLDER_village_gate.png"
 const PROLOGUE_ROOM := PLACEHOLDER_DIR + "/PLACEHOLDER_room.png"
 const PROLOGUE_SKY := PLACEHOLDER_DIR + "/PLACEHOLDER_castle_sky.png"
 const PROLOGUE_VIDEO := EVERYTHING + "/1112_1_.ogv"
+const PROLOGUE_BGM := EVERYTHING + "/starlight-arpeggio.mp3"
+const PROLOGUE_TRANSITION_SFX := EVERYTHING + "/transition.mp3"
 
 # --- data -------------------------------------------------------------------
 const COMBAT_JSON := "res://data/combat.json"

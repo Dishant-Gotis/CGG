@@ -1,10 +1,12 @@
 extends Control
 ## Video-based Prologue Cutscene
-## Plays 1112_1_.ogv, automatically pausing at specific story timestamps
-## and resuming when the player presses [E] or [Space].
+## Plays 1112_1_.ogv (muted), plays starlight-arpeggio.mp3 as background music,
+## pauses at designated story timestamps, and plays transition.mp3 when [E] is pressed.
 ## Transitions to the main playing mode (world.tscn) upon completion.
 
 const VIDEO_PATH := "res://Tiny Swords (Update 010)/everything/1112_1_.ogv"
+const BGM_PATH := "res://Tiny Swords (Update 010)/everything/starlight-arpeggio.mp3"
+const TRANSITION_PATH := "res://Tiny Swords (Update 010)/everything/transition.mp3"
 
 # Timecodes from video editing (seconds:frames, where 30 frames = 1 second)
 const PAUSE_POINTS: Array[Dictionary] = [
@@ -29,6 +31,8 @@ const PAUSE_POINTS: Array[Dictionary] = [
 @onready var prompt_panel: PanelContainer = $Overlay/PromptPanel
 @onready var prompt_label: Label = $Overlay/PromptPanel/PromptLabel
 @onready var skip_label: Label = $Overlay/SkipLabel
+@onready var bgm_player: AudioStreamPlayer = $BGMPlayer
+@onready var sfx_transition: AudioStreamPlayer = $TransitionSFXPlayer
 
 var current_pause_idx: int = 0
 var is_paused_at_point: bool = false
@@ -37,17 +41,24 @@ var playback_timer: float = 0.0
 
 
 func _ready() -> void:
+	# Hide all gameplay HUD and Hotbars during cutscene
+	UI.set_hud_visible(false)
 	prompt_panel.visible = false
 	
-	# Configure VideoStream
+	# Configure VideoStream & mute video's native audio
 	_setup_video_stream()
+	video_player.volume_db = -80.0
+	video_player.volume = 0.0
+	
+	# Setup and start background music (starlight-arpeggio.mp3)
+	_setup_audio()
 	
 	# Connect finished signal
 	video_player.finished.connect(_on_video_finished)
 	
-	# Start playback
+	# Start video playback
 	video_player.play()
-	print("[PROLOGUE] Video playback started: %s" % VIDEO_PATH)
+	print("[PROLOGUE] Video playback started (muted): %s" % VIDEO_PATH)
 
 
 func _setup_video_stream() -> void:
@@ -62,6 +73,36 @@ func _setup_video_stream() -> void:
 			var vs := VideoStreamTheora.new()
 			vs.file = VIDEO_PATH
 			video_player.stream = vs
+
+
+func _setup_audio() -> void:
+	# Background music: starlight-arpeggio.mp3
+	if ResourceLoader.exists(BGM_PATH):
+		var bgm: AudioStream = load(BGM_PATH)
+		if bgm is AudioStreamMP3:
+			(bgm as AudioStreamMP3).loop = true
+		bgm_player.stream = bgm
+		bgm_player.volume_db = -4.0
+		bgm_player.play()
+		print("[PROLOGUE] Background music started: %s" % BGM_PATH)
+	else:
+		push_warning("[PROLOGUE] BGM file not found: %s" % BGM_PATH)
+
+	# Transition SFX: transition.mp3
+	if ResourceLoader.exists(TRANSITION_PATH):
+		var sfx: AudioStream = load(TRANSITION_PATH)
+		if sfx is AudioStreamMP3:
+			(sfx as AudioStreamMP3).loop = false
+		sfx_transition.stream = sfx
+		sfx_transition.volume_db = 0.0
+		print("[PROLOGUE] Transition SFX ready: %s" % TRANSITION_PATH)
+	else:
+		push_warning("[PROLOGUE] Transition SFX not found: %s" % TRANSITION_PATH)
+
+
+func _play_transition_sfx() -> void:
+	if sfx_transition != null and sfx_transition.stream != null:
+		sfx_transition.play()
 
 
 func _process(delta: float) -> void:
@@ -124,8 +165,12 @@ func _unhandled_input(event: InputEvent) -> void:
 	if is_paused_at_point:
 		if event.is_action_pressed("interact") or event.is_action_pressed("advance") or _is_key_pressed(event, KEY_E) or _is_key_pressed(event, KEY_SPACE):
 			get_viewport().set_input_as_handled()
+			_play_transition_sfx()
 			_resume_playback()
 			return
+	elif _is_key_pressed(event, KEY_E):
+		# Trigger transition sound whenever E is pressed
+		_play_transition_sfx()
 
 
 func _is_key_pressed(event: InputEvent, key: Key) -> bool:
@@ -147,6 +192,12 @@ func _finish_prologue() -> void:
 	
 	if video_player != null:
 		video_player.stop()
+	
+	# Fade out prologue BGM
+	if bgm_player != null and bgm_player.playing:
+		var tw := create_tween()
+		tw.tween_property(bgm_player, "volume_db", -80.0, 0.4)
+		tw.tween_callback(bgm_player.stop)
 	
 	# Mark prologue complete in GameState
 	GameState.set_flag("prologue_complete", true)

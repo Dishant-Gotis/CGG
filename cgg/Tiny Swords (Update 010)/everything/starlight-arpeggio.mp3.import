@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://cpfkbhuik3lr8"
+path="res://.godot/imported/starlight-arpeggio.mp3-1bd63836f1b0944aa687f682a2a17dee.mp3str"
+
+[deps]
+
+source_file="res://Tiny Swords (Update 010)/everything/starlight-arpeggio.mp3"
+dest_files=["res://.godot/imported/starlight-arpeggio.mp3-1bd63836f1b0944aa687f682a2a17dee.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
