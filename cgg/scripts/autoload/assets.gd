@@ -47,6 +47,36 @@ const PROLOGUE_VIDEO := EVERYTHING + "/1112_1_.ogv"
 const PROLOGUE_BGM := EVERYTHING + "/starlight-arpeggio.mp3"
 const PROLOGUE_TRANSITION_SFX := EVERYTHING + "/transition.mp3"
 
+# --- Tiny Swords UI Assets --------------------------------------------------
+const UI_DIR := TS + "/UI"
+const UI_BANNER_HORIZONTAL := UI_DIR + "/Banners/Banner_Horizontal.png"
+const UI_BANNER_VERTICAL := UI_DIR + "/Banners/Banner_Vertical.png"
+const UI_CARVED_9SLIDES := UI_DIR + "/Banners/Carved_9Slides.png"
+const UI_CARVED_3SLIDES := UI_DIR + "/Banners/Carved_3Slides.png"
+const UI_CARVED_REGULAR := UI_DIR + "/Banners/Carved_Regular.png"
+
+const UI_BUTTON_BLUE := UI_DIR + "/Buttons/Button_Blue.png"
+const UI_BUTTON_BLUE_3SLIDES := UI_DIR + "/Buttons/Button_Blue_3Slides.png"
+const UI_BUTTON_BLUE_9SLIDES := UI_DIR + "/Buttons/Button_Blue_9Slides.png"
+const UI_BUTTON_BLUE_PRESSED := UI_DIR + "/Buttons/Button_Blue_Pressed.png"
+const UI_BUTTON_HOVER := UI_DIR + "/Buttons/Button_Hover.png"
+const UI_BUTTON_HOVER_3SLIDES := UI_DIR + "/Buttons/Button_Hover_3Slides.png"
+const UI_BUTTON_HOVER_9SLIDES := UI_DIR + "/Buttons/Button_Hover_9Slides.png"
+const UI_BUTTON_DISABLE := UI_DIR + "/Buttons/Button_Disable.png"
+const UI_BUTTON_DISABLE_3SLIDES := UI_DIR + "/Buttons/Button_Disable_3Slides.png"
+const UI_BUTTON_DISABLE_9SLIDES := UI_DIR + "/Buttons/Button_Disable_9Slides.png"
+const UI_BUTTON_RED := UI_DIR + "/Buttons/Button_Red.png"
+const UI_BUTTON_RED_3SLIDES := UI_DIR + "/Buttons/Button_Red_3Slides.png"
+const UI_BUTTON_RED_9SLIDES := UI_DIR + "/Buttons/Button_Red_9Slides.png"
+
+const UI_RIBBON_BLUE := UI_DIR + "/Ribbons/Ribbon_Blue_3Slides.png"
+const UI_RIBBON_YELLOW := UI_DIR + "/Ribbons/Ribbon_Yellow_3Slides.png"
+const UI_RIBBON_RED := UI_DIR + "/Ribbons/Ribbon_Red_3Slides.png"
+
+const UI_POINTER_01 := UI_DIR + "/Pointers/01.png"
+const UI_HEART_FULL := "res://assets/ui/heart_full.png"
+const UI_HEART_EMPTY := "res://assets/ui/heart_empty.png"
+
 # --- data -------------------------------------------------------------------
 const COMBAT_JSON := "res://data/combat.json"
 const PROLOGUE_JSON := "res://data/prologue.json"

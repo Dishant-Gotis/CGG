@@ -45,6 +45,22 @@ func _ready() -> void:
 	# Hide all gameplay HUD and Hotbars during cutscene
 	UI.set_hud_visible(false)
 	prompt_panel.visible = false
+
+	# Theme prompt panel with authentic Tiny Swords Yellow Ribbon
+	var sb := StyleBoxTexture.new()
+	sb.texture = Assets.tex(Assets.UI_RIBBON_YELLOW)
+	sb.texture_margin_left = 48.0
+	sb.texture_margin_top = 8.0
+	sb.texture_margin_right = 48.0
+	sb.texture_margin_bottom = 14.0
+	sb.content_margin_left = 28.0
+	sb.content_margin_top = 6.0
+	sb.content_margin_right = 28.0
+	sb.content_margin_bottom = 8.0
+	prompt_panel.add_theme_stylebox_override("panel", sb)
+	prompt_label.add_theme_color_override("font_color", Color(0.20, 0.12, 0.04, 1.0))
+	prompt_label.add_theme_color_override("font_outline_color", Color(1.0, 0.96, 0.88, 0.95))
+	prompt_label.add_theme_constant_override("outline_size", 2)
 	
 	# Configure VideoStream & mute video's native audio
 	_setup_video_stream()

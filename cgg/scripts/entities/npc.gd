@@ -70,7 +70,8 @@ func interact(player: Node) -> void:
 	var callback: Callable
 	callback = func(spk: String) -> void:
 		if spk == npc_name:
-			UI.dialogue_finished.disconnect(callback)
+			if UI.dialogue_finished.is_connected(callback):
+				UI.dialogue_finished.disconnect(callback)
 			if not grant_flag.is_empty():
 				GameState.set_flag(grant_flag, true)
 			if not grant_item.is_empty() and not GameState.has_item(grant_item):

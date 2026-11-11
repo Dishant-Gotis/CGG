@@ -115,28 +115,45 @@ func _fullscreen_rect(c: Color) -> ColorRect:
 	return r
 
 
-# --- HUD (Health Hearts + Mana Bar + Satchel Key Hint) ------------------------
+func _make_stylebox_texture(
+	tex_path: String,
+	margin_left: float, margin_top: float, margin_right: float, margin_bottom: float,
+	pad_l: float = -1.0, pad_t: float = -1.0, pad_r: float = -1.0, pad_b: float = -1.0
+) -> StyleBoxTexture:
+	var sb := StyleBoxTexture.new()
+	var tex: Texture2D = Assets.tex(tex_path)
+	if tex == null:
+		tex = load(tex_path) as Texture2D
+	sb.texture = tex
+	sb.texture_margin_left = margin_left
+	sb.texture_margin_top = margin_top
+	sb.texture_margin_right = margin_right
+	sb.texture_margin_bottom = margin_bottom
+	if pad_l >= 0.0:
+		sb.content_margin_left = pad_l
+	if pad_t >= 0.0:
+		sb.content_margin_top = pad_t
+	if pad_r >= 0.0:
+		sb.content_margin_right = pad_r
+	if pad_b >= 0.0:
+		sb.content_margin_bottom = pad_b
+	sb.axis_stretch_horizontal = StyleBoxTexture.AXIS_STRETCH_MODE_STRETCH
+	sb.axis_stretch_vertical = StyleBoxTexture.AXIS_STRETCH_MODE_STRETCH
+	return sb
+
+
+# --- HUD (Health Hearts + Mana Bar) — Tiny Swords Carved Theme -----------------
 
 func _build_hud() -> void:
 	hud_panel = PanelContainer.new()
-	var style := StyleBoxFlat.new()
-	style.bg_color = Color(0.06, 0.08, 0.14, 0.88)
-	style.border_color = Color(0.35, 0.40, 0.55, 0.75)
-	style.set_border_width_all(2)
-	style.set_corner_radius_all(8)
-	style.content_margin_left = 10
-	style.content_margin_right = 10
-	style.content_margin_top = 8
-	style.content_margin_bottom = 8
-	style.shadow_color = Color(0, 0, 0, 0.5)
-	style.shadow_size = 6
+	var style := _make_stylebox_texture(Assets.UI_CARVED_9SLIDES, 24.0, 24.0, 24.0, 24.0, 14.0, 10.0, 14.0, 10.0)
 	hud_panel.add_theme_stylebox_override("panel", style)
 	hud_panel.mouse_filter = Control.MOUSE_FILTER_IGNORE
 
 	var vbox := VBoxContainer.new()
-	vbox.add_theme_constant_override("separation", 5)
+	vbox.add_theme_constant_override("separation", 6)
 
-	# Row 1: Health Hearts
+	# Row 1: Health Hearts (Using authentic pixel-art heart sprites)
 	var hearts_box := HBoxContainer.new()
 	hearts_box.add_theme_constant_override("separation", 2)
 	hud_hearts = HBoxContainer.new()
@@ -152,8 +169,8 @@ func _build_hud() -> void:
 	var mana_title := Label.new()
 	mana_title.text = "MANA"
 	mana_title.add_theme_font_size_override("font_size", 9)
-	mana_title.add_theme_color_override("font_color", Color(0.40, 0.80, 1.0, 0.95))
-	mana_title.add_theme_color_override("font_outline_color", Color(0, 0, 0, 0.9))
+	mana_title.add_theme_color_override("font_color", Color(0.24, 0.16, 0.10, 1.0))
+	mana_title.add_theme_color_override("font_outline_color", Color(1.0, 0.96, 0.88, 0.95))
 	mana_title.add_theme_constant_override("outline_size", 2)
 	mana_header.add_child(mana_title)
 
@@ -162,26 +179,28 @@ func _build_hud() -> void:
 	mana_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 	mana_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	mana_label.add_theme_font_size_override("font_size", 9)
-	mana_label.add_theme_color_override("font_color", Color(0.75, 0.90, 1.0, 0.9))
+	mana_label.add_theme_color_override("font_color", Color(0.26, 0.18, 0.12, 1.0))
+	mana_label.add_theme_color_override("font_outline_color", Color(1.0, 0.96, 0.88, 0.95))
+	mana_label.add_theme_constant_override("outline_size", 2)
 	mana_header.add_child(mana_label)
 	mana_vbox.add_child(mana_header)
 
 	mana_bar = ProgressBar.new()
-	mana_bar.custom_minimum_size = Vector2(136, 8)
+	mana_bar.custom_minimum_size = Vector2(136, 10)
 	mana_bar.max_value = 100.0
 	mana_bar.value = 100.0
 	mana_bar.show_percentage = false
 
 	var bar_bg := StyleBoxFlat.new()
-	bar_bg.bg_color = Color(0.04, 0.07, 0.12, 0.9)
-	bar_bg.border_color = Color(0.2, 0.35, 0.55, 0.8)
+	bar_bg.bg_color = Color(0.16, 0.12, 0.08, 0.95)
+	bar_bg.border_color = Color(0.38, 0.28, 0.18, 0.9)
 	bar_bg.set_border_width_all(1)
 	bar_bg.set_corner_radius_all(3)
 	mana_bar.add_theme_stylebox_override("background", bar_bg)
 
 	var bar_fill := StyleBoxFlat.new()
-	bar_fill.bg_color = Color(0.18, 0.65, 1.0, 0.95)
-	bar_fill.border_color = Color(0.65, 0.9, 1.0, 0.8)
+	bar_fill.bg_color = Color(0.18, 0.65, 1.0, 0.98)
+	bar_fill.border_color = Color(0.70, 0.92, 1.0, 0.9)
 	bar_fill.set_border_width_all(1)
 	bar_fill.set_corner_radius_all(3)
 	mana_bar.add_theme_stylebox_override("fill", bar_fill)
@@ -200,34 +219,30 @@ func _build_hud() -> void:
 
 func _build_hotbar() -> void:
 	hotbar_panel = PanelContainer.new()
-	var hstyle := StyleBoxFlat.new()
-	hstyle.bg_color = Color(0.05, 0.06, 0.10, 0.88)
-	hstyle.border_color = Color(0.40, 0.45, 0.58, 0.85)
-	hstyle.set_border_width_all(2)
-	hstyle.set_corner_radius_all(8)
-	hstyle.content_margin_left = 6
-	hstyle.content_margin_right = 6
-	hstyle.content_margin_top = 6
-	hstyle.content_margin_bottom = 6
-	hstyle.shadow_color = Color(0, 0, 0, 0.5)
-	hstyle.shadow_size = 6
+	var hstyle := _make_stylebox_texture(Assets.UI_CARVED_9SLIDES, 24.0, 24.0, 24.0, 24.0, 10.0, 10.0, 10.0, 10.0)
 	hotbar_panel.add_theme_stylebox_override("panel", hstyle)
 
 	var col := VBoxContainer.new()
-	col.add_theme_constant_override("separation", 5)
+	col.add_theme_constant_override("separation", 6)
 
-	# Active Item Name Tooltip Label (compact & autowrapped)
+	# Active Item Name Tooltip Label on Yellow Ribbon
+	var tt_panel := PanelContainer.new()
+	var tt_style := _make_stylebox_texture(Assets.UI_RIBBON_YELLOW, 24.0, 8.0, 24.0, 12.0, 10.0, 3.0, 10.0, 5.0)
+	tt_panel.add_theme_stylebox_override("panel", tt_style)
+	tt_panel.mouse_filter = Control.MOUSE_FILTER_IGNORE
+
 	hotbar_tooltip = Label.new()
 	hotbar_tooltip.text = "Hero's Blade"
 	hotbar_tooltip.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	hotbar_tooltip.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 	hotbar_tooltip.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	hotbar_tooltip.custom_minimum_size = Vector2(50, 24)
+	hotbar_tooltip.custom_minimum_size = Vector2(52, 22)
 	hotbar_tooltip.add_theme_font_size_override("font_size", 9)
-	hotbar_tooltip.add_theme_color_override("font_color", Color(1.0, 0.9, 0.5))
-	hotbar_tooltip.add_theme_color_override("font_outline_color", Color(0, 0, 0, 0.9))
+	hotbar_tooltip.add_theme_color_override("font_color", Color(0.24, 0.14, 0.06, 1.0))
+	hotbar_tooltip.add_theme_color_override("font_outline_color", Color(1.0, 0.96, 0.88, 0.95))
 	hotbar_tooltip.add_theme_constant_override("outline_size", 2)
-	col.add_child(hotbar_tooltip)
+	tt_panel.add_child(hotbar_tooltip)
+	col.add_child(tt_panel)
 
 	# Vertical list of 5 item slots
 	var slots_vbox := VBoxContainer.new()
@@ -239,7 +254,7 @@ func _build_hotbar() -> void:
 
 	for i: int in range(5):
 		var slot := PanelContainer.new()
-		slot.custom_minimum_size = Vector2(44, 44)
+		slot.custom_minimum_size = Vector2(46, 46)
 		slot.mouse_filter = Control.MOUSE_FILTER_STOP
 		var sstyle := _make_hotbar_slot_style(i == GameState.active_hotbar_index)
 		slot.add_theme_stylebox_override("panel", sstyle)
@@ -248,8 +263,10 @@ func _build_hotbar() -> void:
 		var num := Label.new()
 		num.text = str(i + 1)
 		num.add_theme_font_size_override("font_size", 9)
-		num.add_theme_color_override("font_color", Color(0.75, 0.75, 0.82, 0.8))
-		num.position = Vector2(3, 1)
+		num.add_theme_color_override("font_color", Color(0.35, 0.22, 0.12, 0.95))
+		num.add_theme_color_override("font_outline_color", Color(1.0, 0.96, 0.88, 0.95))
+		num.add_theme_constant_override("outline_size", 2)
+		num.position = Vector2(5, 2)
 		slot.add_child(num)
 
 		# Item Icon in center
@@ -275,18 +292,28 @@ func _build_hotbar() -> void:
 
 	col.add_child(slots_vbox)
 
-	# Bag shortcut hint at bottom
+	# Bag shortcut button at bottom (using Tiny Swords Button_Blue)
+	var bag_btn := PanelContainer.new()
+	var bb_style := _make_stylebox_texture(Assets.UI_BUTTON_BLUE, 14.0, 12.0, 14.0, 16.0, 4.0, 4.0, 4.0, 6.0)
+	bag_btn.add_theme_stylebox_override("panel", bb_style)
+	bag_btn.custom_minimum_size = Vector2(46, 26)
+	bag_btn.mouse_filter = Control.MOUSE_FILTER_STOP
+
 	var bag_hint := Label.new()
 	bag_hint.text = "[B] Bag"
 	bag_hint.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	bag_hint.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 	bag_hint.add_theme_font_size_override("font_size", 9)
-	bag_hint.add_theme_color_override("font_color", Color(0.7, 0.76, 0.88, 0.85))
-	bag_hint.mouse_filter = Control.MOUSE_FILTER_STOP
-	bag_hint.gui_input.connect(func(ev: InputEvent) -> void:
+	bag_hint.add_theme_color_override("font_color", Color(1.0, 1.0, 1.0, 1.0))
+	bag_hint.add_theme_color_override("font_outline_color", Color(0.12, 0.22, 0.45, 0.95))
+	bag_hint.add_theme_constant_override("outline_size", 2)
+	bag_btn.add_child(bag_hint)
+
+	bag_btn.gui_input.connect(func(ev: InputEvent) -> void:
 		if ev is InputEventMouseButton and ev.pressed and ev.button_index == MOUSE_BUTTON_LEFT:
 			toggle_bag()
 	)
-	col.add_child(bag_hint)
+	col.add_child(bag_btn)
 
 	hotbar_panel.add_child(col)
 	root_ui.add_child(hotbar_panel)
@@ -296,27 +323,18 @@ func _build_hotbar() -> void:
 	hotbar_panel.anchor_right = 1.0
 	hotbar_panel.anchor_top = 0.5
 	hotbar_panel.anchor_bottom = 0.5
-	hotbar_panel.offset_left = -70.0
+	hotbar_panel.offset_left = -78.0
 	hotbar_panel.offset_right = -10.0
-	hotbar_panel.offset_top = -155.0
-	hotbar_panel.offset_bottom = 155.0
+	hotbar_panel.offset_top = -175.0
+	hotbar_panel.offset_bottom = 175.0
 	hotbar_panel.visible = false
 
 
-func _make_hotbar_slot_style(is_active: bool) -> StyleBoxFlat:
-	var s := StyleBoxFlat.new()
+func _make_hotbar_slot_style(is_active: bool) -> StyleBox:
 	if is_active:
-		s.bg_color = Color(0.18, 0.20, 0.32, 0.95)
-		s.border_color = Color(1.0, 0.84, 0.28, 1.0)
-		s.set_border_width_all(2)
-		s.shadow_color = Color(1.0, 0.85, 0.3, 0.4)
-		s.shadow_size = 4
+		return _make_stylebox_texture(Assets.UI_BUTTON_HOVER, 14.0, 12.0, 14.0, 16.0, 4.0, 4.0, 4.0, 4.0)
 	else:
-		s.bg_color = Color(0.08, 0.10, 0.15, 0.85)
-		s.border_color = Color(0.28, 0.32, 0.42, 0.75)
-		s.set_border_width_all(1)
-	s.set_corner_radius_all(4)
-	return s
+		return _make_stylebox_texture(Assets.UI_BUTTON_DISABLE, 14.0, 12.0, 14.0, 16.0, 4.0, 4.0, 4.0, 4.0)
 
 
 func _update_hotbar_ui() -> void:
@@ -342,70 +360,52 @@ func _on_hotbar_changed(_idx: int) -> void:
 	_update_hotbar_ui()
 
 
-# --- Dialogue Window (Fixed Bottom Anchored, Strict 124px Height) -------------
+# --- Dialogue Window (Tiny Swords Carved Banner + Yellow Ribbon) -------------
 
 func _build_dialogue() -> void:
 	dialogue_panel = PanelContainer.new()
-	var dstyle := StyleBoxFlat.new()
-	dstyle.bg_color = Color(0.07, 0.09, 0.14, 0.96)
-	dstyle.border_color = Color(0.85, 0.72, 0.38, 0.95)
-	dstyle.set_border_width_all(2)
-	dstyle.set_corner_radius_all(8)
-	dstyle.content_margin_left = 18
-	dstyle.content_margin_right = 18
-	dstyle.content_margin_top = 10
-	dstyle.content_margin_bottom = 10
-	dstyle.shadow_color = Color(0, 0, 0, 0.7)
-	dstyle.shadow_size = 8
+	var dstyle := _make_stylebox_texture(Assets.UI_CARVED_9SLIDES, 32.0, 32.0, 32.0, 32.0, 34.0, 22.0, 34.0, 20.0)
 	dialogue_panel.add_theme_stylebox_override("panel", dstyle)
 	dialogue_panel.mouse_filter = Control.MOUSE_FILTER_STOP
 
 	var vbox := VBoxContainer.new()
-	vbox.add_theme_constant_override("separation", 4)
+	vbox.add_theme_constant_override("separation", 6)
 	vbox.size_flags_vertical = Control.SIZE_EXPAND_FILL
 
-	# Speaker Badge
+	# Speaker Badge (Yellow Ribbon 3Slides)
 	speaker_badge = PanelContainer.new()
-	var bstyle := StyleBoxFlat.new()
-	bstyle.bg_color = Color(0.18, 0.16, 0.28, 0.95)
-	bstyle.border_color = Color(0.92, 0.80, 0.45, 0.95)
-	bstyle.set_border_width_all(1)
-	bstyle.set_corner_radius_all(4)
-	bstyle.content_margin_left = 10
-	bstyle.content_margin_right = 10
-	bstyle.content_margin_top = 2
-	bstyle.content_margin_bottom = 2
+	var bstyle := _make_stylebox_texture(Assets.UI_RIBBON_YELLOW, 48.0, 8.0, 48.0, 14.0, 26.0, 4.0, 26.0, 8.0)
 	speaker_badge.add_theme_stylebox_override("panel", bstyle)
 	speaker_badge.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
 
 	speaker_label = Label.new()
-	speaker_label.add_theme_font_size_override("font_size", 14)
-	speaker_label.add_theme_color_override("font_color", Color(1.0, 0.88, 0.45))
-	speaker_label.add_theme_color_override("font_outline_color", Color(0, 0, 0, 0.9))
+	speaker_label.add_theme_font_size_override("font_size", 13)
+	speaker_label.add_theme_color_override("font_color", Color(0.22, 0.12, 0.04, 1.0))
+	speaker_label.add_theme_color_override("font_outline_color", Color(1.0, 0.96, 0.88, 0.95))
 	speaker_label.add_theme_constant_override("outline_size", 2)
 	speaker_badge.add_child(speaker_label)
 	vbox.add_child(speaker_badge)
 	speaker_badge.visible = false
 
-	# Text Label
+	# Text Label (Rich fantasy ink on warm parchment)
 	text_label = Label.new()
 	text_label.add_theme_font_size_override("font_size", 16)
-	text_label.add_theme_color_override("font_color", Color(0.96, 0.96, 0.98))
-	text_label.add_theme_color_override("font_outline_color", Color(0, 0, 0, 0.85))
-	text_label.add_theme_constant_override("outline_size", 3)
+	text_label.add_theme_color_override("font_color", Color(0.18, 0.12, 0.06, 1.0))
+	text_label.add_theme_color_override("font_outline_color", Color(1.0, 0.97, 0.90, 0.75))
+	text_label.add_theme_constant_override("outline_size", 1)
 	text_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	text_label.max_lines_visible = 3
 	text_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	text_label.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	vbox.add_child(text_label)
 
-	# Advance Hint
+	# Advance Hint (Sepia tone)
 	advance_hint = Label.new()
 	advance_hint.text = "▼ Press [E / Space / Click] to continue"
 	advance_hint.add_theme_font_size_override("font_size", 12)
-	advance_hint.add_theme_color_override("font_color", Color(0.85, 0.82, 0.65, 0.85))
-	advance_hint.add_theme_color_override("font_outline_color", Color(0, 0, 0, 0.9))
-	advance_hint.add_theme_constant_override("outline_size", 2)
+	advance_hint.add_theme_color_override("font_color", Color(0.42, 0.30, 0.18, 0.95))
+	advance_hint.add_theme_color_override("font_outline_color", Color(1.0, 0.96, 0.88, 0.85))
+	advance_hint.add_theme_constant_override("outline_size", 1)
 	advance_hint.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 	vbox.add_child(advance_hint)
 
@@ -420,7 +420,7 @@ func _layout_dialogue() -> void:
 	if dialogue_panel == null or not is_inside_tree():
 		return
 	var vp_size := get_viewport().get_visible_rect().size
-	var panel_w: float = minf(vp_size.x - 80.0, 840.0)
+	var panel_w: float = minf(vp_size.x - 60.0, 840.0)
 	var half_w: float = panel_w * 0.5
 
 	dialogue_panel.anchor_left = 0.5
@@ -429,34 +429,24 @@ func _layout_dialogue() -> void:
 	dialogue_panel.anchor_bottom = 1.0
 	dialogue_panel.offset_left = -half_w
 	dialogue_panel.offset_right = half_w
-	dialogue_panel.offset_top = -142.0
-	dialogue_panel.offset_bottom = -16.0
-	dialogue_panel.custom_minimum_size = Vector2(panel_w, 126.0)
+	dialogue_panel.offset_top = -152.0
+	dialogue_panel.offset_bottom = -14.0
+	dialogue_panel.custom_minimum_size = Vector2(panel_w, 138.0)
 
 
 # --- Interaction Prompt -------------------------------------------------------
 
 func _build_prompt() -> void:
 	prompt_panel = PanelContainer.new()
-	var pstyle := StyleBoxFlat.new()
-	pstyle.bg_color = Color(0.08, 0.10, 0.16, 0.92)
-	pstyle.border_color = Color(0.92, 0.80, 0.45, 0.9)
-	pstyle.set_border_width_all(1)
-	pstyle.set_corner_radius_all(6)
-	pstyle.content_margin_left = 14
-	pstyle.content_margin_right = 14
-	pstyle.content_margin_top = 5
-	pstyle.content_margin_bottom = 5
-	pstyle.shadow_color = Color(0, 0, 0, 0.5)
-	pstyle.shadow_size = 4
+	var pstyle := _make_stylebox_texture(Assets.UI_RIBBON_YELLOW, 48.0, 8.0, 48.0, 14.0, 26.0, 5.0, 26.0, 7.0)
 	prompt_panel.add_theme_stylebox_override("panel", pstyle)
 	prompt_panel.mouse_filter = Control.MOUSE_FILTER_IGNORE
 
 	prompt_label = Label.new()
 	prompt_label.add_theme_font_size_override("font_size", 14)
-	prompt_label.add_theme_color_override("font_color", Color(1, 0.95, 0.75))
-	prompt_label.add_theme_color_override("font_outline_color", Color(0, 0, 0, 0.9))
-	prompt_label.add_theme_constant_override("outline_size", 3)
+	prompt_label.add_theme_color_override("font_color", Color(0.20, 0.12, 0.04, 1.0))
+	prompt_label.add_theme_color_override("font_outline_color", Color(1.0, 0.96, 0.88, 0.95))
+	prompt_label.add_theme_constant_override("outline_size", 2)
 	prompt_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	prompt_panel.add_child(prompt_label)
 	root_ui.add_child(prompt_panel)
@@ -473,36 +463,26 @@ func _layout_prompt() -> void:
 	prompt_panel.anchor_top = 1.0
 	prompt_panel.anchor_bottom = 1.0
 	prompt_panel.reset_size()
-	var pw: float = prompt_panel.size.x
-	var half_w: float = maxf(pw * 0.5, 120.0)
+	var pw: float = maxf(prompt_panel.size.x, 160.0)
+	var half_w: float = pw * 0.5
 	prompt_panel.offset_left = -half_w
 	prompt_panel.offset_right = half_w
-	prompt_panel.offset_top = -186.0
-	prompt_panel.offset_bottom = -150.0
+	prompt_panel.offset_top = -196.0
+	prompt_panel.offset_bottom = -158.0
 
 
-# --- Adventurer's Bag (Stardew Valley Rustic Inventory Modal at 'B') ---------
+# --- Adventurer's Bag (Tiny Swords Rustic Inventory Modal at 'B') ---------
 
 func _build_bag_modal() -> void:
 	bag_modal = PanelContainer.new()
-	var wood_style := StyleBoxFlat.new()
-	wood_style.bg_color = Color(0.99, 0.91, 0.74, 1.0) # Warm Stardew parchment cream
-	wood_style.border_color = Color(0.44, 0.22, 0.08, 1.0) # Deep carved wood outer border
-	wood_style.set_border_width_all(5)
-	wood_style.set_corner_radius_all(10)
-	wood_style.content_margin_left = 16
-	wood_style.content_margin_right = 16
-	wood_style.content_margin_top = 10
-	wood_style.content_margin_bottom = 14
-	wood_style.shadow_color = Color(0, 0, 0, 0.7)
-	wood_style.shadow_size = 16
+	var wood_style := _make_stylebox_texture(Assets.UI_CARVED_9SLIDES, 32.0, 32.0, 32.0, 32.0, 24.0, 16.0, 24.0, 16.0)
 	bag_modal.add_theme_stylebox_override("panel", wood_style)
-	bag_modal.custom_minimum_size = Vector2(670, 440)
+	bag_modal.custom_minimum_size = Vector2(680, 440)
 
 	var main_vbox := VBoxContainer.new()
 	main_vbox.add_theme_constant_override("separation", 8)
 
-	# 1. Top Bar: Stardew Navigation Tabs + Signature Red Close Button [X]
+	# 1. Top Bar: Navigation Tabs + Signature Red Close Button [X]
 	var top_bar := HBoxContainer.new()
 	top_bar.add_theme_constant_override("separation", 6)
 
@@ -518,20 +498,11 @@ func _build_bag_modal() -> void:
 	for tab_data: Array in tabs_info:
 		var tab_btn := PanelContainer.new()
 		tab_btn.custom_minimum_size = Vector2(36, 28)
-		var t_style := StyleBoxFlat.new()
 		var is_active: bool = bool(tab_data[2])
 		if is_active:
-			t_style.bg_color = Color(0.85, 0.38, 0.18, 1.0) # Active warm tab
-			t_style.border_color = Color(0.44, 0.22, 0.08, 1.0)
+			tab_btn.add_theme_stylebox_override("panel", _make_stylebox_texture(Assets.UI_BUTTON_HOVER, 14.0, 12.0, 14.0, 16.0, 4.0, 2.0, 4.0, 4.0))
 		else:
-			t_style.bg_color = Color(0.82, 0.68, 0.48, 0.9) # Inactive tab
-			t_style.border_color = Color(0.52, 0.36, 0.20, 0.9)
-		t_style.set_border_width_all(2)
-		t_style.corner_radius_top_left = 6
-		t_style.corner_radius_top_right = 6
-		t_style.corner_radius_bottom_left = 2
-		t_style.corner_radius_bottom_right = 2
-		tab_btn.add_theme_stylebox_override("panel", t_style)
+			tab_btn.add_theme_stylebox_override("panel", _make_stylebox_texture(Assets.UI_BUTTON_DISABLE, 14.0, 12.0, 14.0, 16.0, 4.0, 2.0, 4.0, 4.0))
 
 		var tab_icon := Label.new()
 		tab_icon.text = str(tab_data[0])
@@ -545,24 +516,20 @@ func _build_bag_modal() -> void:
 	top_spacer.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	top_bar.add_child(top_spacer)
 
-	# Stardew Signature Red Square Close Button
+	# Tiny Swords Signature Red Button
 	var close_btn := Button.new()
 	close_btn.text = "✕"
-	close_btn.custom_minimum_size = Vector2(28, 28)
-	var cb_style := StyleBoxFlat.new()
-	cb_style.bg_color = Color(0.85, 0.26, 0.20, 1.0)
-	cb_style.border_color = Color(0.46, 0.12, 0.08, 1.0)
-	cb_style.set_border_width_all(2)
-	cb_style.set_corner_radius_all(4)
+	close_btn.custom_minimum_size = Vector2(30, 30)
+	var cb_style := _make_stylebox_texture(Assets.UI_BUTTON_RED, 14.0, 12.0, 14.0, 16.0, 4.0, 4.0, 4.0, 6.0)
 	close_btn.add_theme_stylebox_override("normal", cb_style)
 	close_btn.add_theme_stylebox_override("hover", cb_style)
 	close_btn.add_theme_stylebox_override("pressed", cb_style)
-	close_btn.add_theme_color_override("font_color", Color(1.0, 0.96, 0.88))
+	close_btn.add_theme_color_override("font_color", Color(1.0, 1.0, 1.0))
 	close_btn.pressed.connect(func() -> void: toggle_bag(false))
 	top_bar.add_child(close_btn)
 	main_vbox.add_child(top_bar)
 
-	# 2. Upper Section: 36 Stardew Slots (12 Cols x 3 Rows) + Organize & Trash Can
+	# 2. Upper Section: 36 Slots (12 Cols x 3 Rows) + Organize & Trash Can
 	var upper_hbox := HBoxContainer.new()
 	upper_hbox.add_theme_constant_override("separation", 12)
 
@@ -579,7 +546,9 @@ func _build_bag_modal() -> void:
 		n_lbl.custom_minimum_size = Vector2(40, 14)
 		n_lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		n_lbl.add_theme_font_size_override("font_size", 9)
-		n_lbl.add_theme_color_override("font_color", Color(0.48, 0.32, 0.16, 0.85))
+		n_lbl.add_theme_color_override("font_color", Color(0.48, 0.32, 0.16, 0.95))
+		n_lbl.add_theme_color_override("font_outline_color", Color(1.0, 0.96, 0.88, 0.9))
+		n_lbl.add_theme_constant_override("outline_size", 1)
 		num_row.add_child(n_lbl)
 	grid_vbox.add_child(num_row)
 
@@ -593,11 +562,7 @@ func _build_bag_modal() -> void:
 	for i: int in range(36):
 		var slot := PanelContainer.new()
 		slot.custom_minimum_size = Vector2(40, 40)
-		var sstyle := StyleBoxFlat.new()
-		sstyle.bg_color = Color(0.88, 0.77, 0.58, 1.0) # Inset parchment cell
-		sstyle.border_color = Color(0.64, 0.48, 0.30, 1.0) # Beveled wood rim
-		sstyle.set_border_width_all(2)
-		sstyle.set_corner_radius_all(4)
+		var sstyle := _make_stylebox_texture(Assets.UI_BUTTON_DISABLE, 14.0, 12.0, 14.0, 16.0, 2.0, 2.0, 2.0, 2.0)
 		slot.add_theme_stylebox_override("panel", sstyle)
 
 		var icon := Label.new()
@@ -631,11 +596,7 @@ func _build_bag_modal() -> void:
 	org_btn.text = "📋"
 	org_btn.tooltip_text = "Organize Satchel"
 	org_btn.custom_minimum_size = Vector2(36, 36)
-	var org_style := StyleBoxFlat.new()
-	org_style.bg_color = Color(0.88, 0.74, 0.52, 1.0)
-	org_style.border_color = Color(0.55, 0.36, 0.18, 1.0)
-	org_style.set_border_width_all(2)
-	org_style.set_corner_radius_all(6)
+	var org_style := _make_stylebox_texture(Assets.UI_BUTTON_BLUE, 14.0, 12.0, 14.0, 16.0, 4.0, 4.0, 4.0, 6.0)
 	org_btn.add_theme_stylebox_override("normal", org_style)
 	org_btn.add_theme_stylebox_override("hover", org_style)
 	org_btn.pressed.connect(func() -> void:
@@ -695,11 +656,7 @@ func _build_bag_modal() -> void:
 	for acc_icon: String in ["💍", "💎", "👢"]:
 		var acc_slot := PanelContainer.new()
 		acc_slot.custom_minimum_size = Vector2(32, 32)
-		var as_style := StyleBoxFlat.new()
-		as_style.bg_color = Color(0.84, 0.72, 0.52, 1.0)
-		as_style.border_color = Color(0.60, 0.44, 0.28, 1.0)
-		as_style.set_border_width_all(2)
-		as_style.set_corner_radius_all(4)
+		var as_style := _make_stylebox_texture(Assets.UI_BUTTON_DISABLE, 14.0, 12.0, 14.0, 16.0, 2.0, 2.0, 2.0, 2.0)
 		acc_slot.add_theme_stylebox_override("panel", as_style)
 		var a_lbl := Label.new()
 		a_lbl.text = acc_icon
@@ -710,17 +667,13 @@ func _build_bag_modal() -> void:
 		left_acc.add_child(acc_slot)
 	equip_hbox.add_child(left_acc)
 
-	# Center: Framed Character Portrait (Stardew Meadow & Snowy Avatar)
+	# Center: Framed Character Portrait (Meadow & Snowy Avatar)
 	var port_vbox := VBoxContainer.new()
 	port_vbox.add_theme_constant_override("separation", 2)
 
 	var port_frame := PanelContainer.new()
 	port_frame.custom_minimum_size = Vector2(74, 82)
-	var pf_style := StyleBoxFlat.new()
-	pf_style.bg_color = Color(0.48, 0.72, 0.94, 1.0) # Sky background
-	pf_style.border_color = Color(0.44, 0.22, 0.08, 1.0) # Wooden portrait frame
-	pf_style.set_border_width_all(3)
-	pf_style.set_corner_radius_all(6)
+	var pf_style := _make_stylebox_texture(Assets.UI_CARVED_9SLIDES, 20.0, 20.0, 20.0, 20.0, 6.0, 6.0, 6.0, 6.0)
 	port_frame.add_theme_stylebox_override("panel", pf_style)
 
 	var port_inner := VBoxContainer.new()
@@ -777,18 +730,10 @@ func _build_bag_modal() -> void:
 	equip_hbox.add_child(right_acc)
 	lower_hbox.add_child(equip_hbox)
 
-	# Right Column: Stardew Valley Farm Stats & Lore Card
+	# Right Column: Farm Stats & Lore Card
 	var inspect_panel := PanelContainer.new()
 	inspect_panel.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	var ip_style := StyleBoxFlat.new()
-	ip_style.bg_color = Color(0.95, 0.86, 0.68, 1.0) # Inset parchment note
-	ip_style.border_color = Color(0.68, 0.50, 0.30, 1.0)
-	ip_style.set_border_width_all(2)
-	ip_style.set_corner_radius_all(6)
-	ip_style.content_margin_left = 14
-	ip_style.content_margin_right = 14
-	ip_style.content_margin_top = 8
-	ip_style.content_margin_bottom = 8
+	var ip_style := _make_stylebox_texture(Assets.UI_CARVED_9SLIDES, 24.0, 24.0, 24.0, 24.0, 16.0, 10.0, 16.0, 10.0)
 	inspect_panel.add_theme_stylebox_override("panel", ip_style)
 
 	var ivbox := VBoxContainer.new()
@@ -856,22 +801,16 @@ func toggle_bag(force_val: Variant = null) -> void:
 func _update_bag_ui() -> void:
 	for i: int in range(bag_slots.size()):
 		var icon_label: Label = bag_slots[i].get_child(0) as Label
-		var s := StyleBoxFlat.new()
-		s.set_border_width_all(2)
-		s.set_corner_radius_all(4)
-
 		if i < GameState.inventory.size():
 			var item_id: String = GameState.inventory[i]
 			var info: Dictionary = GameState.get_item_info(item_id)
 			icon_label.text = str(info.get("icon", "📦"))
-			s.bg_color = Color(0.94, 0.84, 0.66, 1.0) # Active slot parchment
-			s.border_color = Color(0.68, 0.48, 0.26, 1.0) # Wood border
+			var s := _make_stylebox_texture(Assets.UI_BUTTON_HOVER, 14.0, 12.0, 14.0, 16.0, 2.0, 2.0, 2.0, 2.0)
+			bag_slots[i].add_theme_stylebox_override("panel", s)
 		else:
 			icon_label.text = ""
-			s.bg_color = Color(0.88, 0.77, 0.58, 1.0) # Inset empty cell
-			s.border_color = Color(0.64, 0.48, 0.30, 0.7)
-
-		bag_slots[i].add_theme_stylebox_override("panel", s)
+			var s := _make_stylebox_texture(Assets.UI_BUTTON_DISABLE, 14.0, 12.0, 14.0, 16.0, 2.0, 2.0, 2.0, 2.0)
+			bag_slots[i].add_theme_stylebox_override("panel", s)
 
 
 func _inspect_item(item_id: String) -> void:
@@ -901,23 +840,13 @@ func _on_inventory_changed() -> void:
 
 func _build_toast() -> void:
 	toast_panel = PanelContainer.new()
-	var style := StyleBoxFlat.new()
-	style.bg_color = Color(0.08, 0.12, 0.20, 0.95)
-	style.border_color = Color(1.0, 0.85, 0.3, 0.95)
-	style.set_border_width_all(2)
-	style.set_corner_radius_all(8)
-	style.content_margin_left = 18
-	style.content_margin_right = 18
-	style.content_margin_top = 8
-	style.content_margin_bottom = 8
-	style.shadow_color = Color(0, 0, 0, 0.6)
-	style.shadow_size = 8
+	var style := _make_stylebox_texture(Assets.UI_RIBBON_YELLOW, 48.0, 8.0, 48.0, 14.0, 30.0, 6.0, 30.0, 8.0)
 	toast_panel.add_theme_stylebox_override("panel", style)
 
 	toast_label = Label.new()
 	toast_label.add_theme_font_size_override("font_size", 14)
-	toast_label.add_theme_color_override("font_color", Color(1.0, 0.95, 0.8))
-	toast_label.add_theme_color_override("font_outline_color", Color(0, 0, 0, 0.9))
+	toast_label.add_theme_color_override("font_color", Color(0.20, 0.12, 0.04, 1.0))
+	toast_label.add_theme_color_override("font_outline_color", Color(1.0, 0.96, 0.88, 0.95))
 	toast_label.add_theme_constant_override("outline_size", 2)
 	toast_panel.add_child(toast_label)
 
@@ -1174,15 +1103,16 @@ func _on_health_changed(hp: int, max_hp: int) -> void:
 	for child: Node in hud_hearts.get_children():
 		child.queue_free()
 	var total_hearts: int = maxi(max_hp, 6)
+	var full_tex: Texture2D = Assets.tex(Assets.UI_HEART_FULL)
+	var empty_tex: Texture2D = Assets.tex(Assets.UI_HEART_EMPTY)
 	for i: int in range(total_hearts):
-		var heart := Label.new()
-		heart.text = "❤️" if i < hp else "🖤"
-		heart.add_theme_font_size_override("font_size", 16)
-		if i >= hp:
-			heart.modulate = Color(0.4, 0.42, 0.5, 0.55)
-		else:
-			heart.modulate = Color(1.0, 1.0, 1.0, 1.0)
-		hud_hearts.add_child(heart)
+		var heart_rect := TextureRect.new()
+		heart_rect.custom_minimum_size = Vector2(18, 18)
+		heart_rect.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+		heart_rect.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+		heart_rect.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+		heart_rect.texture = full_tex if i < hp else empty_tex
+		hud_hearts.add_child(heart_rect)
 	hud_panel.visible = _hud_visible and max_hp > 0 and not cutscene_caption
 
 
@@ -1208,22 +1138,21 @@ func toggle_pause() -> void:
 	if paused:
 		if _pause_panel == null:
 			_pause_panel = PanelContainer.new()
-			var style := StyleBoxFlat.new()
-			style.bg_color = Color(0.05, 0.06, 0.1, 0.95)
-			style.border_color = Color(0.75, 0.78, 0.85, 0.6)
-			style.set_border_width_all(2)
-			style.set_corner_radius_all(6)
-			style.set_content_margin_all(16)
+			var style := _make_stylebox_texture(Assets.UI_CARVED_9SLIDES, 28.0, 28.0, 28.0, 28.0, 24.0, 20.0, 24.0, 20.0)
 			_pause_panel.add_theme_stylebox_override("panel", style)
 			var box := VBoxContainer.new()
-			box.add_theme_constant_override("separation", 8)
+			box.add_theme_constant_override("separation", 10)
 			var head := Label.new()
 			head.text = "PAUSED"
 			head.add_theme_font_size_override("font_size", 22)
+			head.add_theme_color_override("font_color", Color(0.24, 0.14, 0.06, 1.0))
+			head.add_theme_color_override("font_outline_color", Color(1.0, 0.96, 0.88, 0.95))
+			head.add_theme_constant_override("outline_size", 2)
 			head.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 			var hint := Label.new()
 			hint.text = "Esc — Resume\nWASD/Arrows — Move   Shift — Sprint   Q — Attack   E — Interact   B — Bag   1-5 — Tools"
-			hint.add_theme_font_size_override("font_size", 14)
+			hint.add_theme_font_size_override("font_size", 13)
+			hint.add_theme_color_override("font_color", Color(0.28, 0.18, 0.10, 0.95))
 			hint.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 			box.add_child(head)
 			box.add_child(hint)
@@ -1241,17 +1170,7 @@ func toggle_pause() -> void:
 
 func _build_game_over_modal() -> void:
 	game_over_panel = PanelContainer.new()
-	var style := StyleBoxFlat.new()
-	style.bg_color = Color(0.07, 0.08, 0.13, 0.96)
-	style.border_color = Color(0.85, 0.22, 0.22, 0.95)
-	style.set_border_width_all(3)
-	style.set_corner_radius_all(10)
-	style.content_margin_left = 32
-	style.content_margin_right = 32
-	style.content_margin_top = 26
-	style.content_margin_bottom = 26
-	style.shadow_color = Color(0.8, 0.1, 0.1, 0.35)
-	style.shadow_size = 18
+	var style := _make_stylebox_texture(Assets.UI_CARVED_9SLIDES, 32.0, 32.0, 32.0, 32.0, 28.0, 24.0, 28.0, 24.0)
 	game_over_panel.add_theme_stylebox_override("panel", style)
 	game_over_panel.custom_minimum_size = Vector2(440, 290)
 
@@ -1263,9 +1182,9 @@ func _build_game_over_modal() -> void:
 	title_lbl.text = "💀 YOU FELL IN BATTLE"
 	title_lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	title_lbl.add_theme_font_size_override("font_size", 24)
-	title_lbl.add_theme_color_override("font_color", Color(1.0, 0.35, 0.35, 1.0))
-	title_lbl.add_theme_color_override("font_outline_color", Color(0, 0, 0, 0.95))
-	title_lbl.add_theme_constant_override("outline_size", 4)
+	title_lbl.add_theme_color_override("font_color", Color(0.78, 0.18, 0.14, 1.0))
+	title_lbl.add_theme_color_override("font_outline_color", Color(1.0, 0.92, 0.84, 0.95))
+	title_lbl.add_theme_constant_override("outline_size", 2)
 	vbox.add_child(title_lbl)
 
 	# Subtitle / Lore
@@ -1274,13 +1193,13 @@ func _build_game_over_modal() -> void:
 	sub_lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	sub_lbl.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	sub_lbl.add_theme_font_size_override("font_size", 13)
-	sub_lbl.add_theme_color_override("font_color", Color(0.88, 0.85, 0.80, 0.9))
+	sub_lbl.add_theme_color_override("font_color", Color(0.32, 0.20, 0.10, 0.95))
 	vbox.add_child(sub_lbl)
 
 	# Divider line
 	var sep := HSeparator.new()
 	var sep_style := StyleBoxLine.new()
-	sep_style.color = Color(0.85, 0.22, 0.22, 0.4)
+	sep_style.color = Color(0.65, 0.45, 0.25, 0.5)
 	sep_style.thickness = 1
 	sep.add_theme_stylebox_override("separator", sep_style)
 	vbox.add_child(sep)
@@ -1292,34 +1211,24 @@ func _build_game_over_modal() -> void:
 	# Option 1: Respawn at Entrance
 	var respawn_btn := Button.new()
 	respawn_btn.text = "🔄  Respawn at Area Entrance"
-	respawn_btn.custom_minimum_size = Vector2(320, 40)
+	respawn_btn.custom_minimum_size = Vector2(320, 42)
 	respawn_btn.add_theme_font_size_override("font_size", 14)
-	var r_style := StyleBoxFlat.new()
-	r_style.bg_color = Color(0.20, 0.45, 0.28, 0.95)
-	r_style.border_color = Color(0.40, 0.85, 0.45, 0.95)
-	r_style.set_border_width_all(2)
-	r_style.set_corner_radius_all(6)
+	var r_style := _make_stylebox_texture(Assets.UI_BUTTON_BLUE, 14.0, 12.0, 14.0, 16.0, 6.0, 6.0, 6.0, 8.0)
 	respawn_btn.add_theme_stylebox_override("normal", r_style)
-	var r_hov := r_style.duplicate() as StyleBoxFlat
-	r_hov.bg_color = Color(0.26, 0.58, 0.35, 1.0)
-	respawn_btn.add_theme_stylebox_override("hover", r_hov)
+	respawn_btn.add_theme_stylebox_override("hover", r_style)
+	respawn_btn.add_theme_color_override("font_color", Color(1.0, 1.0, 1.0))
 	respawn_btn.pressed.connect(_on_respawn_pressed)
 	btn_vbox.add_child(respawn_btn)
 
 	# Option 2: Return to Mossveil Village
 	var village_btn := Button.new()
 	village_btn.text = "🏡  Return to Mossveil Village"
-	village_btn.custom_minimum_size = Vector2(320, 40)
+	village_btn.custom_minimum_size = Vector2(320, 42)
 	village_btn.add_theme_font_size_override("font_size", 14)
-	var v_style := StyleBoxFlat.new()
-	v_style.bg_color = Color(0.22, 0.30, 0.48, 0.95)
-	v_style.border_color = Color(0.45, 0.65, 0.95, 0.95)
-	v_style.set_border_width_all(2)
-	v_style.set_corner_radius_all(6)
+	var v_style := _make_stylebox_texture(Assets.UI_BUTTON_BLUE, 14.0, 12.0, 14.0, 16.0, 6.0, 6.0, 6.0, 8.0)
 	village_btn.add_theme_stylebox_override("normal", v_style)
-	var v_hov := v_style.duplicate() as StyleBoxFlat
-	v_hov.bg_color = Color(0.30, 0.42, 0.65, 1.0)
-	village_btn.add_theme_stylebox_override("hover", v_hov)
+	village_btn.add_theme_stylebox_override("hover", v_style)
+	village_btn.add_theme_color_override("font_color", Color(1.0, 1.0, 1.0))
 	village_btn.pressed.connect(_on_village_pressed)
 	btn_vbox.add_child(village_btn)
 
