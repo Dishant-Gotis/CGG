@@ -66,7 +66,7 @@ script = ExtResource("1_npc")
 npc_name = "Elder Oakhaven"
 prompt_text = "E - Speak with Elder"
 dialogue_lines = [
-"Welcome to Mossveil, Arjun. The stars whispered of your arrival from beyond the veil.",
+"Welcome to Mossveil, Snowy. The stars whispered of your arrival from beyond the veil.",
 "Look to the dark clouds above our valley — the floating castle of the Monster King casts its shadow upon our realm.",
 "You proved your bravery by defeating the slimes along the high road. Our village honors your courage!",
 "Take this sacred Cave Torch — it burns with an eternal amber flame.",
@@ -74,7 +74,7 @@ dialogue_lines = [
 "Take the torch, delve into the cavern, and bring back the elixir piece!"
 ]
 dialogue_lines_alt = [
-"Peace be with you, Arjun.",
+"Peace be with you, Snowy.",
 "The Cave Torch burns bright in your satchel [B]. Head south of the crossroads to explore the Mystic Cavern!",
 "May the light protect you in the crystal depths."
 ]

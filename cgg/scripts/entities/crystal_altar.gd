@@ -49,7 +49,7 @@ func interact(_player: Node) -> void:
 			"Ancient Crystal Altar:",
 			"You reach toward the radiant crystal shard levitating above the carved altar.",
 			"As your fingers touch its crystal facets, a brilliant azure pulse resonates through the cavern and into your soul.",
-			"A warm echo of your father's voice reaches your ears: 'Arjun... believe in the light. Take this piece of the Elixir and restore our homeland.'",
+			"A warm echo of your father's voice reaches your ears: 'Snowy... believe in the light. Take this piece of the Elixir and restore our homeland.'",
 			"You place the Sacred Piece of Elixir safely into your satchel [B] and tool hotbar!"
 		], "Crystal Altar")
 	else:

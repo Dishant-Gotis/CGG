@@ -3,7 +3,7 @@
 
 > **Purpose:** This is the single source of truth for building the game in **Godot** with an AI coding agent (Claude Code, Antigravity, or similar). It contains the story, the build order, the art direction, the asset hand-off rules, the Godot architecture, and the acceptance criteria. Read it completely before touching the project.
 >
-> **Status of names:** Character names (Arjun, Kitsu, Aaji) are working names. Keep them in one data file so they can be changed later.
+> **Status of names:** Character names (Snowy, Kitsu, Aaji) are working names. Keep them in one data file so they can be changed later.
 >
 > **Scope note:** This is a Godot desktop game. It is **not** a web game and does not run on localhost. Do not add npm, Vite, Phaser, React, or any browser tooling.
 
@@ -47,14 +47,14 @@
 
 ### 2.1 Premise
 
-Arjun is a young corporate employee who is completely burned out. Haunted by a dream of a village being destroyed, he finally takes a break and travels to his grandparents' village. There he finds a book under his childhood bed that pulls him into **the Hollow**, a world that turns out to be the village from his dream, and it is in danger.
+Snowy is a young corporate employee who is completely burned out. Haunted by a dream of a village being destroyed, he finally takes a break and travels to his grandparents' village. There he finds a book under his childhood bed that pulls him into **the Hollow**, a world that turns out to be the village from his dream, and it is in danger.
 
 ### 2.2 Characters (working names)
 
-- **Arjun:** the player character. Young, exhausted, kind. Visual reference: brown spiky hair, light-blue shirt, blue pants, chibi proportions (see the supplied sprite).
+- **Snowy:** the player character. Young, exhausted, kind. Visual reference: brown spiky hair, light-blue shirt, blue pants, chibi proportions (see the supplied sprite).
 - **Aaji:** his grandmother. Warm, cooks, waits at the door. (A grandfather can be added if the owner confirms.)
-- **Kitsu:** a small fox-like guide spirit with glowing paws. Explains the world and combat, and leads Arjun to the village.
-- **The Elder:** the village elder in the Hollow. Names Arjun the hero and explains the Monster King.
+- **Kitsu:** a small fox-like guide spirit with glowing paws. Explains the world and combat, and leads Snowy to the village.
+- **The Elder:** the village elder in the Hollow. Names Snowy the hero and explains the Monster King.
 - **Villagers:** a handful of frightened NPCs in the Hollow village.
 - **Monsters:** the Monster King's creatures that attack the village.
 - **The Monster King:** the main antagonist, who lives in a castle floating in the sky. He never appears in person in the first slice.
@@ -63,7 +63,7 @@ Arjun is a young corporate employee who is completely burned out. Haunted by a d
 
 **Act 0: Prologue (non-interactive cutscene, skippable)**
 
-1. **The dream.** Red-tinted sky. A village burns while monsters rampage. In the distance a dark castle floats in the sky. The scene cuts to Arjun waking up in his apartment, gasping.
+1. **The dream.** Red-tinted sky. A village burns while monsters rampage. In the distance a dark castle floats in the sky. The scene cuts to Snowy waking up in his apartment, gasping.
 2. **The office.** Desaturated grey. His inbox shows 412 unread emails. A notification reads "Quick sync? 9:47 PM". He closes the laptop. Caption: "He hadn't seen the sky in three weeks."
 3. **The bus.** Side view from inside a bus. The city scrolls past and slowly turns into fields. Color returns gradually.
 4. **The village (real world).** Sunset. A creaky gate, a neem tree, his grandparents' house. Aaji waits at the door.
@@ -72,7 +72,7 @@ Arjun is a young corporate employee who is completely burned out. Haunted by a d
 
 **Act 1: Awakening and tutorial**
 
-- Arjun wakes in a clearing in the Whispering Woods (the forest map). Two moons, floating lanterns.
+- Snowy wakes in a clearing in the Whispering Woods (the forest map). Two moons, floating lanterns.
 - Kitsu introduces itself and explains the Hollow in short lines.
 - Kitsu teaches movement, interaction, and combat in order, using safe practice targets and then one or two weak monsters.
 - Kitsu says a village nearby needs help and leads him along the forest path.
@@ -85,12 +85,12 @@ Arjun is a young corporate employee who is completely burned out. Haunted by a d
 
 **Act 3: The hero and the Monster King**
 
-- The Elder names Arjun a hero and explains who the Monster King is and what he wants (details to be written with the owner).
+- The Elder names Snowy a hero and explains who the Monster King is and what he wants (details to be written with the owner).
 - Short cutscene: the camera pans up to a monster castle floating in the sky. End of the vertical slice with a "to be continued" hook.
 
 ### 2.4 Theme
 
-Burnout and rest. The real world is grey and rushed, the Hollow gets its color back as Arjun helps it. Reflect this through palette changes, not long dialogue. A "Focus vs Rest" combat mechanic is a **proposed idea** only. Do not build it until the owner confirms.
+Burnout and rest. The real world is grey and rushed, the Hollow gets its color back as Snowy helps it. Reflect this through palette changes, not long dialogue. A "Focus vs Rest" combat mechanic is a **proposed idea** only. Do not build it until the owner confirms.
 
 ### 2.5 Dialogue drafts (placeholders, owner will refine)
 
@@ -133,7 +133,7 @@ The prologue is the first thing to build. It also creates the cutscene system re
 - **Captions.** A bottom text band, line by line, readable on any background. Reuse the same dialogue component later for NPC dialogue.
 - **Palette effects.** A screen-space saturation or tint control (for example a `CanvasLayer` with a `ColorRect` and a canvas shader, or `CanvasModulate`) so the office is grey and the bus slowly regains color.
 - **Transitions.** Fade to black between scenes, and a white flash for the book transfer.
-- **Consistent character.** The same Arjun sprite used in gameplay must appear in cutscenes, scaled consistently with the art direction.
+- **Consistent character.** The same Snowy sprite used in gameplay must appear in cutscenes, scaled consistently with the art direction.
 - **Length.** About 60 to 75 seconds in total.
 - **Hand-off.** A finished prologue changes to the Whispering Woods scene with the correct spawn and sets `prologue_complete`.
 
@@ -189,7 +189,7 @@ The supplied character sprite is small and chibi (roughly 12 by 16 source pixels
 
 | Asset | Status | Notes |
 |---|---|---|
-| Arjun player sprite | Provided | Front, back, side, and attack animations in the Godot project (`SpriteFrames`). Left and right may share a side animation (flip). Verify exact names |
+| Snowy player sprite | Provided | Front, back, side, and attack animations in the Godot project (`SpriteFrames`). Left and right may share a side animation (flip). Verify exact names |
 | Tiny Swords tileset | Provided | Terrain, buildings, trees, props, units. Verify tile size |
 | Forest map references | Provided | Two forest and pond screenshots with dirt paths, cliffs, mushrooms, a dock. Visual target for Whispering Woods |
 | Kitsu (fox guide) sprites | To be provided | Idle and walk at minimum |

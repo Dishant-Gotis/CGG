@@ -71,7 +71,7 @@ dialogue_lines = [
 "Whenever your blade needs sharpening, my forge is open to our hero!"
 ]
 dialogue_lines_alt = [
-"Keep that blade sharp, Arjun!",
+"Keep that blade sharp, Snowy!",
 "The fire in the forge burns as bright as your spirit."
 ]
 required_flag = "met_kitsu"

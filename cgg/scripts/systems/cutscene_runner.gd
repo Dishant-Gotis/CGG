@@ -89,8 +89,8 @@ func _run_step(step: Dictionary) -> void:
 		"flash":
 			await UI.flash(float(step.get("dur", 0.3)))
 		"sprite":
-			var who := str(step.get("who", "arjun"))
-			if who == "arjun" and _sprite != null:
+			var who := str(step.get("who", "snowy"))
+			if who == "snowy" and _sprite != null:
 				_sprite.visible = bool(step.get("visible", true))
 				if step.has("x") and step.has("y"):
 					_sprite.position = Vector2(float(step["x"]), float(step["y"]))

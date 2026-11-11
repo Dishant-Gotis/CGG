@@ -706,7 +706,7 @@ func _build_bag_modal() -> void:
 		left_acc.add_child(acc_slot)
 	equip_hbox.add_child(left_acc)
 
-	# Center: Framed Character Portrait (Stardew Meadow & Arjun Avatar)
+	# Center: Framed Character Portrait (Stardew Meadow & Snowy Avatar)
 	var port_vbox := VBoxContainer.new()
 	port_vbox.add_theme_constant_override("separation", 2)
 
@@ -727,7 +727,7 @@ func _build_bag_modal() -> void:
 	grass_strip.color = Color(0.35, 0.75, 0.35, 0.9)
 	grass_strip.custom_minimum_size = Vector2(0, 24)
 
-	# Player Avatar (Arjun's front idle frame from Tiny Swords)
+	# Player Avatar (Snowy's front idle frame from Tiny Swords)
 	var avatar := TextureRect.new()
 	avatar.custom_minimum_size = Vector2(48, 48)
 	avatar.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
@@ -742,7 +742,7 @@ func _build_bag_modal() -> void:
 	port_vbox.add_child(port_frame)
 
 	var name_lbl := Label.new()
-	name_lbl.text = "Arjun"
+	name_lbl.text = "Snowy"
 	name_lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	name_lbl.add_theme_font_size_override("font_size", 13)
 	name_lbl.add_theme_color_override("font_color", Color(0.38, 0.20, 0.08, 1.0))

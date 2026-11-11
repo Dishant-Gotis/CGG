@@ -72,7 +72,7 @@ dialogue_lines = [
 ]
 dialogue_lines_alt = [
 "The fresh village air does wonders for the spirit.",
-"Take care on your adventures, Arjun!"
+"Take care on your adventures, Snowy!"
 ]
 required_flag = "met_kitsu"
 

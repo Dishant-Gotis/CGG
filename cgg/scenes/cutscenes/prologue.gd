@@ -3,7 +3,7 @@ extends Control
 @onready var bg: TextureRect = $StageRoot/Background
 @onready var tint: ColorRect = $StageRoot/Tint
 @onready var stage_root: Control = $StageRoot
-@onready var arjun_sprite: AnimatedSprite2D = $StageRoot/ArjunSprite
+@onready var snowy_sprite: AnimatedSprite2D = $StageRoot/SnowySprite
 @onready var title_label: Label = $TitleLabel
 @onready var runner: CutsceneRunner = $CutsceneRunner
 
@@ -15,11 +15,11 @@ func _ready() -> void:
 		var p_inst: Node = player_scene.instantiate()
 		var p_anim := p_inst.get_node_or_null("AnimatedSprite2D") as AnimatedSprite2D
 		if p_anim != null and p_anim.sprite_frames != null:
-			arjun_sprite.sprite_frames = p_anim.sprite_frames
-			arjun_sprite.scale = Vector2(3.0, 3.0)
+			snowy_sprite.sprite_frames = p_anim.sprite_frames
+			snowy_sprite.scale = Vector2(3.0, 3.0)
 		p_inst.queue_free()
 
-	runner.setup(bg, tint, stage_root, arjun_sprite, title_label)
+	runner.setup(bg, tint, stage_root, snowy_sprite, title_label)
 	
 	var data: Variant = Assets.load_json(Assets.PROLOGUE_JSON)
 	if data is Dictionary and (data as Dictionary).has("prologue"):

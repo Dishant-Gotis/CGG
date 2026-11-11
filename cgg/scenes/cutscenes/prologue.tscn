@@ -37,7 +37,7 @@ grow_vertical = 2
 expand_mode = 1
 stretch_mode = 6
 
-[node name="ArjunSprite" type="AnimatedSprite2D" parent="StageRoot"]
+[node name="SnowySprite" type="AnimatedSprite2D" parent="StageRoot"]
 visible = false
 position = Vector2(200, 440)
 scale = Vector2(3, 3)
