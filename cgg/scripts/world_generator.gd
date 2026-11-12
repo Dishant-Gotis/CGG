@@ -511,10 +511,10 @@ func _ready() -> void:
 	# =========================================================================
 	_add_building(objects, world, bld_sc, 4, Vector2(3130, 360), "TrainingTower")
 	_add_building(objects, world, bld_sc, 6, Vector2(3530, 380), "ArcheryRange")
-	_add_prop(objects, world, "res://assets/props/lantern_post.png", Vector2(3060, 480), Vector2(1296, 16), Vector2(1280, -6))
-	_add_prop(objects, world, "res://assets/props/stump_1.png", Vector2(3430, 470), Vector2(1316, 22), Vector2(1280, -11))
+	_add_prop(objects, world, "res://assets/props/lantern_post.png", Vector2(3060, 480), Vector2(16, 16), Vector2(0, -6))
+	_add_prop(objects, world, "res://assets/props/stump_1.png", Vector2(3430, 470), Vector2(36, 22), Vector2(0, -11))
 	_add_prop(objects, world, "res://assets/props/tool_01.png", Vector2(3450, 465))
-	_add_prop(objects, world, "res://assets/props/wood_log.png", Vector2(3480, 470), Vector2(1320, 18), Vector2(1280, -9))
+	_add_prop(objects, world, "res://assets/props/wood_log.png", Vector2(3480, 470), Vector2(40, 18), Vector2(0, -9))
 
 	_add_tree(objects, world, tree_sc, 1, Vector2(2680, 260))
 	_add_tree(objects, world, tree_sc, 2, Vector2(2880, 250))
@@ -556,11 +556,11 @@ func _ready() -> void:
 	# Fills vast empty northern plateau with pine wilderness, ruined watchtower & bandit campsite
 	# =========================================================================
 	_add_building(objects, world, bld_sc, 4, Vector2(4630, 360), "WildernessWatchtower")
-	_add_prop(objects, world, "res://assets/props/stump_1.png", Vector2(4720, 420), Vector2(1316, 22), Vector2(1280, -11))
+	_add_prop(objects, world, "res://assets/props/stump_1.png", Vector2(4720, 420), Vector2(36, 22), Vector2(0, -11))
 	_add_prop(objects, world, "res://assets/props/tool_01.png", Vector2(4735, 415))
-	_add_prop(objects, world, "res://assets/props/wood_log.png", Vector2(4760, 420), Vector2(1320, 18), Vector2(1280, -9))
-	_add_prop(objects, world, "res://assets/props/barrel_wood.png", Vector2(4540, 410), Vector2(1304, 24), Vector2(1280, -5))
-	_add_prop(objects, world, "res://assets/props/lantern_post.png", Vector2(4630, 440), Vector2(1296, 16), Vector2(1280, -6))
+	_add_prop(objects, world, "res://assets/props/wood_log.png", Vector2(4760, 420), Vector2(40, 18), Vector2(0, -9))
+	_add_prop(objects, world, "res://assets/props/barrel_wood.png", Vector2(4540, 410), Vector2(24, 24), Vector2(0, -5))
+	_add_prop(objects, world, "res://assets/props/lantern_post.png", Vector2(4630, 440), Vector2(16, 16), Vector2(0, -6))
 	_add_enemy(objects, world, torch_sc, Vector2(4700, 460))
 
 	var ne_trees := [
@@ -609,7 +609,7 @@ func _ready() -> void:
 	# ZONE 4: MOSSVEIL VILLAGE & TOWN SQUARE (X: 1650-3600, Y: 800-1600)
 	# =========================================================================
 	# Village Entrance Archway & Guard
-	_add_prop(objects, world, "res://assets/props/archway_lantern.png", Vector2(2970, 1024), Vector2(1370, 24), Vector2(1280, -10))
+	_add_prop(objects, world, "res://assets/props/archway_lantern.png", Vector2(2970, 1024))
 	_add_sign(objects, world, Vector2(2930, 980), "VillageGateSign", [
 		"Welcome to Mossveil Village!",
 		"You are protected by the royal decree of King Aldous.",
@@ -626,7 +626,7 @@ func _ready() -> void:
 	# Residential Quarter (West Village)
 	_add_building(objects, world, bld_sc, 0, Vector2(3230, 860), "VillageHouse_West1")
 	_add_building(objects, world, bld_sc, 1, Vector2(3460, 840), "VillageHouse_West2")
-	_add_prop(objects, world, "res://assets/props/barrel_wood.png", Vector2(3540, 890), Vector2(1304, 24), Vector2(1280, -5))
+	_add_prop(objects, world, "res://assets/props/barrel_wood.png", Vector2(3540, 890), Vector2(24, 24), Vector2(0, -5))
 
 	# Maya's Residence
 	_add_building(objects, world, bld_sc, 2, Vector2(4030, 820), "VillageHouse_Maya")
@@ -639,10 +639,10 @@ func _ready() -> void:
 
 	# Ravi's Woodcraft Workshop (South-West Village)
 	_add_building(objects, world, bld_sc, 7, Vector2(3260, 1260), "BarracksWorkshop")
-	_add_prop(objects, world, "res://assets/props/wood_log.png", Vector2(3340, 1310), Vector2(1320, 18), Vector2(1280, -9))
-	_add_prop(objects, world, "res://assets/props/stump_2.png", Vector2(3380, 1315), Vector2(1316, 20), Vector2(1280, -10))
+	_add_prop(objects, world, "res://assets/props/wood_log.png", Vector2(3340, 1310), Vector2(40, 18), Vector2(0, -9))
+	_add_prop(objects, world, "res://assets/props/stump_2.png", Vector2(3380, 1315), Vector2(36, 20), Vector2(0, -10))
 	_add_prop(objects, world, "res://assets/props/tool_02.png", Vector2(3390, 1310))
-	_add_prop(objects, world, "res://assets/props/barrel_wood.png", Vector2(3420, 1310), Vector2(1304, 24), Vector2(1280, -5))
+	_add_prop(objects, world, "res://assets/props/barrel_wood.png", Vector2(3420, 1310), Vector2(24, 24), Vector2(0, -5))
 	var ravi_sc: PackedScene = load("res://scenes/npc_ravi.tscn")
 	var ravi := ravi_sc.instantiate()
 	ravi.name = "NPC_Ravi"
@@ -652,10 +652,10 @@ func _ready() -> void:
 
 	# Central Town Square & Grand Plaza (X: 2496, Y: 1088)
 	_add_tree(objects, world, tree_sc, 4, Vector2(3776, 1050))
-	_add_prop(objects, world, "res://assets/props/lantern_post.png", Vector2(3600, 980), Vector2(1296, 16), Vector2(1280, -6))
-	_add_prop(objects, world, "res://assets/props/lantern_post.png", Vector2(3940, 980), Vector2(1296, 16), Vector2(1280, -6))
-	_add_prop(objects, world, "res://assets/props/lantern_post.png", Vector2(3600, 1180), Vector2(1296, 16), Vector2(1280, -6))
-	_add_prop(objects, world, "res://assets/props/lantern_post.png", Vector2(3940, 1180), Vector2(1296, 16), Vector2(1280, -6))
+	_add_prop(objects, world, "res://assets/props/lantern_post.png", Vector2(3600, 980), Vector2(16, 16), Vector2(0, -6))
+	_add_prop(objects, world, "res://assets/props/lantern_post.png", Vector2(3940, 980), Vector2(16, 16), Vector2(0, -6))
+	_add_prop(objects, world, "res://assets/props/lantern_post.png", Vector2(3600, 1180), Vector2(16, 16), Vector2(0, -6))
+	_add_prop(objects, world, "res://assets/props/lantern_post.png", Vector2(3940, 1180), Vector2(16, 16), Vector2(0, -6))
 
 	_add_sign(objects, world, Vector2(3660, 1140), "TownSquareSign", [
 		"Mossveil Town Square:",
@@ -666,10 +666,10 @@ func _ready() -> void:
 	], "Town Square")
 
 	# Market Stalls & Produce (South of Plaza)
-	_add_prop(objects, world, "res://assets/props/barrel_wood.png", Vector2(3700, 1250), Vector2(1304, 24), Vector2(1280, -5))
-	_add_prop(objects, world, "res://assets/props/barrel_sack.png", Vector2(3730, 1250), Vector2(1304, 24), Vector2(1280, -5))
-	_add_prop(objects, world, "res://assets/props/crate_wood.png", Vector2(3765, 1250), Vector2(1310, 20), Vector2(1280, -5))
-	_add_prop(objects, world, "res://assets/props/crate_box.png", Vector2(3800, 1250), Vector2(1310, 20), Vector2(1280, -5))
+	_add_prop(objects, world, "res://assets/props/barrel_wood.png", Vector2(3700, 1250), Vector2(24, 24), Vector2(0, -5))
+	_add_prop(objects, world, "res://assets/props/barrel_sack.png", Vector2(3730, 1250), Vector2(24, 24), Vector2(0, -5))
+	_add_prop(objects, world, "res://assets/props/crate_wood.png", Vector2(3765, 1250), Vector2(30, 20), Vector2(0, -5))
+	_add_prop(objects, world, "res://assets/props/crate_box.png", Vector2(3800, 1250), Vector2(30, 20), Vector2(0, -5))
 	_add_prop(objects, world, "res://Tiny Swords (Update 010)/Decoration/12.png", Vector2(3830, 1255))
 
 	# Additional Village Houses (East Village)
@@ -704,9 +704,9 @@ func _ready() -> void:
 	# ZONE 5: ENCLOSED FARMLAND & ENCLOSED SHEEP PASTURE (SQUARE FENCE PENS)
 	# =========================================================================
 	# Lanterns at Bridge Ends
-	_add_prop(objects, world, "res://assets/props/lantern_post.png", Vector2(3010, 1660), Vector2(1296, 16), Vector2(1280, -6))
-	_add_prop(objects, world, "res://assets/props/lantern_post.png", Vector2(3360, 1660), Vector2(1296, 16), Vector2(1280, -6))
-	_add_prop(objects, world, "res://assets/props/lantern_post.png", Vector2(2530, 1660), Vector2(1296, 16), Vector2(1280, -6))
+	_add_prop(objects, world, "res://assets/props/lantern_post.png", Vector2(3010, 1660), Vector2(16, 16), Vector2(0, -6))
+	_add_prop(objects, world, "res://assets/props/lantern_post.png", Vector2(3360, 1660), Vector2(16, 16), Vector2(0, -6))
+	_add_prop(objects, world, "res://assets/props/lantern_post.png", Vector2(2530, 1660), Vector2(16, 16), Vector2(0, -6))
 
 	# River foam and splash rocks
 	_add_water_foam(objects, world, foam_sc, Vector2(3200, 1800))
@@ -716,7 +716,7 @@ func _ready() -> void:
 
 	# --- 1. CROP GARDEN PLOT (X: 1300..1480, Y: 1400..1540) ---
 	# Garden crops neatly organized with scarecrow and pumpkins
-	_add_prop(objects, world, "res://Tiny Swords (Update 010)/Decoration/18.png", Vector2(2670, 1420), Vector2(1304, 20), Vector2(1280, -6)) # Scarecrow!
+	_add_prop(objects, world, "res://Tiny Swords (Update 010)/Decoration/18.png", Vector2(2670, 1420), Vector2(24, 20), Vector2(0, -6)) # Scarecrow!
 	_add_prop(objects, world, "res://Tiny Swords (Update 010)/Decoration/12.png", Vector2(2620, 1450)) # Pumpkin
 	_add_prop(objects, world, "res://Tiny Swords (Update 010)/Decoration/13.png", Vector2(2720, 1450)) # Pumpkin cluster
 	_add_prop(objects, world, "res://Tiny Swords (Update 010)/Decoration/10.png", Vector2(2610, 1480)) # Green crop row 1
@@ -774,7 +774,7 @@ func _ready() -> void:
 	_add_prop(objects, world, "res://Game Assets(NEW)/Terrain/Resources/Gold/Gold Stones/Gold Stone 2.png", Vector2(2580, 2030))
 	_add_prop(objects, world, "res://Game Assets(NEW)/Terrain/Resources/Gold/Gold Stones/Gold Stone 1.png", Vector2(2700, 2060))
 	_add_prop(objects, world, "res://Game Assets(NEW)/Terrain/Resources/Gold/Gold Stones/Gold Stone 2.png", Vector2(2760, 2050))
-	_add_prop(objects, world, "res://assets/props/lantern_post.png", Vector2(2430, 1910), Vector2(1296, 16), Vector2(1280, -6))
+	_add_prop(objects, world, "res://assets/props/lantern_post.png", Vector2(2430, 1910), Vector2(16, 16), Vector2(0, -6))
 
 	# Shoreline Pines & Coastal Nature
 	_add_tree(objects, world, tree_sc, 1, Vector2(2260, 2050))
@@ -801,14 +801,14 @@ func _ready() -> void:
 	# =========================================================================
 	# Meadow Haven / Fisherman's Cottage
 	_add_building(objects, world, bld_sc, 2, Vector2(4080, 1850), "MeadowCottage")
-	_add_prop(objects, world, "res://assets/props/barrel_wood.png", Vector2(4160, 1910), Vector2(1304, 24), Vector2(1280, -5))
-	_add_prop(objects, world, "res://assets/props/crate_box.png", Vector2(4190, 1910), Vector2(1310, 20), Vector2(1280, -5))
-	_add_prop(objects, world, "res://assets/props/lantern_post.png", Vector2(4080, 1930), Vector2(1296, 16), Vector2(1280, -6))
+	_add_prop(objects, world, "res://assets/props/barrel_wood.png", Vector2(4160, 1910), Vector2(24, 24), Vector2(0, -5))
+	_add_prop(objects, world, "res://assets/props/crate_box.png", Vector2(4190, 1910), Vector2(30, 20), Vector2(0, -5))
+	_add_prop(objects, world, "res://assets/props/lantern_post.png", Vector2(4080, 1930), Vector2(16, 16), Vector2(0, -6))
 
 	# Riverside Fishing Pier extending into the central river inlet
-	_add_prop(objects, world, "res://assets/props/wooden_bridge_pier.png", Vector2(3400, 1920), Vector2(1410, 30), Vector2(1280, -15))
-	_add_prop(objects, world, "res://assets/props/barrel_sack.png", Vector2(3420, 1890), Vector2(1304, 24), Vector2(1280, -5))
-	_add_prop(objects, world, "res://assets/props/crate_wood.png", Vector2(3450, 1890), Vector2(1310, 20), Vector2(1280, -5))
+	_add_prop(objects, world, "res://assets/props/wooden_bridge_pier.png", Vector2(3400, 1920))
+	_add_prop(objects, world, "res://assets/props/barrel_sack.png", Vector2(3420, 1890), Vector2(24, 24), Vector2(0, -5))
+	_add_prop(objects, world, "res://assets/props/crate_wood.png", Vector2(3450, 1890), Vector2(30, 20), Vector2(0, -5))
 
 	# Ancient Sunken Monolith & Relic Stone Circle
 	_add_prop(objects, world, "res://Game Assets(NEW)/Terrain/Decorations/Rocks/Rock1.png", Vector2(4540, 1930))
@@ -888,10 +888,10 @@ func _ready() -> void:
 	lancer.owner = world
 
 	# Street Lanterns lining the Grand Avenue
-	_add_prop(objects, world, "res://assets/props/lantern_post.png", Vector2(4780, 1000), Vector2(1296, 16), Vector2(1280, -6))
-	_add_prop(objects, world, "res://assets/props/lantern_post.png", Vector2(5130, 680), Vector2(1296, 16), Vector2(1280, -6))
-	_add_prop(objects, world, "res://assets/props/lantern_post.png", Vector2(5380, 640), Vector2(1296, 16), Vector2(1280, -6))
-	_add_prop(objects, world, "res://assets/props/lantern_post.png", Vector2(5630, 640), Vector2(1296, 16), Vector2(1280, -6))
+	_add_prop(objects, world, "res://assets/props/lantern_post.png", Vector2(4780, 1000), Vector2(16, 16), Vector2(0, -6))
+	_add_prop(objects, world, "res://assets/props/lantern_post.png", Vector2(5130, 680), Vector2(16, 16), Vector2(0, -6))
+	_add_prop(objects, world, "res://assets/props/lantern_post.png", Vector2(5380, 640), Vector2(16, 16), Vector2(0, -6))
+	_add_prop(objects, world, "res://assets/props/lantern_post.png", Vector2(5630, 640), Vector2(16, 16), Vector2(0, -6))
 
 	# Trees & nature around Citadel and Highland Plateau
 	var citadel_trees := [
