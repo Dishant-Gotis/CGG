@@ -396,7 +396,10 @@ func _build_dialogue() -> void:
 
 	# Text Label (Rich fantasy ink on warm parchment)
 	text_label = Label.new()
-	text_label.add_theme_font_size_override("font_size", 16)
+	var med_font := Assets.font(Assets.FONT_MEDIEVAL)
+	if med_font != null:
+		text_label.add_theme_font_override("font", med_font)
+	text_label.add_theme_font_size_override("font_size", 20)
 	text_label.add_theme_color_override("font_color", Color(0.18, 0.12, 0.06, 1.0))
 	text_label.add_theme_color_override("font_outline_color", Color(1.0, 0.97, 0.90, 0.75))
 	text_label.add_theme_constant_override("outline_size", 1)
@@ -408,8 +411,10 @@ func _build_dialogue() -> void:
 
 	# Advance Hint (Sepia tone)
 	advance_hint = Label.new()
+	if med_font != null:
+		advance_hint.add_theme_font_override("font", med_font)
 	advance_hint.text = "▼ Press [E / Space / Click] to continue"
-	advance_hint.add_theme_font_size_override("font_size", 12)
+	advance_hint.add_theme_font_size_override("font_size", 13)
 	advance_hint.add_theme_color_override("font_color", Color(0.42, 0.30, 0.18, 0.95))
 	advance_hint.add_theme_color_override("font_outline_color", Color(1.0, 0.96, 0.88, 0.85))
 	advance_hint.add_theme_constant_override("outline_size", 1)
@@ -433,9 +438,11 @@ func _build_dialogue() -> void:
 	custom_dialogue_container.add_child(custom_dialogue_texture)
 
 	custom_text_label = Label.new()
-	custom_text_label.add_theme_font_size_override("font_size", 16)
+	if med_font != null:
+		custom_text_label.add_theme_font_override("font", med_font)
+	custom_text_label.add_theme_font_size_override("font_size", 22)
 	custom_text_label.add_theme_color_override("font_color", Color(0.18, 0.12, 0.06, 1.0))
-	custom_text_label.add_theme_color_override("font_outline_color", Color(1.0, 0.98, 0.92, 0.6))
+	custom_text_label.add_theme_color_override("font_outline_color", Color(1.0, 0.98, 0.92, 0.5))
 	custom_text_label.add_theme_constant_override("outline_size", 1)
 	custom_text_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	custom_text_label.max_lines_visible = 3
@@ -444,8 +451,10 @@ func _build_dialogue() -> void:
 	custom_dialogue_container.add_child(custom_text_label)
 
 	custom_advance_hint = Label.new()
+	if med_font != null:
+		custom_advance_hint.add_theme_font_override("font", med_font)
 	custom_advance_hint.text = "▼ Press [E / Space / Click] to continue"
-	custom_advance_hint.add_theme_font_size_override("font_size", 12)
+	custom_advance_hint.add_theme_font_size_override("font_size", 13)
 	custom_advance_hint.add_theme_color_override("font_color", Color(0.42, 0.30, 0.18, 0.95))
 	custom_advance_hint.add_theme_color_override("font_outline_color", Color(1.0, 0.96, 0.88, 0.85))
 	custom_advance_hint.add_theme_constant_override("outline_size", 1)
@@ -472,27 +481,27 @@ func _position_custom_labels(is_snowy: bool) -> void:
 
 	if is_snowy:
 		custom_text_label.offset_left = 224.0 * scale_f
-		custom_text_label.offset_top = 472.0 * scale_f
+		custom_text_label.offset_top = 466.0 * scale_f
 		custom_text_label.offset_right = 880.0 * scale_f
-		custom_text_label.offset_bottom = 548.0 * scale_f
+		custom_text_label.offset_bottom = 546.0 * scale_f
 
 		custom_advance_hint.offset_left = 224.0 * scale_f
-		custom_advance_hint.offset_top = 544.0 * scale_f
+		custom_advance_hint.offset_top = 546.0 * scale_f
 		custom_advance_hint.offset_right = 864.0 * scale_f
-		custom_advance_hint.offset_bottom = 570.0 * scale_f
+		custom_advance_hint.offset_bottom = 572.0 * scale_f
 	else:
 		custom_text_label.offset_left = 112.0 * scale_f
-		custom_text_label.offset_top = 472.0 * scale_f
+		custom_text_label.offset_top = 466.0 * scale_f
 		custom_text_label.offset_right = 820.0 * scale_f
-		custom_text_label.offset_bottom = 548.0 * scale_f
+		custom_text_label.offset_bottom = 546.0 * scale_f
 
 		custom_advance_hint.offset_left = 112.0 * scale_f
-		custom_advance_hint.offset_top = 544.0 * scale_f
+		custom_advance_hint.offset_top = 546.0 * scale_f
 		custom_advance_hint.offset_right = 814.0 * scale_f
-		custom_advance_hint.offset_bottom = 570.0 * scale_f
+		custom_advance_hint.offset_bottom = 572.0 * scale_f
 
-	custom_text_label.add_theme_font_size_override("font_size", int(round(17.0 * clampf(scale_f, 0.75, 1.25))))
-	custom_advance_hint.add_theme_font_size_override("font_size", int(round(12.0 * clampf(scale_f, 0.75, 1.25))))
+	custom_text_label.add_theme_font_size_override("font_size", int(round(22.0 * clampf(scale_f, 0.75, 1.25))))
+	custom_advance_hint.add_theme_font_size_override("font_size", int(round(13.0 * clampf(scale_f, 0.75, 1.25))))
 
 
 func _layout_dialogue() -> void:

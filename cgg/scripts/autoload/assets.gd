@@ -79,6 +79,7 @@ const UI_HEART_EMPTY := "res://assets/ui/heart_empty.png"
 const UI_DIALOGUE_SNOWY := EVERYTHING + "/Snowy RPG Dialogue Overlay.png"
 const UI_DIALOGUE_KITSU := EVERYTHING + "/Kitsu’s Mystical Fox Dialogue UI.png"
 const UI_DIALOGUE_GUARD := EVERYTHING + "/Mossveil Guard Dialogue Portrait.png"
+const FONT_MEDIEVAL := "res://assets/fonts/MedievalSharp.ttf"
 
 # --- data -------------------------------------------------------------------
 const COMBAT_JSON := "res://data/combat.json"
@@ -95,6 +96,27 @@ const PLAYER_SCENE := "res://scenes/entities/player.tscn"
 const ENEMY_SCENE := "res://scenes/entities/enemy.tscn"
 
 var _texture_cache: Dictionary = {}
+var _font_cache: Dictionary = {}
+
+
+func font(path: String) -> Font:
+	if _font_cache.has(path):
+		return _font_cache[path] as Font
+	var f: Font = null
+	if ResourceLoader.exists(path):
+		f = load(path) as Font
+	if f == null:
+		var global_path := ProjectSettings.globalize_path(path)
+		if FileAccess.file_exists(global_path):
+			var ff := FontFile.new()
+			var err := ff.load_dynamic_font(global_path)
+			if err == OK:
+				f = ff
+	if f == null:
+		push_error("[Assets] FAILED TO LOAD FONT: " + path)
+		return null
+	_font_cache[path] = f
+	return f
 
 
 func tex(path: String) -> Texture2D:
