@@ -78,6 +78,7 @@ const UI_HEART_FULL := "res://assets/ui/heart_full.png"
 const UI_HEART_EMPTY := "res://assets/ui/heart_empty.png"
 const UI_DIALOGUE_SNOWY := EVERYTHING + "/Snowy RPG Dialogue Overlay.png"
 const UI_DIALOGUE_KITSU := EVERYTHING + "/Kitsu’s Mystical Fox Dialogue UI.png"
+const UI_DIALOGUE_GUARD := EVERYTHING + "/Mossveil Guard Dialogue Portrait.png"
 
 # --- data -------------------------------------------------------------------
 const COMBAT_JSON := "res://data/combat.json"

@@ -1074,7 +1074,7 @@ func _render_current_line() -> void:
 		var split := line.split(":", true, 1)
 		var tag := split[0].strip_edges()
 		var tag_l := tag.to_lower()
-		if tag_l == "snowy" or tag_l == "arjun" or tag_l == "kitsu" or (not tag.contains(" ") and tag.length() <= 20 and not tag.is_empty()):
+		if tag_l == "snowy" or tag_l == "arjun" or tag_l == "kitsu" or tag_l.contains("guard") or tag_l.contains("alden") or (not tag.contains(" ") and tag.length() <= 20 and not tag.is_empty()):
 			current_spk = tag
 			display_text = split[1].strip_edges()
 		elif _speaker.is_empty() and tag.length() <= 25:
@@ -1090,8 +1090,9 @@ func _render_current_line() -> void:
 	var spk_l := current_spk.to_lower()
 	var is_snowy := (spk_l == "snowy" or spk_l == "arjun")
 	var is_kitsu := (spk_l == "kitsu")
+	var is_guard := (spk_l.contains("guard") or spk_l.contains("alden"))
 
-	if is_snowy or is_kitsu:
+	if is_snowy or is_kitsu or is_guard:
 		_is_custom_snowy = is_snowy
 		if dialogue_panel != null:
 			dialogue_panel.visible = false
@@ -1099,8 +1100,10 @@ func _render_current_line() -> void:
 			custom_dialogue_container.visible = true
 			if is_snowy:
 				custom_dialogue_texture.texture = Assets.tex(Assets.UI_DIALOGUE_SNOWY)
-			else:
+			elif is_kitsu:
 				custom_dialogue_texture.texture = Assets.tex(Assets.UI_DIALOGUE_KITSU)
+			else:
+				custom_dialogue_texture.texture = Assets.tex(Assets.UI_DIALOGUE_GUARD)
 			custom_text_label.text = display_text
 			custom_advance_hint.text = adv_text
 			_layout_dialogue()
