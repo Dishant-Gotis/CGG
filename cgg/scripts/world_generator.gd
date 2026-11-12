@@ -189,23 +189,77 @@ func _ready() -> void:
 	_add_water_rock(objects, world, wrock_sc, 1, Vector2(100, 920))
 	_add_water_rock(objects, world, wrock_sc, 2, Vector2(90, 1120))
 
-	# Highway to Crossroads & Sign (Trees safely at least 150px away from road edges)
-	_add_tree(objects, world, tree_sc, 1, Vector2(740, 880)) # North of road
-	_add_tree(objects, world, tree_sc, 2, Vector2(940, 880)) # North of road
-	_add_tree(objects, world, tree_sc, 3, Vector2(740, 1260)) # South of road
-	_add_tree(objects, world, tree_sc, 4, Vector2(940, 1260)) # South of road
-	_add_bush(objects, world, bush_sc, 2, Vector2(840, 960))
-	_add_bush(objects, world, bush_sc, 3, Vector2(840, 1160))
-	_add_prop(objects, world, "res://Game Assets(NEW)/Terrain/Decorations/Rocks/Rock1.png", Vector2(800, 1140))
-	_add_prop(objects, world, "res://Game Assets(NEW)/Terrain/Decorations/Rocks/Rock2.png", Vector2(620, 910))
-	_add_prop(objects, world, "res://Tiny Swords (Update 010)/Decoration/07.png", Vector2(760, 970))
-	_add_prop(objects, world, "res://Tiny Swords (Update 010)/Decoration/08.png", Vector2(900, 970))
-	_add_prop(objects, world, "res://assets/props/lantern_post.png", Vector2(740, 980), Vector2(16, 16), Vector2(0, -6))
-	_add_sign(objects, world, Vector2(1100, 1000), "CrossroadsSign", [
+	# =========================================================================
+	# ZONE 1: THE HIGH ROAD & SLIME TUTORIAL TRAIL (West, X: 500-1250, Y: 700-1150)
+	# Extended winding mountain trail connecting Snowy's Haven to Mossveil Village.
+	# Hero encounters wild slimes along this trail to learn battle mechanics ([Q] attack,
+	# spacing, knockback) before reaching the village gates.
+	# =========================================================================
+
+	# Trailhead & Gateway (near Kitsu at 520, 1060)
+	_add_prop(objects, world, "res://assets/props/lantern_post.png", Vector2(610, 1020), Vector2(16, 16), Vector2(0, -6))
+	_add_prop(objects, world, "res://assets/props/fence_medium.png", Vector2(590, 1110), Vector2(70, 20), Vector2(0, -10))
+	_add_sign(objects, world, Vector2(570, 1020), "TrailheadSign", [
+		"The High Road ⬆: Scenic mountain trail to Mossveil Village.",
+		"Warning: Wild slimes have been sighted along the mountain pass!",
+		"Draw your Hero's Blade with [Q] to defend yourself."
+	], "Trail Guide")
+
+	# Encounter 1: The Ascending Glade (Tutorial Slime & Combat Guide Sign)
+	_add_sign(objects, world, Vector2(610, 860), "CombatTutorialSign", [
+		"Combat Guide — Hero's Blade:",
+		"Press [Q] to swing your sword at nearby adversaries.",
+		"Slimes take 2 decisive strikes. Keep moving to avoid getting cornered!",
+		"Defeat the slimes to clear the road forward."
+	], "Combat Guide")
+	_add_enemy(objects, world, enemy_sc, Vector2(740, 860)) # Lone tutorial slime
+	_add_tree(objects, world, tree_sc, 3, Vector2(580, 920))
+	_add_tree(objects, world, tree_sc, 4, Vector2(780, 990))
+	_add_bush(objects, world, bush_sc, 1, Vector2(590, 820))
+	_add_prop(objects, world, "res://Tiny Swords (Update 010)/Decoration/07.png", Vector2(670, 890))
+
+	# Encounter 2: High Ridge Pass & Rocky Defile (Slime Duo)
+	_add_enemy(objects, world, enemy_sc, Vector2(920, 740))  # Slime 2
+	_add_enemy(objects, world, enemy_sc, Vector2(1040, 750)) # Slime 3
+	_add_tree(objects, world, tree_sc, 2, Vector2(950, 650))
+	_add_bush(objects, world, bush_sc, 2, Vector2(880, 790))
+	_add_bush(objects, world, bush_sc, 3, Vector2(1050, 790))
+	_add_prop(objects, world, "res://Game Assets(NEW)/Terrain/Decorations/Rocks/Rock1.png", Vector2(850, 660))
+	_add_prop(objects, world, "res://Game Assets(NEW)/Terrain/Decorations/Rocks/Rock2.png", Vector2(1010, 650))
+	_add_prop(objects, world, "res://Game Assets(NEW)/Terrain/Decorations/Rocks/Rock3.png", Vector2(1080, 780))
+	_add_prop(objects, world, "res://Tiny Swords (Update 010)/Decoration/07.png", Vector2(910, 760))
+	_add_prop(objects, world, "res://Tiny Swords (Update 010)/Decoration/08.png", Vector2(970, 760))
+
+	# Encounter 3: Valley Descent & Traveler's Overlook (Slime Duo)
+	_add_enemy(objects, world, enemy_sc, Vector2(1180, 860)) # Slime 4
+	_add_enemy(objects, world, enemy_sc, Vector2(1140, 950)) # Slime 5
+	_add_tree(objects, world, tree_sc, 1, Vector2(1250, 810))
+	# Traveler's Rest Overlook (on the grassy terrace east of the road)
+	_add_prop(objects, world, "res://assets/props/stump_4.png", Vector2(1260, 900), Vector2(26, 18), Vector2(0, -9))
+	_add_prop(objects, world, "res://assets/props/tool_04.png", Vector2(1275, 895))
+	_add_prop(objects, world, "res://assets/props/lantern_post.png", Vector2(1270, 860), Vector2(16, 16), Vector2(0, -6))
+	_add_prop(objects, world, "res://Tiny Swords (Update 010)/Decoration/07.png", Vector2(1280, 930))
+	_add_prop(objects, world, "res://Tiny Swords (Update 010)/Decoration/08.png", Vector2(1220, 870))
+
+	# Central Nature Reserve (The Meadow inside the High Road loop)
+	_add_prop(objects, world, "res://assets/props/fence_long.png", Vector2(840, 1040), Vector2(120, 20), Vector2(0, -10))
+	_add_prop(objects, world, "res://assets/props/fence_long.png", Vector2(980, 1040), Vector2(120, 20), Vector2(0, -10))
+	_add_tree(objects, world, tree_sc, 4, Vector2(910, 910))
+	_add_bush(objects, world, bush_sc, 1, Vector2(850, 940))
+	_add_prop(objects, world, "res://Tiny Swords (Update 010)/Decoration/07.png", Vector2(860, 940))
+	_add_prop(objects, world, "res://Tiny Swords (Update 010)/Decoration/08.png", Vector2(960, 950))
+	_add_prop(objects, world, "res://Game Assets(NEW)/Terrain/Decorations/Rocks/Rock1.png", Vector2(810, 960))
+	_add_sheep(objects, world, sheep_sc, Vector2(920, 970)) # Peaceful grazing sheep
+
+	# Crossroads Waypoint
+	_add_prop(objects, world, "res://assets/props/lantern_post.png", Vector2(1060, 1000), Vector2(16, 16), Vector2(0, -6))
+	_add_prop(objects, world, "res://assets/props/lantern_post.png", Vector2(1240, 1000), Vector2(16, 16), Vector2(0, -6))
+	_add_sign(objects, world, Vector2(1060, 1030), "CrossroadsSign", [
 		"Oakhaven Crossroads Signpost:",
 		"⬆ North: High Mountain Pass & Combat Training Grounds",
 		"⬇ South: Whispering Shores & Mystic Cavern",
-		"➔ East: Mossveil Village & Royal Citadel"
+		"➔ East: Mossveil Village & Royal Citadel",
+		"⬅ West: The High Road to Snowy's Haven"
 	], "Crossroads")
 
 	# =========================================================================
@@ -423,7 +477,7 @@ func _ready() -> void:
 	# =========================================================================
 	# Village Entrance Archway & Guard
 	_add_prop(objects, world, "res://assets/props/archway_lantern.png", Vector2(1620, 1024), Vector2(90, 24), Vector2(0, -10))
-	_add_sign(objects, world, Vector2(1540, 1070), "VillageGateSign", [
+	_add_sign(objects, world, Vector2(1540, 1000), "VillageGateSign", [
 		"Welcome to Mossveil Village!",
 		"You are protected by the royal decree of King Aldous.",
 		"Follow the main avenue east to reach the town square and citadel."
@@ -811,12 +865,27 @@ func _ready() -> void:
 func _build_roads(terrain: TileMap) -> void:
 	var roads: Dictionary = {}
 
-	# 1. Main West Highway (from Snowy's house to crossroads)
-	for x in range(6, 19):
+	# 1. Snowy's Haven Trailhead (px: 6 to 11, py: 16)
+	for x in range(6, 12):
 		roads[Vector2i(x, 16)] = true
 
-	# 2. Crossroads Hub & Branches
-	for x in range(17, 20):
+	# 2. The High Road - Ascending Branch (2-tiles wide, px: 10..11, py: 12..16)
+	for y in range(12, 17):
+		roads[Vector2i(10, y)] = true
+		roads[Vector2i(11, y)] = true
+
+	# 3. The High Road - Scenic Ridge Pass (2-tiles wide, px: 10..18, py: 11..12)
+	for x in range(10, 19):
+		roads[Vector2i(x, 11)] = true
+		roads[Vector2i(x, 12)] = true
+
+	# 4. The High Road - Valley Descent (2-tiles wide, px: 17..18, py: 12..16)
+	for y in range(12, 17):
+		roads[Vector2i(17, y)] = true
+		roads[Vector2i(18, y)] = true
+
+	# 5. Crossroads Hub & Branches (px: 17 to 20, py: 15 to 18)
+	for x in range(17, 21):
 		for y in range(15, 18):
 			roads[Vector2i(x, y)] = true
 	# North branch (to Training Grounds)
@@ -826,7 +895,7 @@ func _build_roads(terrain: TileMap) -> void:
 	for y in range(17, 31):
 		roads[Vector2i(18, y)] = true
 
-	# 3. Village Main Avenue (2 tiles wide!)
+	# 6. Village Main Avenue (2 tiles wide!)
 	for x in range(19, 36):
 		roads[Vector2i(x, 16)] = true
 		roads[Vector2i(x, 17)] = true
