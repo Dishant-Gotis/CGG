@@ -2,7 +2,7 @@
 extends Node2D
 
 func _ready() -> void:
-	print("[WORLD GEN] Generating dense, rich, handcrafted fantasy world (5120x2304)...")
+	print("[WORLD GEN] Generating dense, rich, handcrafted fantasy world (6400x2304)...")
 
 	var world := Node2D.new()
 	world.name = "World"
@@ -13,7 +13,7 @@ func _ready() -> void:
 	bg_water.name = "WaterBackground"
 	bg_water.texture = load(Assets.WATER_BG)
 	bg_water.stretch_mode = TextureRect.STRETCH_TILE
-	bg_water.size = Vector2(5120, 2304)
+	bg_water.size = Vector2(6400, 2304)
 	bg_water.z_index = -10
 	world.add_child(bg_water)
 	bg_water.owner = world
@@ -58,21 +58,21 @@ func _ready() -> void:
 	world.add_child(terrain)
 	terrain.owner = world
 
-	# --- Layer 0: Ground Landmass (80 cols x 36 rows) ---
-	# Island spans from gx: 2 to 77, gy: 2 to 33.
-	# River cut at south-central: gx: 28..31, gy: 26..33
-	for gx in range(2, 78):
+	# --- Layer 0: Ground Landmass (100 cols x 36 rows) ---
+	# Island spans from gx: 2 to 97, gy: 2 to 33.
+	# River cut at south-central: gx: 48..51, gy: 26..33
+	for gx in range(2, 98):
 		for gy in range(2, 34):
 			# River inlet in the south (water shows through)
-			if (gx >= 28 and gx <= 31) and gy >= 26:
+			if (gx >= 48 and gx <= 51) and gy >= 26:
 				continue
 
 			var atlas := Vector2i(1, 1) # default center grass
 
 			var is_top := (gy == 2)
-			var is_bottom := (gy == 33) or ((gx >= 28 and gx <= 31) and gy == 25)
-			var is_left := (gx == 2) or (gx == 32 and gy >= 26)
-			var is_right := (gx == 77) or (gx == 27 and gy >= 26)
+			var is_bottom := (gy == 33) or ((gx >= 48 and gx <= 51) and gy == 25)
+			var is_left := (gx == 2) or (gx == 52 and gy >= 26)
+			var is_right := (gx == 97) or (gx == 47 and gy >= 26)
 
 			if is_top and is_left: atlas = Vector2i(0, 0)
 			elif is_top and is_right: atlas = Vector2i(2, 0)
@@ -89,12 +89,12 @@ func _ready() -> void:
 	_build_roads(terrain)
 
 	# --- Layer 2: Authentic Wooden Bridge over River at gy: 26 ---
-	terrain.set_cell(2, Vector2i(27, 26), 2, Vector2i(0, 0)) # Left bridge pier connector
-	terrain.set_cell(2, Vector2i(28, 26), 2, Vector2i(1, 0)) # Span 1
-	terrain.set_cell(2, Vector2i(29, 26), 2, Vector2i(1, 0)) # Span 2
-	terrain.set_cell(2, Vector2i(30, 26), 2, Vector2i(1, 0)) # Span 3
-	terrain.set_cell(2, Vector2i(31, 26), 2, Vector2i(1, 0)) # Span 4
-	terrain.set_cell(2, Vector2i(32, 26), 2, Vector2i(2, 0)) # Right bridge pier connector
+	terrain.set_cell(2, Vector2i(47, 26), 2, Vector2i(0, 0)) # Left bridge pier connector
+	terrain.set_cell(2, Vector2i(48, 26), 2, Vector2i(1, 0)) # Span 1
+	terrain.set_cell(2, Vector2i(49, 26), 2, Vector2i(1, 0)) # Span 2
+	terrain.set_cell(2, Vector2i(50, 26), 2, Vector2i(1, 0)) # Span 3
+	terrain.set_cell(2, Vector2i(51, 26), 2, Vector2i(1, 0)) # Span 4
+	terrain.set_cell(2, Vector2i(52, 26), 2, Vector2i(2, 0)) # Right bridge pier connector
 
 	# 3. World Boundaries
 	var bounds := StaticBody2D.new()
@@ -103,10 +103,10 @@ func _ready() -> void:
 	world.add_child(bounds)
 	bounds.owner = world
 
-	_add_wall(bounds, world, Vector2(2560, 0), Vector2(5120, 24))
-	_add_wall(bounds, world, Vector2(2560, 2304), Vector2(5120, 24))
+	_add_wall(bounds, world, Vector2(3200, 0), Vector2(6400, 24))
+	_add_wall(bounds, world, Vector2(3200, 2304), Vector2(6400, 24))
 	_add_wall(bounds, world, Vector2(0, 1152), Vector2(24, 2304))
-	_add_wall(bounds, world, Vector2(5120, 1152), Vector2(24, 2304))
+	_add_wall(bounds, world, Vector2(6400, 1152), Vector2(24, 2304))
 
 	# 4. Objects (Y-Sorted Gameplay Layer)
 	var objects := Node2D.new()
@@ -124,7 +124,7 @@ func _ready() -> void:
 
 	var spawn_cave := Marker2D.new()
 	spawn_cave.name = "Spawn_cave_exit"
-	spawn_cave.position = Vector2(1150, 1960)
+	spawn_cave.position = Vector2(2430, 1960)
 	objects.add_child(spawn_cave)
 	spawn_cave.owner = world
 
@@ -188,90 +188,70 @@ func _ready() -> void:
 	_add_water_rock(objects, world, wrock_sc, 2, Vector2(90, 1120))
 
 	# =========================================================================
-	# ZONE 1: THE WHISPERING FOREST TRAIL & SLIME COMBAT TUTORIAL (X: 550-1650, Y: 750-1350)
-	# A long, straight forest trail connecting Snowy's Coastal Haven to Mossveil Village.
-	# The trail cuts through a dense pine and oak forest with wild slimes spaced out
-	# for the hero to learn battle mechanics ([Q] attack, spacing, knockback) before
-	# reaching the Oakhaven Crossroads and Mossveil Village Gate.
-	# NO domestic animals or random half-fences in this wild forest.
+	# ZONE 1: THE WHISPERING FOREST TRAIL & SLIME COMBAT TUTORIAL (X: 384-2816)
+	# A 2,432-pixel long, straight east-west forest highway connecting Snowy's Haven
+	# to the Oakhaven Crossroads and Mossveil Village Gate.
+	#
+	# FIRST HALF (X: 384-1600):
+	#   - Completely peaceful woodland journey, NO SLIMES!
+	#   - Flanked north and south by dense pine and oak trees, bushes, and flowers.
+	#
+	# MIDPOINT (X: 1600):
+	#   - Woodcutter's Rest Point (stump bench, logs, axe, lantern).
+	#   - Wildwoods Border Sign & Combat Guide Sign warning of infested deep forest ahead.
+	#
+	# SECOND HALF (X: 1600-2816):
+	#   - SLIMES APPEAR!
+	#   - 8 Progressive slime encounters spaced out along the straight road.
+	#   - Hero learns battle mechanics ([Q] attack, spacing, knockback) before reaching
+	#     the Oakhaven Crossroads and Village Gate.
 	# =========================================================================
 
-	# Trailhead & Gateway (near Kitsu at 520, 1060)
+	# Trailhead near Kitsu (X: 520, Y: 1060)
 	_add_prop(objects, world, "res://assets/props/lantern_post.png", Vector2(580, 1000), Vector2(16, 16), Vector2(0, -6))
 	_add_sign(objects, world, Vector2(560, 1010), "TrailheadSign", [
-		"Whispering Forest Trail ➔: Straight path east to Mossveil Village.",
-		"Warning: Wild slimes have infested the forest path!",
-		"Draw your Hero's Blade with [Q] to defend yourself."
+		"Whispering Forest Trail ➔: Scenic path east to Mossveil Village.",
+		"The journey ahead is long. Take your time to enjoy the calm woodland air.",
+		"Stay on the path to keep your bearings."
 	], "Trail Guide")
 
-	# Combat Tutorial Sign & First Slime Encounter
-	_add_sign(objects, world, Vector2(690, 990), "CombatTutorialSign", [
-		"Combat Guide — Hero's Blade:",
-		"Press [Q] to swing your sword at nearby adversaries.",
-		"Slimes take 2 decisive strikes. Time your attacks and keep moving!",
-		"Defeat the slimes to clear the road forward."
-	], "Combat Guide")
-
-	# 6 Progressive Slime Encounters spaced along the straight trail
-	_add_enemy(objects, world, enemy_sc, Vector2(740, 1056))   # Slime 1 (Introductory 1v1)
-	_add_enemy(objects, world, enemy_sc, Vector2(920, 1056))   # Slime 2 (Open trail encounter)
-	_add_enemy(objects, world, enemy_sc, Vector2(1100, 1040))  # Slime 3 (Mid-trail pack member 1)
-	_add_enemy(objects, world, enemy_sc, Vector2(1150, 1070))  # Slime 4 (Mid-trail pack member 2)
-	_add_enemy(objects, world, enemy_sc, Vector2(1360, 1056))  # Slime 5 (Deep forest encounter)
-	_add_enemy(objects, world, enemy_sc, Vector2(1480, 1056))  # Slime 6 (Crossroads gateway guardian)
-
-	# Atmospheric Lanterns along the straight forest road
-	_add_prop(objects, world, "res://assets/props/lantern_post.png", Vector2(860, 1005), Vector2(16, 16), Vector2(0, -6))
-	_add_prop(objects, world, "res://assets/props/lantern_post.png", Vector2(1120, 1005), Vector2(16, 16), Vector2(0, -6))
-	_add_prop(objects, world, "res://assets/props/lantern_post.png", Vector2(1320, 1005), Vector2(16, 16), Vector2(0, -6))
-	_add_prop(objects, world, "res://assets/props/lantern_post.png", Vector2(1520, 1005), Vector2(16, 16), Vector2(0, -6))
-
-	# Woodcutter's Rustic Rest Point (north roadside terrace)
-	_add_prop(objects, world, "res://assets/props/stump_4.png", Vector2(1220, 940), Vector2(26, 18), Vector2(0, -9))
-	_add_prop(objects, world, "res://assets/props/tool_04.png", Vector2(1235, 935))
-	_add_prop(objects, world, "res://assets/props/wood_log.png", Vector2(1260, 940), Vector2(40, 18), Vector2(0, -9))
-
-	# --- Dense Forest Trees: North of Trail (Y: 780 to 950) ---
-	var north_forest_trees := [
-		# Front tree row (Y: 900..930)
+	# --- FIRST HALF (X: 384 to 1600): PEACEFUL FOREST (NO SLIMES) ---
+	# North Forest Trees (Y: 900..930 front, Y: 780..820 deep)
+	var fh_north_trees := [
 		Vector2(600, 920), Vector2(720, 900), Vector2(840, 930), Vector2(960, 910),
 		Vector2(1080, 930), Vector2(1200, 900), Vector2(1320, 920), Vector2(1440, 910), Vector2(1560, 930),
-		# Deep back row (Y: 780..820)
 		Vector2(660, 800), Vector2(780, 780), Vector2(900, 810), Vector2(1020, 770),
 		Vector2(1140, 800), Vector2(1260, 780), Vector2(1380, 810), Vector2(1500, 790)
 	]
-	var nft_idx := 0
-	for tpos in north_forest_trees:
-		_add_tree(objects, world, tree_sc, (nft_idx % 4) + 1, tpos)
-		nft_idx += 1
+	var fh_nt_idx := 0
+	for tpos in fh_north_trees:
+		_add_tree(objects, world, tree_sc, (fh_nt_idx % 4) + 1, tpos)
+		fh_nt_idx += 1
 
-	# --- Dense Forest Trees: South of Trail (Y: 1220 to 1360, safely clear of road sightline) ---
-	var south_forest_trees := [
-		# Front tree row (Y: 1220..1250)
+	# South Forest Trees (Y: 1220..1250 front, Y: 1330..1360 deep)
+	var fh_south_trees := [
 		Vector2(580, 1220), Vector2(700, 1240), Vector2(820, 1220), Vector2(940, 1240),
 		Vector2(1060, 1220), Vector2(1180, 1240), Vector2(1300, 1220), Vector2(1420, 1240), Vector2(1540, 1220),
-		# Deep back row (Y: 1330..1360)
 		Vector2(640, 1340), Vector2(760, 1360), Vector2(880, 1330), Vector2(1000, 1360),
 		Vector2(1120, 1340), Vector2(1240, 1360), Vector2(1360, 1330), Vector2(1480, 1350)
 	]
-	var sft_idx := 0
-	for tpos in south_forest_trees:
-		_add_tree(objects, world, tree_sc, (sft_idx % 4) + 1, tpos)
-		sft_idx += 1
+	var fh_st_idx := 0
+	for tpos in fh_south_trees:
+		_add_tree(objects, world, tree_sc, (fh_st_idx % 4) + 1, tpos)
+		fh_st_idx += 1
 
-	# Forest Bushes flanking both sides
-	var forest_bushes := [
+	# First half bushes, rocks, flowers & lanterns
+	var fh_bushes := [
 		Vector2(640, 940), Vector2(760, 930), Vector2(880, 945), Vector2(1000, 930),
 		Vector2(1120, 945), Vector2(1240, 930), Vector2(1360, 940), Vector2(1480, 935),
 		Vector2(620, 1115), Vector2(740, 1120), Vector2(860, 1115), Vector2(980, 1120),
 		Vector2(1100, 1115), Vector2(1220, 1120), Vector2(1340, 1115), Vector2(1460, 1120)
 	]
-	var fb_idx := 0
-	for bpos in forest_bushes:
-		_add_bush(objects, world, bush_sc, (fb_idx % 4) + 1, bpos)
-		fb_idx += 1
+	var fh_b_idx := 0
+	for bpos in fh_bushes:
+		_add_bush(objects, world, bush_sc, (fh_b_idx % 4) + 1, bpos)
+		fh_b_idx += 1
 
-	# Forest Rocks & Mossy Boulders
 	_add_prop(objects, world, "res://Game Assets(NEW)/Terrain/Decorations/Rocks/Rock1.png", Vector2(680, 950))
 	_add_prop(objects, world, "res://Game Assets(NEW)/Terrain/Decorations/Rocks/Rock2.png", Vector2(820, 945))
 	_add_prop(objects, world, "res://Game Assets(NEW)/Terrain/Decorations/Rocks/Rock3.png", Vector2(1040, 950))
@@ -282,7 +262,6 @@ func _ready() -> void:
 	_add_prop(objects, world, "res://Game Assets(NEW)/Terrain/Decorations/Rocks/Rock4.png", Vector2(1140, 1135))
 	_add_prop(objects, world, "res://Game Assets(NEW)/Terrain/Decorations/Rocks/Rock1.png", Vector2(1390, 1130))
 
-	# Forest Wildflowers & Nature Accents
 	_add_prop(objects, world, "res://Tiny Swords (Update 010)/Decoration/07.png", Vector2(590, 970))
 	_add_prop(objects, world, "res://Tiny Swords (Update 010)/Decoration/08.png", Vector2(800, 965))
 	_add_prop(objects, world, "res://Tiny Swords (Update 010)/Decoration/07.png", Vector2(1160, 965))
@@ -293,10 +272,112 @@ func _ready() -> void:
 	_add_prop(objects, world, "res://Tiny Swords (Update 010)/Decoration/08.png", Vector2(1280, 1115))
 	_add_prop(objects, world, "res://Tiny Swords (Update 010)/Decoration/07.png", Vector2(1510, 1115))
 
-	# --- Oakhaven Crossroads Waypoint (Village Threshold, X: 1560-1660) ---
-	_add_prop(objects, world, "res://assets/props/lantern_post.png", Vector2(1570, 980), Vector2(16, 16), Vector2(0, -6))
-	_add_prop(objects, world, "res://assets/props/lantern_post.png", Vector2(1650, 980), Vector2(16, 16), Vector2(0, -6))
-	_add_sign(objects, world, Vector2(1590, 990), "CrossroadsSign", [
+	_add_prop(objects, world, "res://assets/props/lantern_post.png", Vector2(860, 1005), Vector2(16, 16), Vector2(0, -6))
+	_add_prop(objects, world, "res://assets/props/lantern_post.png", Vector2(1120, 1005), Vector2(16, 16), Vector2(0, -6))
+	_add_prop(objects, world, "res://assets/props/lantern_post.png", Vector2(1380, 1005), Vector2(16, 16), Vector2(0, -6))
+
+	# First half peaceful rest spot (woodcutter's bench)
+	_add_prop(objects, world, "res://assets/props/stump_3.png", Vector2(1100, 940), Vector2(24, 20), Vector2(0, -10))
+	_add_prop(objects, world, "res://assets/props/wood_log.png", Vector2(1140, 940), Vector2(40, 18), Vector2(0, -9))
+
+	# --- MIDPOINT (X: 1600): WILDWOODS BORDER & COMBAT TUTORIAL GUIDE ---
+	_add_prop(objects, world, "res://assets/props/stump_4.png", Vector2(1580, 940), Vector2(26, 18), Vector2(0, -9))
+	_add_prop(objects, world, "res://assets/props/tool_04.png", Vector2(1595, 935))
+	_add_prop(objects, world, "res://assets/props/wood_log.png", Vector2(1620, 940), Vector2(40, 18), Vector2(0, -9))
+	_add_prop(objects, world, "res://assets/props/lantern_post.png", Vector2(1600, 1005), Vector2(16, 16), Vector2(0, -6))
+
+	_add_sign(objects, world, Vector2(1570, 1010), "BorderWarningSign", [
+		"Wildwoods Border:",
+		"Danger: Wild slimes have infested the road ahead!",
+		"Arm yourself with the Hero's Blade before venturing further."
+	], "Border Sign")
+
+	_add_sign(objects, world, Vector2(1660, 990), "CombatTutorialSign", [
+		"Combat Guide — Hero's Blade:",
+		"Press [Q] to swing your sword at nearby adversaries.",
+		"Slimes take 2 decisive strikes. Time your attacks and keep moving!",
+		"Defeat the slimes to clear the road forward."
+	], "Combat Guide")
+
+	# --- SECOND HALF (X: 1600 to 2816): SLIMES APPEAR! ---
+	_add_enemy(objects, world, enemy_sc, Vector2(1760, 1056))   # Slime 1 (Introductory 1v1 right after sign)
+	_add_enemy(objects, world, enemy_sc, Vector2(1960, 1056))   # Slime 2 (Open trail encounter)
+	_add_enemy(objects, world, enemy_sc, Vector2(2160, 1040))   # Slime 3 (Mid-trail pack member 1)
+	_add_enemy(objects, world, enemy_sc, Vector2(2210, 1070))   # Slime 4 (Mid-trail pack member 2)
+	_add_enemy(objects, world, enemy_sc, Vector2(2400, 1056))   # Slime 5 (Deep forest encounter)
+	_add_enemy(objects, world, enemy_sc, Vector2(2580, 1040))   # Slime 6 (Deep woods pack member 1)
+	_add_enemy(objects, world, enemy_sc, Vector2(2630, 1070))   # Slime 7 (Deep woods pack member 2)
+	_add_enemy(objects, world, enemy_sc, Vector2(2760, 1056))   # Slime 8 (Crossroads gateway guardian)
+
+	# Second half lanterns
+	_add_prop(objects, world, "res://assets/props/lantern_post.png", Vector2(1880, 1005), Vector2(16, 16), Vector2(0, -6))
+	_add_prop(objects, world, "res://assets/props/lantern_post.png", Vector2(2140, 1005), Vector2(16, 16), Vector2(0, -6))
+	_add_prop(objects, world, "res://assets/props/lantern_post.png", Vector2(2380, 1005), Vector2(16, 16), Vector2(0, -6))
+	_add_prop(objects, world, "res://assets/props/lantern_post.png", Vector2(2600, 1005), Vector2(16, 16), Vector2(0, -6))
+	_add_prop(objects, world, "res://assets/props/lantern_post.png", Vector2(2800, 1005), Vector2(16, 16), Vector2(0, -6))
+
+	# Second half North Trees (Y: 900..930 front, Y: 780..820 deep)
+	var sh_north_trees := [
+		Vector2(1680, 920), Vector2(1800, 900), Vector2(1920, 930), Vector2(2040, 910),
+		Vector2(2160, 930), Vector2(2280, 900), Vector2(2400, 920), Vector2(2520, 910), Vector2(2640, 930), Vector2(2760, 910),
+		Vector2(1740, 800), Vector2(1860, 780), Vector2(1980, 810), Vector2(2100, 770),
+		Vector2(2220, 800), Vector2(2340, 780), Vector2(2460, 810), Vector2(2580, 790), Vector2(2700, 810)
+	]
+	var sh_nt_idx := 0
+	for tpos in sh_north_trees:
+		_add_tree(objects, world, tree_sc, (sh_nt_idx % 4) + 1, tpos)
+		sh_nt_idx += 1
+
+	# Second half South Trees (Y: 1220..1250 front, Y: 1330..1360 deep)
+	var sh_south_trees := [
+		Vector2(1660, 1220), Vector2(1780, 1240), Vector2(1900, 1220), Vector2(2020, 1240),
+		Vector2(2140, 1220), Vector2(2260, 1240), Vector2(2380, 1220), Vector2(2500, 1240), Vector2(2620, 1220), Vector2(2740, 1240),
+		Vector2(1720, 1340), Vector2(1840, 1360), Vector2(1960, 1330), Vector2(2080, 1360),
+		Vector2(2200, 1340), Vector2(2320, 1360), Vector2(2440, 1330), Vector2(2560, 1350), Vector2(2680, 1330)
+	]
+	var sh_st_idx := 0
+	for tpos in sh_south_trees:
+		_add_tree(objects, world, tree_sc, (sh_st_idx % 4) + 1, tpos)
+		sh_st_idx += 1
+
+	# Second half bushes, rocks & flowers
+	var sh_bushes := [
+		Vector2(1720, 940), Vector2(1840, 930), Vector2(1960, 945), Vector2(2080, 930),
+		Vector2(2200, 945), Vector2(2320, 930), Vector2(2440, 940), Vector2(2560, 935), Vector2(2680, 940),
+		Vector2(1700, 1115), Vector2(1820, 1120), Vector2(1940, 1115), Vector2(2060, 1120),
+		Vector2(2180, 1115), Vector2(2300, 1120), Vector2(2420, 1115), Vector2(2540, 1120), Vector2(2660, 1115), Vector2(2780, 1120)
+	]
+	var sh_b_idx := 0
+	for bpos in sh_bushes:
+		_add_bush(objects, world, bush_sc, (sh_b_idx % 4) + 1, bpos)
+		sh_b_idx += 1
+
+	_add_prop(objects, world, "res://Game Assets(NEW)/Terrain/Decorations/Rocks/Rock1.png", Vector2(1780, 950))
+	_add_prop(objects, world, "res://Game Assets(NEW)/Terrain/Decorations/Rocks/Rock2.png", Vector2(2020, 945))
+	_add_prop(objects, world, "res://Game Assets(NEW)/Terrain/Decorations/Rocks/Rock3.png", Vector2(2260, 950))
+	_add_prop(objects, world, "res://Game Assets(NEW)/Terrain/Decorations/Rocks/Rock4.png", Vector2(2480, 945))
+	_add_prop(objects, world, "res://Game Assets(NEW)/Terrain/Decorations/Rocks/Rock1.png", Vector2(2700, 950))
+	_add_prop(objects, world, "res://Game Assets(NEW)/Terrain/Decorations/Rocks/Rock2.png", Vector2(1770, 1135))
+	_add_prop(objects, world, "res://Game Assets(NEW)/Terrain/Decorations/Rocks/Rock3.png", Vector2(2010, 1130))
+	_add_prop(objects, world, "res://Game Assets(NEW)/Terrain/Decorations/Rocks/Rock4.png", Vector2(2250, 1135))
+	_add_prop(objects, world, "res://Game Assets(NEW)/Terrain/Decorations/Rocks/Rock1.png", Vector2(2490, 1130))
+	_add_prop(objects, world, "res://Game Assets(NEW)/Terrain/Decorations/Rocks/Rock2.png", Vector2(2730, 1135))
+
+	_add_prop(objects, world, "res://Tiny Swords (Update 010)/Decoration/07.png", Vector2(1820, 970))
+	_add_prop(objects, world, "res://Tiny Swords (Update 010)/Decoration/08.png", Vector2(2060, 965))
+	_add_prop(objects, world, "res://Tiny Swords (Update 010)/Decoration/07.png", Vector2(2300, 965))
+	_add_prop(objects, world, "res://Tiny Swords (Update 010)/Decoration/08.png", Vector2(2520, 965))
+	_add_prop(objects, world, "res://Tiny Swords (Update 010)/Decoration/07.png", Vector2(2720, 970))
+	_add_prop(objects, world, "res://Tiny Swords (Update 010)/Decoration/08.png", Vector2(1850, 1115))
+	_add_prop(objects, world, "res://Tiny Swords (Update 010)/Decoration/07.png", Vector2(2070, 1115))
+	_add_prop(objects, world, "res://Tiny Swords (Update 010)/Decoration/08.png", Vector2(2280, 1115))
+	_add_prop(objects, world, "res://Tiny Swords (Update 010)/Decoration/07.png", Vector2(2510, 1115))
+	_add_prop(objects, world, "res://Tiny Swords (Update 010)/Decoration/08.png", Vector2(2730, 1115))
+
+	# --- OAKHAVEN CROSSROADS (Village Threshold, X: 2816-2944) ---
+	_add_prop(objects, world, "res://assets/props/lantern_post.png", Vector2(2850, 980), Vector2(16, 16), Vector2(0, -6))
+	_add_prop(objects, world, "res://assets/props/lantern_post.png", Vector2(2930, 980), Vector2(16, 16), Vector2(0, -6))
+	_add_sign(objects, world, Vector2(2870, 990), "CrossroadsSign", [
 		"Oakhaven Crossroads Signpost:",
 		"⬆ North: High Mountain Pass & Combat Training Grounds",
 		"⬇ South: Whispering Shores & Mystic Cavern",
@@ -418,37 +499,37 @@ func _ready() -> void:
 	# =========================================================================
 	# ZONE 3: NORTHERN FOREST & MOUNTAIN TRAINING GROUNDS (X: 1400-2600, Y: 250-750)
 	# =========================================================================
-	_add_building(objects, world, bld_sc, 4, Vector2(1850, 360), "TrainingTower")
-	_add_building(objects, world, bld_sc, 6, Vector2(2250, 380), "ArcheryRange")
-	_add_prop(objects, world, "res://assets/props/lantern_post.png", Vector2(1780, 480), Vector2(16, 16), Vector2(0, -6))
-	_add_prop(objects, world, "res://assets/props/stump_1.png", Vector2(2150, 470), Vector2(36, 22), Vector2(0, -11))
-	_add_prop(objects, world, "res://assets/props/tool_01.png", Vector2(2170, 465))
-	_add_prop(objects, world, "res://assets/props/wood_log.png", Vector2(2200, 470), Vector2(40, 18), Vector2(0, -9))
+	_add_building(objects, world, bld_sc, 4, Vector2(3130, 360), "TrainingTower")
+	_add_building(objects, world, bld_sc, 6, Vector2(3530, 380), "ArcheryRange")
+	_add_prop(objects, world, "res://assets/props/lantern_post.png", Vector2(3060, 480), Vector2(1296, 16), Vector2(1280, -6))
+	_add_prop(objects, world, "res://assets/props/stump_1.png", Vector2(3430, 470), Vector2(1316, 22), Vector2(1280, -11))
+	_add_prop(objects, world, "res://assets/props/tool_01.png", Vector2(3450, 465))
+	_add_prop(objects, world, "res://assets/props/wood_log.png", Vector2(3480, 470), Vector2(1320, 18), Vector2(1280, -9))
 
-	_add_tree(objects, world, tree_sc, 1, Vector2(1400, 260))
-	_add_tree(objects, world, tree_sc, 2, Vector2(1600, 250))
-	_add_tree(objects, world, tree_sc, 1, Vector2(1800, 240))
-	_add_tree(objects, world, tree_sc, 2, Vector2(2050, 250))
-	_add_tree(objects, world, tree_sc, 1, Vector2(2250, 240))
-	_add_tree(objects, world, tree_sc, 2, Vector2(2450, 260))
-	_add_tree(objects, world, tree_sc, 3, Vector2(1320, 360))
-	_add_tree(objects, world, tree_sc, 4, Vector2(1500, 420))
-	_add_tree(objects, world, tree_sc, 1, Vector2(1680, 280))
-	_add_tree(objects, world, tree_sc, 2, Vector2(1920, 260))
-	_add_tree(objects, world, tree_sc, 3, Vector2(2160, 280))
-	_add_tree(objects, world, tree_sc, 4, Vector2(2380, 290))
-	_add_tree(objects, world, tree_sc, 1, Vector2(2550, 380))
-	_add_bush(objects, world, bush_sc, 1, Vector2(1450, 460))
-	_add_bush(objects, world, bush_sc, 2, Vector2(1950, 480))
-	_add_bush(objects, world, bush_sc, 3, Vector2(2100, 440))
-	_add_bush(objects, world, bush_sc, 4, Vector2(2350, 470))
-	_add_bush(objects, world, bush_sc, 1, Vector2(2500, 450))
-	_add_prop(objects, world, "res://Game Assets(NEW)/Terrain/Decorations/Rocks/Rock1.png", Vector2(1720, 390))
-	_add_prop(objects, world, "res://Game Assets(NEW)/Terrain/Decorations/Rocks/Rock2.png", Vector2(2380, 410))
-	_add_prop(objects, world, "res://Game Assets(NEW)/Terrain/Decorations/Rocks/Rock3.png", Vector2(1580, 320))
-	_add_prop(objects, world, "res://Game Assets(NEW)/Terrain/Decorations/Rocks/Rock4.png", Vector2(2020, 340))
+	_add_tree(objects, world, tree_sc, 1, Vector2(2680, 260))
+	_add_tree(objects, world, tree_sc, 2, Vector2(2880, 250))
+	_add_tree(objects, world, tree_sc, 1, Vector2(3080, 240))
+	_add_tree(objects, world, tree_sc, 2, Vector2(3330, 250))
+	_add_tree(objects, world, tree_sc, 1, Vector2(3530, 240))
+	_add_tree(objects, world, tree_sc, 2, Vector2(3730, 260))
+	_add_tree(objects, world, tree_sc, 3, Vector2(2600, 360))
+	_add_tree(objects, world, tree_sc, 4, Vector2(2780, 420))
+	_add_tree(objects, world, tree_sc, 1, Vector2(2960, 280))
+	_add_tree(objects, world, tree_sc, 2, Vector2(3200, 260))
+	_add_tree(objects, world, tree_sc, 3, Vector2(3440, 280))
+	_add_tree(objects, world, tree_sc, 4, Vector2(3660, 290))
+	_add_tree(objects, world, tree_sc, 1, Vector2(3830, 380))
+	_add_bush(objects, world, bush_sc, 1, Vector2(2730, 460))
+	_add_bush(objects, world, bush_sc, 2, Vector2(3230, 480))
+	_add_bush(objects, world, bush_sc, 3, Vector2(3380, 440))
+	_add_bush(objects, world, bush_sc, 4, Vector2(3630, 470))
+	_add_bush(objects, world, bush_sc, 1, Vector2(3780, 450))
+	_add_prop(objects, world, "res://Game Assets(NEW)/Terrain/Decorations/Rocks/Rock1.png", Vector2(3000, 390))
+	_add_prop(objects, world, "res://Game Assets(NEW)/Terrain/Decorations/Rocks/Rock2.png", Vector2(3660, 410))
+	_add_prop(objects, world, "res://Game Assets(NEW)/Terrain/Decorations/Rocks/Rock3.png", Vector2(2860, 320))
+	_add_prop(objects, world, "res://Game Assets(NEW)/Terrain/Decorations/Rocks/Rock4.png", Vector2(3300, 340))
 
-	_add_sign(objects, world, Vector2(1750, 500), "TrainingSign", [
+	_add_sign(objects, world, Vector2(3030, 500), "TrainingSign", [
 		"High Mountain Training Grounds:",
 		"Press [Q] to swing your sword at nearby adversaries.",
 		"Armored and shadowy beasts require decisive strikes.",
@@ -456,27 +537,27 @@ func _ready() -> void:
 	], "Training Sign")
 
 	# Enemies
-	_add_enemy(objects, world, enemy_sc, Vector2(1920, 520))
-	_add_enemy(objects, world, enemy_sc, Vector2(2120, 530))
-	_add_enemy(objects, world, torch_sc, Vector2(2300, 500))
+	_add_enemy(objects, world, enemy_sc, Vector2(3200, 520))
+	_add_enemy(objects, world, enemy_sc, Vector2(3400, 530))
+	_add_enemy(objects, world, torch_sc, Vector2(3580, 500))
 
 	# =========================================================================
 	# ZONE 3B: NORTH-EAST WHISPERING WILDERNESS & BANDIT RUINS (X: 2700-4900, Y: 150-750)
 	# Fills vast empty northern plateau with pine wilderness, ruined watchtower & bandit campsite
 	# =========================================================================
-	_add_building(objects, world, bld_sc, 4, Vector2(3350, 360), "WildernessWatchtower")
-	_add_prop(objects, world, "res://assets/props/stump_1.png", Vector2(3440, 420), Vector2(36, 22), Vector2(0, -11))
-	_add_prop(objects, world, "res://assets/props/tool_01.png", Vector2(3455, 415))
-	_add_prop(objects, world, "res://assets/props/wood_log.png", Vector2(3480, 420), Vector2(40, 18), Vector2(0, -9))
-	_add_prop(objects, world, "res://assets/props/barrel_wood.png", Vector2(3260, 410), Vector2(24, 24), Vector2(0, -5))
-	_add_prop(objects, world, "res://assets/props/lantern_post.png", Vector2(3350, 440), Vector2(16, 16), Vector2(0, -6))
-	_add_enemy(objects, world, torch_sc, Vector2(3420, 460))
+	_add_building(objects, world, bld_sc, 4, Vector2(4630, 360), "WildernessWatchtower")
+	_add_prop(objects, world, "res://assets/props/stump_1.png", Vector2(4720, 420), Vector2(1316, 22), Vector2(1280, -11))
+	_add_prop(objects, world, "res://assets/props/tool_01.png", Vector2(4735, 415))
+	_add_prop(objects, world, "res://assets/props/wood_log.png", Vector2(4760, 420), Vector2(1320, 18), Vector2(1280, -9))
+	_add_prop(objects, world, "res://assets/props/barrel_wood.png", Vector2(4540, 410), Vector2(1304, 24), Vector2(1280, -5))
+	_add_prop(objects, world, "res://assets/props/lantern_post.png", Vector2(4630, 440), Vector2(1296, 16), Vector2(1280, -6))
+	_add_enemy(objects, world, torch_sc, Vector2(4700, 460))
 
 	var ne_trees := [
-		Vector2(2750, 240), Vector2(2980, 220), Vector2(3200, 250), Vector2(3450, 220), Vector2(3700, 240), Vector2(3950, 220), Vector2(4200, 240), Vector2(4450, 220), Vector2(4700, 250),
-		Vector2(2850, 400), Vector2(3100, 420), Vector2(3580, 400), Vector2(3820, 420), Vector2(4080, 390), Vector2(4340, 410), Vector2(4600, 390), Vector2(4800, 420),
-		Vector2(2720, 560), Vector2(2950, 580), Vector2(3220, 560), Vector2(3480, 580), Vector2(3720, 560), Vector2(3980, 590), Vector2(4240, 570), Vector2(4500, 590), Vector2(4740, 570),
-		Vector2(2840, 720), Vector2(3060, 700), Vector2(3280, 730), Vector2(3520, 710)
+		Vector2(4030, 240), Vector2(4260, 220), Vector2(4480, 250), Vector2(4730, 220), Vector2(4980, 240), Vector2(5230, 220), Vector2(5480, 240), Vector2(5730, 220), Vector2(5980, 250),
+		Vector2(4130, 400), Vector2(4380, 420), Vector2(4860, 400), Vector2(5100, 420), Vector2(5360, 390), Vector2(5620, 410), Vector2(5880, 390), Vector2(6080, 420),
+		Vector2(4000, 560), Vector2(4230, 580), Vector2(4500, 560), Vector2(4760, 580), Vector2(5000, 560), Vector2(5260, 590), Vector2(5520, 570), Vector2(5780, 590), Vector2(6020, 570),
+		Vector2(4120, 720), Vector2(4340, 700), Vector2(4560, 730), Vector2(4800, 710)
 	]
 	var ne_t_idx := 0
 	for tpos in ne_trees:
@@ -484,42 +565,42 @@ func _ready() -> void:
 		ne_t_idx += 1
 
 	var ne_bushes := [
-		Vector2(2820, 320), Vector2(3300, 280), Vector2(3780, 330), Vector2(4250, 310), Vector2(4680, 330),
-		Vector2(2920, 490), Vector2(3620, 480), Vector2(4150, 490), Vector2(4650, 480),
-		Vector2(2800, 650), Vector2(3380, 650)
+		Vector2(4100, 320), Vector2(4580, 280), Vector2(5060, 330), Vector2(5530, 310), Vector2(5960, 330),
+		Vector2(4200, 490), Vector2(4900, 480), Vector2(5430, 490), Vector2(5930, 480),
+		Vector2(4080, 650), Vector2(4660, 650)
 	]
 	var ne_b_idx := 0
 	for bpos in ne_bushes:
 		_add_bush(objects, world, bush_sc, (ne_b_idx % 4) + 1, bpos)
 		ne_b_idx += 1
 
-	_add_prop(objects, world, "res://Game Assets(NEW)/Terrain/Decorations/Rocks/Rock1.png", Vector2(2900, 260))
-	_add_prop(objects, world, "res://Game Assets(NEW)/Terrain/Decorations/Rocks/Rock2.png", Vector2(3600, 270))
-	_add_prop(objects, world, "res://Game Assets(NEW)/Terrain/Decorations/Rocks/Rock3.png", Vector2(4300, 260))
-	_add_prop(objects, world, "res://Game Assets(NEW)/Terrain/Decorations/Rocks/Rock4.png", Vector2(3150, 480))
-	_add_prop(objects, world, "res://Game Assets(NEW)/Terrain/Decorations/Rocks/Rock1.png", Vector2(3900, 470))
-	_add_prop(objects, world, "res://Game Assets(NEW)/Terrain/Decorations/Rocks/Rock2.png", Vector2(4750, 490))
-	_add_prop(objects, world, "res://Game Assets(NEW)/Terrain/Decorations/Rocks/Rock3.png", Vector2(3000, 660))
+	_add_prop(objects, world, "res://Game Assets(NEW)/Terrain/Decorations/Rocks/Rock1.png", Vector2(4180, 260))
+	_add_prop(objects, world, "res://Game Assets(NEW)/Terrain/Decorations/Rocks/Rock2.png", Vector2(4880, 270))
+	_add_prop(objects, world, "res://Game Assets(NEW)/Terrain/Decorations/Rocks/Rock3.png", Vector2(5580, 260))
+	_add_prop(objects, world, "res://Game Assets(NEW)/Terrain/Decorations/Rocks/Rock4.png", Vector2(4430, 480))
+	_add_prop(objects, world, "res://Game Assets(NEW)/Terrain/Decorations/Rocks/Rock1.png", Vector2(5180, 470))
+	_add_prop(objects, world, "res://Game Assets(NEW)/Terrain/Decorations/Rocks/Rock2.png", Vector2(6030, 490))
+	_add_prop(objects, world, "res://Game Assets(NEW)/Terrain/Decorations/Rocks/Rock3.png", Vector2(4280, 660))
 
 	# Northern Ocean Coastline Foam & Water Rocks
-	_add_water_foam(objects, world, foam_sc, Vector2(2800, 130))
-	_add_water_foam(objects, world, foam_sc, Vector2(3200, 130))
-	_add_water_foam(objects, world, foam_sc, Vector2(3600, 130))
-	_add_water_foam(objects, world, foam_sc, Vector2(4000, 130))
-	_add_water_foam(objects, world, foam_sc, Vector2(4400, 130))
-	_add_water_foam(objects, world, foam_sc, Vector2(4800, 130))
-	_add_water_rock(objects, world, wrock_sc, 1, Vector2(3000, 90))
-	_add_water_rock(objects, world, wrock_sc, 2, Vector2(3400, 90))
-	_add_water_rock(objects, world, wrock_sc, 3, Vector2(3800, 90))
-	_add_water_rock(objects, world, wrock_sc, 4, Vector2(4200, 90))
-	_add_water_rock(objects, world, wrock_sc, 1, Vector2(4600, 90))
+	_add_water_foam(objects, world, foam_sc, Vector2(4080, 130))
+	_add_water_foam(objects, world, foam_sc, Vector2(4480, 130))
+	_add_water_foam(objects, world, foam_sc, Vector2(4880, 130))
+	_add_water_foam(objects, world, foam_sc, Vector2(5280, 130))
+	_add_water_foam(objects, world, foam_sc, Vector2(5680, 130))
+	_add_water_foam(objects, world, foam_sc, Vector2(6080, 130))
+	_add_water_rock(objects, world, wrock_sc, 1, Vector2(4280, 90))
+	_add_water_rock(objects, world, wrock_sc, 2, Vector2(4680, 90))
+	_add_water_rock(objects, world, wrock_sc, 3, Vector2(5080, 90))
+	_add_water_rock(objects, world, wrock_sc, 4, Vector2(5480, 90))
+	_add_water_rock(objects, world, wrock_sc, 1, Vector2(5880, 90))
 
 	# =========================================================================
 	# ZONE 4: MOSSVEIL VILLAGE & TOWN SQUARE (X: 1650-3600, Y: 800-1600)
 	# =========================================================================
 	# Village Entrance Archway & Guard
-	_add_prop(objects, world, "res://assets/props/archway_lantern.png", Vector2(1690, 1024), Vector2(90, 24), Vector2(0, -10))
-	_add_sign(objects, world, Vector2(1650, 980), "VillageGateSign", [
+	_add_prop(objects, world, "res://assets/props/archway_lantern.png", Vector2(2970, 1024), Vector2(1370, 24), Vector2(1280, -10))
+	_add_sign(objects, world, Vector2(2930, 980), "VillageGateSign", [
 		"Welcome to Mossveil Village!",
 		"You are protected by the royal decree of King Aldous.",
 		"Follow the main avenue east to reach the town square and citadel."
@@ -528,45 +609,45 @@ func _ready() -> void:
 	var guard_sc: PackedScene = load("res://scenes/npc_guard.tscn")
 	var guard := guard_sc.instantiate()
 	guard.name = "NPC_Guard"
-	guard.position = Vector2(1780, 1024)
+	guard.position = Vector2(3060, 1024)
 	objects.add_child(guard)
 	guard.owner = world
 
 	# Residential Quarter (West Village)
-	_add_building(objects, world, bld_sc, 0, Vector2(1950, 860), "VillageHouse_West1")
-	_add_building(objects, world, bld_sc, 1, Vector2(2180, 840), "VillageHouse_West2")
-	_add_prop(objects, world, "res://assets/props/barrel_wood.png", Vector2(2260, 890), Vector2(24, 24), Vector2(0, -5))
+	_add_building(objects, world, bld_sc, 0, Vector2(3230, 860), "VillageHouse_West1")
+	_add_building(objects, world, bld_sc, 1, Vector2(3460, 840), "VillageHouse_West2")
+	_add_prop(objects, world, "res://assets/props/barrel_wood.png", Vector2(3540, 890), Vector2(1304, 24), Vector2(1280, -5))
 
 	# Maya's Residence
-	_add_building(objects, world, bld_sc, 2, Vector2(2750, 820), "VillageHouse_Maya")
+	_add_building(objects, world, bld_sc, 2, Vector2(4030, 820), "VillageHouse_Maya")
 	var maya_sc: PackedScene = load("res://scenes/npc_maya.tscn")
 	var maya := maya_sc.instantiate()
 	maya.name = "NPC_Maya"
-	maya.position = Vector2(2700, 900)
+	maya.position = Vector2(3980, 900)
 	objects.add_child(maya)
 	maya.owner = world
 
 	# Ravi's Woodcraft Workshop (South-West Village)
-	_add_building(objects, world, bld_sc, 7, Vector2(1980, 1260), "BarracksWorkshop")
-	_add_prop(objects, world, "res://assets/props/wood_log.png", Vector2(2060, 1310), Vector2(40, 18), Vector2(0, -9))
-	_add_prop(objects, world, "res://assets/props/stump_2.png", Vector2(2100, 1315), Vector2(36, 20), Vector2(0, -10))
-	_add_prop(objects, world, "res://assets/props/tool_02.png", Vector2(2110, 1310))
-	_add_prop(objects, world, "res://assets/props/barrel_wood.png", Vector2(2140, 1310), Vector2(24, 24), Vector2(0, -5))
+	_add_building(objects, world, bld_sc, 7, Vector2(3260, 1260), "BarracksWorkshop")
+	_add_prop(objects, world, "res://assets/props/wood_log.png", Vector2(3340, 1310), Vector2(1320, 18), Vector2(1280, -9))
+	_add_prop(objects, world, "res://assets/props/stump_2.png", Vector2(3380, 1315), Vector2(1316, 20), Vector2(1280, -10))
+	_add_prop(objects, world, "res://assets/props/tool_02.png", Vector2(3390, 1310))
+	_add_prop(objects, world, "res://assets/props/barrel_wood.png", Vector2(3420, 1310), Vector2(1304, 24), Vector2(1280, -5))
 	var ravi_sc: PackedScene = load("res://scenes/npc_ravi.tscn")
 	var ravi := ravi_sc.instantiate()
 	ravi.name = "NPC_Ravi"
-	ravi.position = Vector2(2080, 1220)
+	ravi.position = Vector2(3360, 1220)
 	objects.add_child(ravi)
 	ravi.owner = world
 
 	# Central Town Square & Grand Plaza (X: 2496, Y: 1088)
-	_add_tree(objects, world, tree_sc, 4, Vector2(2496, 1050))
-	_add_prop(objects, world, "res://assets/props/lantern_post.png", Vector2(2320, 980), Vector2(16, 16), Vector2(0, -6))
-	_add_prop(objects, world, "res://assets/props/lantern_post.png", Vector2(2660, 980), Vector2(16, 16), Vector2(0, -6))
-	_add_prop(objects, world, "res://assets/props/lantern_post.png", Vector2(2320, 1180), Vector2(16, 16), Vector2(0, -6))
-	_add_prop(objects, world, "res://assets/props/lantern_post.png", Vector2(2660, 1180), Vector2(16, 16), Vector2(0, -6))
+	_add_tree(objects, world, tree_sc, 4, Vector2(3776, 1050))
+	_add_prop(objects, world, "res://assets/props/lantern_post.png", Vector2(3600, 980), Vector2(1296, 16), Vector2(1280, -6))
+	_add_prop(objects, world, "res://assets/props/lantern_post.png", Vector2(3940, 980), Vector2(1296, 16), Vector2(1280, -6))
+	_add_prop(objects, world, "res://assets/props/lantern_post.png", Vector2(3600, 1180), Vector2(1296, 16), Vector2(1280, -6))
+	_add_prop(objects, world, "res://assets/props/lantern_post.png", Vector2(3940, 1180), Vector2(1296, 16), Vector2(1280, -6))
 
-	_add_sign(objects, world, Vector2(2380, 1140), "TownSquareSign", [
+	_add_sign(objects, world, Vector2(3660, 1140), "TownSquareSign", [
 		"Mossveil Town Square:",
 		"North: Residential Quarter & Flower Gardens",
 		"East: High Bridge to Royal Citadel",
@@ -575,164 +656,164 @@ func _ready() -> void:
 	], "Town Square")
 
 	# Market Stalls & Produce (South of Plaza)
-	_add_prop(objects, world, "res://assets/props/barrel_wood.png", Vector2(2420, 1250), Vector2(24, 24), Vector2(0, -5))
-	_add_prop(objects, world, "res://assets/props/barrel_sack.png", Vector2(2450, 1250), Vector2(24, 24), Vector2(0, -5))
-	_add_prop(objects, world, "res://assets/props/crate_wood.png", Vector2(2485, 1250), Vector2(30, 20), Vector2(0, -5))
-	_add_prop(objects, world, "res://assets/props/crate_box.png", Vector2(2520, 1250), Vector2(30, 20), Vector2(0, -5))
-	_add_prop(objects, world, "res://Tiny Swords (Update 010)/Decoration/12.png", Vector2(2550, 1255))
+	_add_prop(objects, world, "res://assets/props/barrel_wood.png", Vector2(3700, 1250), Vector2(1304, 24), Vector2(1280, -5))
+	_add_prop(objects, world, "res://assets/props/barrel_sack.png", Vector2(3730, 1250), Vector2(1304, 24), Vector2(1280, -5))
+	_add_prop(objects, world, "res://assets/props/crate_wood.png", Vector2(3765, 1250), Vector2(1310, 20), Vector2(1280, -5))
+	_add_prop(objects, world, "res://assets/props/crate_box.png", Vector2(3800, 1250), Vector2(1310, 20), Vector2(1280, -5))
+	_add_prop(objects, world, "res://Tiny Swords (Update 010)/Decoration/12.png", Vector2(3830, 1255))
 
 	# Additional Village Houses (East Village)
-	_add_building(objects, world, bld_sc, 0, Vector2(3050, 840), "VillageHouse_East1")
-	_add_building(objects, world, bld_sc, 1, Vector2(2850, 1260), "VillageHouse_East2")
-	_add_building(objects, world, bld_sc, 2, Vector2(3180, 1240), "VillageHouse_East3")
+	_add_building(objects, world, bld_sc, 0, Vector2(4330, 840), "VillageHouse_East1")
+	_add_building(objects, world, bld_sc, 1, Vector2(4130, 1260), "VillageHouse_East2")
+	_add_building(objects, world, bld_sc, 2, Vector2(4460, 1240), "VillageHouse_East3")
 
 	# Trees & nature around village
-	_add_tree(objects, world, tree_sc, 3, Vector2(2000, 720))
-	_add_tree(objects, world, tree_sc, 4, Vector2(2300, 720))
-	_add_tree(objects, world, tree_sc, 3, Vector2(2580, 710))
-	_add_tree(objects, world, tree_sc, 4, Vector2(2880, 710))
-	_add_tree(objects, world, tree_sc, 1, Vector2(3100, 720))
-	_add_tree(objects, world, tree_sc, 4, Vector2(3300, 840))
-	_add_tree(objects, world, tree_sc, 2, Vector2(3380, 1020))
-	_add_tree(objects, world, tree_sc, 3, Vector2(3350, 1260))
-	_add_tree(objects, world, tree_sc, 1, Vector2(2700, 1380))
-	_add_tree(objects, world, tree_sc, 2, Vector2(2350, 1380))
-	_add_bush(objects, world, bush_sc, 1, Vector2(2280, 830))
-	_add_bush(objects, world, bush_sc, 2, Vector2(2620, 830))
-	_add_bush(objects, world, bush_sc, 3, Vector2(2950, 850))
-	_add_bush(objects, world, bush_sc, 4, Vector2(3250, 960))
-	_add_bush(objects, world, bush_sc, 1, Vector2(2520, 1360))
-	_add_prop(objects, world, "res://Game Assets(NEW)/Terrain/Decorations/Rocks/Rock1.png", Vector2(2120, 750))
-	_add_prop(objects, world, "res://Game Assets(NEW)/Terrain/Decorations/Rocks/Rock2.png", Vector2(3000, 750))
-	_add_prop(objects, world, "res://Tiny Swords (Update 010)/Decoration/07.png", Vector2(2350, 870))
-	_add_prop(objects, world, "res://Tiny Swords (Update 010)/Decoration/08.png", Vector2(2650, 870))
-	_add_prop(objects, world, "res://Tiny Swords (Update 010)/Decoration/07.png", Vector2(2900, 920))
-	_add_prop(objects, world, "res://Tiny Swords (Update 010)/Decoration/08.png", Vector2(3120, 920))
+	_add_tree(objects, world, tree_sc, 3, Vector2(3280, 720))
+	_add_tree(objects, world, tree_sc, 4, Vector2(3580, 720))
+	_add_tree(objects, world, tree_sc, 3, Vector2(3860, 710))
+	_add_tree(objects, world, tree_sc, 4, Vector2(4160, 710))
+	_add_tree(objects, world, tree_sc, 1, Vector2(4380, 720))
+	_add_tree(objects, world, tree_sc, 4, Vector2(4580, 840))
+	_add_tree(objects, world, tree_sc, 2, Vector2(4660, 1020))
+	_add_tree(objects, world, tree_sc, 3, Vector2(4630, 1260))
+	_add_tree(objects, world, tree_sc, 1, Vector2(3980, 1380))
+	_add_tree(objects, world, tree_sc, 2, Vector2(3630, 1380))
+	_add_bush(objects, world, bush_sc, 1, Vector2(3560, 830))
+	_add_bush(objects, world, bush_sc, 2, Vector2(3900, 830))
+	_add_bush(objects, world, bush_sc, 3, Vector2(4230, 850))
+	_add_bush(objects, world, bush_sc, 4, Vector2(4530, 960))
+	_add_bush(objects, world, bush_sc, 1, Vector2(3800, 1360))
+	_add_prop(objects, world, "res://Game Assets(NEW)/Terrain/Decorations/Rocks/Rock1.png", Vector2(3400, 750))
+	_add_prop(objects, world, "res://Game Assets(NEW)/Terrain/Decorations/Rocks/Rock2.png", Vector2(4280, 750))
+	_add_prop(objects, world, "res://Tiny Swords (Update 010)/Decoration/07.png", Vector2(3630, 870))
+	_add_prop(objects, world, "res://Tiny Swords (Update 010)/Decoration/08.png", Vector2(3930, 870))
+	_add_prop(objects, world, "res://Tiny Swords (Update 010)/Decoration/07.png", Vector2(4180, 920))
+	_add_prop(objects, world, "res://Tiny Swords (Update 010)/Decoration/08.png", Vector2(4400, 920))
 
 	# =========================================================================
 	# ZONE 5: ENCLOSED FARMLAND & ENCLOSED SHEEP PASTURE (SQUARE FENCE PENS)
 	# =========================================================================
 	# Lanterns at Bridge Ends
-	_add_prop(objects, world, "res://assets/props/lantern_post.png", Vector2(1730, 1660), Vector2(16, 16), Vector2(0, -6))
-	_add_prop(objects, world, "res://assets/props/lantern_post.png", Vector2(2080, 1660), Vector2(16, 16), Vector2(0, -6))
-	_add_prop(objects, world, "res://assets/props/lantern_post.png", Vector2(1250, 1660), Vector2(16, 16), Vector2(0, -6))
+	_add_prop(objects, world, "res://assets/props/lantern_post.png", Vector2(3010, 1660), Vector2(1296, 16), Vector2(1280, -6))
+	_add_prop(objects, world, "res://assets/props/lantern_post.png", Vector2(3360, 1660), Vector2(1296, 16), Vector2(1280, -6))
+	_add_prop(objects, world, "res://assets/props/lantern_post.png", Vector2(2530, 1660), Vector2(1296, 16), Vector2(1280, -6))
 
 	# River foam and splash rocks
-	_add_water_foam(objects, world, foam_sc, Vector2(1920, 1800))
-	_add_water_foam(objects, world, foam_sc, Vector2(1920, 2020))
-	_add_water_rock(objects, world, wrock_sc, 3, Vector2(1890, 1840))
-	_add_water_rock(objects, world, wrock_sc, 4, Vector2(1950, 2060))
+	_add_water_foam(objects, world, foam_sc, Vector2(3200, 1800))
+	_add_water_foam(objects, world, foam_sc, Vector2(3200, 2020))
+	_add_water_rock(objects, world, wrock_sc, 3, Vector2(3170, 1840))
+	_add_water_rock(objects, world, wrock_sc, 4, Vector2(3230, 2060))
 
 	# --- 1. CROP GARDEN PLOT (X: 1300..1480, Y: 1400..1540) ---
 	# Garden crops neatly organized with scarecrow and pumpkins
-	_add_prop(objects, world, "res://Tiny Swords (Update 010)/Decoration/18.png", Vector2(1390, 1420), Vector2(24, 20), Vector2(0, -6)) # Scarecrow!
-	_add_prop(objects, world, "res://Tiny Swords (Update 010)/Decoration/12.png", Vector2(1340, 1450)) # Pumpkin
-	_add_prop(objects, world, "res://Tiny Swords (Update 010)/Decoration/13.png", Vector2(1440, 1450)) # Pumpkin cluster
-	_add_prop(objects, world, "res://Tiny Swords (Update 010)/Decoration/10.png", Vector2(1330, 1480)) # Green crop row 1
-	_add_prop(objects, world, "res://Tiny Swords (Update 010)/Decoration/11.png", Vector2(1370, 1480)) # Green crop row 1
-	_add_prop(objects, world, "res://Tiny Swords (Update 010)/Decoration/10.png", Vector2(1410, 1480)) # Green crop row 1
-	_add_prop(objects, world, "res://Tiny Swords (Update 010)/Decoration/11.png", Vector2(1450, 1480)) # Green crop row 1
-	_add_prop(objects, world, "res://Tiny Swords (Update 010)/Decoration/10.png", Vector2(1330, 1510)) # Green crop row 2
-	_add_prop(objects, world, "res://Tiny Swords (Update 010)/Decoration/11.png", Vector2(1370, 1510)) # Green crop row 2
-	_add_prop(objects, world, "res://Tiny Swords (Update 010)/Decoration/10.png", Vector2(1410, 1510)) # Green crop row 2
-	_add_prop(objects, world, "res://Tiny Swords (Update 010)/Decoration/11.png", Vector2(1450, 1510)) # Green crop row 2
+	_add_prop(objects, world, "res://Tiny Swords (Update 010)/Decoration/18.png", Vector2(2670, 1420), Vector2(1304, 20), Vector2(1280, -6)) # Scarecrow!
+	_add_prop(objects, world, "res://Tiny Swords (Update 010)/Decoration/12.png", Vector2(2620, 1450)) # Pumpkin
+	_add_prop(objects, world, "res://Tiny Swords (Update 010)/Decoration/13.png", Vector2(2720, 1450)) # Pumpkin cluster
+	_add_prop(objects, world, "res://Tiny Swords (Update 010)/Decoration/10.png", Vector2(2610, 1480)) # Green crop row 1
+	_add_prop(objects, world, "res://Tiny Swords (Update 010)/Decoration/11.png", Vector2(2650, 1480)) # Green crop row 1
+	_add_prop(objects, world, "res://Tiny Swords (Update 010)/Decoration/10.png", Vector2(2690, 1480)) # Green crop row 1
+	_add_prop(objects, world, "res://Tiny Swords (Update 010)/Decoration/11.png", Vector2(2730, 1480)) # Green crop row 1
+	_add_prop(objects, world, "res://Tiny Swords (Update 010)/Decoration/10.png", Vector2(2610, 1510)) # Green crop row 2
+	_add_prop(objects, world, "res://Tiny Swords (Update 010)/Decoration/11.png", Vector2(2650, 1510)) # Green crop row 2
+	_add_prop(objects, world, "res://Tiny Swords (Update 010)/Decoration/10.png", Vector2(2690, 1510)) # Green crop row 2
+	_add_prop(objects, world, "res://Tiny Swords (Update 010)/Decoration/11.png", Vector2(2730, 1510)) # Green crop row 2
 
 	# --- 2. SHEEP PASTURE (X: 1300..1480, Y: 1780..1960) ---
 	# 8 Fluffy Autonomous Grazing Sheep in lush green meadow
-	_add_sheep(objects, world, sheep_sc, Vector2(1340, 1820))
-	_add_sheep(objects, world, sheep_sc, Vector2(1400, 1810))
-	_add_sheep(objects, world, sheep_sc, Vector2(1450, 1820))
-	_add_sheep(objects, world, sheep_sc, Vector2(1350, 1870))
-	_add_sheep(objects, world, sheep_sc, Vector2(1420, 1860))
-	_add_sheep(objects, world, sheep_sc, Vector2(1340, 1920))
-	_add_sheep(objects, world, sheep_sc, Vector2(1390, 1930))
-	_add_sheep(objects, world, sheep_sc, Vector2(1450, 1920))
+	_add_sheep(objects, world, sheep_sc, Vector2(2620, 1820))
+	_add_sheep(objects, world, sheep_sc, Vector2(2680, 1810))
+	_add_sheep(objects, world, sheep_sc, Vector2(2730, 1820))
+	_add_sheep(objects, world, sheep_sc, Vector2(2630, 1870))
+	_add_sheep(objects, world, sheep_sc, Vector2(2700, 1860))
+	_add_sheep(objects, world, sheep_sc, Vector2(2620, 1920))
+	_add_sheep(objects, world, sheep_sc, Vector2(2670, 1930))
+	_add_sheep(objects, world, sheep_sc, Vector2(2730, 1920))
 	# Pasture flowers
-	_add_prop(objects, world, "res://Tiny Swords (Update 010)/Decoration/07.png", Vector2(1370, 1840))
-	_add_prop(objects, world, "res://Tiny Swords (Update 010)/Decoration/08.png", Vector2(1430, 1900))
+	_add_prop(objects, world, "res://Tiny Swords (Update 010)/Decoration/07.png", Vector2(2650, 1840))
+	_add_prop(objects, world, "res://Tiny Swords (Update 010)/Decoration/08.png", Vector2(2710, 1900))
 
 	# Trees & nature framing the farm perimeter
-	_add_tree(objects, world, tree_sc, 3, Vector2(1210, 1420))
-	_add_tree(objects, world, tree_sc, 4, Vector2(1560, 1420))
-	_add_tree(objects, world, tree_sc, 1, Vector2(1210, 1620))
-	_add_tree(objects, world, tree_sc, 2, Vector2(1580, 1620))
-	_add_tree(objects, world, tree_sc, 3, Vector2(1210, 1820))
-	_add_tree(objects, world, tree_sc, 4, Vector2(1580, 1820))
-	_add_tree(objects, world, tree_sc, 1, Vector2(1210, 1980))
-	_add_tree(objects, world, tree_sc, 2, Vector2(1580, 1980))
-	_add_bush(objects, world, bush_sc, 1, Vector2(1220, 1500))
-	_add_bush(objects, world, bush_sc, 2, Vector2(1560, 1500))
-	_add_bush(objects, world, bush_sc, 3, Vector2(1220, 1720))
-	_add_bush(objects, world, bush_sc, 4, Vector2(1560, 1720))
-	_add_prop(objects, world, "res://Game Assets(NEW)/Terrain/Decorations/Rocks/Rock1.png", Vector2(1210, 1560))
-	_add_prop(objects, world, "res://Game Assets(NEW)/Terrain/Decorations/Rocks/Rock2.png", Vector2(1580, 1560))
+	_add_tree(objects, world, tree_sc, 3, Vector2(2490, 1420))
+	_add_tree(objects, world, tree_sc, 4, Vector2(2840, 1420))
+	_add_tree(objects, world, tree_sc, 1, Vector2(2490, 1620))
+	_add_tree(objects, world, tree_sc, 2, Vector2(2860, 1620))
+	_add_tree(objects, world, tree_sc, 3, Vector2(2490, 1820))
+	_add_tree(objects, world, tree_sc, 4, Vector2(2860, 1820))
+	_add_tree(objects, world, tree_sc, 1, Vector2(2490, 1980))
+	_add_tree(objects, world, tree_sc, 2, Vector2(2860, 1980))
+	_add_bush(objects, world, bush_sc, 1, Vector2(2500, 1500))
+	_add_bush(objects, world, bush_sc, 2, Vector2(2840, 1500))
+	_add_bush(objects, world, bush_sc, 3, Vector2(2500, 1720))
+	_add_bush(objects, world, bush_sc, 4, Vector2(2840, 1720))
+	_add_prop(objects, world, "res://Game Assets(NEW)/Terrain/Decorations/Rocks/Rock1.png", Vector2(2490, 1560))
+	_add_prop(objects, world, "res://Game Assets(NEW)/Terrain/Decorations/Rocks/Rock2.png", Vector2(2860, 1560))
 
 	# =========================================================================
 	# ZONE 6: SOUTH WHISPERING SHORES & MYSTIC CAVERN (X: 800-1600, Y: 1850-2200)
 	# =========================================================================
-	_add_cave_entrance(objects, world, Vector2(1150, 1980))
-	_add_sign(objects, world, Vector2(1050, 2020), "CaveSign", [
+	_add_cave_entrance(objects, world, Vector2(2430, 1980))
+	_add_sign(objects, world, Vector2(2330, 2020), "CaveSign", [
 		"Mystic Cavern Signpost:",
 		"Warning: Deep subterranean crystal chasms ahead.",
 		"The descent is pitch black and fatal without a continuous source of light.",
 		"A Cave Torch is required to enter. Seek Elder Oakhaven in Mossveil Village!"
 	], "Cave Sign", true)
 
-	_add_gold_rock(objects, world, gold_sc, Vector2(1270, 2010))
-	_add_prop(objects, world, "res://Game Assets(NEW)/Terrain/Resources/Gold/Gold Stones/Gold Stone 1.png", Vector2(1230, 2030))
-	_add_prop(objects, world, "res://Game Assets(NEW)/Terrain/Resources/Gold/Gold Stones/Gold Stone 2.png", Vector2(1300, 2030))
-	_add_prop(objects, world, "res://Game Assets(NEW)/Terrain/Resources/Gold/Gold Stones/Gold Stone 1.png", Vector2(1420, 2060))
-	_add_prop(objects, world, "res://Game Assets(NEW)/Terrain/Resources/Gold/Gold Stones/Gold Stone 2.png", Vector2(1480, 2050))
-	_add_prop(objects, world, "res://assets/props/lantern_post.png", Vector2(1150, 1910), Vector2(16, 16), Vector2(0, -6))
+	_add_gold_rock(objects, world, gold_sc, Vector2(2550, 2010))
+	_add_prop(objects, world, "res://Game Assets(NEW)/Terrain/Resources/Gold/Gold Stones/Gold Stone 1.png", Vector2(2510, 2030))
+	_add_prop(objects, world, "res://Game Assets(NEW)/Terrain/Resources/Gold/Gold Stones/Gold Stone 2.png", Vector2(2580, 2030))
+	_add_prop(objects, world, "res://Game Assets(NEW)/Terrain/Resources/Gold/Gold Stones/Gold Stone 1.png", Vector2(2700, 2060))
+	_add_prop(objects, world, "res://Game Assets(NEW)/Terrain/Resources/Gold/Gold Stones/Gold Stone 2.png", Vector2(2760, 2050))
+	_add_prop(objects, world, "res://assets/props/lantern_post.png", Vector2(2430, 1910), Vector2(1296, 16), Vector2(1280, -6))
 
 	# Shoreline Pines & Coastal Nature
-	_add_tree(objects, world, tree_sc, 1, Vector2(980, 2050))
-	_add_tree(objects, world, tree_sc, 2, Vector2(1360, 2060))
-	_add_tree(objects, world, tree_sc, 1, Vector2(1520, 2050))
-	_add_tree(objects, world, tree_sc, 2, Vector2(1640, 2040))
-	_add_bush(objects, world, bush_sc, 1, Vector2(1020, 2100))
-	_add_bush(objects, world, bush_sc, 2, Vector2(1320, 2110))
-	_add_bush(objects, world, bush_sc, 3, Vector2(1600, 2100))
+	_add_tree(objects, world, tree_sc, 1, Vector2(2260, 2050))
+	_add_tree(objects, world, tree_sc, 2, Vector2(2640, 2060))
+	_add_tree(objects, world, tree_sc, 1, Vector2(2800, 2050))
+	_add_tree(objects, world, tree_sc, 2, Vector2(2920, 2040))
+	_add_bush(objects, world, bush_sc, 1, Vector2(2300, 2100))
+	_add_bush(objects, world, bush_sc, 2, Vector2(2600, 2110))
+	_add_bush(objects, world, bush_sc, 3, Vector2(2880, 2100))
 
 	# South Coastline Foam & Splash Rocks
-	_add_water_foam(objects, world, foam_sc, Vector2(1000, 2140))
-	_add_water_foam(objects, world, foam_sc, Vector2(1200, 2140))
-	_add_water_foam(objects, world, foam_sc, Vector2(1400, 2140))
-	_add_water_foam(objects, world, foam_sc, Vector2(1600, 2140))
-	_add_water_rock(objects, world, wrock_sc, 1, Vector2(950, 2180))
-	_add_water_rock(objects, world, wrock_sc, 2, Vector2(1250, 2190))
-	_add_water_rock(objects, world, wrock_sc, 3, Vector2(1450, 2180))
-	_add_water_rock(objects, world, wrock_sc, 4, Vector2(1650, 2180))
+	_add_water_foam(objects, world, foam_sc, Vector2(2280, 2140))
+	_add_water_foam(objects, world, foam_sc, Vector2(2480, 2140))
+	_add_water_foam(objects, world, foam_sc, Vector2(2680, 2140))
+	_add_water_foam(objects, world, foam_sc, Vector2(2880, 2140))
+	_add_water_rock(objects, world, wrock_sc, 1, Vector2(2230, 2180))
+	_add_water_rock(objects, world, wrock_sc, 2, Vector2(2530, 2190))
+	_add_water_rock(objects, world, wrock_sc, 3, Vector2(2730, 2180))
+	_add_water_rock(objects, world, wrock_sc, 4, Vector2(2930, 2180))
 
 	# =========================================================================
 	# ZONE 6B: SOUTH-EAST WHISPERING MEADOW & FISHER'S SHORE (X: 2100-3600, Y: 1650-2250)
 	# Fills vast empty south-east green with Riverside Cottage, Fishing Pier, Stone Relic, and Orchard
 	# =========================================================================
 	# Meadow Haven / Fisherman's Cottage
-	_add_building(objects, world, bld_sc, 2, Vector2(2800, 1850), "MeadowCottage")
-	_add_prop(objects, world, "res://assets/props/barrel_wood.png", Vector2(2880, 1910), Vector2(24, 24), Vector2(0, -5))
-	_add_prop(objects, world, "res://assets/props/crate_box.png", Vector2(2910, 1910), Vector2(30, 20), Vector2(0, -5))
-	_add_prop(objects, world, "res://assets/props/lantern_post.png", Vector2(2800, 1930), Vector2(16, 16), Vector2(0, -6))
+	_add_building(objects, world, bld_sc, 2, Vector2(4080, 1850), "MeadowCottage")
+	_add_prop(objects, world, "res://assets/props/barrel_wood.png", Vector2(4160, 1910), Vector2(1304, 24), Vector2(1280, -5))
+	_add_prop(objects, world, "res://assets/props/crate_box.png", Vector2(4190, 1910), Vector2(1310, 20), Vector2(1280, -5))
+	_add_prop(objects, world, "res://assets/props/lantern_post.png", Vector2(4080, 1930), Vector2(1296, 16), Vector2(1280, -6))
 
 	# Riverside Fishing Pier extending into the central river inlet
-	_add_prop(objects, world, "res://assets/props/wooden_bridge_pier.png", Vector2(2120, 1920), Vector2(130, 30), Vector2(0, -15))
-	_add_prop(objects, world, "res://assets/props/barrel_sack.png", Vector2(2140, 1890), Vector2(24, 24), Vector2(0, -5))
-	_add_prop(objects, world, "res://assets/props/crate_wood.png", Vector2(2170, 1890), Vector2(30, 20), Vector2(0, -5))
+	_add_prop(objects, world, "res://assets/props/wooden_bridge_pier.png", Vector2(3400, 1920), Vector2(1410, 30), Vector2(1280, -15))
+	_add_prop(objects, world, "res://assets/props/barrel_sack.png", Vector2(3420, 1890), Vector2(1304, 24), Vector2(1280, -5))
+	_add_prop(objects, world, "res://assets/props/crate_wood.png", Vector2(3450, 1890), Vector2(1310, 20), Vector2(1280, -5))
 
 	# Ancient Sunken Monolith & Relic Stone Circle
-	_add_prop(objects, world, "res://Game Assets(NEW)/Terrain/Decorations/Rocks/Rock1.png", Vector2(3260, 1930))
-	_add_prop(objects, world, "res://Game Assets(NEW)/Terrain/Decorations/Rocks/Rock2.png", Vector2(3340, 1930))
-	_add_prop(objects, world, "res://Game Assets(NEW)/Terrain/Decorations/Rocks/Rock3.png", Vector2(3260, 1970))
-	_add_prop(objects, world, "res://Game Assets(NEW)/Terrain/Decorations/Rocks/Rock4.png", Vector2(3340, 1970))
-	_add_prop(objects, world, "res://Tiny Swords (Update 010)/Decoration/07.png", Vector2(3300, 1950))
-	_add_prop(objects, world, "res://Tiny Swords (Update 010)/Decoration/08.png", Vector2(3315, 1955))
+	_add_prop(objects, world, "res://Game Assets(NEW)/Terrain/Decorations/Rocks/Rock1.png", Vector2(4540, 1930))
+	_add_prop(objects, world, "res://Game Assets(NEW)/Terrain/Decorations/Rocks/Rock2.png", Vector2(4620, 1930))
+	_add_prop(objects, world, "res://Game Assets(NEW)/Terrain/Decorations/Rocks/Rock3.png", Vector2(4540, 1970))
+	_add_prop(objects, world, "res://Game Assets(NEW)/Terrain/Decorations/Rocks/Rock4.png", Vector2(4620, 1970))
+	_add_prop(objects, world, "res://Tiny Swords (Update 010)/Decoration/07.png", Vector2(4580, 1950))
+	_add_prop(objects, world, "res://Tiny Swords (Update 010)/Decoration/08.png", Vector2(4595, 1955))
 
 	# Beautifully spaced orchard and meadow trees
 	var se_trees := [
-		Vector2(2250, 1740), Vector2(2480, 1720), Vector2(2720, 1740), Vector2(2960, 1710), Vector2(3200, 1740), Vector2(3440, 1710),
-		Vector2(2360, 1880), Vector2(2580, 1860), Vector2(3060, 1880), Vector2(3480, 1870),
-		Vector2(2240, 2020), Vector2(2460, 2040), Vector2(2680, 2010), Vector2(2940, 2030), Vector2(3140, 2020), Vector2(3460, 2020),
-		Vector2(2320, 2130), Vector2(2560, 2120), Vector2(2800, 2140), Vector2(3040, 2120), Vector2(3280, 2130), Vector2(3520, 2120)
+		Vector2(3530, 1740), Vector2(3760, 1720), Vector2(4000, 1740), Vector2(4240, 1710), Vector2(4480, 1740), Vector2(4720, 1710),
+		Vector2(3640, 1880), Vector2(3860, 1860), Vector2(4340, 1880), Vector2(4760, 1870),
+		Vector2(3520, 2020), Vector2(3740, 2040), Vector2(3960, 2010), Vector2(4220, 2030), Vector2(4420, 2020), Vector2(4740, 2020),
+		Vector2(3600, 2130), Vector2(3840, 2120), Vector2(4080, 2140), Vector2(4320, 2120), Vector2(4560, 2130), Vector2(4800, 2120)
 	]
 	var se_t_idx := 0
 	for tpos in se_trees:
@@ -740,79 +821,79 @@ func _ready() -> void:
 		se_t_idx += 1
 
 	var se_bushes := [
-		Vector2(2380, 1780), Vector2(2850, 1770), Vector2(3320, 1770),
-		Vector2(2480, 1940), Vector2(2650, 1950),
-		Vector2(2380, 2070), Vector2(2880, 2080), Vector2(3350, 2080)
+		Vector2(3660, 1780), Vector2(4130, 1770), Vector2(4600, 1770),
+		Vector2(3760, 1940), Vector2(3930, 1950),
+		Vector2(3660, 2070), Vector2(4160, 2080), Vector2(4630, 2080)
 	]
 	var se_b_idx := 0
 	for bpos in se_bushes:
 		_add_bush(objects, world, bush_sc, (se_b_idx % 4) + 1, bpos)
 		se_b_idx += 1
 
-	_add_prop(objects, world, "res://Game Assets(NEW)/Terrain/Decorations/Rocks/Rock1.png", Vector2(2620, 1760))
-	_add_prop(objects, world, "res://Game Assets(NEW)/Terrain/Decorations/Rocks/Rock2.png", Vector2(3100, 1750))
-	_add_prop(objects, world, "res://Game Assets(NEW)/Terrain/Decorations/Rocks/Rock3.png", Vector2(2360, 1980))
-	_add_prop(objects, world, "res://Game Assets(NEW)/Terrain/Decorations/Rocks/Rock4.png", Vector2(3000, 2100))
+	_add_prop(objects, world, "res://Game Assets(NEW)/Terrain/Decorations/Rocks/Rock1.png", Vector2(3900, 1760))
+	_add_prop(objects, world, "res://Game Assets(NEW)/Terrain/Decorations/Rocks/Rock2.png", Vector2(4380, 1750))
+	_add_prop(objects, world, "res://Game Assets(NEW)/Terrain/Decorations/Rocks/Rock3.png", Vector2(3640, 1980))
+	_add_prop(objects, world, "res://Game Assets(NEW)/Terrain/Decorations/Rocks/Rock4.png", Vector2(4280, 2100))
 
 	# South Coastline & River Inlet Water Foam & Splash Rocks
-	_add_water_foam(objects, world, foam_sc, Vector2(2250, 2140))
-	_add_water_foam(objects, world, foam_sc, Vector2(2500, 2140))
-	_add_water_foam(objects, world, foam_sc, Vector2(2750, 2140))
-	_add_water_foam(objects, world, foam_sc, Vector2(3000, 2140))
-	_add_water_foam(objects, world, foam_sc, Vector2(3250, 2140))
-	_add_water_foam(objects, world, foam_sc, Vector2(3500, 2140))
-	_add_water_foam(objects, world, foam_sc, Vector2(2060, 1750))
-	_add_water_foam(objects, world, foam_sc, Vector2(2060, 1920))
-	_add_water_foam(objects, world, foam_sc, Vector2(2060, 2080))
-	_add_water_rock(objects, world, wrock_sc, 1, Vector2(2350, 2180))
-	_add_water_rock(objects, world, wrock_sc, 2, Vector2(2700, 2180))
-	_add_water_rock(objects, world, wrock_sc, 3, Vector2(3100, 2180))
-	_add_water_rock(objects, world, wrock_sc, 4, Vector2(3450, 2180))
+	_add_water_foam(objects, world, foam_sc, Vector2(3530, 2140))
+	_add_water_foam(objects, world, foam_sc, Vector2(3780, 2140))
+	_add_water_foam(objects, world, foam_sc, Vector2(4030, 2140))
+	_add_water_foam(objects, world, foam_sc, Vector2(4280, 2140))
+	_add_water_foam(objects, world, foam_sc, Vector2(4530, 2140))
+	_add_water_foam(objects, world, foam_sc, Vector2(4780, 2140))
+	_add_water_foam(objects, world, foam_sc, Vector2(3340, 1750))
+	_add_water_foam(objects, world, foam_sc, Vector2(3340, 1920))
+	_add_water_foam(objects, world, foam_sc, Vector2(3340, 2080))
+	_add_water_rock(objects, world, wrock_sc, 1, Vector2(3630, 2180))
+	_add_water_rock(objects, world, wrock_sc, 2, Vector2(3980, 2180))
+	_add_water_rock(objects, world, wrock_sc, 3, Vector2(4380, 2180))
+	_add_water_rock(objects, world, wrock_sc, 4, Vector2(4730, 2180))
 
 	# =========================================================================
 	# ZONE 7: THE ROYAL CITADEL & EASTERN HIGHLANDS (East, X: 3500-4800, Y: 300-2200)
 	# =========================================================================
 	# Grand Royal Castle (320x256) atop the high eastern plateau
-	_add_building(objects, world, bld_sc, 3, Vector2(4200, 480), "RoyalCastle")
-	_add_building(objects, world, bld_sc, 4, Vector2(3750, 440), "CitadelTowerNorth")
-	_add_building(objects, world, bld_sc, 4, Vector2(4650, 680), "CitadelTowerEast")
-	_add_building(objects, world, bld_sc, 4, Vector2(4400, 1200), "CitadelTowerSouth")
+	_add_building(objects, world, bld_sc, 3, Vector2(5480, 480), "RoyalCastle")
+	_add_building(objects, world, bld_sc, 4, Vector2(5030, 440), "CitadelTowerNorth")
+	_add_building(objects, world, bld_sc, 4, Vector2(5930, 680), "CitadelTowerEast")
+	_add_building(objects, world, bld_sc, 4, Vector2(5680, 1200), "CitadelTowerSouth")
 
 	# Grand Royal Monastery / Cathedral (192x320)
-	_add_building(objects, world, bld_sc, 5, Vector2(3750, 920), "Monastery")
+	_add_building(objects, world, bld_sc, 5, Vector2(5030, 920), "Monastery")
 
 	# Royal NPCs
 	var elder_sc: PackedScene = load("res://scenes/npc_elder.tscn")
 	var elder := elder_sc.instantiate()
 	elder.name = "NPC_Elder"
-	elder.position = Vector2(3660, 1000)
+	elder.position = Vector2(4940, 1000)
 	objects.add_child(elder)
 	elder.owner = world
 
 	var lancer_sc: PackedScene = load("res://scenes/npc_lancer.tscn")
 	var lancer := lancer_sc.instantiate()
 	lancer.name = "NPC_Lancer"
-	lancer.position = Vector2(3950, 680)
+	lancer.position = Vector2(5230, 680)
 	objects.add_child(lancer)
 	lancer.owner = world
 
 	# Street Lanterns lining the Grand Avenue
-	_add_prop(objects, world, "res://assets/props/lantern_post.png", Vector2(3500, 1000), Vector2(16, 16), Vector2(0, -6))
-	_add_prop(objects, world, "res://assets/props/lantern_post.png", Vector2(3850, 680), Vector2(16, 16), Vector2(0, -6))
-	_add_prop(objects, world, "res://assets/props/lantern_post.png", Vector2(4100, 640), Vector2(16, 16), Vector2(0, -6))
-	_add_prop(objects, world, "res://assets/props/lantern_post.png", Vector2(4350, 640), Vector2(16, 16), Vector2(0, -6))
+	_add_prop(objects, world, "res://assets/props/lantern_post.png", Vector2(4780, 1000), Vector2(1296, 16), Vector2(1280, -6))
+	_add_prop(objects, world, "res://assets/props/lantern_post.png", Vector2(5130, 680), Vector2(1296, 16), Vector2(1280, -6))
+	_add_prop(objects, world, "res://assets/props/lantern_post.png", Vector2(5380, 640), Vector2(1296, 16), Vector2(1280, -6))
+	_add_prop(objects, world, "res://assets/props/lantern_post.png", Vector2(5630, 640), Vector2(1296, 16), Vector2(1280, -6))
 
 	# Trees & nature around Citadel and Highland Plateau
 	var citadel_trees := [
-		Vector2(3880, 360), Vector2(4050, 340), Vector2(4350, 340), Vector2(4500, 380),
-		Vector2(4600, 520), Vector2(4700, 600), Vector2(4750, 820), Vector2(4700, 1020),
-		Vector2(4550, 1200), Vector2(4400, 1380), Vector2(4100, 1400), Vector2(3800, 1350),
-		Vector2(3600, 1280), Vector2(3950, 1040), Vector2(4250, 1100),
-		Vector2(3750, 1520), Vector2(4000, 1500), Vector2(4250, 1530), Vector2(4550, 1510), Vector2(4750, 1520),
-		Vector2(3850, 1680), Vector2(4100, 1660), Vector2(4350, 1690), Vector2(4600, 1670), Vector2(4800, 1680),
-		Vector2(3750, 1850), Vector2(4020, 1830), Vector2(4280, 1860), Vector2(4520, 1840), Vector2(4780, 1850),
-		Vector2(3850, 2020), Vector2(4100, 2000), Vector2(4360, 2030), Vector2(4620, 2010), Vector2(4820, 2020),
-		Vector2(3950, 2130), Vector2(4200, 2140), Vector2(4450, 2120), Vector2(4700, 2140)
+		Vector2(5160, 360), Vector2(5330, 340), Vector2(5630, 340), Vector2(5780, 380),
+		Vector2(5880, 520), Vector2(5980, 600), Vector2(6030, 820), Vector2(5980, 1020),
+		Vector2(5830, 1200), Vector2(5680, 1380), Vector2(5380, 1400), Vector2(5080, 1350),
+		Vector2(4880, 1280), Vector2(5230, 1040), Vector2(5530, 1100),
+		Vector2(5030, 1520), Vector2(5280, 1500), Vector2(5530, 1530), Vector2(5830, 1510), Vector2(6030, 1520),
+		Vector2(5130, 1680), Vector2(5380, 1660), Vector2(5630, 1690), Vector2(5880, 1670), Vector2(6080, 1680),
+		Vector2(5030, 1850), Vector2(5300, 1830), Vector2(5560, 1860), Vector2(5800, 1840), Vector2(6060, 1850),
+		Vector2(5130, 2020), Vector2(5380, 2000), Vector2(5640, 2030), Vector2(5900, 2010), Vector2(6100, 2020),
+		Vector2(5230, 2130), Vector2(5480, 2140), Vector2(5730, 2120), Vector2(5980, 2140)
 	]
 	var cit_t_idx := 0
 	for tpos in citadel_trees:
@@ -820,37 +901,37 @@ func _ready() -> void:
 		cit_t_idx += 1
 
 	var citadel_bushes := [
-		Vector2(3680, 880), Vector2(4050, 680), Vector2(4350, 660), Vector2(4600, 750), Vector2(4500, 1100),
-		Vector2(3900, 1500), Vector2(4480, 1500), Vector2(3950, 1860), Vector2(4400, 1880), Vector2(4150, 2050), Vector2(4650, 2050)
+		Vector2(4960, 880), Vector2(5330, 680), Vector2(5630, 660), Vector2(5880, 750), Vector2(5780, 1100),
+		Vector2(5180, 1500), Vector2(5760, 1500), Vector2(5230, 1860), Vector2(5680, 1880), Vector2(5430, 2050), Vector2(5930, 2050)
 	]
 	var cit_b_idx := 0
 	for bpos in citadel_bushes:
 		_add_bush(objects, world, bush_sc, (cit_b_idx % 4) + 1, bpos)
 		cit_b_idx += 1
 
-	_add_prop(objects, world, "res://Game Assets(NEW)/Terrain/Decorations/Rocks/Rock1.png", Vector2(3950, 380))
-	_add_prop(objects, world, "res://Game Assets(NEW)/Terrain/Decorations/Rocks/Rock2.png", Vector2(4650, 580))
-	_add_prop(objects, world, "res://Game Assets(NEW)/Terrain/Decorations/Rocks/Rock3.png", Vector2(4480, 1250))
-	_add_prop(objects, world, "res://Game Assets(NEW)/Terrain/Decorations/Rocks/Rock1.png", Vector2(4150, 1500))
-	_add_prop(objects, world, "res://Game Assets(NEW)/Terrain/Decorations/Rocks/Rock2.png", Vector2(4650, 1510))
-	_add_prop(objects, world, "res://Game Assets(NEW)/Terrain/Decorations/Rocks/Rock3.png", Vector2(3920, 1850))
-	_add_prop(objects, world, "res://Game Assets(NEW)/Terrain/Decorations/Rocks/Rock4.png", Vector2(4450, 1860))
-	_add_prop(objects, world, "res://Game Assets(NEW)/Terrain/Decorations/Rocks/Rock1.png", Vector2(4300, 2070))
+	_add_prop(objects, world, "res://Game Assets(NEW)/Terrain/Decorations/Rocks/Rock1.png", Vector2(5230, 380))
+	_add_prop(objects, world, "res://Game Assets(NEW)/Terrain/Decorations/Rocks/Rock2.png", Vector2(5930, 580))
+	_add_prop(objects, world, "res://Game Assets(NEW)/Terrain/Decorations/Rocks/Rock3.png", Vector2(5760, 1250))
+	_add_prop(objects, world, "res://Game Assets(NEW)/Terrain/Decorations/Rocks/Rock1.png", Vector2(5430, 1500))
+	_add_prop(objects, world, "res://Game Assets(NEW)/Terrain/Decorations/Rocks/Rock2.png", Vector2(5930, 1510))
+	_add_prop(objects, world, "res://Game Assets(NEW)/Terrain/Decorations/Rocks/Rock3.png", Vector2(5200, 1850))
+	_add_prop(objects, world, "res://Game Assets(NEW)/Terrain/Decorations/Rocks/Rock4.png", Vector2(5730, 1860))
+	_add_prop(objects, world, "res://Game Assets(NEW)/Terrain/Decorations/Rocks/Rock1.png", Vector2(5580, 2070))
 
 	# Eastern Coastline Foam & Splash Rocks
-	_add_water_foam(objects, world, foam_sc, Vector2(4950, 500))
-	_add_water_foam(objects, world, foam_sc, Vector2(4950, 800))
-	_add_water_foam(objects, world, foam_sc, Vector2(4950, 1100))
-	_add_water_foam(objects, world, foam_sc, Vector2(4950, 1400))
-	_add_water_foam(objects, world, foam_sc, Vector2(4950, 1650))
-	_add_water_foam(objects, world, foam_sc, Vector2(4950, 1900))
-	_add_water_foam(objects, world, foam_sc, Vector2(4950, 2100))
-	_add_water_rock(objects, world, wrock_sc, 1, Vector2(5000, 620))
-	_add_water_rock(objects, world, wrock_sc, 2, Vector2(5020, 950))
-	_add_water_rock(objects, world, wrock_sc, 3, Vector2(5000, 1280))
-	_add_water_rock(objects, world, wrock_sc, 4, Vector2(5000, 1520))
-	_add_water_rock(objects, world, wrock_sc, 1, Vector2(5020, 1800))
-	_add_water_rock(objects, world, wrock_sc, 2, Vector2(5000, 2050))
+	_add_water_foam(objects, world, foam_sc, Vector2(6230, 500))
+	_add_water_foam(objects, world, foam_sc, Vector2(6230, 800))
+	_add_water_foam(objects, world, foam_sc, Vector2(6230, 1100))
+	_add_water_foam(objects, world, foam_sc, Vector2(6230, 1400))
+	_add_water_foam(objects, world, foam_sc, Vector2(6230, 1650))
+	_add_water_foam(objects, world, foam_sc, Vector2(6230, 1900))
+	_add_water_foam(objects, world, foam_sc, Vector2(6230, 2100))
+	_add_water_rock(objects, world, wrock_sc, 1, Vector2(6280, 620))
+	_add_water_rock(objects, world, wrock_sc, 2, Vector2(6300, 950))
+	_add_water_rock(objects, world, wrock_sc, 3, Vector2(6280, 1280))
+	_add_water_rock(objects, world, wrock_sc, 4, Vector2(6280, 1520))
+	_add_water_rock(objects, world, wrock_sc, 1, Vector2(6300, 1800))
+	_add_water_rock(objects, world, wrock_sc, 2, Vector2(6280, 2050))
 
 	# =========================================================================
 	# SKY LAYER: DRIFTING PARALLAX CLOUDS
@@ -878,64 +959,64 @@ func _ready() -> void:
 func _build_roads(terrain: TileMap) -> void:
 	var roads: Dictionary = {}
 
-	# 1. Straight Whispering Forest Trail (px: 6 to 24, py: 16) — long straight east-west highway!
-	for x in range(6, 25):
+	# 1. Straight Whispering Forest Trail (px: 6 to 44, py: 16) — 2,432px straight highway!
+	for x in range(6, 45):
 		roads[Vector2i(x, 16)] = true
 
-	# 2. Oakhaven Crossroads Hub & Branches (px: 24 to 26, py: 15 to 17)
-	for x in range(24, 27):
+	# 2. Oakhaven Crossroads Hub & Branches (px: 44 to 47, py: 15 to 17)
+	for x in range(44, 47):
 		for y in range(15, 18):
 			roads[Vector2i(x, y)] = true
 	# North branch (to Training Grounds)
 	for y in range(7, 16):
-		roads[Vector2i(25, y)] = true
+		roads[Vector2i(45, y)] = true
 	# South branch (to River Bridge & Caverns)
 	for y in range(17, 27):
-		roads[Vector2i(25, y)] = true
+		roads[Vector2i(45, y)] = true
 
-	# 3. Village Main Avenue (2 tiles wide, px: 26 to 36, py: 16..17)
-	for x in range(26, 36):
+	# 3. Village Main Avenue (2 tiles wide, px: 46 to 56, py: 16..17)
+	for x in range(46, 56):
 		roads[Vector2i(x, 16)] = true
 		roads[Vector2i(x, 17)] = true
 
 	# 4. Grand Town Plaza (8 cols x 6 rows around ancient center oak)
-	for px in range(35, 43):
+	for px in range(55, 63):
 		for py in range(14, 20):
 			roads[Vector2i(px, py)] = true
 
 	# 5. Road South from Plaza to River Bridge (farm lane passing between crop field and sheep pen)
-	# West approach: connects from Cavern highway (px = 18) all the way across to Bridge left pier (px = 27)
-	for px in range(18, 28):
+	# West approach: connects from Cavern highway (px = 38) across to Bridge left pier (px = 47)
+	for px in range(38, 48):
 		roads[Vector2i(px, 26)] = true
 	# South highway to Mystic Cavern
 	for py in range(26, 32):
-		roads[Vector2i(18, py)] = true
+		roads[Vector2i(38, py)] = true
 
-	# East approach: connects from Bridge right pier (px = 32) eastward to px = 37
-	for px in range(32, 38):
+	# East approach: connects from Bridge right pier (px = 52) eastward to px = 58
+	for px in range(52, 58):
 		roads[Vector2i(px, 26)] = true
 
-	# South avenue connecting Plaza (px: 36, 37) to Bridge approach
+	# South avenue connecting Plaza (px: 56, 57) to Bridge approach
 	for py in range(19, 27):
-		roads[Vector2i(36, py)] = true
-		roads[Vector2i(37, py)] = true
+		roads[Vector2i(56, py)] = true
+		roads[Vector2i(57, py)] = true
 
 	# 5B. Meadow Trail extending east from bridge into South-East Meadow to the Cottage
-	for px in range(38, 45):
+	for px in range(58, 65):
 		roads[Vector2i(px, 26)] = true
 	for py in range(26, 31):
-		roads[Vector2i(44, py)] = true
+		roads[Vector2i(64, py)] = true
 
 	# 6. Road East from Plaza towards Royal Citadel (2 tiles wide avenue)
-	for px in range(42, 62):
+	for px in range(62, 82):
 		roads[Vector2i(px, 16)] = true
 		roads[Vector2i(px, 17)] = true
 
 	# 7. Citadel Castle Avenue (ascending north)
 	for py in range(8, 17):
-		roads[Vector2i(60, py)] = true
-		roads[Vector2i(61, py)] = true
-	for px in range(60, 68):
+		roads[Vector2i(80, py)] = true
+		roads[Vector2i(81, py)] = true
+	for px in range(80, 88):
 		roads[Vector2i(px, 8)] = true
 		roads[Vector2i(px, 9)] = true
 
