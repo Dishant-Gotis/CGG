@@ -518,14 +518,24 @@ func _layout_dialogue() -> void:
 	if custom_dialogue_container != null:
 		var cw: float = minf(vp_size.x, 960.0)
 		var ch: float = cw * (1024.0 / 1536.0)
-		custom_dialogue_container.anchor_left = 0.5
-		custom_dialogue_container.anchor_right = 0.5
 		custom_dialogue_container.anchor_top = 1.0
 		custom_dialogue_container.anchor_bottom = 1.0
-		custom_dialogue_container.offset_left = -cw * 0.5
-		custom_dialogue_container.offset_right = cw * 0.5
 		custom_dialogue_container.offset_top = -ch
 		custom_dialogue_container.offset_bottom = 0.0
+
+		if _is_custom_snowy:
+			# Snowy is on the left
+			custom_dialogue_container.anchor_left = 0.0
+			custom_dialogue_container.anchor_right = 0.0
+			custom_dialogue_container.offset_left = 0.0
+			custom_dialogue_container.offset_right = cw
+		else:
+			# Kitsu is on the right - flush against the right edge so clipped tails match the screen border
+			custom_dialogue_container.anchor_left = 1.0
+			custom_dialogue_container.anchor_right = 1.0
+			custom_dialogue_container.offset_left = -cw
+			custom_dialogue_container.offset_right = 0.0
+
 		custom_dialogue_container.size = Vector2(cw, ch)
 		_position_custom_labels(_is_custom_snowy)
 
@@ -1082,6 +1092,7 @@ func _render_current_line() -> void:
 	var is_kitsu := (spk_l == "kitsu")
 
 	if is_snowy or is_kitsu:
+		_is_custom_snowy = is_snowy
 		if dialogue_panel != null:
 			dialogue_panel.visible = false
 		if custom_dialogue_container != null:
