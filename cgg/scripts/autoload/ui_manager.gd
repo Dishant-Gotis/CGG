@@ -397,12 +397,13 @@ func _build_dialogue() -> void:
 	# Text Label (Rich fantasy ink on warm parchment)
 	text_label = Label.new()
 	var med_font := Assets.font(Assets.FONT_MEDIEVAL)
-	if med_font != null:
+	var med_bold := Assets.font_bold(Assets.FONT_MEDIEVAL, 0.35)
+	if med_bold != null:
+		text_label.add_theme_font_override("font", med_bold)
+	elif med_font != null:
 		text_label.add_theme_font_override("font", med_font)
 	text_label.add_theme_font_size_override("font_size", 20)
 	text_label.add_theme_color_override("font_color", Color(0.18, 0.12, 0.06, 1.0))
-	text_label.add_theme_color_override("font_outline_color", Color(1.0, 0.97, 0.90, 0.75))
-	text_label.add_theme_constant_override("outline_size", 1)
 	text_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	text_label.max_lines_visible = 3
 	text_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
@@ -416,8 +417,6 @@ func _build_dialogue() -> void:
 	advance_hint.text = "▼ Press [E / Space / Click] to continue"
 	advance_hint.add_theme_font_size_override("font_size", 13)
 	advance_hint.add_theme_color_override("font_color", Color(0.42, 0.30, 0.18, 0.95))
-	advance_hint.add_theme_color_override("font_outline_color", Color(1.0, 0.96, 0.88, 0.85))
-	advance_hint.add_theme_constant_override("outline_size", 1)
 	advance_hint.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 	vbox.add_child(advance_hint)
 
@@ -438,12 +437,12 @@ func _build_dialogue() -> void:
 	custom_dialogue_container.add_child(custom_dialogue_texture)
 
 	custom_text_label = Label.new()
-	if med_font != null:
+	if med_bold != null:
+		custom_text_label.add_theme_font_override("font", med_bold)
+	elif med_font != null:
 		custom_text_label.add_theme_font_override("font", med_font)
 	custom_text_label.add_theme_font_size_override("font_size", 22)
 	custom_text_label.add_theme_color_override("font_color", Color(0.18, 0.12, 0.06, 1.0))
-	custom_text_label.add_theme_color_override("font_outline_color", Color(1.0, 0.98, 0.92, 0.5))
-	custom_text_label.add_theme_constant_override("outline_size", 1)
 	custom_text_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	custom_text_label.max_lines_visible = 3
 	custom_text_label.vertical_alignment = VERTICAL_ALIGNMENT_TOP
@@ -456,8 +455,6 @@ func _build_dialogue() -> void:
 	custom_advance_hint.text = "▼ Press [E / Space / Click] to continue"
 	custom_advance_hint.add_theme_font_size_override("font_size", 13)
 	custom_advance_hint.add_theme_color_override("font_color", Color(0.42, 0.30, 0.18, 0.95))
-	custom_advance_hint.add_theme_color_override("font_outline_color", Color(1.0, 0.96, 0.88, 0.85))
-	custom_advance_hint.add_theme_constant_override("outline_size", 1)
 	custom_advance_hint.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 	custom_advance_hint.vertical_alignment = VERTICAL_ALIGNMENT_BOTTOM
 	custom_advance_hint.mouse_filter = Control.MOUSE_FILTER_IGNORE

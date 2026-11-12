@@ -119,6 +119,20 @@ func font(path: String) -> Font:
 	return f
 
 
+func font_bold(path: String, embolden_val: float = 0.35) -> Font:
+	var cache_key := "%s_bold_%.2f" % [path, embolden_val]
+	if _font_cache.has(cache_key):
+		return _font_cache[cache_key] as Font
+	var base_f := font(path)
+	if base_f == null:
+		return null
+	var fv := FontVariation.new()
+	fv.base_font = base_f
+	fv.variation_embolden = embolden_val
+	_font_cache[cache_key] = fv
+	return fv
+
+
 func tex(path: String) -> Texture2D:
 	if _texture_cache.has(path):
 		return _texture_cache[path] as Texture2D
