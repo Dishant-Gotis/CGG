@@ -87,3 +87,4 @@ func _ready() -> void:
 	else:
 		if tower_archer != null:
 			tower_archer.visible = false
+

@@ -11,3 +11,4 @@ script = ExtResource("1_grock")
 [node name="GlintAnim" type="AnimatedSprite2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+

@@ -18,3 +18,4 @@ func _process(delta: float) -> void:
 	position.x += speed * delta
 	if position.x > map_width + 200.0:
 		position.x = -200.0
+

@@ -70,3 +70,4 @@ func _pick_new_state() -> void:
 		var target := _home_pos + Vector2(randf_range(-_wander_radius, _wander_radius), randf_range(-_wander_radius, _wander_radius))
 		_move_dir = (target - global_position).normalized()
 		anim.play("move")
+

@@ -9,3 +9,4 @@ func _ready() -> void:
 		speed_scale = randf_range(0.9, 1.1)
 		frame = randi() % 16
 		play("default")
+

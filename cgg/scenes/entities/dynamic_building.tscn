@@ -12,3 +12,4 @@ script = ExtResource("1_bld")
 visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+

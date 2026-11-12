@@ -20,3 +20,4 @@ func _ready() -> void:
 	shape.size = Vector2(40, 24)
 	col.shape = shape
 	col.position = Vector2(0, -12)
+

@@ -27,3 +27,4 @@ func _ready() -> void:
 		circle.radius = 12.0
 		col.shape = circle
 		col.position = Vector2(0, 0)
+

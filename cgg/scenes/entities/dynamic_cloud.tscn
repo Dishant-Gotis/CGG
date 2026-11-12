@@ -4,3 +4,4 @@
 
 [node name="DynamicCloud" type="Sprite2D"]
 script = ExtResource("1_cloud")
+

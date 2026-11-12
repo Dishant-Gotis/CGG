@@ -4,3 +4,4 @@
 
 [node name="DynamicWaterFoam" type="AnimatedSprite2D"]
 script = ExtResource("1_foam")
+

@@ -24,3 +24,4 @@ func interact(_player: Node) -> void:
 			], "Cave Sign")
 	else:
 		UI.start_dialogue(lines, speaker)
+
