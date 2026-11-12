@@ -1,30 +1,30 @@
 [gd_scene load_steps=11 format=3 uid="uid://ravi_npc_scene"]
 
 [ext_resource type="Script" path="res://scripts/entities/npc.gd" id="1_npc"]
-[ext_resource type="Texture2D" uid="uid://c5n0pk4wyhill" path="res://Tiny Swords (Update 010)/Factions/Knights/Troops/Pawn/Red/Pawn_Red.png" id="2_pawn_red"]
+[ext_resource type="Texture2D" path="res://Game Assets(NEW)/Units/Blue Units/Pawn/Pawn_Interact Axe.png" id="2_pawn_axe"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_r0"]
-atlas = ExtResource("2_pawn_red")
+atlas = ExtResource("2_pawn_axe")
 region = Rect2(0, 0, 192, 192)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_r1"]
-atlas = ExtResource("2_pawn_red")
+atlas = ExtResource("2_pawn_axe")
 region = Rect2(192, 0, 192, 192)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_r2"]
-atlas = ExtResource("2_pawn_red")
+atlas = ExtResource("2_pawn_axe")
 region = Rect2(384, 0, 192, 192)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_r3"]
-atlas = ExtResource("2_pawn_red")
+atlas = ExtResource("2_pawn_axe")
 region = Rect2(576, 0, 192, 192)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_r4"]
-atlas = ExtResource("2_pawn_red")
+atlas = ExtResource("2_pawn_axe")
 region = Rect2(768, 0, 192, 192)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_r5"]
-atlas = ExtResource("2_pawn_red")
+atlas = ExtResource("2_pawn_axe")
 region = Rect2(960, 0, 192, 192)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_ravi"]
@@ -53,11 +53,11 @@ animations = [{
 "speed": 6.0
 }]
 
-[sub_resource type="CircleShape2D" id="ShapeBody"]
-radius = 12.0
+[sub_resource type="CircleShape2D" id="CircleShape2D_body"]
+radius = 16.0
 
-[sub_resource type="CircleShape2D" id="ShapeInteract"]
-radius = 38.0
+[sub_resource type="CircleShape2D" id="CircleShape2D_detect"]
+radius = 70.0
 
 [node name="NPC_Ravi" type="StaticBody2D"]
 collision_layer = 1
@@ -66,25 +66,25 @@ script = ExtResource("1_npc")
 npc_name = "Ravi"
 prompt_text = "E - Talk to Ravi"
 dialogue_lines = [
-"Clang! Clang! Good day, traveler! That is remarkable steel you carry.",
-"Keep your sword swinging with [Q]. Slimes are soft, but armored beasts require precise strikes.",
-"Whenever your blade needs sharpening, my forge is open to our hero!"
+	"Clang! Clang! Good day, traveler! That is remarkable steel you carry.",
+	"Keep your sword swinging with [Q]. Slimes are soft, but armored beasts require precise strikes.",
+	"Whenever your blade needs sharpening, my forge is open to our hero!"
 ]
 dialogue_lines_alt = [
-"Keep that blade sharp, Snowy!",
-"The fire in the forge burns as bright as your spirit."
+	"Keep that blade sharp, Snowy!",
+	"The fire in the forge burns as bright as your spirit."
 ]
 required_flag = "met_kitsu"
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(0, -30)
-scale = Vector2(0.95, 0.95)
+position = Vector2(0, -32)
 sprite_frames = SubResource("SpriteFrames_ravi")
 animation = &"idle"
+autoplay = "idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -6)
-shape = SubResource("ShapeBody")
+shape = SubResource("CircleShape2D_body")
 
 [node name="InteractArea" type="Area2D" parent="."]
 collision_layer = 64
@@ -92,4 +92,4 @@ collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="InteractArea"]
 position = Vector2(0, -10)
-shape = SubResource("ShapeInteract")
+shape = SubResource("CircleShape2D_detect")

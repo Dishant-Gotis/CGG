@@ -1,63 +1,63 @@
 [gd_scene load_steps=11 format=3 uid="uid://elder_npc_scene"]
 
 [ext_resource type="Script" path="res://scripts/entities/npc.gd" id="1_npc"]
-[ext_resource type="Texture2D" uid="uid://blcxvnf0qmlau" path="res://Tiny Swords (Update 010)/Factions/Knights/Troops/Pawn/Yellow/Pawn_Yellow.png" id="2_elder"]
+[ext_resource type="Texture2D" path="res://Game Assets(NEW)/Units/Blue Units/Monk/Idle.png" id="2_monk"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_e0"]
-atlas = ExtResource("2_elder")
+[sub_resource type="AtlasTexture" id="AtlasTexture_m0"]
+atlas = ExtResource("2_monk")
 region = Rect2(0, 0, 192, 192)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_e1"]
-atlas = ExtResource("2_elder")
+[sub_resource type="AtlasTexture" id="AtlasTexture_m1"]
+atlas = ExtResource("2_monk")
 region = Rect2(192, 0, 192, 192)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_e2"]
-atlas = ExtResource("2_elder")
+[sub_resource type="AtlasTexture" id="AtlasTexture_m2"]
+atlas = ExtResource("2_monk")
 region = Rect2(384, 0, 192, 192)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_e3"]
-atlas = ExtResource("2_elder")
+[sub_resource type="AtlasTexture" id="AtlasTexture_m3"]
+atlas = ExtResource("2_monk")
 region = Rect2(576, 0, 192, 192)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_e4"]
-atlas = ExtResource("2_elder")
+[sub_resource type="AtlasTexture" id="AtlasTexture_m4"]
+atlas = ExtResource("2_monk")
 region = Rect2(768, 0, 192, 192)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_e5"]
-atlas = ExtResource("2_elder")
+[sub_resource type="AtlasTexture" id="AtlasTexture_m5"]
+atlas = ExtResource("2_monk")
 region = Rect2(960, 0, 192, 192)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_elder"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_e0")
+"texture": SubResource("AtlasTexture_m0")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_e1")
+"texture": SubResource("AtlasTexture_m1")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_e2")
+"texture": SubResource("AtlasTexture_m2")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_e3")
+"texture": SubResource("AtlasTexture_m3")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_e4")
+"texture": SubResource("AtlasTexture_m4")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_e5")
+"texture": SubResource("AtlasTexture_m5")
 }],
 "loop": true,
 "name": &"idle",
 "speed": 6.0
 }]
 
-[sub_resource type="CircleShape2D" id="ShapeBody"]
-radius = 14.0
+[sub_resource type="CircleShape2D" id="CircleShape2D_body"]
+radius = 16.0
 
-[sub_resource type="CircleShape2D" id="ShapeInteract"]
-radius = 44.0
+[sub_resource type="CircleShape2D" id="CircleShape2D_detect"]
+radius = 70.0
 
 [node name="NPC_Elder" type="StaticBody2D"]
 collision_layer = 1
@@ -66,17 +66,17 @@ script = ExtResource("1_npc")
 npc_name = "Elder Oakhaven"
 prompt_text = "E - Speak with Elder"
 dialogue_lines = [
-"Welcome to Mossveil, Snowy. The stars whispered of your arrival from beyond the veil.",
-"Look to the dark clouds above our valley — the floating castle of the Monster King casts its shadow upon our realm.",
-"You proved your bravery by defeating the slimes along the high road. Our village honors your courage!",
-"Take this sacred Cave Torch — it burns with an eternal amber flame.",
-"South of the crossroads lies the pitch-black Mystic Cavern. Legends speak of a radiant Piece of Elixir sealed in its crystal depths.",
-"Take the torch, delve into the cavern, and bring back the elixir piece!"
+	"Welcome to Mossveil, Snowy. The stars whispered of your arrival from beyond the veil.",
+	"Look to the dark clouds above our valley — the floating castle of the Monster King casts its shadow upon our realm.",
+	"You proved your bravery by defeating the slimes along the high road. Our village honors your courage!",
+	"Take this sacred Cave Torch — it burns with an eternal amber flame.",
+	"South of the crossroads lies the pitch-black Mystic Cavern. Legends speak of a radiant Piece of Elixir sealed in its crystal depths.",
+	"Take the torch, delve into the cavern, and bring back the elixir piece!"
 ]
 dialogue_lines_alt = [
-"Peace be with you, Snowy.",
-"The Cave Torch burns bright in your satchel [B]. Head south of the crossroads to explore the Mystic Cavern!",
-"May the light protect you in the crystal depths."
+	"Peace be with you, Snowy.",
+	"The Cave Torch burns bright in your satchel [B]. Head south of the crossroads to explore the Mystic Cavern!",
+	"May the light protect you in the crystal depths."
 ]
 required_flag = "elder_spoke"
 grant_flag = "elder_spoke"
@@ -84,13 +84,13 @@ grant_item = "cave_torch"
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -32)
-scale = Vector2(1.15, 1.15)
 sprite_frames = SubResource("SpriteFrames_elder")
 animation = &"idle"
+autoplay = "idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -6)
-shape = SubResource("ShapeBody")
+shape = SubResource("CircleShape2D_body")
 
 [node name="InteractArea" type="Area2D" parent="."]
 collision_layer = 64
@@ -98,4 +98,4 @@ collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="InteractArea"]
 position = Vector2(0, -10)
-shape = SubResource("ShapeInteract")
+shape = SubResource("CircleShape2D_detect")

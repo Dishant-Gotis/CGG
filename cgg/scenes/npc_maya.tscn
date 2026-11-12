@@ -1,7 +1,7 @@
-[gd_scene load_steps=11 format=3 uid="uid://maya_npc_scene"]
+[gd_scene load_steps=13 format=3 uid="uid://maya_npc_scene"]
 
 [ext_resource type="Script" path="res://scripts/entities/npc.gd" id="1_npc"]
-[ext_resource type="Texture2D" uid="uid://deddsot4wuuyw" path="res://Tiny Swords (Update 010)/Factions/Knights/Troops/Pawn/Blue/Pawn_Blue.png" id="2_pawn"]
+[ext_resource type="Texture2D" path="res://Game Assets(NEW)/Units/Blue Units/Pawn/Pawn_Idle.png" id="2_pawn"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_m0"]
 atlas = ExtResource("2_pawn")
@@ -27,6 +27,14 @@ region = Rect2(768, 0, 192, 192)
 atlas = ExtResource("2_pawn")
 region = Rect2(960, 0, 192, 192)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_m6"]
+atlas = ExtResource("2_pawn")
+region = Rect2(1152, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m7"]
+atlas = ExtResource("2_pawn")
+region = Rect2(1344, 0, 192, 192)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_maya"]
 animations = [{
 "frames": [{
@@ -47,17 +55,23 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_m5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m7")
 }],
 "loop": true,
 "name": &"idle",
 "speed": 6.0
 }]
 
-[sub_resource type="CircleShape2D" id="ShapeBody"]
-radius = 12.0
+[sub_resource type="CircleShape2D" id="CircleShape2D_body"]
+radius = 16.0
 
-[sub_resource type="CircleShape2D" id="ShapeInteract"]
-radius = 38.0
+[sub_resource type="CircleShape2D" id="CircleShape2D_detect"]
+radius = 70.0
 
 [node name="NPC_Maya" type="StaticBody2D"]
 collision_layer = 1
@@ -66,25 +80,21 @@ script = ExtResource("1_npc")
 npc_name = "Maya"
 prompt_text = "E - Talk to Maya"
 dialogue_lines = [
-"Hello there, traveler! Welcome to our village market.",
-"I brew herbal potions from the glowing forest mushrooms to heal wounded explorers.",
-"If you ever venture south into the deep caverns, make sure to bring a warm torch!"
-]
-dialogue_lines_alt = [
-"The fresh village air does wonders for the spirit.",
-"Take care on your adventures, Snowy!"
+	"Hello there, traveler! Isn't Mossveil lovely this time of year?",
+	"If you're feeling weary, rest by the fountain. The cool water does wonders for the spirit.",
+	"Take care on your adventures, Snowy!"
 ]
 required_flag = "met_kitsu"
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(0, -30)
-scale = Vector2(0.95, 0.95)
+position = Vector2(0, -32)
 sprite_frames = SubResource("SpriteFrames_maya")
 animation = &"idle"
+autoplay = "idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -6)
-shape = SubResource("ShapeBody")
+shape = SubResource("CircleShape2D_body")
 
 [node name="InteractArea" type="Area2D" parent="."]
 collision_layer = 64
@@ -92,4 +102,4 @@ collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="InteractArea"]
 position = Vector2(0, -10)
-shape = SubResource("ShapeInteract")
+shape = SubResource("CircleShape2D_detect")

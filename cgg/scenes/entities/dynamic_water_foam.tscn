@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dynamic_water_foam_uid"]
+
+[ext_resource type="Script" path="res://scripts/entities/dynamic_water_foam.gd" id="1_foam"]
+
+[node name="DynamicWaterFoam" type="AnimatedSprite2D"]
+script = ExtResource("1_foam")

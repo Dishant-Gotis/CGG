@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://dynamic_bush_uid"]
+
+[ext_resource type="Script" path="res://scripts/entities/dynamic_bush.gd" id="1_bush"]
+
+[node name="DynamicBush" type="StaticBody2D"]
+collision_mask = 0
+script = ExtResource("1_bush")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]

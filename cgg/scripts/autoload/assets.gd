@@ -47,6 +47,89 @@ const PROLOGUE_VIDEO := EVERYTHING + "/1112_1_.ogv"
 const PROLOGUE_BGM := EVERYTHING + "/starlight-arpeggio.mp3"
 const PROLOGUE_TRANSITION_SFX := EVERYTHING + "/transition.mp3"
 
+# --- Game Assets (NEW) Pack ------------------------------------------------
+const NEW_ASSETS := "res://Game Assets(NEW)"
+const NEW_BUILDINGS_BLUE := NEW_ASSETS + "/Buildings/Blue Buildings"
+const NEW_BUILDINGS_RED := NEW_ASSETS + "/Buildings/Red Buildings"
+const NEW_TERRAIN_TILES := NEW_ASSETS + "/Terrain/Tileset"
+const NEW_TERRAIN_TREES := NEW_ASSETS + "/Terrain/Resources/Wood/Trees"
+const NEW_TERRAIN_BUSHES := NEW_ASSETS + "/Terrain/Decorations/Bushes"
+const NEW_TERRAIN_SHEEP := NEW_ASSETS + "/Terrain/Resources/Meat/Sheep"
+const NEW_TERRAIN_GOLD := NEW_ASSETS + "/Terrain/Resources/Gold/Gold Stones"
+const NEW_TERRAIN_ROCKS := NEW_ASSETS + "/Terrain/Decorations/Rocks"
+const NEW_TERRAIN_WATER_ROCKS := NEW_ASSETS + "/Terrain/Decorations/Rocks in the Water"
+const NEW_TERRAIN_CLOUDS := NEW_ASSETS + "/Terrain/Decorations/Clouds"
+const NEW_UNITS_BLUE := NEW_ASSETS + "/Units/Blue Units"
+const NEW_UNITS_RED := NEW_ASSETS + "/Units/Red Units"
+
+# Terrain & Water
+const TILES_TERRAIN_COLOR1 := NEW_TERRAIN_TILES + "/Tilemap_color1.png"
+const WATER_BG := NEW_TERRAIN_TILES + "/Water Background color.png"
+const WATER_FOAM := NEW_TERRAIN_TILES + "/Water Foam.png"
+const SHADOW_TEX := NEW_TERRAIN_TILES + "/Shadow.png"
+
+# Animated Trees
+const TREE_1 := NEW_TERRAIN_TREES + "/Tree1.png" # 256x256, 6 frames
+const TREE_2 := NEW_TERRAIN_TREES + "/Tree2.png" # 256x256, 6 frames
+const TREE_3 := NEW_TERRAIN_TREES + "/Tree3.png" # 192x192, 8 frames
+const TREE_4 := NEW_TERRAIN_TREES + "/Tree4.png" # 192x192, 8 frames
+const STUMP_1 := NEW_TERRAIN_TREES + "/Stump 1.png"
+const STUMP_2 := NEW_TERRAIN_TREES + "/Stump 2.png"
+
+# Animated Bushes
+const BUSH_NEW_1 := NEW_TERRAIN_BUSHES + "/Bushe1.png" # 128x128, 8 frames
+const BUSH_NEW_2 := NEW_TERRAIN_BUSHES + "/Bushe2.png" # 128x128, 8 frames
+const BUSH_NEW_3 := NEW_TERRAIN_BUSHES + "/Bushe3.png" # 128x128, 8 frames
+const BUSH_NEW_4 := NEW_TERRAIN_BUSHES + "/Bushe4.png" # 128x128, 8 frames
+
+# Animated Sheep
+const SHEEP_IDLE := NEW_TERRAIN_SHEEP + "/Sheep_Idle.png"   # 128x128, 6 frames
+const SHEEP_GRASS := NEW_TERRAIN_SHEEP + "/Sheep_Grass.png" # 128x128, 12 frames
+const SHEEP_MOVE := NEW_TERRAIN_SHEEP + "/Sheep_Move.png"   # 128x128, 4 frames
+
+# Water Rocks
+const WATER_ROCK_1 := NEW_TERRAIN_WATER_ROCKS + "/Water Rocks_01.png" # 64x64, 16 frames
+const WATER_ROCK_2 := NEW_TERRAIN_WATER_ROCKS + "/Water Rocks_02.png"
+const WATER_ROCK_3 := NEW_TERRAIN_WATER_ROCKS + "/Water Rocks_03.png"
+const WATER_ROCK_4 := NEW_TERRAIN_WATER_ROCKS + "/Water Rocks_04.png"
+
+# Rocks & Gold
+const ROCK_1 := NEW_TERRAIN_ROCKS + "/Rock1.png"
+const ROCK_2 := NEW_TERRAIN_ROCKS + "/Rock2.png"
+const ROCK_3 := NEW_TERRAIN_ROCKS + "/Rock3.png"
+const ROCK_4 := NEW_TERRAIN_ROCKS + "/Rock4.png"
+const GOLD_STONE_1 := NEW_TERRAIN_GOLD + "/Gold Stone 1.png"
+const GOLD_STONE_1_HL := NEW_TERRAIN_GOLD + "/Gold Stone 1_Highlight.png" # 128x128, 6 frames
+
+# Clouds
+const CLOUD_1 := NEW_TERRAIN_CLOUDS + "/Clouds_01.png"
+const CLOUD_2 := NEW_TERRAIN_CLOUDS + "/Clouds_02.png"
+const CLOUD_3 := NEW_TERRAIN_CLOUDS + "/Clouds_03.png"
+
+# Blue Buildings
+const BUILDING_CASTLE := NEW_BUILDINGS_BLUE + "/Castle.png"
+const BUILDING_TOWER := NEW_BUILDINGS_BLUE + "/Tower.png"
+const BUILDING_HOUSE_1 := NEW_BUILDINGS_BLUE + "/House1.png"
+const BUILDING_HOUSE_2 := NEW_BUILDINGS_BLUE + "/House2.png"
+const BUILDING_HOUSE_3 := NEW_BUILDINGS_BLUE + "/House3.png"
+const BUILDING_MONASTERY := NEW_BUILDINGS_BLUE + "/Monastery.png"
+const BUILDING_ARCHERY := NEW_BUILDINGS_BLUE + "/Archery.png"
+const BUILDING_BARRACKS := NEW_BUILDINGS_BLUE + "/Barracks.png"
+
+# Animated Units
+const WARRIOR_BLUE_IDLE := NEW_UNITS_BLUE + "/Warrior/Warrior_Idle.png" # 192x192, 8 frames
+const WARRIOR_BLUE_RUN := NEW_UNITS_BLUE + "/Warrior/Warrior_Run.png"   # 192x192, 6 frames
+const ARCHER_BLUE_IDLE := NEW_UNITS_BLUE + "/Archer/Archer_Idle.png"   # 192x192, 6 frames
+const LANCER_BLUE_IDLE := NEW_UNITS_BLUE + "/Lancer/Lancer_Idle.png"   # 320x320, 12 frames
+const MONK_BLUE_IDLE := NEW_UNITS_BLUE + "/Monk/Idle.png"              # 192x192, 6 frames
+const PAWN_BLUE_IDLE := NEW_UNITS_BLUE + "/Pawn/Pawn_Idle.png"         # 192x192, 8 frames
+const PAWN_BLUE_RUN := NEW_UNITS_BLUE + "/Pawn/Pawn_Run.png"           # 192x192, 6 frames
+const PAWN_BLUE_AXE := NEW_UNITS_BLUE + "/Pawn/Pawn_Interact Axe.png"
+
+# Red Units
+const WARRIOR_RED_IDLE := NEW_UNITS_RED + "/Warrior/Warrior_Idle.png"
+const ARCHER_RED_IDLE := NEW_UNITS_RED + "/Archer/Archer_Idle.png"
+
 # --- Tiny Swords UI Assets --------------------------------------------------
 const UI_DIR := TS + "/UI"
 const UI_BANNER_HORIZONTAL := UI_DIR + "/Banners/Banner_Horizontal.png"
@@ -180,3 +263,29 @@ func content_rect(t: Texture2D) -> Rect2i:
 	if used.size.x <= 0 or used.size.y <= 0:
 		return Rect2i(0, 0, t.get_width(), t.get_height())
 	return used
+
+
+var _sprite_frames_cache: Dictionary = {}
+
+## Programmatic SpriteFrames factory for authentic animated strips from Game Assets(NEW).
+func sprite_frames(path: String, frame_w: int, frame_h: int, count: int, fps: float = 6.0, loop: bool = true, anim_name: String = "default") -> SpriteFrames:
+	var key := "%s_%d_%d_%d_%.1f_%s" % [path, frame_w, frame_h, count, fps, anim_name]
+	if _sprite_frames_cache.has(key):
+		return _sprite_frames_cache[key]
+	var texture := tex(path)
+	if texture == null:
+		return null
+	var sf := SpriteFrames.new()
+	if not sf.has_animation(anim_name):
+		sf.add_animation(anim_name)
+	sf.clear(anim_name)
+	sf.set_animation_speed(anim_name, fps)
+	sf.set_animation_loop(anim_name, loop)
+	for i: int in range(count):
+		var atlas := AtlasTexture.new()
+		atlas.atlas = texture
+		atlas.region = Rect2(i * frame_w, 0, frame_w, frame_h)
+		sf.add_frame(anim_name, atlas)
+	_sprite_frames_cache[key] = sf
+	return sf
+
