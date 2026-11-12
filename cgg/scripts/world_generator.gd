@@ -299,20 +299,30 @@ func _ready() -> void:
 		"Defeat the slimes to clear the road forward."
 	], "Combat Guide")
 
-	# --- SECOND HALF (X: 1600 to 2816): SLIMES APPEAR! ---
-	_add_enemy(objects, world, enemy_sc, Vector2(1760, 1056))   # Slime 1 (Introductory 1v1 right after sign)
-	_add_enemy(objects, world, enemy_sc, Vector2(1960, 1056))   # Slime 2 (Open trail encounter)
-	_add_enemy(objects, world, enemy_sc, Vector2(2160, 1040))   # Slime 3 (Mid-trail pack member 1)
-	_add_enemy(objects, world, enemy_sc, Vector2(2210, 1070))   # Slime 4 (Mid-trail pack member 2)
-	_add_enemy(objects, world, enemy_sc, Vector2(2400, 1056))   # Slime 5 (Deep forest encounter)
-	_add_enemy(objects, world, enemy_sc, Vector2(2580, 1040))   # Slime 6 (Deep woods pack member 1)
-	_add_enemy(objects, world, enemy_sc, Vector2(2630, 1070))   # Slime 7 (Deep woods pack member 2)
-	_add_enemy(objects, world, enemy_sc, Vector2(2760, 1056))   # Slime 8 (Crossroads gateway guardian)
+	# --- SECOND HALF (X: 1600 to 2816): SLIME COMBAT GAUNTLET & TRANQUIL OUTSKIRTS ---
+	# Slimes appear after the midpoint border sign (X: 1600) and finish by X: 1890.
+	# This guarantees a massive ~1,100-pixel peaceful outskirts buffer between the
+	# last slime (X: 1890) and the Village Gate Archway (X: 2970) / Guard (X: 3060).
+	_add_enemy(objects, world, enemy_sc, Vector2(1680, 1056))   # Slime 1 (Introductory 1v1 right after combat tutorial)
+	_add_enemy(objects, world, enemy_sc, Vector2(1730, 1056))   # Slime 2 (Open trail timing practice)
+	_add_enemy(objects, world, enemy_sc, Vector2(1780, 1040))   # Slime 3 (Mid-trail pack member 1)
+	_add_enemy(objects, world, enemy_sc, Vector2(1810, 1070))   # Slime 4 (Mid-trail pack member 2)
+	_add_enemy(objects, world, enemy_sc, Vector2(1860, 1040))   # Slime 5 (Deep woods pack member 1)
+	_add_enemy(objects, world, enemy_sc, Vector2(1890, 1070))   # Slime 6 (Deep woods pack member 2 - FINAL SLIME!)
 
-	# Second half lanterns
+	# --- MOSSVEIL OUTSKIRTS BUFFER (X: 1890 to 2816): ~1,100px DISTANCE TO VILLAGE ---
+	# Safe zone sign and rest bench halfway between the last slime and the village
 	_add_prop(objects, world, "res://assets/props/lantern_post.png", Vector2(1880, 1005), Vector2(16, 16), Vector2(0, -6))
 	_add_prop(objects, world, "res://assets/props/lantern_post.png", Vector2(2140, 1005), Vector2(16, 16), Vector2(0, -6))
-	_add_prop(objects, world, "res://assets/props/lantern_post.png", Vector2(2380, 1005), Vector2(16, 16), Vector2(0, -6))
+	_add_prop(objects, world, "res://assets/props/lantern_post.png", Vector2(2340, 1005), Vector2(16, 16), Vector2(0, -6))
+	_add_sign(objects, world, Vector2(2400, 1005), "OutskirtsSign", [
+		"Mossveil Outskirts:",
+		"Peaceful boundaries of the village. The wild slimes stay clear of these woods.",
+		"Ahead: Oakhaven Crossroads & Mossveil Village Gate."
+	], "Outskirts Sign")
+	_add_prop(objects, world, "res://assets/props/stump_3.png", Vector2(2450, 940), Vector2(24, 20), Vector2(0, -10))
+	_add_prop(objects, world, "res://assets/props/wood_log.png", Vector2(2490, 940), Vector2(40, 18), Vector2(0, -9))
+
 	_add_prop(objects, world, "res://assets/props/lantern_post.png", Vector2(2600, 1005), Vector2(16, 16), Vector2(0, -6))
 	_add_prop(objects, world, "res://assets/props/lantern_post.png", Vector2(2800, 1005), Vector2(16, 16), Vector2(0, -6))
 
