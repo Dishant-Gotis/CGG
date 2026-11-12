@@ -76,6 +76,8 @@ const UI_RIBBON_RED := UI_DIR + "/Ribbons/Ribbon_Red_3Slides.png"
 const UI_POINTER_01 := UI_DIR + "/Pointers/01.png"
 const UI_HEART_FULL := "res://assets/ui/heart_full.png"
 const UI_HEART_EMPTY := "res://assets/ui/heart_empty.png"
+const UI_DIALOGUE_SNOWY := EVERYTHING + "/Snowy RPG Dialogue Overlay.png"
+const UI_DIALOGUE_KITSU := EVERYTHING + "/Kitsu’s Mystical Fox Dialogue UI.png"
 
 # --- data -------------------------------------------------------------------
 const COMBAT_JSON := "res://data/combat.json"
@@ -97,10 +99,19 @@ var _texture_cache: Dictionary = {}
 func tex(path: String) -> Texture2D:
 	if _texture_cache.has(path):
 		return _texture_cache[path] as Texture2D
-	if not ResourceLoader.exists(path):
-		push_error("[Assets] MISSING ASSET: " + path)
-		return null
-	var t := load(path) as Texture2D
+	var t: Texture2D = null
+	if ResourceLoader.exists(path):
+		t = load(path) as Texture2D
+	if t == null:
+		var global_path := ProjectSettings.globalize_path(path)
+		if FileAccess.file_exists(global_path):
+			var img := Image.load_from_file(global_path)
+			if img != null:
+				t = ImageTexture.create_from_image(img)
+		elif FileAccess.file_exists(path):
+			var img := Image.load_from_file(path)
+			if img != null:
+				t = ImageTexture.create_from_image(img)
 	if t == null:
 		push_error("[Assets] FAILED TO LOAD: " + path)
 		return null

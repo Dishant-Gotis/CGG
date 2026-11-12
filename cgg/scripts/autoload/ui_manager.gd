@@ -17,6 +17,11 @@ var speaker_badge: PanelContainer
 var speaker_label: Label
 var text_label: Label
 var advance_hint: Label
+var custom_dialogue_container: Control
+var custom_dialogue_texture: TextureRect
+var custom_text_label: Label
+var custom_advance_hint: Label
+var _is_custom_snowy: bool = false
 var prompt_panel: PanelContainer
 var prompt_label: Label
 var skip_label: Label
@@ -360,9 +365,10 @@ func _on_hotbar_changed(_idx: int) -> void:
 	_update_hotbar_ui()
 
 
-# --- Dialogue Window (Tiny Swords Carved Banner + Yellow Ribbon) -------------
+# --- Dialogue Window (Tiny Swords Carved Banner + Custom Character Overlays) -
 
 func _build_dialogue() -> void:
+	# 1. Generic Dialogue Panel (for all other NPCs & narrator)
 	dialogue_panel = PanelContainer.new()
 	var dstyle := _make_stylebox_texture(Assets.UI_CARVED_9SLIDES, 32.0, 32.0, 32.0, 32.0, 34.0, 22.0, 34.0, 20.0)
 	dialogue_panel.add_theme_stylebox_override("panel", dstyle)
@@ -374,9 +380,10 @@ func _build_dialogue() -> void:
 
 	# Speaker Badge (Yellow Ribbon 3Slides)
 	speaker_badge = PanelContainer.new()
-	var bstyle := _make_stylebox_texture(Assets.UI_RIBBON_YELLOW, 48.0, 8.0, 48.0, 14.0, 26.0, 4.0, 26.0, 8.0)
+	var bstyle := _make_stylebox_texture(Assets.UI_RIBBON_YELLOW, 48.0, 8.0, 48.0, 14.0, 28.0, 8.0, 28.0, 12.0)
 	speaker_badge.add_theme_stylebox_override("panel", bstyle)
 	speaker_badge.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
+	speaker_badge.custom_minimum_size = Vector2(0, 36)
 
 	speaker_label = Label.new()
 	speaker_label.add_theme_font_size_override("font_size", 13)
@@ -413,25 +420,114 @@ func _build_dialogue() -> void:
 	root_ui.add_child(dialogue_panel)
 	dialogue_panel.visible = false
 
+	# 2. Custom Character Dialogue Overlay (for Snowy & Kitsu)
+	custom_dialogue_container = Control.new()
+	custom_dialogue_container.mouse_filter = Control.MOUSE_FILTER_STOP
+
+	custom_dialogue_texture = TextureRect.new()
+	custom_dialogue_texture.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	custom_dialogue_texture.stretch_mode = TextureRect.STRETCH_SCALE
+	custom_dialogue_texture.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR
+	custom_dialogue_texture.set_anchors_preset(Control.PRESET_FULL_RECT)
+	custom_dialogue_texture.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	custom_dialogue_container.add_child(custom_dialogue_texture)
+
+	custom_text_label = Label.new()
+	custom_text_label.add_theme_font_size_override("font_size", 16)
+	custom_text_label.add_theme_color_override("font_color", Color(0.18, 0.12, 0.06, 1.0))
+	custom_text_label.add_theme_color_override("font_outline_color", Color(1.0, 0.98, 0.92, 0.6))
+	custom_text_label.add_theme_constant_override("outline_size", 1)
+	custom_text_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	custom_text_label.max_lines_visible = 3
+	custom_text_label.vertical_alignment = VERTICAL_ALIGNMENT_TOP
+	custom_text_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	custom_dialogue_container.add_child(custom_text_label)
+
+	custom_advance_hint = Label.new()
+	custom_advance_hint.text = "▼ Press [E / Space / Click] to continue"
+	custom_advance_hint.add_theme_font_size_override("font_size", 12)
+	custom_advance_hint.add_theme_color_override("font_color", Color(0.42, 0.30, 0.18, 0.95))
+	custom_advance_hint.add_theme_color_override("font_outline_color", Color(1.0, 0.96, 0.88, 0.85))
+	custom_advance_hint.add_theme_constant_override("outline_size", 1)
+	custom_advance_hint.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+	custom_advance_hint.vertical_alignment = VERTICAL_ALIGNMENT_BOTTOM
+	custom_advance_hint.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	custom_dialogue_container.add_child(custom_advance_hint)
+
+	root_ui.add_child(custom_dialogue_container)
+	custom_dialogue_container.visible = false
+
 	_layout_dialogue()
 
 
+func _position_custom_labels(is_snowy: bool) -> void:
+	if custom_dialogue_container == null or not is_inside_tree():
+		return
+	_is_custom_snowy = is_snowy
+	var cw: float = custom_dialogue_container.size.x
+	if cw <= 0.0:
+		var vp_size := get_viewport().get_visible_rect().size
+		cw = minf(vp_size.x, 960.0)
+	var scale_f := cw / 960.0
+
+	if is_snowy:
+		custom_text_label.offset_left = 224.0 * scale_f
+		custom_text_label.offset_top = 472.0 * scale_f
+		custom_text_label.offset_right = 880.0 * scale_f
+		custom_text_label.offset_bottom = 548.0 * scale_f
+
+		custom_advance_hint.offset_left = 224.0 * scale_f
+		custom_advance_hint.offset_top = 544.0 * scale_f
+		custom_advance_hint.offset_right = 864.0 * scale_f
+		custom_advance_hint.offset_bottom = 570.0 * scale_f
+	else:
+		custom_text_label.offset_left = 112.0 * scale_f
+		custom_text_label.offset_top = 472.0 * scale_f
+		custom_text_label.offset_right = 820.0 * scale_f
+		custom_text_label.offset_bottom = 548.0 * scale_f
+
+		custom_advance_hint.offset_left = 112.0 * scale_f
+		custom_advance_hint.offset_top = 544.0 * scale_f
+		custom_advance_hint.offset_right = 814.0 * scale_f
+		custom_advance_hint.offset_bottom = 570.0 * scale_f
+
+	custom_text_label.add_theme_font_size_override("font_size", int(round(17.0 * clampf(scale_f, 0.75, 1.25))))
+	custom_advance_hint.add_theme_font_size_override("font_size", int(round(12.0 * clampf(scale_f, 0.75, 1.25))))
+
+
 func _layout_dialogue() -> void:
-	if dialogue_panel == null or not is_inside_tree():
+	if not is_inside_tree():
 		return
 	var vp_size := get_viewport().get_visible_rect().size
-	var panel_w: float = minf(vp_size.x - 60.0, 840.0)
-	var half_w: float = panel_w * 0.5
 
-	dialogue_panel.anchor_left = 0.5
-	dialogue_panel.anchor_right = 0.5
-	dialogue_panel.anchor_top = 1.0
-	dialogue_panel.anchor_bottom = 1.0
-	dialogue_panel.offset_left = -half_w
-	dialogue_panel.offset_right = half_w
-	dialogue_panel.offset_top = -152.0
-	dialogue_panel.offset_bottom = -14.0
-	dialogue_panel.custom_minimum_size = Vector2(panel_w, 138.0)
+	# 1. Generic panel layout
+	if dialogue_panel != null:
+		var panel_w: float = minf(vp_size.x - 60.0, 840.0)
+		var half_w: float = panel_w * 0.5
+		dialogue_panel.anchor_left = 0.5
+		dialogue_panel.anchor_right = 0.5
+		dialogue_panel.anchor_top = 1.0
+		dialogue_panel.anchor_bottom = 1.0
+		dialogue_panel.offset_left = -half_w
+		dialogue_panel.offset_right = half_w
+		dialogue_panel.offset_top = -152.0
+		dialogue_panel.offset_bottom = -14.0
+		dialogue_panel.custom_minimum_size = Vector2(panel_w, 138.0)
+
+	# 2. Custom overlay container layout
+	if custom_dialogue_container != null:
+		var cw: float = minf(vp_size.x, 960.0)
+		var ch: float = cw * (1024.0 / 1536.0)
+		custom_dialogue_container.anchor_left = 0.5
+		custom_dialogue_container.anchor_right = 0.5
+		custom_dialogue_container.anchor_top = 1.0
+		custom_dialogue_container.anchor_bottom = 1.0
+		custom_dialogue_container.offset_left = -cw * 0.5
+		custom_dialogue_container.offset_right = cw * 0.5
+		custom_dialogue_container.offset_top = -ch
+		custom_dialogue_container.offset_bottom = 0.0
+		custom_dialogue_container.size = Vector2(cw, ch)
+		_position_custom_labels(_is_custom_snowy)
 
 
 # --- Interaction Prompt -------------------------------------------------------
@@ -949,7 +1045,6 @@ func start_dialogue(lines: Array, speaker: String = "", force: bool = false) -> 
 	_speaker = speaker
 	_opened_at_ms = Time.get_ticks_msec()
 	_render_current_line()
-	dialogue_panel.visible = true
 	hotbar_panel.visible = false  # Hide hotbar during dialogue so screen is crystal clean
 	AudioManager.play_select()
 
@@ -963,25 +1058,55 @@ func await_dialogue(lines: Array, speaker: String = "") -> void:
 func _render_current_line() -> void:
 	var line := _lines[_line_index]
 	var current_spk := _speaker
-	if line.contains(":") and _speaker.is_empty():
+	var display_text := line
+
+	if line.contains(":"):
 		var split := line.split(":", true, 1)
-		current_spk = split[0].strip_edges()
-		text_label.text = split[1].strip_edges()
-	else:
-		text_label.text = line
+		var tag := split[0].strip_edges()
+		var tag_l := tag.to_lower()
+		if tag_l == "snowy" or tag_l == "arjun" or tag_l == "kitsu" or (not tag.contains(" ") and tag.length() <= 20 and not tag.is_empty()):
+			current_spk = tag
+			display_text = split[1].strip_edges()
+		elif _speaker.is_empty() and tag.length() <= 25:
+			current_spk = tag
+			display_text = split[1].strip_edges()
 
-	if current_spk.is_empty():
-		speaker_badge.visible = false
-	else:
-		speaker_label.text = current_spk
-		speaker_badge.visible = true
-
+	var adv_text := ""
 	if _line_index == _lines.size() - 1:
-		advance_hint.text = "✓ [E / Space / Click] to Close"
+		adv_text = "✓ [E / Space / Click] to Close"
 	else:
-		advance_hint.text = "▼ [E / Space / Click] to Continue (%d/%d)" % [_line_index + 1, _lines.size()]
+		adv_text = "▼ [E / Space / Click] to Continue (%d/%d)" % [_line_index + 1, _lines.size()]
 
-	_layout_dialogue()
+	var spk_l := current_spk.to_lower()
+	var is_snowy := (spk_l == "snowy" or spk_l == "arjun")
+	var is_kitsu := (spk_l == "kitsu")
+
+	if is_snowy or is_kitsu:
+		if dialogue_panel != null:
+			dialogue_panel.visible = false
+		if custom_dialogue_container != null:
+			custom_dialogue_container.visible = true
+			if is_snowy:
+				custom_dialogue_texture.texture = Assets.tex(Assets.UI_DIALOGUE_SNOWY)
+			else:
+				custom_dialogue_texture.texture = Assets.tex(Assets.UI_DIALOGUE_KITSU)
+			custom_text_label.text = display_text
+			custom_advance_hint.text = adv_text
+			_layout_dialogue()
+			_position_custom_labels(is_snowy)
+	else:
+		if custom_dialogue_container != null:
+			custom_dialogue_container.visible = false
+		if dialogue_panel != null:
+			dialogue_panel.visible = true
+			text_label.text = display_text
+			if current_spk.is_empty():
+				speaker_badge.visible = false
+			else:
+				speaker_label.text = current_spk
+				speaker_badge.visible = true
+			advance_hint.text = adv_text
+			_layout_dialogue()
 
 
 func close_dialogue() -> void:
@@ -989,7 +1114,10 @@ func close_dialogue() -> void:
 		return
 	dialogue_open = false
 	dialogue_closed_at_ms = Time.get_ticks_msec()
-	dialogue_panel.visible = false
+	if dialogue_panel != null:
+		dialogue_panel.visible = false
+	if custom_dialogue_container != null:
+		custom_dialogue_container.visible = false
 	if hotbar_panel != null:
 		hotbar_panel.visible = _hud_visible  # Restore hotbar only if HUD is active
 	_lines.clear()
