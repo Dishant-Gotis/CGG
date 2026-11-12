@@ -170,23 +170,34 @@ func _build_hud() -> void:
 	var mana_vbox := VBoxContainer.new()
 	mana_vbox.add_theme_constant_override("separation", 2)
 
+	var med_bold := Assets.font_bold(Assets.FONT_MEDIEVAL, 0.3)
+	var med_font := Assets.font(Assets.FONT_MEDIEVAL)
+
 	var mana_header := HBoxContainer.new()
 	var mana_title := Label.new()
 	mana_title.text = "MANA"
-	mana_title.add_theme_font_size_override("font_size", 9)
+	if med_bold != null:
+		mana_title.add_theme_font_override("font", med_bold)
+	elif med_font != null:
+		mana_title.add_theme_font_override("font", med_font)
+	mana_title.add_theme_font_size_override("font_size", 10)
 	mana_title.add_theme_color_override("font_color", Color(0.24, 0.16, 0.10, 1.0))
 	mana_title.add_theme_color_override("font_outline_color", Color(1.0, 0.96, 0.88, 0.95))
-	mana_title.add_theme_constant_override("outline_size", 2)
+	mana_title.add_theme_constant_override("outline_size", 1)
 	mana_header.add_child(mana_title)
 
 	mana_label = Label.new()
 	mana_label.text = "100/100"
 	mana_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 	mana_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	mana_label.add_theme_font_size_override("font_size", 9)
+	if med_bold != null:
+		mana_label.add_theme_font_override("font", med_bold)
+	elif med_font != null:
+		mana_label.add_theme_font_override("font", med_font)
+	mana_label.add_theme_font_size_override("font_size", 10)
 	mana_label.add_theme_color_override("font_color", Color(0.26, 0.18, 0.12, 1.0))
 	mana_label.add_theme_color_override("font_outline_color", Color(1.0, 0.96, 0.88, 0.95))
-	mana_label.add_theme_constant_override("outline_size", 2)
+	mana_label.add_theme_constant_override("outline_size", 1)
 	mana_header.add_child(mana_label)
 	mana_vbox.add_child(mana_header)
 
@@ -230,22 +241,31 @@ func _build_hotbar() -> void:
 	var col := VBoxContainer.new()
 	col.add_theme_constant_override("separation", 6)
 
-	# Active Item Name Tooltip Label on Yellow Ribbon
+	var med_bold := Assets.font_bold(Assets.FONT_MEDIEVAL, 0.35)
+	var med_font := Assets.font(Assets.FONT_MEDIEVAL)
+
+	# Active Item Name Tooltip Label on Carved Wood Box (matching Elder dialogue style)
 	var tt_panel := PanelContainer.new()
-	var tt_style := _make_stylebox_texture(Assets.UI_RIBBON_YELLOW, 24.0, 8.0, 24.0, 12.0, 10.0, 3.0, 10.0, 5.0)
+	var tt_style := _make_stylebox_texture(Assets.UI_CARVED_9SLIDES, 16.0, 16.0, 16.0, 16.0, 6.0, 4.0, 6.0, 4.0)
 	tt_panel.add_theme_stylebox_override("panel", tt_style)
 	tt_panel.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	tt_panel.custom_minimum_size = Vector2(56, 32)
 
 	hotbar_tooltip = Label.new()
 	hotbar_tooltip.text = "Hero's Blade"
+	if med_bold != null:
+		hotbar_tooltip.add_theme_font_override("font", med_bold)
+	elif med_font != null:
+		hotbar_tooltip.add_theme_font_override("font", med_font)
 	hotbar_tooltip.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	hotbar_tooltip.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 	hotbar_tooltip.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	hotbar_tooltip.custom_minimum_size = Vector2(52, 22)
-	hotbar_tooltip.add_theme_font_size_override("font_size", 9)
-	hotbar_tooltip.add_theme_color_override("font_color", Color(0.24, 0.14, 0.06, 1.0))
+	hotbar_tooltip.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	hotbar_tooltip.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	hotbar_tooltip.add_theme_font_size_override("font_size", 11)
+	hotbar_tooltip.add_theme_color_override("font_color", Color(0.18, 0.12, 0.06, 1.0))
 	hotbar_tooltip.add_theme_color_override("font_outline_color", Color(1.0, 0.96, 0.88, 0.95))
-	hotbar_tooltip.add_theme_constant_override("outline_size", 2)
+	hotbar_tooltip.add_theme_constant_override("outline_size", 1)
 	tt_panel.add_child(hotbar_tooltip)
 	col.add_child(tt_panel)
 
@@ -259,7 +279,7 @@ func _build_hotbar() -> void:
 
 	for i: int in range(5):
 		var slot := PanelContainer.new()
-		slot.custom_minimum_size = Vector2(46, 46)
+		slot.custom_minimum_size = Vector2(48, 48)
 		slot.mouse_filter = Control.MOUSE_FILTER_STOP
 		var sstyle := _make_hotbar_slot_style(i == GameState.active_hotbar_index)
 		slot.add_theme_stylebox_override("panel", sstyle)
@@ -267,10 +287,14 @@ func _build_hotbar() -> void:
 		# Slot index number in top-left
 		var num := Label.new()
 		num.text = str(i + 1)
-		num.add_theme_font_size_override("font_size", 9)
+		if med_bold != null:
+			num.add_theme_font_override("font", med_bold)
+		elif med_font != null:
+			num.add_theme_font_override("font", med_font)
+		num.add_theme_font_size_override("font_size", 10)
 		num.add_theme_color_override("font_color", Color(0.35, 0.22, 0.12, 0.95))
 		num.add_theme_color_override("font_outline_color", Color(1.0, 0.96, 0.88, 0.95))
-		num.add_theme_constant_override("outline_size", 2)
+		num.add_theme_constant_override("outline_size", 1)
 		num.position = Vector2(5, 2)
 		slot.add_child(num)
 
@@ -297,22 +321,33 @@ func _build_hotbar() -> void:
 
 	col.add_child(slots_vbox)
 
-	# Bag shortcut button at bottom (using Tiny Swords Button_Blue)
+	# Bag shortcut button at bottom (matching Carved Wood theme)
 	var bag_btn := PanelContainer.new()
-	var bb_style := _make_stylebox_texture(Assets.UI_BUTTON_BLUE, 14.0, 12.0, 14.0, 16.0, 4.0, 4.0, 4.0, 6.0)
+	var bb_style := _make_stylebox_texture(Assets.UI_CARVED_9SLIDES, 16.0, 16.0, 16.0, 16.0, 6.0, 4.0, 6.0, 4.0)
 	bag_btn.add_theme_stylebox_override("panel", bb_style)
-	bag_btn.custom_minimum_size = Vector2(46, 26)
+	bag_btn.custom_minimum_size = Vector2(54, 28)
 	bag_btn.mouse_filter = Control.MOUSE_FILTER_STOP
 
 	var bag_hint := Label.new()
 	bag_hint.text = "[B] Bag"
+	if med_bold != null:
+		bag_hint.add_theme_font_override("font", med_bold)
+	elif med_font != null:
+		bag_hint.add_theme_font_override("font", med_font)
 	bag_hint.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	bag_hint.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-	bag_hint.add_theme_font_size_override("font_size", 9)
-	bag_hint.add_theme_color_override("font_color", Color(1.0, 1.0, 1.0, 1.0))
-	bag_hint.add_theme_color_override("font_outline_color", Color(0.12, 0.22, 0.45, 0.95))
-	bag_hint.add_theme_constant_override("outline_size", 2)
+	bag_hint.add_theme_font_size_override("font_size", 11)
+	bag_hint.add_theme_color_override("font_color", Color(0.18, 0.12, 0.06, 1.0))
+	bag_hint.add_theme_color_override("font_outline_color", Color(1.0, 0.96, 0.88, 0.95))
+	bag_hint.add_theme_constant_override("outline_size", 1)
 	bag_btn.add_child(bag_hint)
+
+	bag_btn.mouse_entered.connect(func() -> void:
+		bag_btn.modulate = Color(1.15, 1.15, 1.15, 1.0)
+	)
+	bag_btn.mouse_exited.connect(func() -> void:
+		bag_btn.modulate = Color(1.0, 1.0, 1.0, 1.0)
+	)
 
 	bag_btn.gui_input.connect(func(ev: InputEvent) -> void:
 		if ev is InputEventMouseButton and ev.pressed and ev.button_index == MOUSE_BUTTON_LEFT:
@@ -328,10 +363,10 @@ func _build_hotbar() -> void:
 	hotbar_panel.anchor_right = 1.0
 	hotbar_panel.anchor_top = 0.5
 	hotbar_panel.anchor_bottom = 0.5
-	hotbar_panel.offset_left = -78.0
+	hotbar_panel.offset_left = -84.0
 	hotbar_panel.offset_right = -10.0
-	hotbar_panel.offset_top = -175.0
-	hotbar_panel.offset_bottom = 175.0
+	hotbar_panel.offset_top = -180.0
+	hotbar_panel.offset_bottom = 180.0
 	hotbar_panel.visible = false
 
 
@@ -378,26 +413,31 @@ func _build_dialogue() -> void:
 	vbox.add_theme_constant_override("separation", 6)
 	vbox.size_flags_vertical = Control.SIZE_EXPAND_FILL
 
-	# Speaker Badge (Yellow Ribbon 3Slides)
+	var med_font := Assets.font(Assets.FONT_MEDIEVAL)
+	var med_bold := Assets.font_bold(Assets.FONT_MEDIEVAL, 0.35)
+
+	# Speaker Badge (Carved Wood Box matching Elder dialogue style)
 	speaker_badge = PanelContainer.new()
-	var bstyle := _make_stylebox_texture(Assets.UI_RIBBON_YELLOW, 48.0, 8.0, 48.0, 14.0, 28.0, 8.0, 28.0, 12.0)
+	var bstyle := _make_stylebox_texture(Assets.UI_CARVED_9SLIDES, 16.0, 16.0, 16.0, 16.0, 14.0, 4.0, 14.0, 4.0)
 	speaker_badge.add_theme_stylebox_override("panel", bstyle)
 	speaker_badge.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
-	speaker_badge.custom_minimum_size = Vector2(0, 36)
+	speaker_badge.custom_minimum_size = Vector2(0, 30)
 
 	speaker_label = Label.new()
-	speaker_label.add_theme_font_size_override("font_size", 13)
-	speaker_label.add_theme_color_override("font_color", Color(0.22, 0.12, 0.04, 1.0))
+	if med_bold != null:
+		speaker_label.add_theme_font_override("font", med_bold)
+	elif med_font != null:
+		speaker_label.add_theme_font_override("font", med_font)
+	speaker_label.add_theme_font_size_override("font_size", 14)
+	speaker_label.add_theme_color_override("font_color", Color(0.18, 0.12, 0.06, 1.0))
 	speaker_label.add_theme_color_override("font_outline_color", Color(1.0, 0.96, 0.88, 0.95))
-	speaker_label.add_theme_constant_override("outline_size", 2)
+	speaker_label.add_theme_constant_override("outline_size", 1)
 	speaker_badge.add_child(speaker_label)
 	vbox.add_child(speaker_badge)
 	speaker_badge.visible = false
 
 	# Text Label (Rich fantasy ink on warm parchment)
 	text_label = Label.new()
-	var med_font := Assets.font(Assets.FONT_MEDIEVAL)
-	var med_bold := Assets.font_bold(Assets.FONT_MEDIEVAL, 0.35)
 	if med_bold != null:
 		text_label.add_theme_font_override("font", med_bold)
 	elif med_font != null:
@@ -550,16 +590,22 @@ func _layout_dialogue() -> void:
 
 func _build_prompt() -> void:
 	prompt_panel = PanelContainer.new()
-	var pstyle := _make_stylebox_texture(Assets.UI_RIBBON_YELLOW, 48.0, 8.0, 48.0, 14.0, 26.0, 5.0, 26.0, 7.0)
+	var pstyle := _make_stylebox_texture(Assets.UI_CARVED_9SLIDES, 24.0, 24.0, 24.0, 24.0, 24.0, 8.0, 24.0, 8.0)
 	prompt_panel.add_theme_stylebox_override("panel", pstyle)
 	prompt_panel.mouse_filter = Control.MOUSE_FILTER_IGNORE
 
 	prompt_label = Label.new()
-	prompt_label.add_theme_font_size_override("font_size", 14)
-	prompt_label.add_theme_color_override("font_color", Color(0.20, 0.12, 0.04, 1.0))
+	var med_bold := Assets.font_bold(Assets.FONT_MEDIEVAL, 0.35)
+	if med_bold != null:
+		prompt_label.add_theme_font_override("font", med_bold)
+	elif Assets.font(Assets.FONT_MEDIEVAL) != null:
+		prompt_label.add_theme_font_override("font", Assets.font(Assets.FONT_MEDIEVAL))
+	prompt_label.add_theme_font_size_override("font_size", 15)
+	prompt_label.add_theme_color_override("font_color", Color(0.18, 0.12, 0.06, 1.0))
 	prompt_label.add_theme_color_override("font_outline_color", Color(1.0, 0.96, 0.88, 0.95))
-	prompt_label.add_theme_constant_override("outline_size", 2)
+	prompt_label.add_theme_constant_override("outline_size", 1)
 	prompt_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	prompt_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 	prompt_panel.add_child(prompt_label)
 	root_ui.add_child(prompt_panel)
 	prompt_panel.visible = false
@@ -575,12 +621,13 @@ func _layout_prompt() -> void:
 	prompt_panel.anchor_top = 1.0
 	prompt_panel.anchor_bottom = 1.0
 	prompt_panel.reset_size()
-	var pw: float = maxf(prompt_panel.size.x, 160.0)
+	var pw: float = maxf(prompt_panel.size.x + 36.0, 220.0)
+	var ph: float = maxf(prompt_panel.size.y, 44.0)
 	var half_w: float = pw * 0.5
 	prompt_panel.offset_left = -half_w
 	prompt_panel.offset_right = half_w
-	prompt_panel.offset_top = -196.0
-	prompt_panel.offset_bottom = -158.0
+	prompt_panel.offset_top = -140.0 - ph
+	prompt_panel.offset_bottom = -140.0
 
 
 # --- Adventurer's Bag (Tiny Swords Rustic Inventory Modal at 'B') ---------
@@ -810,13 +857,18 @@ func _build_bag_modal() -> void:
 	port_frame.add_child(avatar)
 	port_vbox.add_child(port_frame)
 
+	var med_bold := Assets.font_bold(Assets.FONT_MEDIEVAL, 0.35)
+	var med_font := Assets.font(Assets.FONT_MEDIEVAL)
+
 	var name_lbl := Label.new()
 	name_lbl.text = "Snowy"
+	if med_bold != null:
+		name_lbl.add_theme_font_override("font", med_bold)
 	name_lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	name_lbl.add_theme_font_size_override("font_size", 13)
+	name_lbl.add_theme_font_size_override("font_size", 14)
 	name_lbl.add_theme_color_override("font_color", Color(0.38, 0.20, 0.08, 1.0))
 	name_lbl.add_theme_color_override("font_outline_color", Color(1, 0.95, 0.85, 0.9))
-	name_lbl.add_theme_constant_override("outline_size", 2)
+	name_lbl.add_theme_constant_override("outline_size", 1)
 	port_vbox.add_child(name_lbl)
 	equip_hbox.add_child(port_vbox)
 
@@ -864,13 +916,19 @@ func _build_bag_modal() -> void:
 
 	inspect_title = Label.new()
 	inspect_title.text = "Mossveil Farm & Caverns"
-	inspect_title.add_theme_font_size_override("font_size", 15)
+	if med_bold != null:
+		inspect_title.add_theme_font_override("font", med_bold)
+	elif med_font != null:
+		inspect_title.add_theme_font_override("font", med_font)
+	inspect_title.add_theme_font_size_override("font_size", 16)
 	inspect_title.add_theme_color_override("font_color", Color(0.38, 0.18, 0.06, 1.0))
 	titles_vbox.add_child(inspect_title)
 
 	inspect_badge = Label.new()
 	inspect_badge.text = "◆ ADVENTURE LEVEL 1 • DAY 7 OF FALL ◆"
-	inspect_badge.add_theme_font_size_override("font_size", 10)
+	if med_font != null:
+		inspect_badge.add_theme_font_override("font", med_font)
+	inspect_badge.add_theme_font_size_override("font_size", 11)
 	inspect_badge.add_theme_color_override("font_color", Color(0.68, 0.36, 0.12, 1.0))
 	titles_vbox.add_child(inspect_badge)
 	header_hbox.add_child(titles_vbox)
@@ -878,8 +936,10 @@ func _build_bag_modal() -> void:
 
 	inspect_desc = Label.new()
 	inspect_desc.text = "Your Funds: 1,250g\nFarm Value: 387,770g\nDay 7 of Fall, Year 1"
+	if med_font != null:
+		inspect_desc.add_theme_font_override("font", med_font)
 	inspect_desc.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	inspect_desc.add_theme_font_size_override("font_size", 12)
+	inspect_desc.add_theme_font_size_override("font_size", 13)
 	inspect_desc.add_theme_color_override("font_color", Color(0.34, 0.18, 0.06, 0.95))
 	inspect_desc.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	ivbox.add_child(inspect_desc)
@@ -952,14 +1012,19 @@ func _on_inventory_changed() -> void:
 
 func _build_toast() -> void:
 	toast_panel = PanelContainer.new()
-	var style := _make_stylebox_texture(Assets.UI_RIBBON_YELLOW, 48.0, 8.0, 48.0, 14.0, 30.0, 6.0, 30.0, 8.0)
+	var style := _make_stylebox_texture(Assets.UI_CARVED_9SLIDES, 24.0, 24.0, 24.0, 24.0, 24.0, 8.0, 24.0, 8.0)
 	toast_panel.add_theme_stylebox_override("panel", style)
 
 	toast_label = Label.new()
-	toast_label.add_theme_font_size_override("font_size", 14)
-	toast_label.add_theme_color_override("font_color", Color(0.20, 0.12, 0.04, 1.0))
+	var med_bold := Assets.font_bold(Assets.FONT_MEDIEVAL, 0.35)
+	if med_bold != null:
+		toast_label.add_theme_font_override("font", med_bold)
+	elif Assets.font(Assets.FONT_MEDIEVAL) != null:
+		toast_label.add_theme_font_override("font", Assets.font(Assets.FONT_MEDIEVAL))
+	toast_label.add_theme_font_size_override("font_size", 15)
+	toast_label.add_theme_color_override("font_color", Color(0.18, 0.12, 0.06, 1.0))
 	toast_label.add_theme_color_override("font_outline_color", Color(1.0, 0.96, 0.88, 0.95))
-	toast_label.add_theme_constant_override("outline_size", 2)
+	toast_label.add_theme_constant_override("outline_size", 1)
 	toast_panel.add_child(toast_label)
 
 	root_ui.add_child(toast_panel)
@@ -1080,7 +1145,7 @@ func _render_current_line() -> void:
 		var split := line.split(":", true, 1)
 		var tag := split[0].strip_edges()
 		var tag_l := tag.to_lower()
-		if tag_l == "snowy" or tag_l == "arjun" or tag_l == "kitsu" or tag_l.contains("guard") or tag_l.contains("alden") or (not tag.contains(" ") and tag.length() <= 20 and not tag.is_empty()):
+		if tag_l == current_spk.to_lower() or tag_l == "snowy" or tag_l == "arjun" or tag_l == "kitsu" or tag_l.contains("guard") or tag_l.contains("alden") or tag.length() <= 25:
 			current_spk = tag
 			display_text = split[1].strip_edges()
 		elif _speaker.is_empty() and tag.length() <= 25:
