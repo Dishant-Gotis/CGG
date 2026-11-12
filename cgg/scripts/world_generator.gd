@@ -163,27 +163,24 @@ func _ready() -> void:
 
 	# =========================================================================
 	# ZONE 1: SNOWY'S COASTAL HAVEN (West, X: 150-900, Y: 850-1300)
+	# Clean, spacious starting haven with clear sightlines on the player
 	# =========================================================================
 	_add_building(objects, world, bld_sc, 0, Vector2(380, 960), "SnowyCottage")
 	_add_prop(objects, world, "res://assets/props/fence_long.png", Vector2(300, 1030), Vector2(120, 20), Vector2(0, -10))
-	_add_prop(objects, world, "res://assets/props/fence_medium.png", Vector2(460, 1030), Vector2(70, 20), Vector2(0, -10))
-	_add_prop(objects, world, "res://assets/props/barrel_wood.png", Vector2(460, 970), Vector2(24, 24), Vector2(0, -5))
-	_add_prop(objects, world, "res://assets/props/barrel_sack.png", Vector2(490, 970), Vector2(24, 24), Vector2(0, -5))
+	_add_prop(objects, world, "res://assets/props/fence_medium.png", Vector2(480, 1000), Vector2(70, 20), Vector2(0, -10))
+	_add_prop(objects, world, "res://assets/props/barrel_wood.png", Vector2(470, 960), Vector2(24, 24), Vector2(0, -5))
+	_add_prop(objects, world, "res://assets/props/barrel_sack.png", Vector2(500, 960), Vector2(24, 24), Vector2(0, -5))
 
 	# Fishing Pier extending into west sea
 	_add_prop(objects, world, "res://assets/props/wooden_bridge_pier.png", Vector2(170, 1040), Vector2(130, 30), Vector2(0, -15))
 	_add_prop(objects, world, "res://assets/props/barrel_wood.png", Vector2(160, 1010), Vector2(24, 24), Vector2(0, -5))
 
-	# Trees & nature around cottage
-	_add_tree(objects, world, tree_sc, 1, Vector2(260, 880))
-	_add_tree(objects, world, tree_sc, 2, Vector2(520, 860))
-	_add_tree(objects, world, tree_sc, 3, Vector2(250, 1180))
-	_add_tree(objects, world, tree_sc, 4, Vector2(560, 1180))
-	_add_bush(objects, world, bush_sc, 1, Vector2(340, 1040))
-	_add_bush(objects, world, bush_sc, 2, Vector2(430, 1040))
-	_add_bush(objects, world, bush_sc, 3, Vector2(210, 940))
-	_add_prop(objects, world, "res://Tiny Swords (Update 010)/Decoration/10.png", Vector2(360, 1070))
-	_add_prop(objects, world, "res://Tiny Swords (Update 010)/Decoration/11.png", Vector2(440, 1070))
+	# Trees framing the haven safely behind and to the sides (NO overlap with player spawn or road)
+	_add_tree(objects, world, tree_sc, 1, Vector2(240, 840)) # NW of house
+	_add_tree(objects, world, tree_sc, 2, Vector2(540, 840)) # NE of house
+	_add_tree(objects, world, tree_sc, 3, Vector2(200, 1180)) # West by shore
+	_add_bush(objects, world, bush_sc, 1, Vector2(230, 1030)) # By garden fence
+	_add_prop(objects, world, "res://Tiny Swords (Update 010)/Decoration/07.png", Vector2(320, 1010))
 
 	# West Coastline Foam & Splash Rocks
 	_add_water_foam(objects, world, foam_sc, Vector2(130, 850))
@@ -192,25 +189,18 @@ func _ready() -> void:
 	_add_water_rock(objects, world, wrock_sc, 1, Vector2(100, 920))
 	_add_water_rock(objects, world, wrock_sc, 2, Vector2(90, 1120))
 
-	# Highway to Crossroads & Sign
-	_add_tree(objects, world, tree_sc, 1, Vector2(740, 920))
-	_add_tree(objects, world, tree_sc, 2, Vector2(920, 930))
-	_add_tree(objects, world, tree_sc, 3, Vector2(740, 1180))
-	_add_tree(objects, world, tree_sc, 4, Vector2(920, 1180))
-	_add_tree(objects, world, tree_sc, 1, Vector2(580, 880))
-	_add_tree(objects, world, tree_sc, 2, Vector2(480, 1150))
-	_add_tree(objects, world, tree_sc, 3, Vector2(300, 860))
-	_add_tree(objects, world, tree_sc, 4, Vector2(180, 1180))
-	_add_bush(objects, world, bush_sc, 1, Vector2(860, 1060))
-	_add_bush(objects, world, bush_sc, 2, Vector2(680, 1060))
-	_add_bush(objects, world, bush_sc, 3, Vector2(520, 1100))
-	_add_bush(objects, world, bush_sc, 4, Vector2(340, 1080))
-	_add_prop(objects, world, "res://Game Assets(NEW)/Terrain/Decorations/Rocks/Rock1.png", Vector2(800, 1100))
+	# Highway to Crossroads & Sign (Trees safely at least 150px away from road edges)
+	_add_tree(objects, world, tree_sc, 1, Vector2(740, 880)) # North of road
+	_add_tree(objects, world, tree_sc, 2, Vector2(940, 880)) # North of road
+	_add_tree(objects, world, tree_sc, 3, Vector2(740, 1260)) # South of road
+	_add_tree(objects, world, tree_sc, 4, Vector2(940, 1260)) # South of road
+	_add_bush(objects, world, bush_sc, 2, Vector2(840, 960))
+	_add_bush(objects, world, bush_sc, 3, Vector2(840, 1160))
+	_add_prop(objects, world, "res://Game Assets(NEW)/Terrain/Decorations/Rocks/Rock1.png", Vector2(800, 1140))
 	_add_prop(objects, world, "res://Game Assets(NEW)/Terrain/Decorations/Rocks/Rock2.png", Vector2(620, 910))
-	_add_prop(objects, world, "res://Game Assets(NEW)/Terrain/Decorations/Rocks/Rock3.png", Vector2(250, 1160))
-	_add_prop(objects, world, "res://Tiny Swords (Update 010)/Decoration/07.png", Vector2(760, 1050))
-	_add_prop(objects, world, "res://Tiny Swords (Update 010)/Decoration/08.png", Vector2(900, 1050))
-	_add_prop(objects, world, "res://assets/props/lantern_post.png", Vector2(740, 1000), Vector2(16, 16), Vector2(0, -6))
+	_add_prop(objects, world, "res://Tiny Swords (Update 010)/Decoration/07.png", Vector2(760, 970))
+	_add_prop(objects, world, "res://Tiny Swords (Update 010)/Decoration/08.png", Vector2(900, 970))
+	_add_prop(objects, world, "res://assets/props/lantern_post.png", Vector2(740, 980), Vector2(16, 16), Vector2(0, -6))
 	_add_sign(objects, world, Vector2(1100, 1000), "CrossroadsSign", [
 		"Oakhaven Crossroads Signpost:",
 		"⬆ North: High Mountain Pass & Combat Training Grounds",
@@ -274,7 +264,7 @@ func _ready() -> void:
 	# Beautiful, breathable woodland between X: 150-1150, Y: 1250-2150
 	# =========================================================================
 	var sw_trees := [
-		Vector2(220, 1340), Vector2(440, 1310), Vector2(660, 1330), Vector2(880, 1310), Vector2(1050, 1330),
+		Vector2(220, 1340), Vector2(440, 1400), Vector2(660, 1330), Vector2(880, 1310), Vector2(1050, 1330),
 		Vector2(320, 1480), Vector2(540, 1460), Vector2(760, 1490), Vector2(960, 1470),
 		Vector2(200, 1620), Vector2(380, 1650), Vector2(600, 1620), Vector2(820, 1650), Vector2(1040, 1630),
 		Vector2(280, 1800), Vector2(480, 1780), Vector2(700, 1810), Vector2(900, 1790), Vector2(1060, 1810),
