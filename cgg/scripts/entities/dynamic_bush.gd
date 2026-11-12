@@ -1,5 +1,6 @@
 extends StaticBody2D
 ## Dynamic Animated Bush (rustling foliage)
+## Grounded pixel-accurately at local y = 0.0 with trunk collision.
 
 @export_range(1, 4) var bush_type: int = 1
 
@@ -21,11 +22,14 @@ func _ready() -> void:
 		anim.frame = randi() % 8
 		anim.play("default")
 
-	anim.position = Vector2(0, -24)
+	# Bush bottom edge in 128px frame is at y ≈ 80.
+	# 128 * 0.5 - 80 = -16.0 grounds the base at local y = 0.0
+	anim.position = Vector2(0, -16)
 
 	if col != null:
-		var circle := CircleShape2D.new()
-		circle.radius = 16.0
-		col.shape = circle
-		col.position = Vector2(0, -6)
-
+		var cap := CapsuleShape2D.new()
+		cap.radius = 10.0
+		cap.height = 28.0
+		col.shape = cap
+		col.rotation = PI * 0.5
+		col.position = Vector2(0, -10)

@@ -1,5 +1,6 @@
 extends StaticBody2D
 ## Dynamic Medieval Building (Houses, Castle, Towers with Archer)
+## Grounded pixel-accurately at local y = 0.0 with footprint collision.
 
 enum BuildingType {
 	HOUSE_1,
@@ -21,51 +22,51 @@ enum BuildingType {
 
 func _ready() -> void:
 	var path: String = ""
-	var col_size: Vector2 = Vector2(80, 50)
-	var col_offset_y: float = -25.0
-	var sprite_offset_y: float = -96.0
+	var col_size: Vector2 = Vector2(88, 54)
+	var col_offset_y: float = -27.0
+	var sprite_offset_y: float = -77.0
 
 	match building_type:
 		BuildingType.HOUSE_1:
 			path = Assets.BUILDING_HOUSE_1
 			col_size = Vector2(88, 54)
 			col_offset_y = -27.0
-			sprite_offset_y = -96.0
+			sprite_offset_y = -77.0
 		BuildingType.HOUSE_2:
 			path = Assets.BUILDING_HOUSE_2
 			col_size = Vector2(88, 54)
 			col_offset_y = -27.0
-			sprite_offset_y = -96.0
+			sprite_offset_y = -82.0
 		BuildingType.HOUSE_3:
 			path = Assets.BUILDING_HOUSE_3
 			col_size = Vector2(88, 54)
 			col_offset_y = -27.0
-			sprite_offset_y = -96.0
+			sprite_offset_y = -76.0
 		BuildingType.CASTLE:
 			path = Assets.BUILDING_CASTLE
 			col_size = Vector2(240, 80)
 			col_offset_y = -40.0
-			sprite_offset_y = -128.0
+			sprite_offset_y = -121.0
 		BuildingType.TOWER:
 			path = Assets.BUILDING_TOWER
 			col_size = Vector2(72, 54)
 			col_offset_y = -27.0
-			sprite_offset_y = -128.0
+			sprite_offset_y = -102.0
 		BuildingType.MONASTERY:
 			path = Assets.BUILDING_MONASTERY
 			col_size = Vector2(180, 80)
 			col_offset_y = -40.0
-			sprite_offset_y = -160.0
+			sprite_offset_y = -150.0
 		BuildingType.ARCHERY:
 			path = Assets.BUILDING_ARCHERY
 			col_size = Vector2(130, 60)
 			col_offset_y = -30.0
-			sprite_offset_y = -128.0
+			sprite_offset_y = -112.0
 		BuildingType.BARRACKS:
 			path = Assets.BUILDING_BARRACKS
 			col_size = Vector2(130, 60)
 			col_offset_y = -30.0
-			sprite_offset_y = -128.0
+			sprite_offset_y = -117.0
 
 	sprite.texture = Assets.tex(path)
 	sprite.position = Vector2(0, sprite_offset_y)
@@ -80,11 +81,10 @@ func _ready() -> void:
 		var archer_sf := Assets.sprite_frames(Assets.ARCHER_BLUE_IDLE, 192, 192, 6, 5.0)
 		if archer_sf != null:
 			tower_archer.sprite_frames = archer_sf
-			tower_archer.position = Vector2(0, -188)
+			tower_archer.position = Vector2(0, -162)
 			tower_archer.speed_scale = randf_range(0.9, 1.1)
 			tower_archer.play("default")
 			tower_archer.visible = true
 	else:
 		if tower_archer != null:
 			tower_archer.visible = false
-

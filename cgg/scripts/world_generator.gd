@@ -234,8 +234,8 @@ func _ready() -> void:
 		nw_b_idx += 1
 
 	# Mountain Ridge Overlook with Camp Bench and Wildflowers
-	_add_prop(objects, world, "res://Game Assets(NEW)/Terrain/Resources/Wood/Trees/Stump 4.png", Vector2(620, 420), Vector2(30, 20), Vector2(0, -5))
-	_add_prop(objects, world, "res://Game Assets(NEW)/Terrain/Resources/Tools/Tool_04.png", Vector2(635, 415))
+	_add_prop(objects, world, "res://assets/props/stump_4.png", Vector2(620, 420), Vector2(26, 18), Vector2(0, -9))
+	_add_prop(objects, world, "res://assets/props/tool_04.png", Vector2(635, 415))
 	_add_prop(objects, world, "res://assets/props/lantern_post.png", Vector2(580, 430), Vector2(16, 16), Vector2(0, -6))
 	_add_prop(objects, world, "res://Tiny Swords (Update 010)/Decoration/07.png", Vector2(660, 430))
 	_add_prop(objects, world, "res://Tiny Swords (Update 010)/Decoration/08.png", Vector2(550, 440))
@@ -295,9 +295,9 @@ func _ready() -> void:
 	_add_prop(objects, world, "res://Game Assets(NEW)/Terrain/Decorations/Rocks/Rock2.png", Vector2(950, 1910))
 
 	# Woodcutter's Secluded Camp & Fairy Circle in the Woods
-	_add_prop(objects, world, "res://Game Assets(NEW)/Terrain/Resources/Wood/Trees/Stump 3.png", Vector2(500, 1600), Vector2(30, 20), Vector2(0, -5))
-	_add_prop(objects, world, "res://Game Assets(NEW)/Terrain/Resources/Tools/Tool_03.png", Vector2(515, 1595))
-	_add_prop(objects, world, "res://assets/props/crate_wood.png", Vector2(540, 1600), Vector2(30, 20), Vector2(0, -5))
+	_add_prop(objects, world, "res://assets/props/stump_3.png", Vector2(500, 1600), Vector2(24, 20), Vector2(0, -10))
+	_add_prop(objects, world, "res://assets/props/tool_03.png", Vector2(515, 1595))
+	_add_prop(objects, world, "res://assets/props/wood_log.png", Vector2(540, 1600), Vector2(40, 18), Vector2(0, -9))
 	# Magical Mushroom Ring
 	_add_prop(objects, world, "res://Tiny Swords (Update 010)/Decoration/01.png", Vector2(700, 1600))
 	_add_prop(objects, world, "res://Tiny Swords (Update 010)/Decoration/02.png", Vector2(730, 1585))
@@ -325,9 +325,9 @@ func _ready() -> void:
 	_add_building(objects, world, bld_sc, 4, Vector2(1850, 360), "TrainingTower")
 	_add_building(objects, world, bld_sc, 6, Vector2(2250, 380), "ArcheryRange")
 	_add_prop(objects, world, "res://assets/props/lantern_post.png", Vector2(1780, 480), Vector2(16, 16), Vector2(0, -6))
-	_add_prop(objects, world, "res://Game Assets(NEW)/Terrain/Resources/Wood/Trees/Stump 1.png", Vector2(2150, 470), Vector2(30, 20), Vector2(0, -5))
-	_add_prop(objects, world, "res://Game Assets(NEW)/Terrain/Resources/Tools/Tool_01.png", Vector2(2170, 465))
-	_add_prop(objects, world, "res://assets/props/crate_wood.png", Vector2(2200, 470), Vector2(30, 20), Vector2(0, -5))
+	_add_prop(objects, world, "res://assets/props/stump_1.png", Vector2(2150, 470), Vector2(36, 22), Vector2(0, -11))
+	_add_prop(objects, world, "res://assets/props/tool_01.png", Vector2(2170, 465))
+	_add_prop(objects, world, "res://assets/props/wood_log.png", Vector2(2200, 470), Vector2(40, 18), Vector2(0, -9))
 
 	_add_tree(objects, world, tree_sc, 1, Vector2(1400, 260))
 	_add_tree(objects, world, tree_sc, 2, Vector2(1600, 250))
@@ -369,9 +369,9 @@ func _ready() -> void:
 	# Fills vast empty northern plateau with pine wilderness, ruined watchtower & bandit campsite
 	# =========================================================================
 	_add_building(objects, world, bld_sc, 4, Vector2(3350, 360), "WildernessWatchtower")
-	_add_prop(objects, world, "res://Game Assets(NEW)/Terrain/Resources/Wood/Trees/Stump 1.png", Vector2(3440, 420), Vector2(30, 20), Vector2(0, -5))
-	_add_prop(objects, world, "res://Game Assets(NEW)/Terrain/Resources/Tools/Tool_01.png", Vector2(3455, 415))
-	_add_prop(objects, world, "res://assets/props/crate_wood.png", Vector2(3480, 420), Vector2(30, 20), Vector2(0, -5))
+	_add_prop(objects, world, "res://assets/props/stump_1.png", Vector2(3440, 420), Vector2(36, 22), Vector2(0, -11))
+	_add_prop(objects, world, "res://assets/props/tool_01.png", Vector2(3455, 415))
+	_add_prop(objects, world, "res://assets/props/wood_log.png", Vector2(3480, 420), Vector2(40, 18), Vector2(0, -9))
 	_add_prop(objects, world, "res://assets/props/barrel_wood.png", Vector2(3260, 410), Vector2(24, 24), Vector2(0, -5))
 	_add_prop(objects, world, "res://assets/props/lantern_post.png", Vector2(3350, 440), Vector2(16, 16), Vector2(0, -6))
 	_add_enemy(objects, world, torch_sc, Vector2(3420, 460))
@@ -454,9 +454,9 @@ func _ready() -> void:
 
 	# Ravi's Woodcraft Workshop (South-West Village)
 	_add_building(objects, world, bld_sc, 7, Vector2(1980, 1260), "BarracksWorkshop")
-	_add_prop(objects, world, "res://assets/props/crate_wood.png", Vector2(2060, 1310), Vector2(30, 24), Vector2(0, -8))
-	_add_prop(objects, world, "res://Game Assets(NEW)/Terrain/Resources/Wood/Trees/Stump 2.png", Vector2(2100, 1315), Vector2(30, 20), Vector2(0, -5))
-	_add_prop(objects, world, "res://Game Assets(NEW)/Terrain/Resources/Tools/Tool_02.png", Vector2(2110, 1310))
+	_add_prop(objects, world, "res://assets/props/wood_log.png", Vector2(2060, 1310), Vector2(40, 18), Vector2(0, -9))
+	_add_prop(objects, world, "res://assets/props/stump_2.png", Vector2(2100, 1315), Vector2(36, 20), Vector2(0, -10))
+	_add_prop(objects, world, "res://assets/props/tool_02.png", Vector2(2110, 1310))
 	_add_prop(objects, world, "res://assets/props/barrel_wood.png", Vector2(2140, 1310), Vector2(24, 24), Vector2(0, -5))
 	var ravi_sc: PackedScene = load("res://scenes/npc_ravi.tscn")
 	var ravi := ravi_sc.instantiate()
@@ -1026,13 +1026,13 @@ func _add_sign(parent: Node2D, owner_node: Node, pos: Vector2, sname: String, li
 
 	var spr := Sprite2D.new()
 	spr.texture = load("res://Tiny Swords (Update 010)/Decoration/17.png")
-	spr.position = Vector2(0, -32)
+	spr.position = Vector2(0, -41)
 	sign_node.add_child(spr)
 	spr.owner = owner_node
 
 	var col := CollisionShape2D.new()
 	var shape := CircleShape2D.new()
-	shape.radius = 24.0
+	shape.radius = 16.0
 	col.shape = shape
 	col.position = Vector2(0, -10)
 	sign_node.add_child(col)
@@ -1062,7 +1062,10 @@ func _add_prop(parent: Node2D, owner_node: Node, tex_path: String, pos: Vector2,
 		var shape := RectangleShape2D.new()
 		shape.size = col_size
 		col.shape = shape
-		col.position = col_offset
+		if col_offset == Vector2.ZERO:
+			col.position = Vector2(0, -col_size.y * 0.5)
+		else:
+			col.position = col_offset
 		body.add_child(col)
 		col.owner = owner_node
 
@@ -1070,7 +1073,8 @@ func _add_prop(parent: Node2D, owner_node: Node, tex_path: String, pos: Vector2,
 	else:
 		var spr := Sprite2D.new()
 		spr.texture = tex
-		spr.position = pos + Vector2(0, -tex.get_height() * 0.5)
+		spr.position = pos
+		spr.offset = Vector2(0, -tex.get_height() * 0.5)
 		spr.z_index = z_idx
 		parent.add_child(spr)
 		spr.owner = owner_node

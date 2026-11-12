@@ -400,14 +400,12 @@ size = Vector2(18, 30)
 radius = 42.0
 
 [node name="player" type="CharacterBody2D" unique_id=966946389 groups=["player"]]
-y_sort_enabled = true
 collision_layer = 2
 collision_mask = 5
 script = ExtResource("2_plr")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1438464193]
-y_sort_enabled = true
-position = Vector2(-1.9999924, -43)
+position = Vector2(-2, -62)
 scale = Vector2(3.195833, 3.2583332)
 sprite_frames = SubResource("SpriteFrames_htemk")
 animation = &"back_attack"
@@ -440,7 +438,7 @@ collision_layer = 128
 collision_mask = 32
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox" unique_id=348435813]
-position = Vector2(0, -15)
+position = Vector2(0, -32)
 shape = SubResource("ShapeHurt")
 
 [node name="InteractProbe" type="Area2D" parent="." unique_id=568070470]
@@ -448,7 +446,7 @@ collision_layer = 0
 collision_mask = 64
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="InteractProbe" unique_id=1591335474]
-position = Vector2(0, -16)
+position = Vector2(0, -24)
 shape = SubResource("ShapeProbe")
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
