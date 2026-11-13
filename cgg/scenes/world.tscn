@@ -1,77 +1,64 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://dpfpigokcdnd7"]
 
-[ext_resource type="Script" path="res://scripts/world.gd" id="1_r5yoc"]
-[ext_resource type="Texture2D" path="res://Game Assets(NEW)/Terrain/Tileset/Water Background color.png" id="2_1m1ue"]
-[ext_resource type="Texture2D" path="res://Game Assets(NEW)/Terrain/Tileset/Tilemap_color1.png" id="3_ntuqo"]
-[ext_resource type="Texture2D" path="res://Tiny Swords (Update 010)/Terrain/Ground/Tilemap_Flat.png" id="4_ca4ee"]
-[ext_resource type="Texture2D" path="res://Tiny Swords (Update 010)/Terrain/Bridge/Bridge_All.png" id="5_qaasp"]
-[ext_resource type="PackedScene" path="res://scenes/player.tscn" id="6_1v02h"]
-[ext_resource type="Script" path="res://scripts/entities/player.gd" id="7_shehe"]
+[ext_resource type="Script" uid="uid://dvkatp8s5segm" path="res://scripts/world.gd" id="1_r5yoc"]
+[ext_resource type="Texture2D" uid="uid://cy3egabii2hd7" path="res://Game Assets(NEW)/Terrain/Tileset/Water Background color.png" id="2_1m1ue"]
+[ext_resource type="Texture2D" uid="uid://cfpu0avtdo6uy" path="res://Game Assets(NEW)/Terrain/Tileset/Tilemap_color1.png" id="3_ntuqo"]
+[ext_resource type="Texture2D" uid="uid://crapxxst81bxq" path="res://Tiny Swords (Update 010)/Terrain/Ground/Tilemap_Flat.png" id="4_ca4ee"]
+[ext_resource type="Texture2D" uid="uid://qw5n2pucyq8d" path="res://Tiny Swords (Update 010)/Terrain/Bridge/Bridge_All.png" id="5_qaasp"]
+[ext_resource type="PackedScene" uid="uid://0sam6i1k5f6e" path="res://scenes/player.tscn" id="6_1v02h"]
 [ext_resource type="PackedScene" path="res://scenes/companion_fox.tscn" id="8_l137e"]
-[ext_resource type="Script" path="res://scripts/entities/companion.gd" id="9_ygn2i"]
-[ext_resource type="PackedScene" path="res://scenes/npc_kitsu.tscn" id="10_swu3i"]
-[ext_resource type="Script" path="res://scripts/entities/npc.gd" id="11_oexs8"]
+[ext_resource type="PackedScene" uid="uid://bncfaxckolqto" path="res://scenes/npc_kitsu.tscn" id="10_swu3i"]
 [ext_resource type="PackedScene" path="res://scenes/entities/dynamic_building.tscn" id="12_n78cu"]
-[ext_resource type="Script" path="res://scripts/entities/dynamic_building.gd" id="13_kcpaj"]
-[ext_resource type="Texture2D" path="res://assets/props/barrel_wood.png" id="14_c15v2"]
-[ext_resource type="Texture2D" path="res://assets/props/barrel_sack.png" id="15_grmox"]
-[ext_resource type="Texture2D" path="res://assets/props/wooden_bridge_pier.png" id="16_xgy6y"]
+[ext_resource type="Texture2D" uid="uid://b6qq0dwkt3p7s" path="res://assets/props/barrel_wood.png" id="14_c15v2"]
+[ext_resource type="Texture2D" uid="uid://7yujt368rh7n" path="res://assets/props/barrel_sack.png" id="15_grmox"]
+[ext_resource type="Texture2D" uid="uid://cjbu8qfrev23h" path="res://assets/props/wooden_bridge_pier.png" id="16_xgy6y"]
 [ext_resource type="PackedScene" path="res://scenes/entities/dynamic_tree.tscn" id="17_kvmu4"]
-[ext_resource type="Script" path="res://scripts/entities/dynamic_tree.gd" id="18_5p8eo"]
 [ext_resource type="PackedScene" path="res://scenes/entities/dynamic_bush.tscn" id="19_gny1c"]
-[ext_resource type="Script" path="res://scripts/entities/dynamic_bush.gd" id="20_frq1x"]
-[ext_resource type="Texture2D" path="res://Tiny Swords (Update 010)/Decoration/07.png" id="21_mlb8o"]
+[ext_resource type="Texture2D" uid="uid://bcmhtmar02ij" path="res://Tiny Swords (Update 010)/Decoration/07.png" id="21_mlb8o"]
 [ext_resource type="PackedScene" path="res://scenes/entities/dynamic_water_foam.tscn" id="22_ebmc1"]
-[ext_resource type="Script" path="res://scripts/entities/dynamic_water_foam.gd" id="23_8xaka"]
 [ext_resource type="PackedScene" path="res://scenes/entities/dynamic_water_rock.tscn" id="24_n6seq"]
-[ext_resource type="Script" path="res://scripts/entities/dynamic_water_rock.gd" id="25_ufs10"]
-[ext_resource type="Texture2D" path="res://assets/props/lantern_post.png" id="26_h5nhj"]
-[ext_resource type="Script" path="res://scripts/entities/world_sign.gd" id="27_q6do4"]
-[ext_resource type="Texture2D" path="res://Tiny Swords (Update 010)/Decoration/17.png" id="28_pb8sg"]
-[ext_resource type="Texture2D" path="res://Game Assets(NEW)/Terrain/Decorations/Rocks/Rock1.png" id="29_ce70q"]
-[ext_resource type="Texture2D" path="res://Game Assets(NEW)/Terrain/Decorations/Rocks/Rock2.png" id="30_odf6h"]
-[ext_resource type="Texture2D" path="res://Game Assets(NEW)/Terrain/Decorations/Rocks/Rock3.png" id="31_mu18u"]
-[ext_resource type="Texture2D" path="res://Game Assets(NEW)/Terrain/Decorations/Rocks/Rock4.png" id="32_7b7y8"]
-[ext_resource type="Texture2D" path="res://Tiny Swords (Update 010)/Decoration/08.png" id="33_wui3h"]
-[ext_resource type="Texture2D" path="res://assets/props/stump_3.png" id="34_qetcs"]
-[ext_resource type="Texture2D" path="res://assets/props/wood_log.png" id="35_gw1vw"]
-[ext_resource type="Texture2D" path="res://assets/props/stump_4.png" id="36_xiw03"]
-[ext_resource type="Texture2D" path="res://assets/props/tool_04.png" id="37_xullu"]
-[ext_resource type="PackedScene" path="res://scenes/enemy.tscn" id="38_pwx6t"]
-[ext_resource type="Script" path="res://scripts/entities/enemy.gd" id="39_tjdyg"]
-[ext_resource type="Texture2D" path="res://assets/props/tool_03.png" id="40_0fl76"]
-[ext_resource type="Texture2D" path="res://Tiny Swords (Update 010)/Decoration/01.png" id="41_ld7xo"]
-[ext_resource type="Texture2D" path="res://Tiny Swords (Update 010)/Decoration/02.png" id="42_l4n3p"]
-[ext_resource type="Texture2D" path="res://Tiny Swords (Update 010)/Decoration/03.png" id="43_fmmry"]
-[ext_resource type="Texture2D" path="res://assets/props/stump_1.png" id="44_26qbd"]
-[ext_resource type="Texture2D" path="res://assets/props/tool_01.png" id="45_optxr"]
+[ext_resource type="Texture2D" uid="uid://coc1yu812q2vc" path="res://assets/props/lantern_post.png" id="26_h5nhj"]
+[ext_resource type="Script" uid="uid://b2nii1xbrjtaw" path="res://scripts/entities/world_sign.gd" id="27_q6do4"]
+[ext_resource type="Texture2D" uid="uid://j2hne65xegxt" path="res://Tiny Swords (Update 010)/Decoration/17.png" id="28_pb8sg"]
+[ext_resource type="Texture2D" uid="uid://ds6awh5ujjq5v" path="res://Game Assets(NEW)/Terrain/Decorations/Rocks/Rock1.png" id="29_ce70q"]
+[ext_resource type="Texture2D" uid="uid://reljaibu20ew" path="res://Game Assets(NEW)/Terrain/Decorations/Rocks/Rock2.png" id="30_odf6h"]
+[ext_resource type="Texture2D" uid="uid://b40basgm6sj4v" path="res://Game Assets(NEW)/Terrain/Decorations/Rocks/Rock3.png" id="31_mu18u"]
+[ext_resource type="Texture2D" uid="uid://d2kqfjf6x8x5i" path="res://Game Assets(NEW)/Terrain/Decorations/Rocks/Rock4.png" id="32_7b7y8"]
+[ext_resource type="Texture2D" uid="uid://dlqcux62gn70n" path="res://Tiny Swords (Update 010)/Decoration/08.png" id="33_wui3h"]
+[ext_resource type="Texture2D" uid="uid://beq5o26i46yem" path="res://assets/props/stump_3.png" id="34_qetcs"]
+[ext_resource type="Texture2D" uid="uid://cedlxd6v8tajj" path="res://assets/props/wood_log.png" id="35_gw1vw"]
+[ext_resource type="Texture2D" uid="uid://dlkdbhgkimc51" path="res://assets/props/stump_4.png" id="36_xiw03"]
+[ext_resource type="Texture2D" uid="uid://bpfyb0p0q6iw4" path="res://assets/props/tool_04.png" id="37_xullu"]
+[ext_resource type="PackedScene" uid="uid://dcpaduca6hj4x" path="res://scenes/enemy.tscn" id="38_pwx6t"]
+[ext_resource type="Texture2D" uid="uid://s4j1jgfnp7la" path="res://assets/props/tool_03.png" id="40_0fl76"]
+[ext_resource type="Texture2D" uid="uid://dcjhs8mwcfo5s" path="res://Tiny Swords (Update 010)/Decoration/01.png" id="41_ld7xo"]
+[ext_resource type="Texture2D" uid="uid://nqo7mmi7nlan" path="res://Tiny Swords (Update 010)/Decoration/02.png" id="42_l4n3p"]
+[ext_resource type="Texture2D" uid="uid://bvdu8rp000gyd" path="res://Tiny Swords (Update 010)/Decoration/03.png" id="43_fmmry"]
+[ext_resource type="Texture2D" uid="uid://cjlemqhuaaobt" path="res://assets/props/stump_1.png" id="44_26qbd"]
+[ext_resource type="Texture2D" uid="uid://rpe6icnmgpqk" path="res://assets/props/tool_01.png" id="45_optxr"]
 [ext_resource type="PackedScene" path="res://scenes/enemy_torch_goblin.tscn" id="46_nbuqd"]
-[ext_resource type="Script" path="res://scripts/entities/torch_goblin.gd" id="47_3t06w"]
-[ext_resource type="Texture2D" path="res://assets/props/archway_lantern.png" id="48_tp6af"]
+[ext_resource type="Texture2D" uid="uid://d2ej5f7yf4eyf" path="res://assets/props/archway_lantern.png" id="48_tp6af"]
 [ext_resource type="PackedScene" path="res://scenes/npc_guard.tscn" id="49_kegyo"]
 [ext_resource type="PackedScene" path="res://scenes/npc_maya.tscn" id="50_hi2pd"]
-[ext_resource type="Texture2D" path="res://assets/props/stump_2.png" id="51_gyxkx"]
-[ext_resource type="Texture2D" path="res://assets/props/tool_02.png" id="52_vaid7"]
+[ext_resource type="Texture2D" uid="uid://6h5oj1x8v16c" path="res://assets/props/stump_2.png" id="51_gyxkx"]
+[ext_resource type="Texture2D" uid="uid://c2lgcrommv1x2" path="res://assets/props/tool_02.png" id="52_vaid7"]
 [ext_resource type="PackedScene" path="res://scenes/npc_ravi.tscn" id="53_fnm1x"]
-[ext_resource type="Texture2D" path="res://assets/props/crate_wood.png" id="54_bbgx3"]
-[ext_resource type="Texture2D" path="res://assets/props/crate_box.png" id="55_o7bbu"]
-[ext_resource type="Texture2D" path="res://Tiny Swords (Update 010)/Decoration/12.png" id="56_ic2vq"]
-[ext_resource type="Texture2D" path="res://Tiny Swords (Update 010)/Decoration/18.png" id="57_cmoy1"]
-[ext_resource type="Texture2D" path="res://Tiny Swords (Update 010)/Decoration/13.png" id="58_mgrvy"]
-[ext_resource type="Texture2D" path="res://Tiny Swords (Update 010)/Decoration/10.png" id="59_ey67g"]
-[ext_resource type="Texture2D" path="res://Tiny Swords (Update 010)/Decoration/11.png" id="60_mslh2"]
+[ext_resource type="Texture2D" uid="uid://l42xer5eylmy" path="res://assets/props/crate_wood.png" id="54_bbgx3"]
+[ext_resource type="Texture2D" uid="uid://f61i116l264t" path="res://assets/props/crate_box.png" id="55_o7bbu"]
+[ext_resource type="Texture2D" uid="uid://b33manmgut8kh" path="res://Tiny Swords (Update 010)/Decoration/12.png" id="56_ic2vq"]
+[ext_resource type="Texture2D" uid="uid://if07puuq1u1" path="res://Tiny Swords (Update 010)/Decoration/18.png" id="57_cmoy1"]
+[ext_resource type="Texture2D" uid="uid://lfiy1ct216gt" path="res://Tiny Swords (Update 010)/Decoration/13.png" id="58_mgrvy"]
+[ext_resource type="Texture2D" uid="uid://cestx0aneap6p" path="res://Tiny Swords (Update 010)/Decoration/10.png" id="59_ey67g"]
+[ext_resource type="Texture2D" uid="uid://odrmfri6yit6" path="res://Tiny Swords (Update 010)/Decoration/11.png" id="60_mslh2"]
 [ext_resource type="PackedScene" path="res://scenes/entities/dynamic_sheep.tscn" id="61_8bem1"]
-[ext_resource type="Script" path="res://scripts/entities/dynamic_sheep.gd" id="62_6od3t"]
-[ext_resource type="Script" path="res://scripts/entities/cave_entrance.gd" id="63_qn65p"]
-[ext_resource type="Texture2D" path="res://Tiny Swords (Update 010)/everything/cave_dark.png" id="64_ou5tn"]
+[ext_resource type="Script" uid="uid://botldnv5yfd5w" path="res://scripts/entities/cave_entrance.gd" id="63_qn65p"]
+[ext_resource type="Texture2D" uid="uid://nw5rwqtqqeel" path="res://Tiny Swords (Update 010)/everything/cave_dark.png" id="64_ou5tn"]
 [ext_resource type="PackedScene" path="res://scenes/entities/dynamic_gold_rock.tscn" id="65_k2fqw"]
-[ext_resource type="Script" path="res://scripts/entities/dynamic_gold_rock.gd" id="66_wt6o6"]
-[ext_resource type="Texture2D" path="res://Game Assets(NEW)/Terrain/Resources/Gold/Gold Stones/Gold Stone 1.png" id="67_j7mh8"]
-[ext_resource type="Texture2D" path="res://Game Assets(NEW)/Terrain/Resources/Gold/Gold Stones/Gold Stone 2.png" id="68_c3c7d"]
+[ext_resource type="Texture2D" uid="uid://6slm3ahha7ie" path="res://Game Assets(NEW)/Terrain/Resources/Gold/Gold Stones/Gold Stone 1.png" id="67_j7mh8"]
+[ext_resource type="Texture2D" uid="uid://mharkb1tdxx3" path="res://Game Assets(NEW)/Terrain/Resources/Gold/Gold Stones/Gold Stone 2.png" id="68_c3c7d"]
 [ext_resource type="PackedScene" path="res://scenes/npc_elder.tscn" id="69_2kaud"]
 [ext_resource type="PackedScene" path="res://scenes/npc_lancer.tscn" id="70_7huuw"]
 [ext_resource type="PackedScene" path="res://scenes/entities/dynamic_cloud.tscn" id="71_i00a8"]
-[ext_resource type="Script" path="res://scripts/entities/dynamic_cloud.gd" id="72_7m83x"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_l8ik4"]
 texture = ExtResource("3_ntuqo")
@@ -463,33 +450,17 @@ position = Vector2(420, 1060)
 [node name="Spawn_cave_exit" type="Marker2D" parent="Objects" unique_id=411282449]
 position = Vector2(2430, 1960)
 
-[node name="player" type="CharacterBody2D" parent="Objects" unique_id=966946389 groups=["player"] instance=ExtResource("6_1v02h")]
+[node name="player" parent="Objects" unique_id=966946389 instance=ExtResource("6_1v02h")]
 position = Vector2(420, 1060)
-collision_layer = 2
-collision_mask = 5
-script = ExtResource("7_shehe")
 
-[node name="CompanionFox" type="CharacterBody2D" parent="Objects" unique_id=2007866638 instance=ExtResource("8_l137e")]
+[node name="CompanionFox" parent="Objects" unique_id=2007866638 instance=ExtResource("8_l137e")]
 position = Vector2(470, 1070)
-collision_layer = 0
-collision_mask = 0
-script = ExtResource("9_ygn2i")
 
-[node name="NPC_Kitsu" type="StaticBody2D" parent="Objects" unique_id=1400843227 instance=ExtResource("10_swu3i")]
+[node name="NPC_Kitsu" parent="Objects" unique_id=1400843227 instance=ExtResource("10_swu3i")]
 position = Vector2(520, 1060)
-collision_mask = 0
-script = ExtResource("11_oexs8")
-npc_name = "Kitsu"
-prompt_text = "E - Talk to Kitsu"
-dialogue_lines = Array[String](["Finally! You are awake, Reader.", "Snowy: Wh-where am I? This isn't my room...", "You are in the Hollow. The saffron book summoned you because our realm is in peril.", "The Monster King watches from his floating fortress in the sky, sending beasts across our land.", "Take this blade! Press [Q] to swing your sword. Follow the road east through the training grounds to reach Mossveil Village!"])
-dialogue_lines_alt = Array[String](["The path east leads past the training grounds straight into Mossveil Village.", "Be on your guard, Reader. The slimes on the road are quick, but your blade is swift!"])
-required_flag = "met_kitsu"
-grant_flag = "met_kitsu"
 
-[node name="SnowyCottage" type="StaticBody2D" parent="Objects" unique_id=1839923165 instance=ExtResource("12_n78cu")]
+[node name="SnowyCottage" parent="Objects" unique_id=1839923165 instance=ExtResource("12_n78cu")]
 position = Vector2(380, 960)
-collision_mask = 0
-script = ExtResource("13_kcpaj")
 
 [node name="@StaticBody2D@221" type="StaticBody2D" parent="Objects" unique_id=1669799531]
 position = Vector2(470, 960)
@@ -539,54 +510,39 @@ texture = ExtResource("14_c15v2")
 position = Vector2(0, -5)
 shape = SubResource("RectangleShape2D_t1by1")
 
-[node name="DynamicTree" type="StaticBody2D" parent="Objects" unique_id=1451424906 instance=ExtResource("17_kvmu4")]
+[node name="DynamicTree" parent="Objects" unique_id=1451424906 instance=ExtResource("17_kvmu4")]
 position = Vector2(240, 840)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 
-[node name="@StaticBody2D@233" type="StaticBody2D" parent="Objects" unique_id=1283287612 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@233" parent="Objects" unique_id=1283287612 instance=ExtResource("17_kvmu4")]
 position = Vector2(540, 840)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 2
 
-[node name="@StaticBody2D@234" type="StaticBody2D" parent="Objects" unique_id=1919515266 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@234" parent="Objects" unique_id=1919515266 instance=ExtResource("17_kvmu4")]
 position = Vector2(200, 1180)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 3
 
-[node name="DynamicBush" type="StaticBody2D" parent="Objects" unique_id=1975178881 instance=ExtResource("19_gny1c")]
+[node name="DynamicBush" parent="Objects" unique_id=1975178881 instance=ExtResource("19_gny1c")]
 position = Vector2(230, 1030)
-collision_mask = 0
-script = ExtResource("20_frq1x")
 
 [node name="@Sprite2D@235" type="Sprite2D" parent="Objects" unique_id=1254273050]
 position = Vector2(320, 1010)
 texture = ExtResource("21_mlb8o")
 offset = Vector2(0, -32)
 
-[node name="DynamicWaterFoam" type="AnimatedSprite2D" parent="Objects" unique_id=1212912028 instance=ExtResource("22_ebmc1")]
+[node name="DynamicWaterFoam" parent="Objects" unique_id=1212912028 instance=ExtResource("22_ebmc1")]
 position = Vector2(130, 850)
-script = ExtResource("23_8xaka")
 
-[node name="@AnimatedSprite2D@236" type="AnimatedSprite2D" parent="Objects" unique_id=1870775611 instance=ExtResource("22_ebmc1")]
+[node name="@AnimatedSprite2D@236" parent="Objects" unique_id=1870775611 instance=ExtResource("22_ebmc1")]
 position = Vector2(130, 1040)
-script = ExtResource("23_8xaka")
 
-[node name="@AnimatedSprite2D@237" type="AnimatedSprite2D" parent="Objects" unique_id=937638325 instance=ExtResource("22_ebmc1")]
+[node name="@AnimatedSprite2D@237" parent="Objects" unique_id=937638325 instance=ExtResource("22_ebmc1")]
 position = Vector2(130, 1230)
-script = ExtResource("23_8xaka")
 
-[node name="DynamicWaterRock" type="StaticBody2D" parent="Objects" unique_id=1372718757 instance=ExtResource("24_n6seq")]
+[node name="DynamicWaterRock" parent="Objects" unique_id=1372718757 instance=ExtResource("24_n6seq")]
 position = Vector2(100, 920)
-collision_mask = 0
-script = ExtResource("25_ufs10")
 
-[node name="@StaticBody2D@238" type="StaticBody2D" parent="Objects" unique_id=1553528177 instance=ExtResource("24_n6seq")]
+[node name="@StaticBody2D@238" parent="Objects" unique_id=1553528177 instance=ExtResource("24_n6seq")]
 position = Vector2(90, 1120)
-collision_mask = 0
-script = ExtResource("25_ufs10")
 rock_type = 2
 
 [node name="@StaticBody2D@239" type="StaticBody2D" parent="Objects" unique_id=560043073]
@@ -617,290 +573,190 @@ texture = ExtResource("28_pb8sg")
 position = Vector2(0, -10)
 shape = SubResource("CircleShape2D_kloan")
 
-[node name="@StaticBody2D@244" type="StaticBody2D" parent="Objects" unique_id=582762543 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@244" parent="Objects" unique_id=582762543 instance=ExtResource("17_kvmu4")]
 position = Vector2(600, 920)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 
-[node name="@StaticBody2D@245" type="StaticBody2D" parent="Objects" unique_id=1926725449 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@245" parent="Objects" unique_id=1926725449 instance=ExtResource("17_kvmu4")]
 position = Vector2(720, 900)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 2
 
-[node name="@StaticBody2D@246" type="StaticBody2D" parent="Objects" unique_id=1829183690 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@246" parent="Objects" unique_id=1829183690 instance=ExtResource("17_kvmu4")]
 position = Vector2(840, 930)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 3
 
-[node name="@StaticBody2D@247" type="StaticBody2D" parent="Objects" unique_id=1338278063 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@247" parent="Objects" unique_id=1338278063 instance=ExtResource("17_kvmu4")]
 position = Vector2(960, 910)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 4
 
-[node name="@StaticBody2D@248" type="StaticBody2D" parent="Objects" unique_id=1560511833 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@248" parent="Objects" unique_id=1560511833 instance=ExtResource("17_kvmu4")]
 position = Vector2(1080, 930)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 
-[node name="@StaticBody2D@249" type="StaticBody2D" parent="Objects" unique_id=392938370 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@249" parent="Objects" unique_id=392938370 instance=ExtResource("17_kvmu4")]
 position = Vector2(1200, 900)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 2
 
-[node name="@StaticBody2D@250" type="StaticBody2D" parent="Objects" unique_id=1334179033 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@250" parent="Objects" unique_id=1334179033 instance=ExtResource("17_kvmu4")]
 position = Vector2(1320, 920)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 3
 
-[node name="@StaticBody2D@251" type="StaticBody2D" parent="Objects" unique_id=1749467965 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@251" parent="Objects" unique_id=1749467965 instance=ExtResource("17_kvmu4")]
 position = Vector2(1440, 910)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 4
 
-[node name="@StaticBody2D@252" type="StaticBody2D" parent="Objects" unique_id=1993416707 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@252" parent="Objects" unique_id=1993416707 instance=ExtResource("17_kvmu4")]
 position = Vector2(1560, 930)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 
-[node name="@StaticBody2D@253" type="StaticBody2D" parent="Objects" unique_id=1200126618 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@253" parent="Objects" unique_id=1200126618 instance=ExtResource("17_kvmu4")]
 position = Vector2(660, 800)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 2
 
-[node name="@StaticBody2D@254" type="StaticBody2D" parent="Objects" unique_id=1156483384 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@254" parent="Objects" unique_id=1156483384 instance=ExtResource("17_kvmu4")]
 position = Vector2(780, 780)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 3
 
-[node name="@StaticBody2D@255" type="StaticBody2D" parent="Objects" unique_id=266381780 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@255" parent="Objects" unique_id=266381780 instance=ExtResource("17_kvmu4")]
 position = Vector2(900, 810)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 4
 
-[node name="@StaticBody2D@256" type="StaticBody2D" parent="Objects" unique_id=586711794 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@256" parent="Objects" unique_id=586711794 instance=ExtResource("17_kvmu4")]
 position = Vector2(1020, 770)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 
-[node name="@StaticBody2D@257" type="StaticBody2D" parent="Objects" unique_id=1856446385 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@257" parent="Objects" unique_id=1856446385 instance=ExtResource("17_kvmu4")]
 position = Vector2(1140, 800)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 2
 
-[node name="@StaticBody2D@258" type="StaticBody2D" parent="Objects" unique_id=378185338 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@258" parent="Objects" unique_id=378185338 instance=ExtResource("17_kvmu4")]
 position = Vector2(1260, 780)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 3
 
-[node name="@StaticBody2D@259" type="StaticBody2D" parent="Objects" unique_id=822596364 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@259" parent="Objects" unique_id=822596364 instance=ExtResource("17_kvmu4")]
 position = Vector2(1380, 810)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 4
 
-[node name="@StaticBody2D@260" type="StaticBody2D" parent="Objects" unique_id=179295625 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@260" parent="Objects" unique_id=179295625 instance=ExtResource("17_kvmu4")]
 position = Vector2(1500, 790)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 
-[node name="@StaticBody2D@261" type="StaticBody2D" parent="Objects" unique_id=172345154 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@261" parent="Objects" unique_id=172345154 instance=ExtResource("17_kvmu4")]
 position = Vector2(580, 1220)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 
-[node name="@StaticBody2D@262" type="StaticBody2D" parent="Objects" unique_id=608513183 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@262" parent="Objects" unique_id=608513183 instance=ExtResource("17_kvmu4")]
 position = Vector2(700, 1240)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 2
 
-[node name="@StaticBody2D@263" type="StaticBody2D" parent="Objects" unique_id=1093779076 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@263" parent="Objects" unique_id=1093779076 instance=ExtResource("17_kvmu4")]
 position = Vector2(820, 1220)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 3
 
-[node name="@StaticBody2D@264" type="StaticBody2D" parent="Objects" unique_id=1771960070 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@264" parent="Objects" unique_id=1771960070 instance=ExtResource("17_kvmu4")]
 position = Vector2(940, 1240)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 4
 
-[node name="@StaticBody2D@265" type="StaticBody2D" parent="Objects" unique_id=1727242056 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@265" parent="Objects" unique_id=1727242056 instance=ExtResource("17_kvmu4")]
 position = Vector2(1060, 1220)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 
-[node name="@StaticBody2D@266" type="StaticBody2D" parent="Objects" unique_id=1497655625 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@266" parent="Objects" unique_id=1497655625 instance=ExtResource("17_kvmu4")]
 position = Vector2(1180, 1240)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 2
 
-[node name="@StaticBody2D@267" type="StaticBody2D" parent="Objects" unique_id=208814839 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@267" parent="Objects" unique_id=208814839 instance=ExtResource("17_kvmu4")]
 position = Vector2(1300, 1220)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 3
 
-[node name="@StaticBody2D@268" type="StaticBody2D" parent="Objects" unique_id=895036774 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@268" parent="Objects" unique_id=895036774 instance=ExtResource("17_kvmu4")]
 position = Vector2(1420, 1240)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 4
 
-[node name="@StaticBody2D@269" type="StaticBody2D" parent="Objects" unique_id=2131475464 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@269" parent="Objects" unique_id=2131475464 instance=ExtResource("17_kvmu4")]
 position = Vector2(1540, 1220)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 
-[node name="@StaticBody2D@270" type="StaticBody2D" parent="Objects" unique_id=1902261182 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@270" parent="Objects" unique_id=1902261182 instance=ExtResource("17_kvmu4")]
 position = Vector2(640, 1340)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 2
 
-[node name="@StaticBody2D@271" type="StaticBody2D" parent="Objects" unique_id=1488555045 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@271" parent="Objects" unique_id=1488555045 instance=ExtResource("17_kvmu4")]
 position = Vector2(760, 1360)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 3
 
-[node name="@StaticBody2D@272" type="StaticBody2D" parent="Objects" unique_id=1743142847 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@272" parent="Objects" unique_id=1743142847 instance=ExtResource("17_kvmu4")]
 position = Vector2(880, 1330)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 4
 
-[node name="@StaticBody2D@273" type="StaticBody2D" parent="Objects" unique_id=2041931428 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@273" parent="Objects" unique_id=2041931428 instance=ExtResource("17_kvmu4")]
 position = Vector2(1000, 1360)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 
-[node name="@StaticBody2D@274" type="StaticBody2D" parent="Objects" unique_id=305655910 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@274" parent="Objects" unique_id=305655910 instance=ExtResource("17_kvmu4")]
 position = Vector2(1120, 1340)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 2
 
-[node name="@StaticBody2D@275" type="StaticBody2D" parent="Objects" unique_id=51804442 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@275" parent="Objects" unique_id=51804442 instance=ExtResource("17_kvmu4")]
 position = Vector2(1240, 1360)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 3
 
-[node name="@StaticBody2D@276" type="StaticBody2D" parent="Objects" unique_id=928700617 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@276" parent="Objects" unique_id=928700617 instance=ExtResource("17_kvmu4")]
 position = Vector2(1360, 1330)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 4
 
-[node name="@StaticBody2D@277" type="StaticBody2D" parent="Objects" unique_id=1318925010 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@277" parent="Objects" unique_id=1318925010 instance=ExtResource("17_kvmu4")]
 position = Vector2(1480, 1350)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 
-[node name="@StaticBody2D@278" type="StaticBody2D" parent="Objects" unique_id=2106780917 instance=ExtResource("19_gny1c")]
+[node name="@StaticBody2D@278" parent="Objects" unique_id=2106780917 instance=ExtResource("19_gny1c")]
 position = Vector2(640, 940)
-collision_mask = 0
-script = ExtResource("20_frq1x")
 
-[node name="@StaticBody2D@279" type="StaticBody2D" parent="Objects" unique_id=1850978103 instance=ExtResource("19_gny1c")]
+[node name="@StaticBody2D@279" parent="Objects" unique_id=1850978103 instance=ExtResource("19_gny1c")]
 position = Vector2(760, 930)
-collision_mask = 0
-script = ExtResource("20_frq1x")
 bush_type = 2
 
-[node name="@StaticBody2D@280" type="StaticBody2D" parent="Objects" unique_id=1386798156 instance=ExtResource("19_gny1c")]
+[node name="@StaticBody2D@280" parent="Objects" unique_id=1386798156 instance=ExtResource("19_gny1c")]
 position = Vector2(880, 945)
-collision_mask = 0
-script = ExtResource("20_frq1x")
 bush_type = 3
 
-[node name="@StaticBody2D@281" type="StaticBody2D" parent="Objects" unique_id=1711847244 instance=ExtResource("19_gny1c")]
+[node name="@StaticBody2D@281" parent="Objects" unique_id=1711847244 instance=ExtResource("19_gny1c")]
 position = Vector2(1000, 930)
-collision_mask = 0
-script = ExtResource("20_frq1x")
 bush_type = 4
 
-[node name="@StaticBody2D@282" type="StaticBody2D" parent="Objects" unique_id=1135092941 instance=ExtResource("19_gny1c")]
+[node name="@StaticBody2D@282" parent="Objects" unique_id=1135092941 instance=ExtResource("19_gny1c")]
 position = Vector2(1120, 945)
-collision_mask = 0
-script = ExtResource("20_frq1x")
 
-[node name="@StaticBody2D@283" type="StaticBody2D" parent="Objects" unique_id=2075369878 instance=ExtResource("19_gny1c")]
+[node name="@StaticBody2D@283" parent="Objects" unique_id=2075369878 instance=ExtResource("19_gny1c")]
 position = Vector2(1240, 930)
-collision_mask = 0
-script = ExtResource("20_frq1x")
 bush_type = 2
 
-[node name="@StaticBody2D@284" type="StaticBody2D" parent="Objects" unique_id=774176525 instance=ExtResource("19_gny1c")]
+[node name="@StaticBody2D@284" parent="Objects" unique_id=774176525 instance=ExtResource("19_gny1c")]
 position = Vector2(1360, 940)
-collision_mask = 0
-script = ExtResource("20_frq1x")
 bush_type = 3
 
-[node name="@StaticBody2D@285" type="StaticBody2D" parent="Objects" unique_id=664823049 instance=ExtResource("19_gny1c")]
+[node name="@StaticBody2D@285" parent="Objects" unique_id=664823049 instance=ExtResource("19_gny1c")]
 position = Vector2(1480, 935)
-collision_mask = 0
-script = ExtResource("20_frq1x")
 bush_type = 4
 
-[node name="@StaticBody2D@286" type="StaticBody2D" parent="Objects" unique_id=1566524501 instance=ExtResource("19_gny1c")]
+[node name="@StaticBody2D@286" parent="Objects" unique_id=1566524501 instance=ExtResource("19_gny1c")]
 position = Vector2(620, 1115)
-collision_mask = 0
-script = ExtResource("20_frq1x")
 
-[node name="@StaticBody2D@287" type="StaticBody2D" parent="Objects" unique_id=1950053245 instance=ExtResource("19_gny1c")]
+[node name="@StaticBody2D@287" parent="Objects" unique_id=1950053245 instance=ExtResource("19_gny1c")]
 position = Vector2(740, 1120)
-collision_mask = 0
-script = ExtResource("20_frq1x")
 bush_type = 2
 
-[node name="@StaticBody2D@288" type="StaticBody2D" parent="Objects" unique_id=2076393069 instance=ExtResource("19_gny1c")]
+[node name="@StaticBody2D@288" parent="Objects" unique_id=2076393069 instance=ExtResource("19_gny1c")]
 position = Vector2(860, 1115)
-collision_mask = 0
-script = ExtResource("20_frq1x")
 bush_type = 3
 
-[node name="@StaticBody2D@289" type="StaticBody2D" parent="Objects" unique_id=1612566694 instance=ExtResource("19_gny1c")]
+[node name="@StaticBody2D@289" parent="Objects" unique_id=1612566694 instance=ExtResource("19_gny1c")]
 position = Vector2(980, 1120)
-collision_mask = 0
-script = ExtResource("20_frq1x")
 bush_type = 4
 
-[node name="@StaticBody2D@290" type="StaticBody2D" parent="Objects" unique_id=1930077992 instance=ExtResource("19_gny1c")]
+[node name="@StaticBody2D@290" parent="Objects" unique_id=1930077992 instance=ExtResource("19_gny1c")]
 position = Vector2(1100, 1115)
-collision_mask = 0
-script = ExtResource("20_frq1x")
 
-[node name="@StaticBody2D@291" type="StaticBody2D" parent="Objects" unique_id=647680232 instance=ExtResource("19_gny1c")]
+[node name="@StaticBody2D@291" parent="Objects" unique_id=647680232 instance=ExtResource("19_gny1c")]
 position = Vector2(1220, 1120)
-collision_mask = 0
-script = ExtResource("20_frq1x")
 bush_type = 2
 
-[node name="@StaticBody2D@292" type="StaticBody2D" parent="Objects" unique_id=1270045886 instance=ExtResource("19_gny1c")]
+[node name="@StaticBody2D@292" parent="Objects" unique_id=1270045886 instance=ExtResource("19_gny1c")]
 position = Vector2(1340, 1115)
-collision_mask = 0
-script = ExtResource("20_frq1x")
 bush_type = 3
 
-[node name="@StaticBody2D@293" type="StaticBody2D" parent="Objects" unique_id=653612078 instance=ExtResource("19_gny1c")]
+[node name="@StaticBody2D@293" parent="Objects" unique_id=653612078 instance=ExtResource("19_gny1c")]
 position = Vector2(1460, 1120)
-collision_mask = 0
-script = ExtResource("20_frq1x")
 bush_type = 4
 
 [node name="@Sprite2D@294" type="Sprite2D" parent="Objects" unique_id=650618615]
@@ -1126,41 +982,23 @@ texture = ExtResource("28_pb8sg")
 position = Vector2(0, -10)
 shape = SubResource("CircleShape2D_x3v50")
 
-[node name="enemy" type="CharacterBody2D" parent="Objects" unique_id=2036988839 instance=ExtResource("38_pwx6t")]
+[node name="enemy" parent="Objects" unique_id=2036988839 instance=ExtResource("38_pwx6t")]
 position = Vector2(1680, 1056)
-collision_layer = 4
-collision_mask = 3
-script = ExtResource("39_tjdyg")
 
-[node name="@CharacterBody2D@341" type="CharacterBody2D" parent="Objects" unique_id=1277614592 instance=ExtResource("38_pwx6t")]
+[node name="@CharacterBody2D@341" parent="Objects" unique_id=1277614592 instance=ExtResource("38_pwx6t")]
 position = Vector2(1730, 1056)
-collision_layer = 4
-collision_mask = 3
-script = ExtResource("39_tjdyg")
 
-[node name="@CharacterBody2D@342" type="CharacterBody2D" parent="Objects" unique_id=570922091 instance=ExtResource("38_pwx6t")]
+[node name="@CharacterBody2D@342" parent="Objects" unique_id=570922091 instance=ExtResource("38_pwx6t")]
 position = Vector2(1780, 1040)
-collision_layer = 4
-collision_mask = 3
-script = ExtResource("39_tjdyg")
 
-[node name="@CharacterBody2D@343" type="CharacterBody2D" parent="Objects" unique_id=678724691 instance=ExtResource("38_pwx6t")]
+[node name="@CharacterBody2D@343" parent="Objects" unique_id=678724691 instance=ExtResource("38_pwx6t")]
 position = Vector2(1810, 1070)
-collision_layer = 4
-collision_mask = 3
-script = ExtResource("39_tjdyg")
 
-[node name="@CharacterBody2D@344" type="CharacterBody2D" parent="Objects" unique_id=1738161911 instance=ExtResource("38_pwx6t")]
+[node name="@CharacterBody2D@344" parent="Objects" unique_id=1738161911 instance=ExtResource("38_pwx6t")]
 position = Vector2(1860, 1040)
-collision_layer = 4
-collision_mask = 3
-script = ExtResource("39_tjdyg")
 
-[node name="@CharacterBody2D@345" type="CharacterBody2D" parent="Objects" unique_id=2100686049 instance=ExtResource("38_pwx6t")]
+[node name="@CharacterBody2D@345" parent="Objects" unique_id=2100686049 instance=ExtResource("38_pwx6t")]
 position = Vector2(1890, 1070)
-collision_layer = 4
-collision_mask = 3
-script = ExtResource("39_tjdyg")
 
 [node name="@StaticBody2D@346" type="StaticBody2D" parent="Objects" unique_id=1233439947]
 position = Vector2(1880, 1005)
@@ -1262,331 +1100,217 @@ texture = ExtResource("26_h5nhj")
 position = Vector2(0, -6)
 shape = SubResource("RectangleShape2D_edbjg")
 
-[node name="@StaticBody2D@369" type="StaticBody2D" parent="Objects" unique_id=1640040208 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@369" parent="Objects" unique_id=1640040208 instance=ExtResource("17_kvmu4")]
 position = Vector2(1680, 920)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 
-[node name="@StaticBody2D@370" type="StaticBody2D" parent="Objects" unique_id=532898972 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@370" parent="Objects" unique_id=532898972 instance=ExtResource("17_kvmu4")]
 position = Vector2(1800, 900)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 2
 
-[node name="@StaticBody2D@371" type="StaticBody2D" parent="Objects" unique_id=2009841999 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@371" parent="Objects" unique_id=2009841999 instance=ExtResource("17_kvmu4")]
 position = Vector2(1920, 930)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 3
 
-[node name="@StaticBody2D@372" type="StaticBody2D" parent="Objects" unique_id=1675759449 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@372" parent="Objects" unique_id=1675759449 instance=ExtResource("17_kvmu4")]
 position = Vector2(2040, 910)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 4
 
-[node name="@StaticBody2D@373" type="StaticBody2D" parent="Objects" unique_id=773311339 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@373" parent="Objects" unique_id=773311339 instance=ExtResource("17_kvmu4")]
 position = Vector2(2160, 930)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 
-[node name="@StaticBody2D@374" type="StaticBody2D" parent="Objects" unique_id=614271314 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@374" parent="Objects" unique_id=614271314 instance=ExtResource("17_kvmu4")]
 position = Vector2(2280, 900)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 2
 
-[node name="@StaticBody2D@375" type="StaticBody2D" parent="Objects" unique_id=166959015 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@375" parent="Objects" unique_id=166959015 instance=ExtResource("17_kvmu4")]
 position = Vector2(2400, 920)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 3
 
-[node name="@StaticBody2D@376" type="StaticBody2D" parent="Objects" unique_id=1221509101 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@376" parent="Objects" unique_id=1221509101 instance=ExtResource("17_kvmu4")]
 position = Vector2(2520, 910)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 4
 
-[node name="@StaticBody2D@377" type="StaticBody2D" parent="Objects" unique_id=343981181 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@377" parent="Objects" unique_id=343981181 instance=ExtResource("17_kvmu4")]
 position = Vector2(2640, 930)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 
-[node name="@StaticBody2D@378" type="StaticBody2D" parent="Objects" unique_id=1670519136 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@378" parent="Objects" unique_id=1670519136 instance=ExtResource("17_kvmu4")]
 position = Vector2(2760, 910)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 2
 
-[node name="@StaticBody2D@379" type="StaticBody2D" parent="Objects" unique_id=515674735 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@379" parent="Objects" unique_id=515674735 instance=ExtResource("17_kvmu4")]
 position = Vector2(1740, 800)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 3
 
-[node name="@StaticBody2D@380" type="StaticBody2D" parent="Objects" unique_id=652723986 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@380" parent="Objects" unique_id=652723986 instance=ExtResource("17_kvmu4")]
 position = Vector2(1860, 780)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 4
 
-[node name="@StaticBody2D@381" type="StaticBody2D" parent="Objects" unique_id=399591508 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@381" parent="Objects" unique_id=399591508 instance=ExtResource("17_kvmu4")]
 position = Vector2(1980, 810)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 
-[node name="@StaticBody2D@382" type="StaticBody2D" parent="Objects" unique_id=25526482 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@382" parent="Objects" unique_id=25526482 instance=ExtResource("17_kvmu4")]
 position = Vector2(2100, 770)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 2
 
-[node name="@StaticBody2D@383" type="StaticBody2D" parent="Objects" unique_id=2114641429 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@383" parent="Objects" unique_id=2114641429 instance=ExtResource("17_kvmu4")]
 position = Vector2(2220, 800)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 3
 
-[node name="@StaticBody2D@384" type="StaticBody2D" parent="Objects" unique_id=1196780456 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@384" parent="Objects" unique_id=1196780456 instance=ExtResource("17_kvmu4")]
 position = Vector2(2340, 780)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 4
 
-[node name="@StaticBody2D@385" type="StaticBody2D" parent="Objects" unique_id=250276074 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@385" parent="Objects" unique_id=250276074 instance=ExtResource("17_kvmu4")]
 position = Vector2(2460, 810)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 
-[node name="@StaticBody2D@386" type="StaticBody2D" parent="Objects" unique_id=549657427 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@386" parent="Objects" unique_id=549657427 instance=ExtResource("17_kvmu4")]
 position = Vector2(2580, 790)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 2
 
-[node name="@StaticBody2D@387" type="StaticBody2D" parent="Objects" unique_id=1275495623 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@387" parent="Objects" unique_id=1275495623 instance=ExtResource("17_kvmu4")]
 position = Vector2(2700, 810)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 3
 
-[node name="@StaticBody2D@388" type="StaticBody2D" parent="Objects" unique_id=1150993208 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@388" parent="Objects" unique_id=1150993208 instance=ExtResource("17_kvmu4")]
 position = Vector2(1660, 1220)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 
-[node name="@StaticBody2D@389" type="StaticBody2D" parent="Objects" unique_id=1529166237 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@389" parent="Objects" unique_id=1529166237 instance=ExtResource("17_kvmu4")]
 position = Vector2(1780, 1240)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 2
 
-[node name="@StaticBody2D@390" type="StaticBody2D" parent="Objects" unique_id=1933082687 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@390" parent="Objects" unique_id=1933082687 instance=ExtResource("17_kvmu4")]
 position = Vector2(1900, 1220)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 3
 
-[node name="@StaticBody2D@391" type="StaticBody2D" parent="Objects" unique_id=1023995484 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@391" parent="Objects" unique_id=1023995484 instance=ExtResource("17_kvmu4")]
 position = Vector2(2020, 1240)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 4
 
-[node name="@StaticBody2D@392" type="StaticBody2D" parent="Objects" unique_id=45352395 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@392" parent="Objects" unique_id=45352395 instance=ExtResource("17_kvmu4")]
 position = Vector2(2140, 1220)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 
-[node name="@StaticBody2D@393" type="StaticBody2D" parent="Objects" unique_id=705601068 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@393" parent="Objects" unique_id=705601068 instance=ExtResource("17_kvmu4")]
 position = Vector2(2260, 1240)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 2
 
-[node name="@StaticBody2D@394" type="StaticBody2D" parent="Objects" unique_id=1628772831 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@394" parent="Objects" unique_id=1628772831 instance=ExtResource("17_kvmu4")]
 position = Vector2(2380, 1220)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 3
 
-[node name="@StaticBody2D@395" type="StaticBody2D" parent="Objects" unique_id=750133526 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@395" parent="Objects" unique_id=750133526 instance=ExtResource("17_kvmu4")]
 position = Vector2(2500, 1240)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 4
 
-[node name="@StaticBody2D@396" type="StaticBody2D" parent="Objects" unique_id=619077423 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@396" parent="Objects" unique_id=619077423 instance=ExtResource("17_kvmu4")]
 position = Vector2(2620, 1220)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 
-[node name="@StaticBody2D@397" type="StaticBody2D" parent="Objects" unique_id=575961678 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@397" parent="Objects" unique_id=575961678 instance=ExtResource("17_kvmu4")]
 position = Vector2(2740, 1240)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 2
 
-[node name="@StaticBody2D@398" type="StaticBody2D" parent="Objects" unique_id=1287862860 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@398" parent="Objects" unique_id=1287862860 instance=ExtResource("17_kvmu4")]
 position = Vector2(1720, 1340)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 3
 
-[node name="@StaticBody2D@399" type="StaticBody2D" parent="Objects" unique_id=718992331 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@399" parent="Objects" unique_id=718992331 instance=ExtResource("17_kvmu4")]
 position = Vector2(1840, 1360)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 4
 
-[node name="@StaticBody2D@400" type="StaticBody2D" parent="Objects" unique_id=18393090 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@400" parent="Objects" unique_id=18393090 instance=ExtResource("17_kvmu4")]
 position = Vector2(1960, 1330)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 
-[node name="@StaticBody2D@401" type="StaticBody2D" parent="Objects" unique_id=1087162323 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@401" parent="Objects" unique_id=1087162323 instance=ExtResource("17_kvmu4")]
 position = Vector2(2080, 1360)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 2
 
-[node name="@StaticBody2D@402" type="StaticBody2D" parent="Objects" unique_id=156858098 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@402" parent="Objects" unique_id=156858098 instance=ExtResource("17_kvmu4")]
 position = Vector2(2200, 1340)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 3
 
-[node name="@StaticBody2D@403" type="StaticBody2D" parent="Objects" unique_id=333606985 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@403" parent="Objects" unique_id=333606985 instance=ExtResource("17_kvmu4")]
 position = Vector2(2320, 1360)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 4
 
-[node name="@StaticBody2D@404" type="StaticBody2D" parent="Objects" unique_id=1310055362 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@404" parent="Objects" unique_id=1310055362 instance=ExtResource("17_kvmu4")]
 position = Vector2(2440, 1330)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 
-[node name="@StaticBody2D@405" type="StaticBody2D" parent="Objects" unique_id=883069003 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@405" parent="Objects" unique_id=883069003 instance=ExtResource("17_kvmu4")]
 position = Vector2(2560, 1350)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 2
 
-[node name="@StaticBody2D@406" type="StaticBody2D" parent="Objects" unique_id=838403674 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@406" parent="Objects" unique_id=838403674 instance=ExtResource("17_kvmu4")]
 position = Vector2(2680, 1330)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 3
 
-[node name="@StaticBody2D@407" type="StaticBody2D" parent="Objects" unique_id=1096139637 instance=ExtResource("19_gny1c")]
+[node name="@StaticBody2D@407" parent="Objects" unique_id=1096139637 instance=ExtResource("19_gny1c")]
 position = Vector2(1720, 940)
-collision_mask = 0
-script = ExtResource("20_frq1x")
 
-[node name="@StaticBody2D@408" type="StaticBody2D" parent="Objects" unique_id=944210113 instance=ExtResource("19_gny1c")]
+[node name="@StaticBody2D@408" parent="Objects" unique_id=944210113 instance=ExtResource("19_gny1c")]
 position = Vector2(1840, 930)
-collision_mask = 0
-script = ExtResource("20_frq1x")
 bush_type = 2
 
-[node name="@StaticBody2D@409" type="StaticBody2D" parent="Objects" unique_id=2104453996 instance=ExtResource("19_gny1c")]
+[node name="@StaticBody2D@409" parent="Objects" unique_id=2104453996 instance=ExtResource("19_gny1c")]
 position = Vector2(1960, 945)
-collision_mask = 0
-script = ExtResource("20_frq1x")
 bush_type = 3
 
-[node name="@StaticBody2D@410" type="StaticBody2D" parent="Objects" unique_id=224140010 instance=ExtResource("19_gny1c")]
+[node name="@StaticBody2D@410" parent="Objects" unique_id=224140010 instance=ExtResource("19_gny1c")]
 position = Vector2(2080, 930)
-collision_mask = 0
-script = ExtResource("20_frq1x")
 bush_type = 4
 
-[node name="@StaticBody2D@411" type="StaticBody2D" parent="Objects" unique_id=34741298 instance=ExtResource("19_gny1c")]
+[node name="@StaticBody2D@411" parent="Objects" unique_id=34741298 instance=ExtResource("19_gny1c")]
 position = Vector2(2200, 945)
-collision_mask = 0
-script = ExtResource("20_frq1x")
 
-[node name="@StaticBody2D@412" type="StaticBody2D" parent="Objects" unique_id=1840504036 instance=ExtResource("19_gny1c")]
+[node name="@StaticBody2D@412" parent="Objects" unique_id=1840504036 instance=ExtResource("19_gny1c")]
 position = Vector2(2320, 930)
-collision_mask = 0
-script = ExtResource("20_frq1x")
 bush_type = 2
 
-[node name="@StaticBody2D@413" type="StaticBody2D" parent="Objects" unique_id=1388913655 instance=ExtResource("19_gny1c")]
+[node name="@StaticBody2D@413" parent="Objects" unique_id=1388913655 instance=ExtResource("19_gny1c")]
 position = Vector2(2440, 940)
-collision_mask = 0
-script = ExtResource("20_frq1x")
 bush_type = 3
 
-[node name="@StaticBody2D@414" type="StaticBody2D" parent="Objects" unique_id=602970124 instance=ExtResource("19_gny1c")]
+[node name="@StaticBody2D@414" parent="Objects" unique_id=602970124 instance=ExtResource("19_gny1c")]
 position = Vector2(2560, 935)
-collision_mask = 0
-script = ExtResource("20_frq1x")
 bush_type = 4
 
-[node name="@StaticBody2D@415" type="StaticBody2D" parent="Objects" unique_id=429184866 instance=ExtResource("19_gny1c")]
+[node name="@StaticBody2D@415" parent="Objects" unique_id=429184866 instance=ExtResource("19_gny1c")]
 position = Vector2(2680, 940)
-collision_mask = 0
-script = ExtResource("20_frq1x")
 
-[node name="@StaticBody2D@416" type="StaticBody2D" parent="Objects" unique_id=854607323 instance=ExtResource("19_gny1c")]
+[node name="@StaticBody2D@416" parent="Objects" unique_id=854607323 instance=ExtResource("19_gny1c")]
 position = Vector2(1700, 1115)
-collision_mask = 0
-script = ExtResource("20_frq1x")
 bush_type = 2
 
-[node name="@StaticBody2D@417" type="StaticBody2D" parent="Objects" unique_id=1855391876 instance=ExtResource("19_gny1c")]
+[node name="@StaticBody2D@417" parent="Objects" unique_id=1855391876 instance=ExtResource("19_gny1c")]
 position = Vector2(1820, 1120)
-collision_mask = 0
-script = ExtResource("20_frq1x")
 bush_type = 3
 
-[node name="@StaticBody2D@418" type="StaticBody2D" parent="Objects" unique_id=1981018802 instance=ExtResource("19_gny1c")]
+[node name="@StaticBody2D@418" parent="Objects" unique_id=1981018802 instance=ExtResource("19_gny1c")]
 position = Vector2(1940, 1115)
-collision_mask = 0
-script = ExtResource("20_frq1x")
 bush_type = 4
 
-[node name="@StaticBody2D@419" type="StaticBody2D" parent="Objects" unique_id=1785768384 instance=ExtResource("19_gny1c")]
+[node name="@StaticBody2D@419" parent="Objects" unique_id=1785768384 instance=ExtResource("19_gny1c")]
 position = Vector2(2060, 1120)
-collision_mask = 0
-script = ExtResource("20_frq1x")
 
-[node name="@StaticBody2D@420" type="StaticBody2D" parent="Objects" unique_id=1326746031 instance=ExtResource("19_gny1c")]
+[node name="@StaticBody2D@420" parent="Objects" unique_id=1326746031 instance=ExtResource("19_gny1c")]
 position = Vector2(2180, 1115)
-collision_mask = 0
-script = ExtResource("20_frq1x")
 bush_type = 2
 
-[node name="@StaticBody2D@421" type="StaticBody2D" parent="Objects" unique_id=1689133043 instance=ExtResource("19_gny1c")]
+[node name="@StaticBody2D@421" parent="Objects" unique_id=1689133043 instance=ExtResource("19_gny1c")]
 position = Vector2(2300, 1120)
-collision_mask = 0
-script = ExtResource("20_frq1x")
 bush_type = 3
 
-[node name="@StaticBody2D@422" type="StaticBody2D" parent="Objects" unique_id=1754957947 instance=ExtResource("19_gny1c")]
+[node name="@StaticBody2D@422" parent="Objects" unique_id=1754957947 instance=ExtResource("19_gny1c")]
 position = Vector2(2420, 1115)
-collision_mask = 0
-script = ExtResource("20_frq1x")
 bush_type = 4
 
-[node name="@StaticBody2D@423" type="StaticBody2D" parent="Objects" unique_id=1030328629 instance=ExtResource("19_gny1c")]
+[node name="@StaticBody2D@423" parent="Objects" unique_id=1030328629 instance=ExtResource("19_gny1c")]
 position = Vector2(2540, 1120)
-collision_mask = 0
-script = ExtResource("20_frq1x")
 
-[node name="@StaticBody2D@424" type="StaticBody2D" parent="Objects" unique_id=840601038 instance=ExtResource("19_gny1c")]
+[node name="@StaticBody2D@424" parent="Objects" unique_id=840601038 instance=ExtResource("19_gny1c")]
 position = Vector2(2660, 1115)
-collision_mask = 0
-script = ExtResource("20_frq1x")
 bush_type = 2
 
-[node name="@StaticBody2D@425" type="StaticBody2D" parent="Objects" unique_id=956504267 instance=ExtResource("19_gny1c")]
+[node name="@StaticBody2D@425" parent="Objects" unique_id=956504267 instance=ExtResource("19_gny1c")]
 position = Vector2(2780, 1120)
-collision_mask = 0
-script = ExtResource("20_frq1x")
 bush_type = 3
 
 [node name="@Sprite2D@426" type="Sprite2D" parent="Objects" unique_id=1635259399]
@@ -1729,194 +1453,128 @@ texture = ExtResource("28_pb8sg")
 position = Vector2(0, -10)
 shape = SubResource("CircleShape2D_edwmm")
 
-[node name="@StaticBody2D@454" type="StaticBody2D" parent="Objects" unique_id=1263506011 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@454" parent="Objects" unique_id=1263506011 instance=ExtResource("17_kvmu4")]
 position = Vector2(180, 220)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 
-[node name="@StaticBody2D@455" type="StaticBody2D" parent="Objects" unique_id=1948604032 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@455" parent="Objects" unique_id=1948604032 instance=ExtResource("17_kvmu4")]
 position = Vector2(360, 200)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 2
 
-[node name="@StaticBody2D@456" type="StaticBody2D" parent="Objects" unique_id=783599688 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@456" parent="Objects" unique_id=783599688 instance=ExtResource("17_kvmu4")]
 position = Vector2(540, 230)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 3
 
-[node name="@StaticBody2D@457" type="StaticBody2D" parent="Objects" unique_id=835277018 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@457" parent="Objects" unique_id=835277018 instance=ExtResource("17_kvmu4")]
 position = Vector2(720, 210)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 4
 
-[node name="@StaticBody2D@458" type="StaticBody2D" parent="Objects" unique_id=1360966081 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@458" parent="Objects" unique_id=1360966081 instance=ExtResource("17_kvmu4")]
 position = Vector2(900, 230)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 
-[node name="@StaticBody2D@459" type="StaticBody2D" parent="Objects" unique_id=408974393 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@459" parent="Objects" unique_id=408974393 instance=ExtResource("17_kvmu4")]
 position = Vector2(1080, 220)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 2
 
-[node name="@StaticBody2D@460" type="StaticBody2D" parent="Objects" unique_id=1684156208 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@460" parent="Objects" unique_id=1684156208 instance=ExtResource("17_kvmu4")]
 position = Vector2(1240, 240)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 3
 
-[node name="@StaticBody2D@461" type="StaticBody2D" parent="Objects" unique_id=1119776754 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@461" parent="Objects" unique_id=1119776754 instance=ExtResource("17_kvmu4")]
 position = Vector2(240, 360)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 4
 
-[node name="@StaticBody2D@462" type="StaticBody2D" parent="Objects" unique_id=1577256824 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@462" parent="Objects" unique_id=1577256824 instance=ExtResource("17_kvmu4")]
 position = Vector2(440, 380)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 
-[node name="@StaticBody2D@463" type="StaticBody2D" parent="Objects" unique_id=2073449213 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@463" parent="Objects" unique_id=2073449213 instance=ExtResource("17_kvmu4")]
 position = Vector2(660, 340)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 2
 
-[node name="@StaticBody2D@464" type="StaticBody2D" parent="Objects" unique_id=1599442207 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@464" parent="Objects" unique_id=1599442207 instance=ExtResource("17_kvmu4")]
 position = Vector2(860, 370)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 3
 
-[node name="@StaticBody2D@465" type="StaticBody2D" parent="Objects" unique_id=1541203898 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@465" parent="Objects" unique_id=1541203898 instance=ExtResource("17_kvmu4")]
 position = Vector2(1060, 350)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 4
 
-[node name="@StaticBody2D@466" type="StaticBody2D" parent="Objects" unique_id=1497716958 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@466" parent="Objects" unique_id=1497716958 instance=ExtResource("17_kvmu4")]
 position = Vector2(1220, 400)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 
-[node name="@StaticBody2D@467" type="StaticBody2D" parent="Objects" unique_id=530267597 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@467" parent="Objects" unique_id=530267597 instance=ExtResource("17_kvmu4")]
 position = Vector2(180, 520)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 2
 
-[node name="@StaticBody2D@468" type="StaticBody2D" parent="Objects" unique_id=1705505098 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@468" parent="Objects" unique_id=1705505098 instance=ExtResource("17_kvmu4")]
 position = Vector2(360, 540)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 3
 
-[node name="@StaticBody2D@469" type="StaticBody2D" parent="Objects" unique_id=1573256714 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@469" parent="Objects" unique_id=1573256714 instance=ExtResource("17_kvmu4")]
 position = Vector2(540, 500)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 4
 
-[node name="@StaticBody2D@470" type="StaticBody2D" parent="Objects" unique_id=595541205 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@470" parent="Objects" unique_id=595541205 instance=ExtResource("17_kvmu4")]
 position = Vector2(740, 530)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 
-[node name="@StaticBody2D@471" type="StaticBody2D" parent="Objects" unique_id=1984871344 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@471" parent="Objects" unique_id=1984871344 instance=ExtResource("17_kvmu4")]
 position = Vector2(940, 510)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 2
 
-[node name="@StaticBody2D@472" type="StaticBody2D" parent="Objects" unique_id=1996027494 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@472" parent="Objects" unique_id=1996027494 instance=ExtResource("17_kvmu4")]
 position = Vector2(1120, 560)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 3
 
-[node name="@StaticBody2D@473" type="StaticBody2D" parent="Objects" unique_id=1350877618 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@473" parent="Objects" unique_id=1350877618 instance=ExtResource("17_kvmu4")]
 position = Vector2(220, 680)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 4
 
-[node name="@StaticBody2D@474" type="StaticBody2D" parent="Objects" unique_id=2020769705 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@474" parent="Objects" unique_id=2020769705 instance=ExtResource("17_kvmu4")]
 position = Vector2(420, 710)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 
-[node name="@StaticBody2D@475" type="StaticBody2D" parent="Objects" unique_id=1109258498 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@475" parent="Objects" unique_id=1109258498 instance=ExtResource("17_kvmu4")]
 position = Vector2(640, 690)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 2
 
-[node name="@StaticBody2D@476" type="StaticBody2D" parent="Objects" unique_id=850691418 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@476" parent="Objects" unique_id=850691418 instance=ExtResource("17_kvmu4")]
 position = Vector2(840, 720)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 3
 
-[node name="@StaticBody2D@477" type="StaticBody2D" parent="Objects" unique_id=1234667864 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@477" parent="Objects" unique_id=1234667864 instance=ExtResource("17_kvmu4")]
 position = Vector2(1040, 700)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 4
 
-[node name="@StaticBody2D@478" type="StaticBody2D" parent="Objects" unique_id=109893076 instance=ExtResource("19_gny1c")]
+[node name="@StaticBody2D@478" parent="Objects" unique_id=109893076 instance=ExtResource("19_gny1c")]
 position = Vector2(280, 280)
-collision_mask = 0
-script = ExtResource("20_frq1x")
 
-[node name="@StaticBody2D@479" type="StaticBody2D" parent="Objects" unique_id=1723804730 instance=ExtResource("19_gny1c")]
+[node name="@StaticBody2D@479" parent="Objects" unique_id=1723804730 instance=ExtResource("19_gny1c")]
 position = Vector2(600, 260)
-collision_mask = 0
-script = ExtResource("20_frq1x")
 bush_type = 2
 
-[node name="@StaticBody2D@480" type="StaticBody2D" parent="Objects" unique_id=264917588 instance=ExtResource("19_gny1c")]
+[node name="@StaticBody2D@480" parent="Objects" unique_id=264917588 instance=ExtResource("19_gny1c")]
 position = Vector2(980, 290)
-collision_mask = 0
-script = ExtResource("20_frq1x")
 bush_type = 3
 
-[node name="@StaticBody2D@481" type="StaticBody2D" parent="Objects" unique_id=1750880237 instance=ExtResource("19_gny1c")]
+[node name="@StaticBody2D@481" parent="Objects" unique_id=1750880237 instance=ExtResource("19_gny1c")]
 position = Vector2(320, 450)
-collision_mask = 0
-script = ExtResource("20_frq1x")
 bush_type = 4
 
-[node name="@StaticBody2D@482" type="StaticBody2D" parent="Objects" unique_id=1521370521 instance=ExtResource("19_gny1c")]
+[node name="@StaticBody2D@482" parent="Objects" unique_id=1521370521 instance=ExtResource("19_gny1c")]
 position = Vector2(780, 440)
-collision_mask = 0
-script = ExtResource("20_frq1x")
 
-[node name="@StaticBody2D@483" type="StaticBody2D" parent="Objects" unique_id=1853302677 instance=ExtResource("19_gny1c")]
+[node name="@StaticBody2D@483" parent="Objects" unique_id=1853302677 instance=ExtResource("19_gny1c")]
 position = Vector2(1150, 470)
-collision_mask = 0
-script = ExtResource("20_frq1x")
 bush_type = 2
 
-[node name="@StaticBody2D@484" type="StaticBody2D" parent="Objects" unique_id=1487927171 instance=ExtResource("19_gny1c")]
+[node name="@StaticBody2D@484" parent="Objects" unique_id=1487927171 instance=ExtResource("19_gny1c")]
 position = Vector2(280, 620)
-collision_mask = 0
-script = ExtResource("20_frq1x")
 bush_type = 3
 
-[node name="@StaticBody2D@485" type="StaticBody2D" parent="Objects" unique_id=508745219 instance=ExtResource("19_gny1c")]
+[node name="@StaticBody2D@485" parent="Objects" unique_id=508745219 instance=ExtResource("19_gny1c")]
 position = Vector2(700, 620)
-collision_mask = 0
-script = ExtResource("20_frq1x")
 bush_type = 4
 
-[node name="@StaticBody2D@486" type="StaticBody2D" parent="Objects" unique_id=418600296 instance=ExtResource("19_gny1c")]
+[node name="@StaticBody2D@486" parent="Objects" unique_id=418600296 instance=ExtResource("19_gny1c")]
 position = Vector2(980, 630)
-collision_mask = 0
-script = ExtResource("20_frq1x")
 
 [node name="@StaticBody2D@487" type="StaticBody2D" parent="Objects" unique_id=306828585]
 position = Vector2(620, 420)
@@ -1987,236 +1645,157 @@ position = Vector2(1100, 480)
 texture = ExtResource("30_odf6h")
 offset = Vector2(0, -32)
 
-[node name="@AnimatedSprite2D@502" type="AnimatedSprite2D" parent="Objects" unique_id=1813066623 instance=ExtResource("22_ebmc1")]
+[node name="@AnimatedSprite2D@502" parent="Objects" unique_id=1813066623 instance=ExtResource("22_ebmc1")]
 position = Vector2(200, 130)
-script = ExtResource("23_8xaka")
 
-[node name="@AnimatedSprite2D@503" type="AnimatedSprite2D" parent="Objects" unique_id=1785940233 instance=ExtResource("22_ebmc1")]
+[node name="@AnimatedSprite2D@503" parent="Objects" unique_id=1785940233 instance=ExtResource("22_ebmc1")]
 position = Vector2(450, 130)
-script = ExtResource("23_8xaka")
 
-[node name="@AnimatedSprite2D@504" type="AnimatedSprite2D" parent="Objects" unique_id=1038940544 instance=ExtResource("22_ebmc1")]
+[node name="@AnimatedSprite2D@504" parent="Objects" unique_id=1038940544 instance=ExtResource("22_ebmc1")]
 position = Vector2(700, 130)
-script = ExtResource("23_8xaka")
 
-[node name="@AnimatedSprite2D@505" type="AnimatedSprite2D" parent="Objects" unique_id=1880321471 instance=ExtResource("22_ebmc1")]
+[node name="@AnimatedSprite2D@505" parent="Objects" unique_id=1880321471 instance=ExtResource("22_ebmc1")]
 position = Vector2(950, 130)
-script = ExtResource("23_8xaka")
 
-[node name="@AnimatedSprite2D@506" type="AnimatedSprite2D" parent="Objects" unique_id=999849632 instance=ExtResource("22_ebmc1")]
+[node name="@AnimatedSprite2D@506" parent="Objects" unique_id=999849632 instance=ExtResource("22_ebmc1")]
 position = Vector2(1200, 130)
-script = ExtResource("23_8xaka")
 
-[node name="@StaticBody2D@507" type="StaticBody2D" parent="Objects" unique_id=753730090 instance=ExtResource("24_n6seq")]
+[node name="@StaticBody2D@507" parent="Objects" unique_id=753730090 instance=ExtResource("24_n6seq")]
 position = Vector2(320, 90)
-collision_mask = 0
-script = ExtResource("25_ufs10")
 
-[node name="@StaticBody2D@508" type="StaticBody2D" parent="Objects" unique_id=321513098 instance=ExtResource("24_n6seq")]
+[node name="@StaticBody2D@508" parent="Objects" unique_id=321513098 instance=ExtResource("24_n6seq")]
 position = Vector2(600, 90)
-collision_mask = 0
-script = ExtResource("25_ufs10")
 rock_type = 2
 
-[node name="@StaticBody2D@509" type="StaticBody2D" parent="Objects" unique_id=1642324614 instance=ExtResource("24_n6seq")]
+[node name="@StaticBody2D@509" parent="Objects" unique_id=1642324614 instance=ExtResource("24_n6seq")]
 position = Vector2(850, 90)
-collision_mask = 0
-script = ExtResource("25_ufs10")
 rock_type = 3
 
-[node name="@StaticBody2D@510" type="StaticBody2D" parent="Objects" unique_id=996266473 instance=ExtResource("24_n6seq")]
+[node name="@StaticBody2D@510" parent="Objects" unique_id=996266473 instance=ExtResource("24_n6seq")]
 position = Vector2(1100, 90)
-collision_mask = 0
-script = ExtResource("25_ufs10")
 rock_type = 4
 
-[node name="@StaticBody2D@511" type="StaticBody2D" parent="Objects" unique_id=908020749 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@511" parent="Objects" unique_id=908020749 instance=ExtResource("17_kvmu4")]
 position = Vector2(220, 1340)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 
-[node name="@StaticBody2D@512" type="StaticBody2D" parent="Objects" unique_id=334374761 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@512" parent="Objects" unique_id=334374761 instance=ExtResource("17_kvmu4")]
 position = Vector2(440, 1400)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 2
 
-[node name="@StaticBody2D@513" type="StaticBody2D" parent="Objects" unique_id=994108775 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@513" parent="Objects" unique_id=994108775 instance=ExtResource("17_kvmu4")]
 position = Vector2(660, 1330)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 3
 
-[node name="@StaticBody2D@514" type="StaticBody2D" parent="Objects" unique_id=783726471 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@514" parent="Objects" unique_id=783726471 instance=ExtResource("17_kvmu4")]
 position = Vector2(880, 1310)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 4
 
-[node name="@StaticBody2D@515" type="StaticBody2D" parent="Objects" unique_id=213455301 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@515" parent="Objects" unique_id=213455301 instance=ExtResource("17_kvmu4")]
 position = Vector2(1050, 1330)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 
-[node name="@StaticBody2D@516" type="StaticBody2D" parent="Objects" unique_id=449226009 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@516" parent="Objects" unique_id=449226009 instance=ExtResource("17_kvmu4")]
 position = Vector2(320, 1480)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 2
 
-[node name="@StaticBody2D@517" type="StaticBody2D" parent="Objects" unique_id=1244641998 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@517" parent="Objects" unique_id=1244641998 instance=ExtResource("17_kvmu4")]
 position = Vector2(540, 1460)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 3
 
-[node name="@StaticBody2D@518" type="StaticBody2D" parent="Objects" unique_id=1635712931 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@518" parent="Objects" unique_id=1635712931 instance=ExtResource("17_kvmu4")]
 position = Vector2(760, 1490)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 4
 
-[node name="@StaticBody2D@519" type="StaticBody2D" parent="Objects" unique_id=1528095435 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@519" parent="Objects" unique_id=1528095435 instance=ExtResource("17_kvmu4")]
 position = Vector2(960, 1470)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 
-[node name="@StaticBody2D@520" type="StaticBody2D" parent="Objects" unique_id=1553873965 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@520" parent="Objects" unique_id=1553873965 instance=ExtResource("17_kvmu4")]
 position = Vector2(200, 1620)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 2
 
-[node name="@StaticBody2D@521" type="StaticBody2D" parent="Objects" unique_id=500122797 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@521" parent="Objects" unique_id=500122797 instance=ExtResource("17_kvmu4")]
 position = Vector2(380, 1650)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 3
 
-[node name="@StaticBody2D@522" type="StaticBody2D" parent="Objects" unique_id=2074040052 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@522" parent="Objects" unique_id=2074040052 instance=ExtResource("17_kvmu4")]
 position = Vector2(600, 1620)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 4
 
-[node name="@StaticBody2D@523" type="StaticBody2D" parent="Objects" unique_id=1356019493 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@523" parent="Objects" unique_id=1356019493 instance=ExtResource("17_kvmu4")]
 position = Vector2(820, 1650)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 
-[node name="@StaticBody2D@524" type="StaticBody2D" parent="Objects" unique_id=114643406 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@524" parent="Objects" unique_id=114643406 instance=ExtResource("17_kvmu4")]
 position = Vector2(1040, 1630)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 2
 
-[node name="@StaticBody2D@525" type="StaticBody2D" parent="Objects" unique_id=844764823 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@525" parent="Objects" unique_id=844764823 instance=ExtResource("17_kvmu4")]
 position = Vector2(280, 1800)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 3
 
-[node name="@StaticBody2D@526" type="StaticBody2D" parent="Objects" unique_id=1309950575 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@526" parent="Objects" unique_id=1309950575 instance=ExtResource("17_kvmu4")]
 position = Vector2(480, 1780)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 4
 
-[node name="@StaticBody2D@527" type="StaticBody2D" parent="Objects" unique_id=1720957811 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@527" parent="Objects" unique_id=1720957811 instance=ExtResource("17_kvmu4")]
 position = Vector2(700, 1810)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 
-[node name="@StaticBody2D@528" type="StaticBody2D" parent="Objects" unique_id=1521056417 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@528" parent="Objects" unique_id=1521056417 instance=ExtResource("17_kvmu4")]
 position = Vector2(900, 1790)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 2
 
-[node name="@StaticBody2D@529" type="StaticBody2D" parent="Objects" unique_id=280950373 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@529" parent="Objects" unique_id=280950373 instance=ExtResource("17_kvmu4")]
 position = Vector2(1060, 1810)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 3
 
-[node name="@StaticBody2D@530" type="StaticBody2D" parent="Objects" unique_id=1998440933 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@530" parent="Objects" unique_id=1998440933 instance=ExtResource("17_kvmu4")]
 position = Vector2(220, 1960)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 4
 
-[node name="@StaticBody2D@531" type="StaticBody2D" parent="Objects" unique_id=2020068225 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@531" parent="Objects" unique_id=2020068225 instance=ExtResource("17_kvmu4")]
 position = Vector2(420, 1980)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 
-[node name="@StaticBody2D@532" type="StaticBody2D" parent="Objects" unique_id=1398144344 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@532" parent="Objects" unique_id=1398144344 instance=ExtResource("17_kvmu4")]
 position = Vector2(640, 1960)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 2
 
-[node name="@StaticBody2D@533" type="StaticBody2D" parent="Objects" unique_id=2032449276 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@533" parent="Objects" unique_id=2032449276 instance=ExtResource("17_kvmu4")]
 position = Vector2(840, 1980)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 3
 
-[node name="@StaticBody2D@534" type="StaticBody2D" parent="Objects" unique_id=12680930 instance=ExtResource("19_gny1c")]
+[node name="@StaticBody2D@534" parent="Objects" unique_id=12680930 instance=ExtResource("19_gny1c")]
 position = Vector2(260, 1380)
-collision_mask = 0
-script = ExtResource("20_frq1x")
 
-[node name="@StaticBody2D@535" type="StaticBody2D" parent="Objects" unique_id=1961397650 instance=ExtResource("19_gny1c")]
+[node name="@StaticBody2D@535" parent="Objects" unique_id=1961397650 instance=ExtResource("19_gny1c")]
 position = Vector2(580, 1360)
-collision_mask = 0
-script = ExtResource("20_frq1x")
 bush_type = 2
 
-[node name="@StaticBody2D@536" type="StaticBody2D" parent="Objects" unique_id=1728542023 instance=ExtResource("19_gny1c")]
+[node name="@StaticBody2D@536" parent="Objects" unique_id=1728542023 instance=ExtResource("19_gny1c")]
 position = Vector2(920, 1370)
-collision_mask = 0
-script = ExtResource("20_frq1x")
 bush_type = 3
 
-[node name="@StaticBody2D@537" type="StaticBody2D" parent="Objects" unique_id=1476363366 instance=ExtResource("19_gny1c")]
+[node name="@StaticBody2D@537" parent="Objects" unique_id=1476363366 instance=ExtResource("19_gny1c")]
 position = Vector2(360, 1540)
-collision_mask = 0
-script = ExtResource("20_frq1x")
 bush_type = 4
 
-[node name="@StaticBody2D@538" type="StaticBody2D" parent="Objects" unique_id=1191351727 instance=ExtResource("19_gny1c")]
+[node name="@StaticBody2D@538" parent="Objects" unique_id=1191351727 instance=ExtResource("19_gny1c")]
 position = Vector2(800, 1530)
-collision_mask = 0
-script = ExtResource("20_frq1x")
 
-[node name="@StaticBody2D@539" type="StaticBody2D" parent="Objects" unique_id=632419188 instance=ExtResource("19_gny1c")]
+[node name="@StaticBody2D@539" parent="Objects" unique_id=632419188 instance=ExtResource("19_gny1c")]
 position = Vector2(240, 1720)
-collision_mask = 0
-script = ExtResource("20_frq1x")
 bush_type = 2
 
-[node name="@StaticBody2D@540" type="StaticBody2D" parent="Objects" unique_id=1363805432 instance=ExtResource("19_gny1c")]
+[node name="@StaticBody2D@540" parent="Objects" unique_id=1363805432 instance=ExtResource("19_gny1c")]
 position = Vector2(620, 1720)
-collision_mask = 0
-script = ExtResource("20_frq1x")
 bush_type = 3
 
-[node name="@StaticBody2D@541" type="StaticBody2D" parent="Objects" unique_id=846895428 instance=ExtResource("19_gny1c")]
+[node name="@StaticBody2D@541" parent="Objects" unique_id=846895428 instance=ExtResource("19_gny1c")]
 position = Vector2(960, 1720)
-collision_mask = 0
-script = ExtResource("20_frq1x")
 bush_type = 4
 
-[node name="@StaticBody2D@542" type="StaticBody2D" parent="Objects" unique_id=561385583 instance=ExtResource("19_gny1c")]
+[node name="@StaticBody2D@542" parent="Objects" unique_id=561385583 instance=ExtResource("19_gny1c")]
 position = Vector2(340, 1880)
-collision_mask = 0
-script = ExtResource("20_frq1x")
 
-[node name="@StaticBody2D@543" type="StaticBody2D" parent="Objects" unique_id=1379690625 instance=ExtResource("19_gny1c")]
+[node name="@StaticBody2D@543" parent="Objects" unique_id=1379690625 instance=ExtResource("19_gny1c")]
 position = Vector2(780, 1890)
-collision_mask = 0
-script = ExtResource("20_frq1x")
 bush_type = 2
 
 [node name="@Sprite2D@544" type="Sprite2D" parent="Objects" unique_id=635460046]
@@ -2323,49 +1902,35 @@ position = Vector2(610, 1780)
 texture = ExtResource("33_wui3h")
 offset = Vector2(0, -32)
 
-[node name="@AnimatedSprite2D@566" type="AnimatedSprite2D" parent="Objects" unique_id=1510310409 instance=ExtResource("22_ebmc1")]
+[node name="@AnimatedSprite2D@566" parent="Objects" unique_id=1510310409 instance=ExtResource("22_ebmc1")]
 position = Vector2(130, 1420)
-script = ExtResource("23_8xaka")
 
-[node name="@AnimatedSprite2D@567" type="AnimatedSprite2D" parent="Objects" unique_id=1604810822 instance=ExtResource("22_ebmc1")]
+[node name="@AnimatedSprite2D@567" parent="Objects" unique_id=1604810822 instance=ExtResource("22_ebmc1")]
 position = Vector2(130, 1620)
-script = ExtResource("23_8xaka")
 
-[node name="@AnimatedSprite2D@568" type="AnimatedSprite2D" parent="Objects" unique_id=1948012192 instance=ExtResource("22_ebmc1")]
+[node name="@AnimatedSprite2D@568" parent="Objects" unique_id=1948012192 instance=ExtResource("22_ebmc1")]
 position = Vector2(130, 1820)
-script = ExtResource("23_8xaka")
 
-[node name="@AnimatedSprite2D@569" type="AnimatedSprite2D" parent="Objects" unique_id=1750491829 instance=ExtResource("22_ebmc1")]
+[node name="@AnimatedSprite2D@569" parent="Objects" unique_id=1750491829 instance=ExtResource("22_ebmc1")]
 position = Vector2(130, 2020)
-script = ExtResource("23_8xaka")
 
-[node name="@StaticBody2D@570" type="StaticBody2D" parent="Objects" unique_id=1617034398 instance=ExtResource("24_n6seq")]
+[node name="@StaticBody2D@570" parent="Objects" unique_id=1617034398 instance=ExtResource("24_n6seq")]
 position = Vector2(100, 1500)
-collision_mask = 0
-script = ExtResource("25_ufs10")
 
-[node name="@StaticBody2D@571" type="StaticBody2D" parent="Objects" unique_id=239062886 instance=ExtResource("24_n6seq")]
+[node name="@StaticBody2D@571" parent="Objects" unique_id=239062886 instance=ExtResource("24_n6seq")]
 position = Vector2(90, 1720)
-collision_mask = 0
-script = ExtResource("25_ufs10")
 rock_type = 2
 
-[node name="@StaticBody2D@572" type="StaticBody2D" parent="Objects" unique_id=727375179 instance=ExtResource("24_n6seq")]
+[node name="@StaticBody2D@572" parent="Objects" unique_id=727375179 instance=ExtResource("24_n6seq")]
 position = Vector2(100, 1920)
-collision_mask = 0
-script = ExtResource("25_ufs10")
 rock_type = 3
 
-[node name="TrainingTower" type="StaticBody2D" parent="Objects" unique_id=931605480 instance=ExtResource("12_n78cu")]
+[node name="TrainingTower" parent="Objects" unique_id=931605480 instance=ExtResource("12_n78cu")]
 position = Vector2(3130, 360)
-collision_mask = 0
-script = ExtResource("13_kcpaj")
 building_type = 4
 
-[node name="ArcheryRange" type="StaticBody2D" parent="Objects" unique_id=167503227 instance=ExtResource("12_n78cu")]
+[node name="ArcheryRange" parent="Objects" unique_id=167503227 instance=ExtResource("12_n78cu")]
 position = Vector2(3530, 380)
-collision_mask = 0
-script = ExtResource("13_kcpaj")
 building_type = 6
 
 [node name="@StaticBody2D@573" type="StaticBody2D" parent="Objects" unique_id=2031588620]
@@ -2409,106 +1974,70 @@ texture = ExtResource("35_gw1vw")
 position = Vector2(0, -9)
 shape = SubResource("RectangleShape2D_mvdav")
 
-[node name="@StaticBody2D@583" type="StaticBody2D" parent="Objects" unique_id=477472815 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@583" parent="Objects" unique_id=477472815 instance=ExtResource("17_kvmu4")]
 position = Vector2(2680, 260)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 
-[node name="@StaticBody2D@584" type="StaticBody2D" parent="Objects" unique_id=2013820193 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@584" parent="Objects" unique_id=2013820193 instance=ExtResource("17_kvmu4")]
 position = Vector2(2880, 250)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 2
 
-[node name="@StaticBody2D@585" type="StaticBody2D" parent="Objects" unique_id=1608965146 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@585" parent="Objects" unique_id=1608965146 instance=ExtResource("17_kvmu4")]
 position = Vector2(3080, 240)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 
-[node name="@StaticBody2D@586" type="StaticBody2D" parent="Objects" unique_id=833806445 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@586" parent="Objects" unique_id=833806445 instance=ExtResource("17_kvmu4")]
 position = Vector2(3330, 250)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 2
 
-[node name="@StaticBody2D@587" type="StaticBody2D" parent="Objects" unique_id=2084269898 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@587" parent="Objects" unique_id=2084269898 instance=ExtResource("17_kvmu4")]
 position = Vector2(3530, 240)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 
-[node name="@StaticBody2D@588" type="StaticBody2D" parent="Objects" unique_id=1138514913 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@588" parent="Objects" unique_id=1138514913 instance=ExtResource("17_kvmu4")]
 position = Vector2(3730, 260)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 2
 
-[node name="@StaticBody2D@589" type="StaticBody2D" parent="Objects" unique_id=1911220506 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@589" parent="Objects" unique_id=1911220506 instance=ExtResource("17_kvmu4")]
 position = Vector2(2600, 360)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 3
 
-[node name="@StaticBody2D@590" type="StaticBody2D" parent="Objects" unique_id=452043730 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@590" parent="Objects" unique_id=452043730 instance=ExtResource("17_kvmu4")]
 position = Vector2(2780, 420)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 4
 
-[node name="@StaticBody2D@591" type="StaticBody2D" parent="Objects" unique_id=647732589 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@591" parent="Objects" unique_id=647732589 instance=ExtResource("17_kvmu4")]
 position = Vector2(2960, 280)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 
-[node name="@StaticBody2D@592" type="StaticBody2D" parent="Objects" unique_id=2014683645 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@592" parent="Objects" unique_id=2014683645 instance=ExtResource("17_kvmu4")]
 position = Vector2(3200, 260)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 2
 
-[node name="@StaticBody2D@593" type="StaticBody2D" parent="Objects" unique_id=319319225 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@593" parent="Objects" unique_id=319319225 instance=ExtResource("17_kvmu4")]
 position = Vector2(3440, 280)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 3
 
-[node name="@StaticBody2D@594" type="StaticBody2D" parent="Objects" unique_id=1041721104 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@594" parent="Objects" unique_id=1041721104 instance=ExtResource("17_kvmu4")]
 position = Vector2(3660, 290)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 4
 
-[node name="@StaticBody2D@595" type="StaticBody2D" parent="Objects" unique_id=2024813826 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@595" parent="Objects" unique_id=2024813826 instance=ExtResource("17_kvmu4")]
 position = Vector2(3830, 380)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 
-[node name="@StaticBody2D@596" type="StaticBody2D" parent="Objects" unique_id=2075784719 instance=ExtResource("19_gny1c")]
+[node name="@StaticBody2D@596" parent="Objects" unique_id=2075784719 instance=ExtResource("19_gny1c")]
 position = Vector2(2730, 460)
-collision_mask = 0
-script = ExtResource("20_frq1x")
 
-[node name="@StaticBody2D@597" type="StaticBody2D" parent="Objects" unique_id=153035049 instance=ExtResource("19_gny1c")]
+[node name="@StaticBody2D@597" parent="Objects" unique_id=153035049 instance=ExtResource("19_gny1c")]
 position = Vector2(3230, 480)
-collision_mask = 0
-script = ExtResource("20_frq1x")
 bush_type = 2
 
-[node name="@StaticBody2D@598" type="StaticBody2D" parent="Objects" unique_id=14368322 instance=ExtResource("19_gny1c")]
+[node name="@StaticBody2D@598" parent="Objects" unique_id=14368322 instance=ExtResource("19_gny1c")]
 position = Vector2(3380, 440)
-collision_mask = 0
-script = ExtResource("20_frq1x")
 bush_type = 3
 
-[node name="@StaticBody2D@599" type="StaticBody2D" parent="Objects" unique_id=1178788629 instance=ExtResource("19_gny1c")]
+[node name="@StaticBody2D@599" parent="Objects" unique_id=1178788629 instance=ExtResource("19_gny1c")]
 position = Vector2(3630, 470)
-collision_mask = 0
-script = ExtResource("20_frq1x")
 bush_type = 4
 
-[node name="@StaticBody2D@600" type="StaticBody2D" parent="Objects" unique_id=875308565 instance=ExtResource("19_gny1c")]
+[node name="@StaticBody2D@600" parent="Objects" unique_id=875308565 instance=ExtResource("19_gny1c")]
 position = Vector2(3780, 450)
-collision_mask = 0
-script = ExtResource("20_frq1x")
 
 [node name="@Sprite2D@601" type="Sprite2D" parent="Objects" unique_id=102802717]
 position = Vector2(3000, 390)
@@ -2546,27 +2075,17 @@ texture = ExtResource("28_pb8sg")
 position = Vector2(0, -10)
 shape = SubResource("CircleShape2D_pq1gm")
 
-[node name="@CharacterBody2D@607" type="CharacterBody2D" parent="Objects" unique_id=1567058511 instance=ExtResource("38_pwx6t")]
+[node name="@CharacterBody2D@607" parent="Objects" unique_id=1567058511 instance=ExtResource("38_pwx6t")]
 position = Vector2(3200, 520)
-collision_layer = 4
-collision_mask = 3
-script = ExtResource("39_tjdyg")
 
-[node name="@CharacterBody2D@608" type="CharacterBody2D" parent="Objects" unique_id=870900188 instance=ExtResource("38_pwx6t")]
+[node name="@CharacterBody2D@608" parent="Objects" unique_id=870900188 instance=ExtResource("38_pwx6t")]
 position = Vector2(3400, 530)
-collision_layer = 4
-collision_mask = 3
-script = ExtResource("39_tjdyg")
 
-[node name="EnemyTorchGoblin" type="CharacterBody2D" parent="Objects" unique_id=1157612759 instance=ExtResource("46_nbuqd")]
+[node name="EnemyTorchGoblin" parent="Objects" unique_id=1157612759 instance=ExtResource("46_nbuqd")]
 position = Vector2(3580, 500)
-collision_layer = 4
-script = ExtResource("47_3t06w")
 
-[node name="WildernessWatchtower" type="StaticBody2D" parent="Objects" unique_id=396555151 instance=ExtResource("12_n78cu")]
+[node name="WildernessWatchtower" parent="Objects" unique_id=396555151 instance=ExtResource("12_n78cu")]
 position = Vector2(4630, 360)
-collision_mask = 0
-script = ExtResource("13_kcpaj")
 building_type = 4
 
 [node name="@StaticBody2D@609" type="StaticBody2D" parent="Objects" unique_id=914098792]
@@ -2622,244 +2141,160 @@ texture = ExtResource("26_h5nhj")
 position = Vector2(0, -6)
 shape = SubResource("RectangleShape2D_4khmu")
 
-[node name="@CharacterBody2D@622" type="CharacterBody2D" parent="Objects" unique_id=1513404702 instance=ExtResource("46_nbuqd")]
+[node name="@CharacterBody2D@622" parent="Objects" unique_id=1513404702 instance=ExtResource("46_nbuqd")]
 position = Vector2(4700, 460)
-collision_layer = 4
-script = ExtResource("47_3t06w")
 
-[node name="@StaticBody2D@623" type="StaticBody2D" parent="Objects" unique_id=1631898187 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@623" parent="Objects" unique_id=1631898187 instance=ExtResource("17_kvmu4")]
 position = Vector2(4030, 240)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 
-[node name="@StaticBody2D@624" type="StaticBody2D" parent="Objects" unique_id=706373747 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@624" parent="Objects" unique_id=706373747 instance=ExtResource("17_kvmu4")]
 position = Vector2(4260, 220)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 2
 
-[node name="@StaticBody2D@625" type="StaticBody2D" parent="Objects" unique_id=1487075506 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@625" parent="Objects" unique_id=1487075506 instance=ExtResource("17_kvmu4")]
 position = Vector2(4480, 250)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 3
 
-[node name="@StaticBody2D@626" type="StaticBody2D" parent="Objects" unique_id=1159002684 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@626" parent="Objects" unique_id=1159002684 instance=ExtResource("17_kvmu4")]
 position = Vector2(4730, 220)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 4
 
-[node name="@StaticBody2D@627" type="StaticBody2D" parent="Objects" unique_id=463617096 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@627" parent="Objects" unique_id=463617096 instance=ExtResource("17_kvmu4")]
 position = Vector2(4980, 240)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 
-[node name="@StaticBody2D@628" type="StaticBody2D" parent="Objects" unique_id=1024520539 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@628" parent="Objects" unique_id=1024520539 instance=ExtResource("17_kvmu4")]
 position = Vector2(5230, 220)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 2
 
-[node name="@StaticBody2D@629" type="StaticBody2D" parent="Objects" unique_id=44529238 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@629" parent="Objects" unique_id=44529238 instance=ExtResource("17_kvmu4")]
 position = Vector2(5480, 240)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 3
 
-[node name="@StaticBody2D@630" type="StaticBody2D" parent="Objects" unique_id=981399768 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@630" parent="Objects" unique_id=981399768 instance=ExtResource("17_kvmu4")]
 position = Vector2(5730, 220)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 4
 
-[node name="@StaticBody2D@631" type="StaticBody2D" parent="Objects" unique_id=330787846 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@631" parent="Objects" unique_id=330787846 instance=ExtResource("17_kvmu4")]
 position = Vector2(5980, 250)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 
-[node name="@StaticBody2D@632" type="StaticBody2D" parent="Objects" unique_id=136114110 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@632" parent="Objects" unique_id=136114110 instance=ExtResource("17_kvmu4")]
 position = Vector2(4130, 400)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 2
 
-[node name="@StaticBody2D@633" type="StaticBody2D" parent="Objects" unique_id=1026766805 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@633" parent="Objects" unique_id=1026766805 instance=ExtResource("17_kvmu4")]
 position = Vector2(4380, 420)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 3
 
-[node name="@StaticBody2D@634" type="StaticBody2D" parent="Objects" unique_id=129139578 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@634" parent="Objects" unique_id=129139578 instance=ExtResource("17_kvmu4")]
 position = Vector2(4860, 400)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 4
 
-[node name="@StaticBody2D@635" type="StaticBody2D" parent="Objects" unique_id=1934677965 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@635" parent="Objects" unique_id=1934677965 instance=ExtResource("17_kvmu4")]
 position = Vector2(5100, 420)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 
-[node name="@StaticBody2D@636" type="StaticBody2D" parent="Objects" unique_id=696238064 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@636" parent="Objects" unique_id=696238064 instance=ExtResource("17_kvmu4")]
 position = Vector2(5360, 390)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 2
 
-[node name="@StaticBody2D@637" type="StaticBody2D" parent="Objects" unique_id=226465308 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@637" parent="Objects" unique_id=226465308 instance=ExtResource("17_kvmu4")]
 position = Vector2(5620, 410)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 3
 
-[node name="@StaticBody2D@638" type="StaticBody2D" parent="Objects" unique_id=1014519335 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@638" parent="Objects" unique_id=1014519335 instance=ExtResource("17_kvmu4")]
 position = Vector2(5880, 390)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 4
 
-[node name="@StaticBody2D@639" type="StaticBody2D" parent="Objects" unique_id=1845766826 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@639" parent="Objects" unique_id=1845766826 instance=ExtResource("17_kvmu4")]
 position = Vector2(6080, 420)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 
-[node name="@StaticBody2D@640" type="StaticBody2D" parent="Objects" unique_id=1203520701 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@640" parent="Objects" unique_id=1203520701 instance=ExtResource("17_kvmu4")]
 position = Vector2(4000, 560)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 2
 
-[node name="@StaticBody2D@641" type="StaticBody2D" parent="Objects" unique_id=706134114 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@641" parent="Objects" unique_id=706134114 instance=ExtResource("17_kvmu4")]
 position = Vector2(4230, 580)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 3
 
-[node name="@StaticBody2D@642" type="StaticBody2D" parent="Objects" unique_id=374068506 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@642" parent="Objects" unique_id=374068506 instance=ExtResource("17_kvmu4")]
 position = Vector2(4500, 560)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 4
 
-[node name="@StaticBody2D@643" type="StaticBody2D" parent="Objects" unique_id=1237832890 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@643" parent="Objects" unique_id=1237832890 instance=ExtResource("17_kvmu4")]
 position = Vector2(4760, 580)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 
-[node name="@StaticBody2D@644" type="StaticBody2D" parent="Objects" unique_id=440273397 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@644" parent="Objects" unique_id=440273397 instance=ExtResource("17_kvmu4")]
 position = Vector2(5000, 560)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 2
 
-[node name="@StaticBody2D@645" type="StaticBody2D" parent="Objects" unique_id=1934483450 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@645" parent="Objects" unique_id=1934483450 instance=ExtResource("17_kvmu4")]
 position = Vector2(5260, 590)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 3
 
-[node name="@StaticBody2D@646" type="StaticBody2D" parent="Objects" unique_id=140294809 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@646" parent="Objects" unique_id=140294809 instance=ExtResource("17_kvmu4")]
 position = Vector2(5520, 570)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 4
 
-[node name="@StaticBody2D@647" type="StaticBody2D" parent="Objects" unique_id=1308436066 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@647" parent="Objects" unique_id=1308436066 instance=ExtResource("17_kvmu4")]
 position = Vector2(5780, 590)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 
-[node name="@StaticBody2D@648" type="StaticBody2D" parent="Objects" unique_id=2113962434 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@648" parent="Objects" unique_id=2113962434 instance=ExtResource("17_kvmu4")]
 position = Vector2(6020, 570)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 2
 
-[node name="@StaticBody2D@649" type="StaticBody2D" parent="Objects" unique_id=57947744 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@649" parent="Objects" unique_id=57947744 instance=ExtResource("17_kvmu4")]
 position = Vector2(4120, 720)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 3
 
-[node name="@StaticBody2D@650" type="StaticBody2D" parent="Objects" unique_id=900097437 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@650" parent="Objects" unique_id=900097437 instance=ExtResource("17_kvmu4")]
 position = Vector2(4340, 700)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 4
 
-[node name="@StaticBody2D@651" type="StaticBody2D" parent="Objects" unique_id=1079722010 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@651" parent="Objects" unique_id=1079722010 instance=ExtResource("17_kvmu4")]
 position = Vector2(4560, 730)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 
-[node name="@StaticBody2D@652" type="StaticBody2D" parent="Objects" unique_id=815846236 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@652" parent="Objects" unique_id=815846236 instance=ExtResource("17_kvmu4")]
 position = Vector2(4800, 710)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 2
 
-[node name="@StaticBody2D@653" type="StaticBody2D" parent="Objects" unique_id=1371937285 instance=ExtResource("19_gny1c")]
+[node name="@StaticBody2D@653" parent="Objects" unique_id=1371937285 instance=ExtResource("19_gny1c")]
 position = Vector2(4100, 320)
-collision_mask = 0
-script = ExtResource("20_frq1x")
 
-[node name="@StaticBody2D@654" type="StaticBody2D" parent="Objects" unique_id=1372578235 instance=ExtResource("19_gny1c")]
+[node name="@StaticBody2D@654" parent="Objects" unique_id=1372578235 instance=ExtResource("19_gny1c")]
 position = Vector2(4580, 280)
-collision_mask = 0
-script = ExtResource("20_frq1x")
 bush_type = 2
 
-[node name="@StaticBody2D@655" type="StaticBody2D" parent="Objects" unique_id=1048760412 instance=ExtResource("19_gny1c")]
+[node name="@StaticBody2D@655" parent="Objects" unique_id=1048760412 instance=ExtResource("19_gny1c")]
 position = Vector2(5060, 330)
-collision_mask = 0
-script = ExtResource("20_frq1x")
 bush_type = 3
 
-[node name="@StaticBody2D@656" type="StaticBody2D" parent="Objects" unique_id=921319981 instance=ExtResource("19_gny1c")]
+[node name="@StaticBody2D@656" parent="Objects" unique_id=921319981 instance=ExtResource("19_gny1c")]
 position = Vector2(5530, 310)
-collision_mask = 0
-script = ExtResource("20_frq1x")
 bush_type = 4
 
-[node name="@StaticBody2D@657" type="StaticBody2D" parent="Objects" unique_id=1227045287 instance=ExtResource("19_gny1c")]
+[node name="@StaticBody2D@657" parent="Objects" unique_id=1227045287 instance=ExtResource("19_gny1c")]
 position = Vector2(5960, 330)
-collision_mask = 0
-script = ExtResource("20_frq1x")
 
-[node name="@StaticBody2D@658" type="StaticBody2D" parent="Objects" unique_id=244113816 instance=ExtResource("19_gny1c")]
+[node name="@StaticBody2D@658" parent="Objects" unique_id=244113816 instance=ExtResource("19_gny1c")]
 position = Vector2(4200, 490)
-collision_mask = 0
-script = ExtResource("20_frq1x")
 bush_type = 2
 
-[node name="@StaticBody2D@659" type="StaticBody2D" parent="Objects" unique_id=2108164560 instance=ExtResource("19_gny1c")]
+[node name="@StaticBody2D@659" parent="Objects" unique_id=2108164560 instance=ExtResource("19_gny1c")]
 position = Vector2(4900, 480)
-collision_mask = 0
-script = ExtResource("20_frq1x")
 bush_type = 3
 
-[node name="@StaticBody2D@660" type="StaticBody2D" parent="Objects" unique_id=1838746504 instance=ExtResource("19_gny1c")]
+[node name="@StaticBody2D@660" parent="Objects" unique_id=1838746504 instance=ExtResource("19_gny1c")]
 position = Vector2(5430, 490)
-collision_mask = 0
-script = ExtResource("20_frq1x")
 bush_type = 4
 
-[node name="@StaticBody2D@661" type="StaticBody2D" parent="Objects" unique_id=1276240157 instance=ExtResource("19_gny1c")]
+[node name="@StaticBody2D@661" parent="Objects" unique_id=1276240157 instance=ExtResource("19_gny1c")]
 position = Vector2(5930, 480)
-collision_mask = 0
-script = ExtResource("20_frq1x")
 
-[node name="@StaticBody2D@662" type="StaticBody2D" parent="Objects" unique_id=1879234322 instance=ExtResource("19_gny1c")]
+[node name="@StaticBody2D@662" parent="Objects" unique_id=1879234322 instance=ExtResource("19_gny1c")]
 position = Vector2(4080, 650)
-collision_mask = 0
-script = ExtResource("20_frq1x")
 bush_type = 2
 
-[node name="@StaticBody2D@663" type="StaticBody2D" parent="Objects" unique_id=1685275918 instance=ExtResource("19_gny1c")]
+[node name="@StaticBody2D@663" parent="Objects" unique_id=1685275918 instance=ExtResource("19_gny1c")]
 position = Vector2(4660, 650)
-collision_mask = 0
-script = ExtResource("20_frq1x")
 bush_type = 3
 
 [node name="@Sprite2D@664" type="Sprite2D" parent="Objects" unique_id=815004415]
@@ -2897,57 +2332,41 @@ position = Vector2(4280, 660)
 texture = ExtResource("31_mu18u")
 offset = Vector2(0, -32)
 
-[node name="@AnimatedSprite2D@671" type="AnimatedSprite2D" parent="Objects" unique_id=807493205 instance=ExtResource("22_ebmc1")]
+[node name="@AnimatedSprite2D@671" parent="Objects" unique_id=807493205 instance=ExtResource("22_ebmc1")]
 position = Vector2(4080, 130)
-script = ExtResource("23_8xaka")
 
-[node name="@AnimatedSprite2D@672" type="AnimatedSprite2D" parent="Objects" unique_id=486890148 instance=ExtResource("22_ebmc1")]
+[node name="@AnimatedSprite2D@672" parent="Objects" unique_id=486890148 instance=ExtResource("22_ebmc1")]
 position = Vector2(4480, 130)
-script = ExtResource("23_8xaka")
 
-[node name="@AnimatedSprite2D@673" type="AnimatedSprite2D" parent="Objects" unique_id=962056058 instance=ExtResource("22_ebmc1")]
+[node name="@AnimatedSprite2D@673" parent="Objects" unique_id=962056058 instance=ExtResource("22_ebmc1")]
 position = Vector2(4880, 130)
-script = ExtResource("23_8xaka")
 
-[node name="@AnimatedSprite2D@674" type="AnimatedSprite2D" parent="Objects" unique_id=921511758 instance=ExtResource("22_ebmc1")]
+[node name="@AnimatedSprite2D@674" parent="Objects" unique_id=921511758 instance=ExtResource("22_ebmc1")]
 position = Vector2(5280, 130)
-script = ExtResource("23_8xaka")
 
-[node name="@AnimatedSprite2D@675" type="AnimatedSprite2D" parent="Objects" unique_id=1722874794 instance=ExtResource("22_ebmc1")]
+[node name="@AnimatedSprite2D@675" parent="Objects" unique_id=1722874794 instance=ExtResource("22_ebmc1")]
 position = Vector2(5680, 130)
-script = ExtResource("23_8xaka")
 
-[node name="@AnimatedSprite2D@676" type="AnimatedSprite2D" parent="Objects" unique_id=541799856 instance=ExtResource("22_ebmc1")]
+[node name="@AnimatedSprite2D@676" parent="Objects" unique_id=541799856 instance=ExtResource("22_ebmc1")]
 position = Vector2(6080, 130)
-script = ExtResource("23_8xaka")
 
-[node name="@StaticBody2D@677" type="StaticBody2D" parent="Objects" unique_id=311443302 instance=ExtResource("24_n6seq")]
+[node name="@StaticBody2D@677" parent="Objects" unique_id=311443302 instance=ExtResource("24_n6seq")]
 position = Vector2(4280, 90)
-collision_mask = 0
-script = ExtResource("25_ufs10")
 
-[node name="@StaticBody2D@678" type="StaticBody2D" parent="Objects" unique_id=1450968690 instance=ExtResource("24_n6seq")]
+[node name="@StaticBody2D@678" parent="Objects" unique_id=1450968690 instance=ExtResource("24_n6seq")]
 position = Vector2(4680, 90)
-collision_mask = 0
-script = ExtResource("25_ufs10")
 rock_type = 2
 
-[node name="@StaticBody2D@679" type="StaticBody2D" parent="Objects" unique_id=980313218 instance=ExtResource("24_n6seq")]
+[node name="@StaticBody2D@679" parent="Objects" unique_id=980313218 instance=ExtResource("24_n6seq")]
 position = Vector2(5080, 90)
-collision_mask = 0
-script = ExtResource("25_ufs10")
 rock_type = 3
 
-[node name="@StaticBody2D@680" type="StaticBody2D" parent="Objects" unique_id=217404529 instance=ExtResource("24_n6seq")]
+[node name="@StaticBody2D@680" parent="Objects" unique_id=217404529 instance=ExtResource("24_n6seq")]
 position = Vector2(5480, 90)
-collision_mask = 0
-script = ExtResource("25_ufs10")
 rock_type = 4
 
-[node name="@StaticBody2D@681" type="StaticBody2D" parent="Objects" unique_id=1783888902 instance=ExtResource("24_n6seq")]
+[node name="@StaticBody2D@681" parent="Objects" unique_id=1783888902 instance=ExtResource("24_n6seq")]
 position = Vector2(5880, 90)
-collision_mask = 0
-script = ExtResource("25_ufs10")
 
 [node name="@Sprite2D@682" type="Sprite2D" parent="Objects" unique_id=1420066710]
 position = Vector2(2970, 1024)
@@ -2970,25 +2389,14 @@ texture = ExtResource("28_pb8sg")
 position = Vector2(0, -10)
 shape = SubResource("CircleShape2D_0tnqy")
 
-[node name="NPC_Guard" type="StaticBody2D" parent="Objects" unique_id=183681458 instance=ExtResource("49_kegyo")]
+[node name="NPC_Guard" parent="Objects" unique_id=183681458 instance=ExtResource("49_kegyo")]
 position = Vector2(3060, 1024)
-collision_mask = 0
-script = ExtResource("11_oexs8")
-npc_name = "Mossveil Guard"
-prompt_text = "E - Talk to Guard"
-dialogue_lines = Array[String](["Halt! ...Wait. You carry the ancestral blade from the ancient lore.", "You fought your way through the slimes on the high road? Magnificent work, traveler!", "You are safe within the sturdy walls of Mossveil.", "The Elder is waiting for you at the Great Hall in the north of the village square."])
-dialogue_lines_alt = Array[String](["Mossveil's gates are secure for now.", "Make sure you speak with Elder Oakhaven at the Great Hall."])
-required_flag = "met_kitsu"
 
-[node name="VillageHouse_West1" type="StaticBody2D" parent="Objects" unique_id=1490919199 instance=ExtResource("12_n78cu")]
+[node name="VillageHouse_West1" parent="Objects" unique_id=1490919199 instance=ExtResource("12_n78cu")]
 position = Vector2(3230, 860)
-collision_mask = 0
-script = ExtResource("13_kcpaj")
 
-[node name="VillageHouse_West2" type="StaticBody2D" parent="Objects" unique_id=75540376 instance=ExtResource("12_n78cu")]
+[node name="VillageHouse_West2" parent="Objects" unique_id=75540376 instance=ExtResource("12_n78cu")]
 position = Vector2(3460, 840)
-collision_mask = 0
-script = ExtResource("13_kcpaj")
 building_type = 1
 
 [node name="@StaticBody2D@685" type="StaticBody2D" parent="Objects" unique_id=2051024242]
@@ -3003,25 +2411,15 @@ texture = ExtResource("14_c15v2")
 position = Vector2(0, -5)
 shape = SubResource("RectangleShape2D_u6w7b")
 
-[node name="VillageHouse_Maya" type="StaticBody2D" parent="Objects" unique_id=1621442246 instance=ExtResource("12_n78cu")]
+[node name="VillageHouse_Maya" parent="Objects" unique_id=1621442246 instance=ExtResource("12_n78cu")]
 position = Vector2(4030, 820)
-collision_mask = 0
-script = ExtResource("13_kcpaj")
 building_type = 2
 
-[node name="NPC_Maya" type="StaticBody2D" parent="Objects" unique_id=279480568 instance=ExtResource("50_hi2pd")]
+[node name="NPC_Maya" parent="Objects" unique_id=279480568 instance=ExtResource("50_hi2pd")]
 position = Vector2(3980, 900)
-collision_mask = 0
-script = ExtResource("11_oexs8")
-npc_name = "Maya"
-prompt_text = "E - Talk to Maya"
-dialogue_lines = Array[String](["Hello there, traveler! Isn't Mossveil lovely this time of year?", "If you're feeling weary, rest by the fountain. The cool water does wonders for the spirit.", "Take care on your adventures, Snowy!"])
-required_flag = "met_kitsu"
 
-[node name="BarracksWorkshop" type="StaticBody2D" parent="Objects" unique_id=1492243224 instance=ExtResource("12_n78cu")]
+[node name="BarracksWorkshop" parent="Objects" unique_id=1492243224 instance=ExtResource("12_n78cu")]
 position = Vector2(3260, 1260)
-collision_mask = 0
-script = ExtResource("13_kcpaj")
 building_type = 7
 
 [node name="@StaticBody2D@688" type="StaticBody2D" parent="Objects" unique_id=1618224385]
@@ -3065,20 +2463,11 @@ texture = ExtResource("14_c15v2")
 position = Vector2(0, -5)
 shape = SubResource("RectangleShape2D_t6th7")
 
-[node name="NPC_Ravi" type="StaticBody2D" parent="Objects" unique_id=1697186037 instance=ExtResource("53_fnm1x")]
-position = Vector2(3360, 1220)
-collision_mask = 0
-script = ExtResource("11_oexs8")
-npc_name = "Ravi"
-prompt_text = "E - Talk to Ravi"
-dialogue_lines = Array[String](["Clang! Clang! Good day, traveler! That is remarkable steel you carry.", "Keep your sword swinging with [Q]. Slimes are soft, but armored beasts require precise strikes.", "Whenever your blade needs sharpening, my forge is open to our hero!"])
-dialogue_lines_alt = Array[String](["Keep that blade sharp, Snowy!", "The fire in the forge burns as bright as your spirit."])
-required_flag = "met_kitsu"
+[node name="NPC_Ravi" parent="Objects" unique_id=1697186037 instance=ExtResource("53_fnm1x")]
+position = Vector2(3573, 1390)
 
-[node name="@StaticBody2D@698" type="StaticBody2D" parent="Objects" unique_id=1648706141 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@698" parent="Objects" unique_id=1648706141 instance=ExtResource("17_kvmu4")]
 position = Vector2(3776, 1050)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 4
 
 [node name="@StaticBody2D@699" type="StaticBody2D" parent="Objects" unique_id=301713791]
@@ -3198,108 +2587,72 @@ position = Vector2(3830, 1255)
 texture = ExtResource("56_ic2vq")
 offset = Vector2(0, -32)
 
-[node name="VillageHouse_East1" type="StaticBody2D" parent="Objects" unique_id=2097640371 instance=ExtResource("12_n78cu")]
+[node name="VillageHouse_East1" parent="Objects" unique_id=2097640371 instance=ExtResource("12_n78cu")]
 position = Vector2(4330, 840)
-collision_mask = 0
-script = ExtResource("13_kcpaj")
 
-[node name="VillageHouse_East2" type="StaticBody2D" parent="Objects" unique_id=1289145795 instance=ExtResource("12_n78cu")]
+[node name="VillageHouse_East2" parent="Objects" unique_id=1289145795 instance=ExtResource("12_n78cu")]
 position = Vector2(4130, 1260)
-collision_mask = 0
-script = ExtResource("13_kcpaj")
 building_type = 1
 
-[node name="VillageHouse_East3" type="StaticBody2D" parent="Objects" unique_id=342086052 instance=ExtResource("12_n78cu")]
+[node name="VillageHouse_East3" parent="Objects" unique_id=342086052 instance=ExtResource("12_n78cu")]
 position = Vector2(4460, 1240)
-collision_mask = 0
-script = ExtResource("13_kcpaj")
 building_type = 2
 
-[node name="@StaticBody2D@726" type="StaticBody2D" parent="Objects" unique_id=1231525518 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@726" parent="Objects" unique_id=1231525518 instance=ExtResource("17_kvmu4")]
 position = Vector2(3280, 720)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 3
 
-[node name="@StaticBody2D@727" type="StaticBody2D" parent="Objects" unique_id=405250231 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@727" parent="Objects" unique_id=405250231 instance=ExtResource("17_kvmu4")]
 position = Vector2(3580, 720)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 4
 
-[node name="@StaticBody2D@728" type="StaticBody2D" parent="Objects" unique_id=1631938885 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@728" parent="Objects" unique_id=1631938885 instance=ExtResource("17_kvmu4")]
 position = Vector2(3860, 710)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 3
 
-[node name="@StaticBody2D@729" type="StaticBody2D" parent="Objects" unique_id=1786541439 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@729" parent="Objects" unique_id=1786541439 instance=ExtResource("17_kvmu4")]
 position = Vector2(4160, 710)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 4
 
-[node name="@StaticBody2D@730" type="StaticBody2D" parent="Objects" unique_id=1595142771 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@730" parent="Objects" unique_id=1595142771 instance=ExtResource("17_kvmu4")]
 position = Vector2(4380, 720)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 
-[node name="@StaticBody2D@731" type="StaticBody2D" parent="Objects" unique_id=625076104 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@731" parent="Objects" unique_id=625076104 instance=ExtResource("17_kvmu4")]
 position = Vector2(4580, 840)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 4
 
-[node name="@StaticBody2D@732" type="StaticBody2D" parent="Objects" unique_id=129450379 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@732" parent="Objects" unique_id=129450379 instance=ExtResource("17_kvmu4")]
 position = Vector2(4660, 1020)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 2
 
-[node name="@StaticBody2D@733" type="StaticBody2D" parent="Objects" unique_id=285974807 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@733" parent="Objects" unique_id=285974807 instance=ExtResource("17_kvmu4")]
 position = Vector2(4630, 1260)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 3
 
-[node name="@StaticBody2D@734" type="StaticBody2D" parent="Objects" unique_id=1572071810 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@734" parent="Objects" unique_id=1572071810 instance=ExtResource("17_kvmu4")]
 position = Vector2(3980, 1380)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 
-[node name="@StaticBody2D@735" type="StaticBody2D" parent="Objects" unique_id=238474373 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@735" parent="Objects" unique_id=238474373 instance=ExtResource("17_kvmu4")]
 position = Vector2(3630, 1380)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 2
 
-[node name="@StaticBody2D@736" type="StaticBody2D" parent="Objects" unique_id=618519263 instance=ExtResource("19_gny1c")]
+[node name="@StaticBody2D@736" parent="Objects" unique_id=618519263 instance=ExtResource("19_gny1c")]
 position = Vector2(3560, 830)
-collision_mask = 0
-script = ExtResource("20_frq1x")
 
-[node name="@StaticBody2D@737" type="StaticBody2D" parent="Objects" unique_id=1927007196 instance=ExtResource("19_gny1c")]
+[node name="@StaticBody2D@737" parent="Objects" unique_id=1927007196 instance=ExtResource("19_gny1c")]
 position = Vector2(3900, 830)
-collision_mask = 0
-script = ExtResource("20_frq1x")
 bush_type = 2
 
-[node name="@StaticBody2D@738" type="StaticBody2D" parent="Objects" unique_id=1961012393 instance=ExtResource("19_gny1c")]
+[node name="@StaticBody2D@738" parent="Objects" unique_id=1961012393 instance=ExtResource("19_gny1c")]
 position = Vector2(4230, 850)
-collision_mask = 0
-script = ExtResource("20_frq1x")
 bush_type = 3
 
-[node name="@StaticBody2D@739" type="StaticBody2D" parent="Objects" unique_id=348540979 instance=ExtResource("19_gny1c")]
+[node name="@StaticBody2D@739" parent="Objects" unique_id=348540979 instance=ExtResource("19_gny1c")]
 position = Vector2(4530, 960)
-collision_mask = 0
-script = ExtResource("20_frq1x")
 bush_type = 4
 
-[node name="@StaticBody2D@740" type="StaticBody2D" parent="Objects" unique_id=1023474559 instance=ExtResource("19_gny1c")]
+[node name="@StaticBody2D@740" parent="Objects" unique_id=1023474559 instance=ExtResource("19_gny1c")]
 position = Vector2(3800, 1360)
-collision_mask = 0
-script = ExtResource("20_frq1x")
 
 [node name="@Sprite2D@741" type="Sprite2D" parent="Objects" unique_id=148041152]
 position = Vector2(3400, 750)
@@ -3367,24 +2720,18 @@ texture = ExtResource("26_h5nhj")
 position = Vector2(0, -6)
 shape = SubResource("RectangleShape2D_lr1th")
 
-[node name="@AnimatedSprite2D@756" type="AnimatedSprite2D" parent="Objects" unique_id=509333618 instance=ExtResource("22_ebmc1")]
+[node name="@AnimatedSprite2D@756" parent="Objects" unique_id=509333618 instance=ExtResource("22_ebmc1")]
 position = Vector2(3200, 1800)
-script = ExtResource("23_8xaka")
 
-[node name="@AnimatedSprite2D@757" type="AnimatedSprite2D" parent="Objects" unique_id=1220618761 instance=ExtResource("22_ebmc1")]
+[node name="@AnimatedSprite2D@757" parent="Objects" unique_id=1220618761 instance=ExtResource("22_ebmc1")]
 position = Vector2(3200, 2020)
-script = ExtResource("23_8xaka")
 
-[node name="@StaticBody2D@758" type="StaticBody2D" parent="Objects" unique_id=1929168882 instance=ExtResource("24_n6seq")]
+[node name="@StaticBody2D@758" parent="Objects" unique_id=1929168882 instance=ExtResource("24_n6seq")]
 position = Vector2(3170, 1840)
-collision_mask = 0
-script = ExtResource("25_ufs10")
 rock_type = 3
 
-[node name="@StaticBody2D@759" type="StaticBody2D" parent="Objects" unique_id=896036593 instance=ExtResource("24_n6seq")]
+[node name="@StaticBody2D@759" parent="Objects" unique_id=896036593 instance=ExtResource("24_n6seq")]
 position = Vector2(3230, 2060)
-collision_mask = 0
-script = ExtResource("25_ufs10")
 rock_type = 4
 
 [node name="@StaticBody2D@760" type="StaticBody2D" parent="Objects" unique_id=1215139609]
@@ -3449,37 +2796,29 @@ position = Vector2(2730, 1510)
 texture = ExtResource("60_mslh2")
 offset = Vector2(0, -32)
 
-[node name="DynamicSheep" type="CharacterBody2D" parent="Objects" unique_id=62181739 instance=ExtResource("61_8bem1")]
+[node name="DynamicSheep" parent="Objects" unique_id=62181739 instance=ExtResource("61_8bem1")]
 position = Vector2(2620, 1820)
-script = ExtResource("62_6od3t")
 
-[node name="@CharacterBody2D@773" type="CharacterBody2D" parent="Objects" unique_id=218638688 instance=ExtResource("61_8bem1")]
+[node name="@CharacterBody2D@773" parent="Objects" unique_id=218638688 instance=ExtResource("61_8bem1")]
 position = Vector2(2680, 1810)
-script = ExtResource("62_6od3t")
 
-[node name="@CharacterBody2D@774" type="CharacterBody2D" parent="Objects" unique_id=1878464367 instance=ExtResource("61_8bem1")]
+[node name="@CharacterBody2D@774" parent="Objects" unique_id=1878464367 instance=ExtResource("61_8bem1")]
 position = Vector2(2730, 1820)
-script = ExtResource("62_6od3t")
 
-[node name="@CharacterBody2D@775" type="CharacterBody2D" parent="Objects" unique_id=989078780 instance=ExtResource("61_8bem1")]
+[node name="@CharacterBody2D@775" parent="Objects" unique_id=989078780 instance=ExtResource("61_8bem1")]
 position = Vector2(2630, 1870)
-script = ExtResource("62_6od3t")
 
-[node name="@CharacterBody2D@776" type="CharacterBody2D" parent="Objects" unique_id=199889749 instance=ExtResource("61_8bem1")]
+[node name="@CharacterBody2D@776" parent="Objects" unique_id=199889749 instance=ExtResource("61_8bem1")]
 position = Vector2(2700, 1860)
-script = ExtResource("62_6od3t")
 
-[node name="@CharacterBody2D@777" type="CharacterBody2D" parent="Objects" unique_id=607789017 instance=ExtResource("61_8bem1")]
+[node name="@CharacterBody2D@777" parent="Objects" unique_id=607789017 instance=ExtResource("61_8bem1")]
 position = Vector2(2620, 1920)
-script = ExtResource("62_6od3t")
 
-[node name="@CharacterBody2D@778" type="CharacterBody2D" parent="Objects" unique_id=763792503 instance=ExtResource("61_8bem1")]
+[node name="@CharacterBody2D@778" parent="Objects" unique_id=763792503 instance=ExtResource("61_8bem1")]
 position = Vector2(2670, 1930)
-script = ExtResource("62_6od3t")
 
-[node name="@CharacterBody2D@779" type="CharacterBody2D" parent="Objects" unique_id=1513035083 instance=ExtResource("61_8bem1")]
+[node name="@CharacterBody2D@779" parent="Objects" unique_id=1513035083 instance=ExtResource("61_8bem1")]
 position = Vector2(2730, 1920)
-script = ExtResource("62_6od3t")
 
 [node name="@Sprite2D@780" type="Sprite2D" parent="Objects" unique_id=526956329]
 position = Vector2(2650, 1840)
@@ -3491,73 +2830,49 @@ position = Vector2(2710, 1900)
 texture = ExtResource("33_wui3h")
 offset = Vector2(0, -32)
 
-[node name="@StaticBody2D@782" type="StaticBody2D" parent="Objects" unique_id=285888507 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@782" parent="Objects" unique_id=285888507 instance=ExtResource("17_kvmu4")]
 position = Vector2(2490, 1420)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 3
 
-[node name="@StaticBody2D@783" type="StaticBody2D" parent="Objects" unique_id=655634129 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@783" parent="Objects" unique_id=655634129 instance=ExtResource("17_kvmu4")]
 position = Vector2(2840, 1420)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 4
 
-[node name="@StaticBody2D@784" type="StaticBody2D" parent="Objects" unique_id=353851355 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@784" parent="Objects" unique_id=353851355 instance=ExtResource("17_kvmu4")]
 position = Vector2(2490, 1620)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 
-[node name="@StaticBody2D@785" type="StaticBody2D" parent="Objects" unique_id=1305904110 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@785" parent="Objects" unique_id=1305904110 instance=ExtResource("17_kvmu4")]
 position = Vector2(2860, 1620)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 2
 
-[node name="@StaticBody2D@786" type="StaticBody2D" parent="Objects" unique_id=1417895412 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@786" parent="Objects" unique_id=1417895412 instance=ExtResource("17_kvmu4")]
 position = Vector2(2490, 1820)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 3
 
-[node name="@StaticBody2D@787" type="StaticBody2D" parent="Objects" unique_id=942726117 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@787" parent="Objects" unique_id=942726117 instance=ExtResource("17_kvmu4")]
 position = Vector2(2860, 1820)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 4
 
-[node name="@StaticBody2D@788" type="StaticBody2D" parent="Objects" unique_id=1322311652 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@788" parent="Objects" unique_id=1322311652 instance=ExtResource("17_kvmu4")]
 position = Vector2(2490, 1980)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 
-[node name="@StaticBody2D@789" type="StaticBody2D" parent="Objects" unique_id=644994541 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@789" parent="Objects" unique_id=644994541 instance=ExtResource("17_kvmu4")]
 position = Vector2(2860, 1980)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 2
 
-[node name="@StaticBody2D@790" type="StaticBody2D" parent="Objects" unique_id=130320815 instance=ExtResource("19_gny1c")]
+[node name="@StaticBody2D@790" parent="Objects" unique_id=130320815 instance=ExtResource("19_gny1c")]
 position = Vector2(2500, 1500)
-collision_mask = 0
-script = ExtResource("20_frq1x")
 
-[node name="@StaticBody2D@791" type="StaticBody2D" parent="Objects" unique_id=1217762589 instance=ExtResource("19_gny1c")]
+[node name="@StaticBody2D@791" parent="Objects" unique_id=1217762589 instance=ExtResource("19_gny1c")]
 position = Vector2(2840, 1500)
-collision_mask = 0
-script = ExtResource("20_frq1x")
 bush_type = 2
 
-[node name="@StaticBody2D@792" type="StaticBody2D" parent="Objects" unique_id=955224805 instance=ExtResource("19_gny1c")]
+[node name="@StaticBody2D@792" parent="Objects" unique_id=955224805 instance=ExtResource("19_gny1c")]
 position = Vector2(2500, 1720)
-collision_mask = 0
-script = ExtResource("20_frq1x")
 bush_type = 3
 
-[node name="@StaticBody2D@793" type="StaticBody2D" parent="Objects" unique_id=2023666624 instance=ExtResource("19_gny1c")]
+[node name="@StaticBody2D@793" parent="Objects" unique_id=2023666624 instance=ExtResource("19_gny1c")]
 position = Vector2(2840, 1720)
-collision_mask = 0
-script = ExtResource("20_frq1x")
 bush_type = 4
 
 [node name="@Sprite2D@794" type="Sprite2D" parent="Objects" unique_id=1802353516]
@@ -3600,10 +2915,8 @@ texture = ExtResource("28_pb8sg")
 position = Vector2(0, -10)
 shape = SubResource("CircleShape2D_ns15j")
 
-[node name="DynamicGoldRock" type="StaticBody2D" parent="Objects" unique_id=1547820011 instance=ExtResource("65_k2fqw")]
+[node name="DynamicGoldRock" parent="Objects" unique_id=1547820011 instance=ExtResource("65_k2fqw")]
 position = Vector2(2550, 2010)
-collision_mask = 0
-script = ExtResource("66_wt6o6")
 
 [node name="@Sprite2D@799" type="Sprite2D" parent="Objects" unique_id=1051793776]
 position = Vector2(2510, 2030)
@@ -3637,88 +2950,60 @@ texture = ExtResource("26_h5nhj")
 position = Vector2(0, -6)
 shape = SubResource("RectangleShape2D_tenok")
 
-[node name="@StaticBody2D@806" type="StaticBody2D" parent="Objects" unique_id=255449171 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@806" parent="Objects" unique_id=255449171 instance=ExtResource("17_kvmu4")]
 position = Vector2(2260, 2050)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 
-[node name="@StaticBody2D@807" type="StaticBody2D" parent="Objects" unique_id=1447043700 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@807" parent="Objects" unique_id=1447043700 instance=ExtResource("17_kvmu4")]
 position = Vector2(2640, 2060)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 2
 
-[node name="@StaticBody2D@808" type="StaticBody2D" parent="Objects" unique_id=416251768 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@808" parent="Objects" unique_id=416251768 instance=ExtResource("17_kvmu4")]
 position = Vector2(2800, 2050)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 
-[node name="@StaticBody2D@809" type="StaticBody2D" parent="Objects" unique_id=790817972 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@809" parent="Objects" unique_id=790817972 instance=ExtResource("17_kvmu4")]
 position = Vector2(2920, 2040)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 2
 
-[node name="@StaticBody2D@810" type="StaticBody2D" parent="Objects" unique_id=27152976 instance=ExtResource("19_gny1c")]
+[node name="@StaticBody2D@810" parent="Objects" unique_id=27152976 instance=ExtResource("19_gny1c")]
 position = Vector2(2300, 2100)
-collision_mask = 0
-script = ExtResource("20_frq1x")
 
-[node name="@StaticBody2D@811" type="StaticBody2D" parent="Objects" unique_id=2041814100 instance=ExtResource("19_gny1c")]
+[node name="@StaticBody2D@811" parent="Objects" unique_id=2041814100 instance=ExtResource("19_gny1c")]
 position = Vector2(2600, 2110)
-collision_mask = 0
-script = ExtResource("20_frq1x")
 bush_type = 2
 
-[node name="@StaticBody2D@812" type="StaticBody2D" parent="Objects" unique_id=592663151 instance=ExtResource("19_gny1c")]
+[node name="@StaticBody2D@812" parent="Objects" unique_id=592663151 instance=ExtResource("19_gny1c")]
 position = Vector2(2880, 2100)
-collision_mask = 0
-script = ExtResource("20_frq1x")
 bush_type = 3
 
-[node name="@AnimatedSprite2D@813" type="AnimatedSprite2D" parent="Objects" unique_id=1724348196 instance=ExtResource("22_ebmc1")]
+[node name="@AnimatedSprite2D@813" parent="Objects" unique_id=1724348196 instance=ExtResource("22_ebmc1")]
 position = Vector2(2280, 2140)
-script = ExtResource("23_8xaka")
 
-[node name="@AnimatedSprite2D@814" type="AnimatedSprite2D" parent="Objects" unique_id=2103120061 instance=ExtResource("22_ebmc1")]
+[node name="@AnimatedSprite2D@814" parent="Objects" unique_id=2103120061 instance=ExtResource("22_ebmc1")]
 position = Vector2(2480, 2140)
-script = ExtResource("23_8xaka")
 
-[node name="@AnimatedSprite2D@815" type="AnimatedSprite2D" parent="Objects" unique_id=196788429 instance=ExtResource("22_ebmc1")]
+[node name="@AnimatedSprite2D@815" parent="Objects" unique_id=196788429 instance=ExtResource("22_ebmc1")]
 position = Vector2(2680, 2140)
-script = ExtResource("23_8xaka")
 
-[node name="@AnimatedSprite2D@816" type="AnimatedSprite2D" parent="Objects" unique_id=1317348975 instance=ExtResource("22_ebmc1")]
+[node name="@AnimatedSprite2D@816" parent="Objects" unique_id=1317348975 instance=ExtResource("22_ebmc1")]
 position = Vector2(2880, 2140)
-script = ExtResource("23_8xaka")
 
-[node name="@StaticBody2D@817" type="StaticBody2D" parent="Objects" unique_id=867611150 instance=ExtResource("24_n6seq")]
+[node name="@StaticBody2D@817" parent="Objects" unique_id=867611150 instance=ExtResource("24_n6seq")]
 position = Vector2(2230, 2180)
-collision_mask = 0
-script = ExtResource("25_ufs10")
 
-[node name="@StaticBody2D@818" type="StaticBody2D" parent="Objects" unique_id=1233702286 instance=ExtResource("24_n6seq")]
+[node name="@StaticBody2D@818" parent="Objects" unique_id=1233702286 instance=ExtResource("24_n6seq")]
 position = Vector2(2530, 2190)
-collision_mask = 0
-script = ExtResource("25_ufs10")
 rock_type = 2
 
-[node name="@StaticBody2D@819" type="StaticBody2D" parent="Objects" unique_id=597206911 instance=ExtResource("24_n6seq")]
+[node name="@StaticBody2D@819" parent="Objects" unique_id=597206911 instance=ExtResource("24_n6seq")]
 position = Vector2(2730, 2180)
-collision_mask = 0
-script = ExtResource("25_ufs10")
 rock_type = 3
 
-[node name="@StaticBody2D@820" type="StaticBody2D" parent="Objects" unique_id=775236559 instance=ExtResource("24_n6seq")]
+[node name="@StaticBody2D@820" parent="Objects" unique_id=775236559 instance=ExtResource("24_n6seq")]
 position = Vector2(2930, 2180)
-collision_mask = 0
-script = ExtResource("25_ufs10")
 rock_type = 4
 
-[node name="MeadowCottage" type="StaticBody2D" parent="Objects" unique_id=1480328806 instance=ExtResource("12_n78cu")]
+[node name="MeadowCottage" parent="Objects" unique_id=1480328806 instance=ExtResource("12_n78cu")]
 position = Vector2(4080, 1850)
-collision_mask = 0
-script = ExtResource("13_kcpaj")
 building_type = 2
 
 [node name="@StaticBody2D@821" type="StaticBody2D" parent="Objects" unique_id=88558361]
@@ -3816,176 +3101,116 @@ position = Vector2(4595, 1955)
 texture = ExtResource("33_wui3h")
 offset = Vector2(0, -32)
 
-[node name="@StaticBody2D@843" type="StaticBody2D" parent="Objects" unique_id=1274333876 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@843" parent="Objects" unique_id=1274333876 instance=ExtResource("17_kvmu4")]
 position = Vector2(3530, 1740)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 
-[node name="@StaticBody2D@844" type="StaticBody2D" parent="Objects" unique_id=2143775183 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@844" parent="Objects" unique_id=2143775183 instance=ExtResource("17_kvmu4")]
 position = Vector2(3760, 1720)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 2
 
-[node name="@StaticBody2D@845" type="StaticBody2D" parent="Objects" unique_id=539629896 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@845" parent="Objects" unique_id=539629896 instance=ExtResource("17_kvmu4")]
 position = Vector2(4000, 1740)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 3
 
-[node name="@StaticBody2D@846" type="StaticBody2D" parent="Objects" unique_id=948958578 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@846" parent="Objects" unique_id=948958578 instance=ExtResource("17_kvmu4")]
 position = Vector2(4240, 1710)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 4
 
-[node name="@StaticBody2D@847" type="StaticBody2D" parent="Objects" unique_id=210837758 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@847" parent="Objects" unique_id=210837758 instance=ExtResource("17_kvmu4")]
 position = Vector2(4480, 1740)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 
-[node name="@StaticBody2D@848" type="StaticBody2D" parent="Objects" unique_id=1413972688 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@848" parent="Objects" unique_id=1413972688 instance=ExtResource("17_kvmu4")]
 position = Vector2(4720, 1710)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 2
 
-[node name="@StaticBody2D@849" type="StaticBody2D" parent="Objects" unique_id=1142874890 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@849" parent="Objects" unique_id=1142874890 instance=ExtResource("17_kvmu4")]
 position = Vector2(3640, 1880)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 3
 
-[node name="@StaticBody2D@850" type="StaticBody2D" parent="Objects" unique_id=911391386 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@850" parent="Objects" unique_id=911391386 instance=ExtResource("17_kvmu4")]
 position = Vector2(3860, 1860)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 4
 
-[node name="@StaticBody2D@851" type="StaticBody2D" parent="Objects" unique_id=1973982447 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@851" parent="Objects" unique_id=1973982447 instance=ExtResource("17_kvmu4")]
 position = Vector2(4340, 1880)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 
-[node name="@StaticBody2D@852" type="StaticBody2D" parent="Objects" unique_id=191486807 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@852" parent="Objects" unique_id=191486807 instance=ExtResource("17_kvmu4")]
 position = Vector2(4760, 1870)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 2
 
-[node name="@StaticBody2D@853" type="StaticBody2D" parent="Objects" unique_id=722216633 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@853" parent="Objects" unique_id=722216633 instance=ExtResource("17_kvmu4")]
 position = Vector2(3520, 2020)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 3
 
-[node name="@StaticBody2D@854" type="StaticBody2D" parent="Objects" unique_id=1965118173 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@854" parent="Objects" unique_id=1965118173 instance=ExtResource("17_kvmu4")]
 position = Vector2(3740, 2040)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 4
 
-[node name="@StaticBody2D@855" type="StaticBody2D" parent="Objects" unique_id=572290879 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@855" parent="Objects" unique_id=572290879 instance=ExtResource("17_kvmu4")]
 position = Vector2(3960, 2010)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 
-[node name="@StaticBody2D@856" type="StaticBody2D" parent="Objects" unique_id=1578219696 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@856" parent="Objects" unique_id=1578219696 instance=ExtResource("17_kvmu4")]
 position = Vector2(4220, 2030)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 2
 
-[node name="@StaticBody2D@857" type="StaticBody2D" parent="Objects" unique_id=934969149 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@857" parent="Objects" unique_id=934969149 instance=ExtResource("17_kvmu4")]
 position = Vector2(4420, 2020)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 3
 
-[node name="@StaticBody2D@858" type="StaticBody2D" parent="Objects" unique_id=196015690 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@858" parent="Objects" unique_id=196015690 instance=ExtResource("17_kvmu4")]
 position = Vector2(4740, 2020)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 4
 
-[node name="@StaticBody2D@859" type="StaticBody2D" parent="Objects" unique_id=72369093 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@859" parent="Objects" unique_id=72369093 instance=ExtResource("17_kvmu4")]
 position = Vector2(3600, 2130)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 
-[node name="@StaticBody2D@860" type="StaticBody2D" parent="Objects" unique_id=1509350936 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@860" parent="Objects" unique_id=1509350936 instance=ExtResource("17_kvmu4")]
 position = Vector2(3840, 2120)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 2
 
-[node name="@StaticBody2D@861" type="StaticBody2D" parent="Objects" unique_id=1532710258 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@861" parent="Objects" unique_id=1532710258 instance=ExtResource("17_kvmu4")]
 position = Vector2(4080, 2140)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 3
 
-[node name="@StaticBody2D@862" type="StaticBody2D" parent="Objects" unique_id=1008951626 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@862" parent="Objects" unique_id=1008951626 instance=ExtResource("17_kvmu4")]
 position = Vector2(4320, 2120)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 4
 
-[node name="@StaticBody2D@863" type="StaticBody2D" parent="Objects" unique_id=1822703158 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@863" parent="Objects" unique_id=1822703158 instance=ExtResource("17_kvmu4")]
 position = Vector2(4560, 2130)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 
-[node name="@StaticBody2D@864" type="StaticBody2D" parent="Objects" unique_id=1431700638 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@864" parent="Objects" unique_id=1431700638 instance=ExtResource("17_kvmu4")]
 position = Vector2(4800, 2120)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 2
 
-[node name="@StaticBody2D@865" type="StaticBody2D" parent="Objects" unique_id=1114342766 instance=ExtResource("19_gny1c")]
+[node name="@StaticBody2D@865" parent="Objects" unique_id=1114342766 instance=ExtResource("19_gny1c")]
 position = Vector2(3660, 1780)
-collision_mask = 0
-script = ExtResource("20_frq1x")
 
-[node name="@StaticBody2D@866" type="StaticBody2D" parent="Objects" unique_id=1562649256 instance=ExtResource("19_gny1c")]
+[node name="@StaticBody2D@866" parent="Objects" unique_id=1562649256 instance=ExtResource("19_gny1c")]
 position = Vector2(4130, 1770)
-collision_mask = 0
-script = ExtResource("20_frq1x")
 bush_type = 2
 
-[node name="@StaticBody2D@867" type="StaticBody2D" parent="Objects" unique_id=1747710785 instance=ExtResource("19_gny1c")]
+[node name="@StaticBody2D@867" parent="Objects" unique_id=1747710785 instance=ExtResource("19_gny1c")]
 position = Vector2(4600, 1770)
-collision_mask = 0
-script = ExtResource("20_frq1x")
 bush_type = 3
 
-[node name="@StaticBody2D@868" type="StaticBody2D" parent="Objects" unique_id=598366305 instance=ExtResource("19_gny1c")]
+[node name="@StaticBody2D@868" parent="Objects" unique_id=598366305 instance=ExtResource("19_gny1c")]
 position = Vector2(3760, 1940)
-collision_mask = 0
-script = ExtResource("20_frq1x")
 bush_type = 4
 
-[node name="@StaticBody2D@869" type="StaticBody2D" parent="Objects" unique_id=1573847135 instance=ExtResource("19_gny1c")]
+[node name="@StaticBody2D@869" parent="Objects" unique_id=1573847135 instance=ExtResource("19_gny1c")]
 position = Vector2(3930, 1950)
-collision_mask = 0
-script = ExtResource("20_frq1x")
 
-[node name="@StaticBody2D@870" type="StaticBody2D" parent="Objects" unique_id=1145171019 instance=ExtResource("19_gny1c")]
+[node name="@StaticBody2D@870" parent="Objects" unique_id=1145171019 instance=ExtResource("19_gny1c")]
 position = Vector2(3660, 2070)
-collision_mask = 0
-script = ExtResource("20_frq1x")
 bush_type = 2
 
-[node name="@StaticBody2D@871" type="StaticBody2D" parent="Objects" unique_id=1093540370 instance=ExtResource("19_gny1c")]
+[node name="@StaticBody2D@871" parent="Objects" unique_id=1093540370 instance=ExtResource("19_gny1c")]
 position = Vector2(4160, 2080)
-collision_mask = 0
-script = ExtResource("20_frq1x")
 bush_type = 3
 
-[node name="@StaticBody2D@872" type="StaticBody2D" parent="Objects" unique_id=923375535 instance=ExtResource("19_gny1c")]
+[node name="@StaticBody2D@872" parent="Objects" unique_id=923375535 instance=ExtResource("19_gny1c")]
 position = Vector2(4630, 2080)
-collision_mask = 0
-script = ExtResource("20_frq1x")
 bush_type = 4
 
 [node name="@Sprite2D@873" type="Sprite2D" parent="Objects" unique_id=1547991484]
@@ -4008,115 +3233,73 @@ position = Vector2(4280, 2100)
 texture = ExtResource("32_7b7y8")
 offset = Vector2(0, -32)
 
-[node name="@AnimatedSprite2D@877" type="AnimatedSprite2D" parent="Objects" unique_id=501894713 instance=ExtResource("22_ebmc1")]
+[node name="@AnimatedSprite2D@877" parent="Objects" unique_id=501894713 instance=ExtResource("22_ebmc1")]
 position = Vector2(3530, 2140)
-script = ExtResource("23_8xaka")
 
-[node name="@AnimatedSprite2D@878" type="AnimatedSprite2D" parent="Objects" unique_id=488740378 instance=ExtResource("22_ebmc1")]
+[node name="@AnimatedSprite2D@878" parent="Objects" unique_id=488740378 instance=ExtResource("22_ebmc1")]
 position = Vector2(3780, 2140)
-script = ExtResource("23_8xaka")
 
-[node name="@AnimatedSprite2D@879" type="AnimatedSprite2D" parent="Objects" unique_id=1581376035 instance=ExtResource("22_ebmc1")]
+[node name="@AnimatedSprite2D@879" parent="Objects" unique_id=1581376035 instance=ExtResource("22_ebmc1")]
 position = Vector2(4030, 2140)
-script = ExtResource("23_8xaka")
 
-[node name="@AnimatedSprite2D@880" type="AnimatedSprite2D" parent="Objects" unique_id=544048412 instance=ExtResource("22_ebmc1")]
+[node name="@AnimatedSprite2D@880" parent="Objects" unique_id=544048412 instance=ExtResource("22_ebmc1")]
 position = Vector2(4280, 2140)
-script = ExtResource("23_8xaka")
 
-[node name="@AnimatedSprite2D@881" type="AnimatedSprite2D" parent="Objects" unique_id=825891223 instance=ExtResource("22_ebmc1")]
+[node name="@AnimatedSprite2D@881" parent="Objects" unique_id=825891223 instance=ExtResource("22_ebmc1")]
 position = Vector2(4530, 2140)
-script = ExtResource("23_8xaka")
 
-[node name="@AnimatedSprite2D@882" type="AnimatedSprite2D" parent="Objects" unique_id=1417170092 instance=ExtResource("22_ebmc1")]
+[node name="@AnimatedSprite2D@882" parent="Objects" unique_id=1417170092 instance=ExtResource("22_ebmc1")]
 position = Vector2(4780, 2140)
-script = ExtResource("23_8xaka")
 
-[node name="@AnimatedSprite2D@883" type="AnimatedSprite2D" parent="Objects" unique_id=968723754 instance=ExtResource("22_ebmc1")]
+[node name="@AnimatedSprite2D@883" parent="Objects" unique_id=968723754 instance=ExtResource("22_ebmc1")]
 position = Vector2(3340, 1750)
-script = ExtResource("23_8xaka")
 
-[node name="@AnimatedSprite2D@884" type="AnimatedSprite2D" parent="Objects" unique_id=1989415728 instance=ExtResource("22_ebmc1")]
+[node name="@AnimatedSprite2D@884" parent="Objects" unique_id=1989415728 instance=ExtResource("22_ebmc1")]
 position = Vector2(3340, 1920)
-script = ExtResource("23_8xaka")
 
-[node name="@AnimatedSprite2D@885" type="AnimatedSprite2D" parent="Objects" unique_id=1189840099 instance=ExtResource("22_ebmc1")]
+[node name="@AnimatedSprite2D@885" parent="Objects" unique_id=1189840099 instance=ExtResource("22_ebmc1")]
 position = Vector2(3340, 2080)
-script = ExtResource("23_8xaka")
 
-[node name="@StaticBody2D@886" type="StaticBody2D" parent="Objects" unique_id=282209951 instance=ExtResource("24_n6seq")]
+[node name="@StaticBody2D@886" parent="Objects" unique_id=282209951 instance=ExtResource("24_n6seq")]
 position = Vector2(3630, 2180)
-collision_mask = 0
-script = ExtResource("25_ufs10")
 
-[node name="@StaticBody2D@887" type="StaticBody2D" parent="Objects" unique_id=1372290054 instance=ExtResource("24_n6seq")]
+[node name="@StaticBody2D@887" parent="Objects" unique_id=1372290054 instance=ExtResource("24_n6seq")]
 position = Vector2(3980, 2180)
-collision_mask = 0
-script = ExtResource("25_ufs10")
 rock_type = 2
 
-[node name="@StaticBody2D@888" type="StaticBody2D" parent="Objects" unique_id=44567917 instance=ExtResource("24_n6seq")]
+[node name="@StaticBody2D@888" parent="Objects" unique_id=44567917 instance=ExtResource("24_n6seq")]
 position = Vector2(4380, 2180)
-collision_mask = 0
-script = ExtResource("25_ufs10")
 rock_type = 3
 
-[node name="@StaticBody2D@889" type="StaticBody2D" parent="Objects" unique_id=1349852671 instance=ExtResource("24_n6seq")]
+[node name="@StaticBody2D@889" parent="Objects" unique_id=1349852671 instance=ExtResource("24_n6seq")]
 position = Vector2(4730, 2180)
-collision_mask = 0
-script = ExtResource("25_ufs10")
 rock_type = 4
 
-[node name="RoyalCastle" type="StaticBody2D" parent="Objects" unique_id=679649840 instance=ExtResource("12_n78cu")]
+[node name="RoyalCastle" parent="Objects" unique_id=679649840 instance=ExtResource("12_n78cu")]
 position = Vector2(5480, 480)
-collision_mask = 0
-script = ExtResource("13_kcpaj")
 building_type = 3
 
-[node name="CitadelTowerNorth" type="StaticBody2D" parent="Objects" unique_id=2067828948 instance=ExtResource("12_n78cu")]
+[node name="CitadelTowerNorth" parent="Objects" unique_id=2067828948 instance=ExtResource("12_n78cu")]
 position = Vector2(5030, 440)
-collision_mask = 0
-script = ExtResource("13_kcpaj")
 building_type = 4
 
-[node name="CitadelTowerEast" type="StaticBody2D" parent="Objects" unique_id=394327822 instance=ExtResource("12_n78cu")]
+[node name="CitadelTowerEast" parent="Objects" unique_id=394327822 instance=ExtResource("12_n78cu")]
 position = Vector2(5930, 680)
-collision_mask = 0
-script = ExtResource("13_kcpaj")
 building_type = 4
 
-[node name="CitadelTowerSouth" type="StaticBody2D" parent="Objects" unique_id=89329703 instance=ExtResource("12_n78cu")]
+[node name="CitadelTowerSouth" parent="Objects" unique_id=89329703 instance=ExtResource("12_n78cu")]
 position = Vector2(5680, 1200)
-collision_mask = 0
-script = ExtResource("13_kcpaj")
 building_type = 4
 
-[node name="Monastery" type="StaticBody2D" parent="Objects" unique_id=1150311728 instance=ExtResource("12_n78cu")]
+[node name="Monastery" parent="Objects" unique_id=1150311728 instance=ExtResource("12_n78cu")]
 position = Vector2(5030, 920)
-collision_mask = 0
-script = ExtResource("13_kcpaj")
 building_type = 5
 
-[node name="NPC_Elder" type="StaticBody2D" parent="Objects" unique_id=1274015644 instance=ExtResource("69_2kaud")]
+[node name="NPC_Elder" parent="Objects" unique_id=1274015644 instance=ExtResource("69_2kaud")]
 position = Vector2(4940, 1000)
-collision_mask = 0
-script = ExtResource("11_oexs8")
-npc_name = "Elder Oakhaven"
-prompt_text = "E - Speak with Elder"
-dialogue_lines = Array[String](["Welcome to Mossveil, Snowy. The stars whispered of your arrival from beyond the veil.", "Look to the dark clouds above our valley — the floating castle of the Monster King casts its shadow upon our realm.", "You proved your bravery by defeating the slimes along the high road. Our village honors your courage!", "Take this sacred Cave Torch — it burns with an eternal amber flame.", "South of the crossroads lies the pitch-black Mystic Cavern. Legends speak of a radiant Piece of Elixir sealed in its crystal depths.", "Take the torch, delve into the cavern, and bring back the elixir piece!"])
-dialogue_lines_alt = Array[String](["Peace be with you, Snowy.", "The Cave Torch burns bright in your satchel [B]. Head south of the crossroads to explore the Mystic Cavern!", "May the light protect you in the crystal depths."])
-required_flag = "elder_spoke"
-grant_flag = "elder_spoke"
-grant_item = "cave_torch"
 
-[node name="NPC_Lancer" type="StaticBody2D" parent="Objects" unique_id=1975409821 instance=ExtResource("70_7huuw")]
+[node name="NPC_Lancer" parent="Objects" unique_id=1975409821 instance=ExtResource("70_7huuw")]
 position = Vector2(5230, 680)
-collision_mask = 0
-script = ExtResource("11_oexs8")
-npc_name = "Sir Alden"
-prompt_text = "E - Talk to Sir Alden"
-dialogue_lines = Array[String](["Sir Alden: Stand firm, traveler! You stand before the royal citadel of Mossveil.", "Sir Alden: Our sentries watch over the eastern coast and the high battlements.", "Sir Alden: You carry the ancient sword... may its steel stay true in your journey."])
-required_flag = "met_kitsu"
 
 [node name="@StaticBody2D@890" type="StaticBody2D" parent="Objects" unique_id=104847844]
 position = Vector2(4780, 1000)
@@ -4166,291 +3349,191 @@ texture = ExtResource("26_h5nhj")
 position = Vector2(0, -6)
 shape = SubResource("RectangleShape2D_lw1fr")
 
-[node name="@StaticBody2D@902" type="StaticBody2D" parent="Objects" unique_id=1772162458 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@902" parent="Objects" unique_id=1772162458 instance=ExtResource("17_kvmu4")]
 position = Vector2(5160, 360)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 
-[node name="@StaticBody2D@903" type="StaticBody2D" parent="Objects" unique_id=1564951408 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@903" parent="Objects" unique_id=1564951408 instance=ExtResource("17_kvmu4")]
 position = Vector2(5330, 340)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 2
 
-[node name="@StaticBody2D@904" type="StaticBody2D" parent="Objects" unique_id=272207788 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@904" parent="Objects" unique_id=272207788 instance=ExtResource("17_kvmu4")]
 position = Vector2(5630, 340)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 3
 
-[node name="@StaticBody2D@905" type="StaticBody2D" parent="Objects" unique_id=1009875392 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@905" parent="Objects" unique_id=1009875392 instance=ExtResource("17_kvmu4")]
 position = Vector2(5780, 380)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 4
 
-[node name="@StaticBody2D@906" type="StaticBody2D" parent="Objects" unique_id=2110819241 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@906" parent="Objects" unique_id=2110819241 instance=ExtResource("17_kvmu4")]
 position = Vector2(5880, 520)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 
-[node name="@StaticBody2D@907" type="StaticBody2D" parent="Objects" unique_id=1837276097 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@907" parent="Objects" unique_id=1837276097 instance=ExtResource("17_kvmu4")]
 position = Vector2(5980, 600)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 2
 
-[node name="@StaticBody2D@908" type="StaticBody2D" parent="Objects" unique_id=2035098703 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@908" parent="Objects" unique_id=2035098703 instance=ExtResource("17_kvmu4")]
 position = Vector2(6030, 820)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 3
 
-[node name="@StaticBody2D@909" type="StaticBody2D" parent="Objects" unique_id=451252435 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@909" parent="Objects" unique_id=451252435 instance=ExtResource("17_kvmu4")]
 position = Vector2(5980, 1020)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 4
 
-[node name="@StaticBody2D@910" type="StaticBody2D" parent="Objects" unique_id=1400583097 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@910" parent="Objects" unique_id=1400583097 instance=ExtResource("17_kvmu4")]
 position = Vector2(5830, 1200)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 
-[node name="@StaticBody2D@911" type="StaticBody2D" parent="Objects" unique_id=247729295 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@911" parent="Objects" unique_id=247729295 instance=ExtResource("17_kvmu4")]
 position = Vector2(5680, 1380)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 2
 
-[node name="@StaticBody2D@912" type="StaticBody2D" parent="Objects" unique_id=651785703 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@912" parent="Objects" unique_id=651785703 instance=ExtResource("17_kvmu4")]
 position = Vector2(5380, 1400)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 3
 
-[node name="@StaticBody2D@913" type="StaticBody2D" parent="Objects" unique_id=1212357584 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@913" parent="Objects" unique_id=1212357584 instance=ExtResource("17_kvmu4")]
 position = Vector2(5080, 1350)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 4
 
-[node name="@StaticBody2D@914" type="StaticBody2D" parent="Objects" unique_id=315718150 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@914" parent="Objects" unique_id=315718150 instance=ExtResource("17_kvmu4")]
 position = Vector2(4880, 1280)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 
-[node name="@StaticBody2D@915" type="StaticBody2D" parent="Objects" unique_id=888137861 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@915" parent="Objects" unique_id=888137861 instance=ExtResource("17_kvmu4")]
 position = Vector2(5230, 1040)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 2
 
-[node name="@StaticBody2D@916" type="StaticBody2D" parent="Objects" unique_id=144698654 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@916" parent="Objects" unique_id=144698654 instance=ExtResource("17_kvmu4")]
 position = Vector2(5530, 1100)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 3
 
-[node name="@StaticBody2D@917" type="StaticBody2D" parent="Objects" unique_id=1503587614 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@917" parent="Objects" unique_id=1503587614 instance=ExtResource("17_kvmu4")]
 position = Vector2(5030, 1520)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 4
 
-[node name="@StaticBody2D@918" type="StaticBody2D" parent="Objects" unique_id=1654274429 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@918" parent="Objects" unique_id=1654274429 instance=ExtResource("17_kvmu4")]
 position = Vector2(5280, 1500)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 
-[node name="@StaticBody2D@919" type="StaticBody2D" parent="Objects" unique_id=1228303228 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@919" parent="Objects" unique_id=1228303228 instance=ExtResource("17_kvmu4")]
 position = Vector2(5530, 1530)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 2
 
-[node name="@StaticBody2D@920" type="StaticBody2D" parent="Objects" unique_id=1378682474 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@920" parent="Objects" unique_id=1378682474 instance=ExtResource("17_kvmu4")]
 position = Vector2(5830, 1510)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 3
 
-[node name="@StaticBody2D@921" type="StaticBody2D" parent="Objects" unique_id=1933264473 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@921" parent="Objects" unique_id=1933264473 instance=ExtResource("17_kvmu4")]
 position = Vector2(6030, 1520)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 4
 
-[node name="@StaticBody2D@922" type="StaticBody2D" parent="Objects" unique_id=628251049 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@922" parent="Objects" unique_id=628251049 instance=ExtResource("17_kvmu4")]
 position = Vector2(5130, 1680)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 
-[node name="@StaticBody2D@923" type="StaticBody2D" parent="Objects" unique_id=1130177046 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@923" parent="Objects" unique_id=1130177046 instance=ExtResource("17_kvmu4")]
 position = Vector2(5380, 1660)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 2
 
-[node name="@StaticBody2D@924" type="StaticBody2D" parent="Objects" unique_id=1937210213 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@924" parent="Objects" unique_id=1937210213 instance=ExtResource("17_kvmu4")]
 position = Vector2(5630, 1690)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 3
 
-[node name="@StaticBody2D@925" type="StaticBody2D" parent="Objects" unique_id=280688273 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@925" parent="Objects" unique_id=280688273 instance=ExtResource("17_kvmu4")]
 position = Vector2(5880, 1670)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 4
 
-[node name="@StaticBody2D@926" type="StaticBody2D" parent="Objects" unique_id=694025144 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@926" parent="Objects" unique_id=694025144 instance=ExtResource("17_kvmu4")]
 position = Vector2(6080, 1680)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 
-[node name="@StaticBody2D@927" type="StaticBody2D" parent="Objects" unique_id=282291021 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@927" parent="Objects" unique_id=282291021 instance=ExtResource("17_kvmu4")]
 position = Vector2(5030, 1850)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 2
 
-[node name="@StaticBody2D@928" type="StaticBody2D" parent="Objects" unique_id=643776223 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@928" parent="Objects" unique_id=643776223 instance=ExtResource("17_kvmu4")]
 position = Vector2(5300, 1830)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 3
 
-[node name="@StaticBody2D@929" type="StaticBody2D" parent="Objects" unique_id=1621677854 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@929" parent="Objects" unique_id=1621677854 instance=ExtResource("17_kvmu4")]
 position = Vector2(5560, 1860)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 4
 
-[node name="@StaticBody2D@930" type="StaticBody2D" parent="Objects" unique_id=371544993 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@930" parent="Objects" unique_id=371544993 instance=ExtResource("17_kvmu4")]
 position = Vector2(5800, 1840)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 
-[node name="@StaticBody2D@931" type="StaticBody2D" parent="Objects" unique_id=7629017 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@931" parent="Objects" unique_id=7629017 instance=ExtResource("17_kvmu4")]
 position = Vector2(6060, 1850)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 2
 
-[node name="@StaticBody2D@932" type="StaticBody2D" parent="Objects" unique_id=858020938 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@932" parent="Objects" unique_id=858020938 instance=ExtResource("17_kvmu4")]
 position = Vector2(5130, 2020)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 3
 
-[node name="@StaticBody2D@933" type="StaticBody2D" parent="Objects" unique_id=1718833929 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@933" parent="Objects" unique_id=1718833929 instance=ExtResource("17_kvmu4")]
 position = Vector2(5380, 2000)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 4
 
-[node name="@StaticBody2D@934" type="StaticBody2D" parent="Objects" unique_id=1401151806 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@934" parent="Objects" unique_id=1401151806 instance=ExtResource("17_kvmu4")]
 position = Vector2(5640, 2030)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 
-[node name="@StaticBody2D@935" type="StaticBody2D" parent="Objects" unique_id=1255764878 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@935" parent="Objects" unique_id=1255764878 instance=ExtResource("17_kvmu4")]
 position = Vector2(5900, 2010)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 2
 
-[node name="@StaticBody2D@936" type="StaticBody2D" parent="Objects" unique_id=344946555 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@936" parent="Objects" unique_id=344946555 instance=ExtResource("17_kvmu4")]
 position = Vector2(6100, 2020)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 3
 
-[node name="@StaticBody2D@937" type="StaticBody2D" parent="Objects" unique_id=1298844402 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@937" parent="Objects" unique_id=1298844402 instance=ExtResource("17_kvmu4")]
 position = Vector2(5230, 2130)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 4
 
-[node name="@StaticBody2D@938" type="StaticBody2D" parent="Objects" unique_id=1941177237 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@938" parent="Objects" unique_id=1941177237 instance=ExtResource("17_kvmu4")]
 position = Vector2(5480, 2140)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 
-[node name="@StaticBody2D@939" type="StaticBody2D" parent="Objects" unique_id=269823729 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@939" parent="Objects" unique_id=269823729 instance=ExtResource("17_kvmu4")]
 position = Vector2(5730, 2120)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 2
 
-[node name="@StaticBody2D@940" type="StaticBody2D" parent="Objects" unique_id=291906818 instance=ExtResource("17_kvmu4")]
+[node name="@StaticBody2D@940" parent="Objects" unique_id=291906818 instance=ExtResource("17_kvmu4")]
 position = Vector2(5980, 2140)
-collision_mask = 0
-script = ExtResource("18_5p8eo")
 tree_type = 3
 
-[node name="@StaticBody2D@941" type="StaticBody2D" parent="Objects" unique_id=373128529 instance=ExtResource("19_gny1c")]
+[node name="@StaticBody2D@941" parent="Objects" unique_id=373128529 instance=ExtResource("19_gny1c")]
 position = Vector2(4960, 880)
-collision_mask = 0
-script = ExtResource("20_frq1x")
 
-[node name="@StaticBody2D@942" type="StaticBody2D" parent="Objects" unique_id=1903884677 instance=ExtResource("19_gny1c")]
+[node name="@StaticBody2D@942" parent="Objects" unique_id=1903884677 instance=ExtResource("19_gny1c")]
 position = Vector2(5330, 680)
-collision_mask = 0
-script = ExtResource("20_frq1x")
 bush_type = 2
 
-[node name="@StaticBody2D@943" type="StaticBody2D" parent="Objects" unique_id=138094390 instance=ExtResource("19_gny1c")]
+[node name="@StaticBody2D@943" parent="Objects" unique_id=138094390 instance=ExtResource("19_gny1c")]
 position = Vector2(5630, 660)
-collision_mask = 0
-script = ExtResource("20_frq1x")
 bush_type = 3
 
-[node name="@StaticBody2D@944" type="StaticBody2D" parent="Objects" unique_id=1775846840 instance=ExtResource("19_gny1c")]
+[node name="@StaticBody2D@944" parent="Objects" unique_id=1775846840 instance=ExtResource("19_gny1c")]
 position = Vector2(5880, 750)
-collision_mask = 0
-script = ExtResource("20_frq1x")
 bush_type = 4
 
-[node name="@StaticBody2D@945" type="StaticBody2D" parent="Objects" unique_id=1515780034 instance=ExtResource("19_gny1c")]
+[node name="@StaticBody2D@945" parent="Objects" unique_id=1515780034 instance=ExtResource("19_gny1c")]
 position = Vector2(5780, 1100)
-collision_mask = 0
-script = ExtResource("20_frq1x")
 
-[node name="@StaticBody2D@946" type="StaticBody2D" parent="Objects" unique_id=40379957 instance=ExtResource("19_gny1c")]
+[node name="@StaticBody2D@946" parent="Objects" unique_id=40379957 instance=ExtResource("19_gny1c")]
 position = Vector2(5180, 1500)
-collision_mask = 0
-script = ExtResource("20_frq1x")
 bush_type = 2
 
-[node name="@StaticBody2D@947" type="StaticBody2D" parent="Objects" unique_id=1068721082 instance=ExtResource("19_gny1c")]
+[node name="@StaticBody2D@947" parent="Objects" unique_id=1068721082 instance=ExtResource("19_gny1c")]
 position = Vector2(5760, 1500)
-collision_mask = 0
-script = ExtResource("20_frq1x")
 bush_type = 3
 
-[node name="@StaticBody2D@948" type="StaticBody2D" parent="Objects" unique_id=199688997 instance=ExtResource("19_gny1c")]
+[node name="@StaticBody2D@948" parent="Objects" unique_id=199688997 instance=ExtResource("19_gny1c")]
 position = Vector2(5230, 1860)
-collision_mask = 0
-script = ExtResource("20_frq1x")
 bush_type = 4
 
-[node name="@StaticBody2D@949" type="StaticBody2D" parent="Objects" unique_id=1205903157 instance=ExtResource("19_gny1c")]
+[node name="@StaticBody2D@949" parent="Objects" unique_id=1205903157 instance=ExtResource("19_gny1c")]
 position = Vector2(5680, 1880)
-collision_mask = 0
-script = ExtResource("20_frq1x")
 
-[node name="@StaticBody2D@950" type="StaticBody2D" parent="Objects" unique_id=1908519045 instance=ExtResource("19_gny1c")]
+[node name="@StaticBody2D@950" parent="Objects" unique_id=1908519045 instance=ExtResource("19_gny1c")]
 position = Vector2(5430, 2050)
-collision_mask = 0
-script = ExtResource("20_frq1x")
 bush_type = 2
 
-[node name="@StaticBody2D@951" type="StaticBody2D" parent="Objects" unique_id=1058533457 instance=ExtResource("19_gny1c")]
+[node name="@StaticBody2D@951" parent="Objects" unique_id=1058533457 instance=ExtResource("19_gny1c")]
 position = Vector2(5930, 2050)
-collision_mask = 0
-script = ExtResource("20_frq1x")
 bush_type = 3
 
 [node name="@Sprite2D@952" type="Sprite2D" parent="Objects" unique_id=479739508]
@@ -4493,112 +3576,81 @@ position = Vector2(5580, 2070)
 texture = ExtResource("29_ce70q")
 offset = Vector2(0, -32)
 
-[node name="@AnimatedSprite2D@960" type="AnimatedSprite2D" parent="Objects" unique_id=1669854393 instance=ExtResource("22_ebmc1")]
+[node name="@AnimatedSprite2D@960" parent="Objects" unique_id=1669854393 instance=ExtResource("22_ebmc1")]
 position = Vector2(6230, 500)
-script = ExtResource("23_8xaka")
 
-[node name="@AnimatedSprite2D@961" type="AnimatedSprite2D" parent="Objects" unique_id=1732655058 instance=ExtResource("22_ebmc1")]
+[node name="@AnimatedSprite2D@961" parent="Objects" unique_id=1732655058 instance=ExtResource("22_ebmc1")]
 position = Vector2(6230, 800)
-script = ExtResource("23_8xaka")
 
-[node name="@AnimatedSprite2D@962" type="AnimatedSprite2D" parent="Objects" unique_id=1402804573 instance=ExtResource("22_ebmc1")]
+[node name="@AnimatedSprite2D@962" parent="Objects" unique_id=1402804573 instance=ExtResource("22_ebmc1")]
 position = Vector2(6230, 1100)
-script = ExtResource("23_8xaka")
 
-[node name="@AnimatedSprite2D@963" type="AnimatedSprite2D" parent="Objects" unique_id=427606906 instance=ExtResource("22_ebmc1")]
+[node name="@AnimatedSprite2D@963" parent="Objects" unique_id=427606906 instance=ExtResource("22_ebmc1")]
 position = Vector2(6230, 1400)
-script = ExtResource("23_8xaka")
 
-[node name="@AnimatedSprite2D@964" type="AnimatedSprite2D" parent="Objects" unique_id=436174432 instance=ExtResource("22_ebmc1")]
+[node name="@AnimatedSprite2D@964" parent="Objects" unique_id=436174432 instance=ExtResource("22_ebmc1")]
 position = Vector2(6230, 1650)
-script = ExtResource("23_8xaka")
 
-[node name="@AnimatedSprite2D@965" type="AnimatedSprite2D" parent="Objects" unique_id=758969600 instance=ExtResource("22_ebmc1")]
+[node name="@AnimatedSprite2D@965" parent="Objects" unique_id=758969600 instance=ExtResource("22_ebmc1")]
 position = Vector2(6230, 1900)
-script = ExtResource("23_8xaka")
 
-[node name="@AnimatedSprite2D@966" type="AnimatedSprite2D" parent="Objects" unique_id=58582363 instance=ExtResource("22_ebmc1")]
+[node name="@AnimatedSprite2D@966" parent="Objects" unique_id=58582363 instance=ExtResource("22_ebmc1")]
 position = Vector2(6230, 2100)
-script = ExtResource("23_8xaka")
 
-[node name="@StaticBody2D@967" type="StaticBody2D" parent="Objects" unique_id=745492863 instance=ExtResource("24_n6seq")]
+[node name="@StaticBody2D@967" parent="Objects" unique_id=745492863 instance=ExtResource("24_n6seq")]
 position = Vector2(6280, 620)
-collision_mask = 0
-script = ExtResource("25_ufs10")
 
-[node name="@StaticBody2D@968" type="StaticBody2D" parent="Objects" unique_id=728319109 instance=ExtResource("24_n6seq")]
+[node name="@StaticBody2D@968" parent="Objects" unique_id=728319109 instance=ExtResource("24_n6seq")]
 position = Vector2(6300, 950)
-collision_mask = 0
-script = ExtResource("25_ufs10")
 rock_type = 2
 
-[node name="@StaticBody2D@969" type="StaticBody2D" parent="Objects" unique_id=613291480 instance=ExtResource("24_n6seq")]
+[node name="@StaticBody2D@969" parent="Objects" unique_id=613291480 instance=ExtResource("24_n6seq")]
 position = Vector2(6280, 1280)
-collision_mask = 0
-script = ExtResource("25_ufs10")
 rock_type = 3
 
-[node name="@StaticBody2D@970" type="StaticBody2D" parent="Objects" unique_id=666094954 instance=ExtResource("24_n6seq")]
+[node name="@StaticBody2D@970" parent="Objects" unique_id=666094954 instance=ExtResource("24_n6seq")]
 position = Vector2(6280, 1520)
-collision_mask = 0
-script = ExtResource("25_ufs10")
 rock_type = 4
 
-[node name="@StaticBody2D@971" type="StaticBody2D" parent="Objects" unique_id=301850273 instance=ExtResource("24_n6seq")]
+[node name="@StaticBody2D@971" parent="Objects" unique_id=301850273 instance=ExtResource("24_n6seq")]
 position = Vector2(6300, 1800)
-collision_mask = 0
-script = ExtResource("25_ufs10")
 
-[node name="@StaticBody2D@972" type="StaticBody2D" parent="Objects" unique_id=1957705238 instance=ExtResource("24_n6seq")]
+[node name="@StaticBody2D@972" parent="Objects" unique_id=1957705238 instance=ExtResource("24_n6seq")]
 position = Vector2(6280, 2050)
-collision_mask = 0
-script = ExtResource("25_ufs10")
 rock_type = 2
 
-[node name="Cloud_0" type="Sprite2D" parent="." unique_id=2013983560 instance=ExtResource("71_i00a8")]
+[node name="Cloud_0" parent="." unique_id=2013983560 instance=ExtResource("71_i00a8")]
 position = Vector2(4771.597, 439.3025)
-script = ExtResource("72_7m83x")
 
-[node name="Cloud_1" type="Sprite2D" parent="." unique_id=127690682 instance=ExtResource("71_i00a8")]
+[node name="Cloud_1" parent="." unique_id=127690682 instance=ExtResource("71_i00a8")]
 position = Vector2(3287.402, 457.18832)
-script = ExtResource("72_7m83x")
 
-[node name="Cloud_2" type="Sprite2D" parent="." unique_id=1258688151 instance=ExtResource("71_i00a8")]
+[node name="Cloud_2" parent="." unique_id=1258688151 instance=ExtResource("71_i00a8")]
 position = Vector2(3137.361, 151.68437)
-script = ExtResource("72_7m83x")
 
-[node name="Cloud_3" type="Sprite2D" parent="." unique_id=409607268 instance=ExtResource("71_i00a8")]
+[node name="Cloud_3" parent="." unique_id=409607268 instance=ExtResource("71_i00a8")]
 position = Vector2(2442.3303, 83.657616)
-script = ExtResource("72_7m83x")
 
-[node name="Cloud_4" type="Sprite2D" parent="." unique_id=586762159 instance=ExtResource("71_i00a8")]
+[node name="Cloud_4" parent="." unique_id=586762159 instance=ExtResource("71_i00a8")]
 position = Vector2(1360.8854, 475.3807)
-script = ExtResource("72_7m83x")
 
-[node name="Cloud_5" type="Sprite2D" parent="." unique_id=1644014604 instance=ExtResource("71_i00a8")]
+[node name="Cloud_5" parent="." unique_id=1644014604 instance=ExtResource("71_i00a8")]
 position = Vector2(1127.5054, 338.42477)
-script = ExtResource("72_7m83x")
 
-[node name="Cloud_6" type="Sprite2D" parent="." unique_id=514307294 instance=ExtResource("71_i00a8")]
+[node name="Cloud_6" parent="." unique_id=514307294 instance=ExtResource("71_i00a8")]
 position = Vector2(1238.7206, 364.61276)
-script = ExtResource("72_7m83x")
 
-[node name="Cloud_7" type="Sprite2D" parent="." unique_id=1101317027 instance=ExtResource("71_i00a8")]
+[node name="Cloud_7" parent="." unique_id=1101317027 instance=ExtResource("71_i00a8")]
 position = Vector2(2593.4739, 112.69923)
-script = ExtResource("72_7m83x")
 
-[node name="Cloud_8" type="Sprite2D" parent="." unique_id=1063835094 instance=ExtResource("71_i00a8")]
+[node name="Cloud_8" parent="." unique_id=1063835094 instance=ExtResource("71_i00a8")]
 position = Vector2(145.66374, 445.10583)
-script = ExtResource("72_7m83x")
 
-[node name="Cloud_9" type="Sprite2D" parent="." unique_id=231276579 instance=ExtResource("71_i00a8")]
+[node name="Cloud_9" parent="." unique_id=231276579 instance=ExtResource("71_i00a8")]
 position = Vector2(2243.6216, 395.12167)
-script = ExtResource("72_7m83x")
 
-[node name="Cloud_10" type="Sprite2D" parent="." unique_id=422697581 instance=ExtResource("71_i00a8")]
+[node name="Cloud_10" parent="." unique_id=422697581 instance=ExtResource("71_i00a8")]
 position = Vector2(4245.6772, 362.5986)
-script = ExtResource("72_7m83x")
 
-[node name="Cloud_11" type="Sprite2D" parent="." unique_id=1855195123 instance=ExtResource("71_i00a8")]
+[node name="Cloud_11" parent="." unique_id=1855195123 instance=ExtResource("71_i00a8")]
 position = Vector2(2944.7832, 392.1593)
-script = ExtResource("72_7m83x")

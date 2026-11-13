@@ -5,6 +5,9 @@ extends CharacterBody2D
 
 enum State { IDLE, WALK, ATTACK, HURT, DEAD }
 
+const MuzzleFlashClass = preload("res://scripts/entities/muzzle_flash.gd")
+const ManaProjectileClass = preload("res://scripts/entities/mana_projectile.gd")
+
 const ATTACK_ANIMS := {
 	"up": "back_attack",
 	"down": "front_attack",
@@ -420,14 +423,23 @@ func cast_mana() -> void:
 	anim.play(ATTACK_ANIMS[facing])
 	anim.flip_h = facing_left
 
-	# Instantiate and spawn the glowing Mana projectile with auto-aim target
-	var proj := ManaProjectile.new()
-	proj.direction = dir
-	proj.target = target_enemy
-	proj.global_position = global_position + dir * 22.0
+	var spawn_pos := global_position + dir * 22.0
+
+	# Spawn high-energy Muzzle Flash at the firing point
+	var flash: Node2D = MuzzleFlashClass.new()
+	flash.global_position = spawn_pos
+	flash.rotation = dir.angle()
+	get_parent().add_child(flash)
+
+	# Instantiate and spawn the glowing Muzzle Beam Shot
+	var proj: Area2D = ManaProjectileClass.new()
+	proj.set("direction", dir)
+	proj.set("target", target_enemy)
+	proj.global_position = spawn_pos
+	proj.rotation = dir.angle()
 	get_parent().add_child(proj)
 
-	AudioManager.play_sword()
+	AudioManager.play_mana_beam()
 	var tw := create_tween()
 	anim.modulate = Color(0.4, 0.85, 1.0)
 	tw.tween_property(anim, "modulate", Color.WHITE, 0.18)

@@ -91,6 +91,16 @@ func play_sword() -> void:
 	_play_sfx(sfx_sword, -2.0, randf_range(0.93, 1.07))
 
 
+func play_mana_beam() -> void:
+	# Crisp high-velocity laser / plasma beam firing sound
+	_play_sfx(sfx_sword, -3.0, randf_range(1.65, 1.85))
+
+
+func play_beam_impact() -> void:
+	# Sharp energy beam impact pop / zap
+	_play_sfx(sfx_slime_die, -5.0, randf_range(1.7, 1.95))
+
+
 func play_slime_death() -> void:
 	_play_sfx(sfx_slime_die, -1.0, randf_range(0.96, 1.04))
 
